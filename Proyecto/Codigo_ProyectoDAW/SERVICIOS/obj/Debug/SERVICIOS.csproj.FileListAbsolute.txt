@@ -1,0 +1,11 @@
+C:\Users\Usuario\Desktop\UAI\DAW\Proyecto\Codigo_ProyectoDAW\SERVICIOS\bin\Debug\SERVICIOS.dll
+C:\Users\Usuario\Desktop\UAI\DAW\Proyecto\Codigo_ProyectoDAW\SERVICIOS\bin\Debug\SERVICIOS.pdb
+C:\Users\Usuario\Desktop\UAI\DAW\Proyecto\Codigo_ProyectoDAW\SERVICIOS\bin\Debug\BE.dll
+C:\Users\Usuario\Desktop\UAI\DAW\Proyecto\Codigo_ProyectoDAW\SERVICIOS\bin\Debug\DAL.dll
+C:\Users\Usuario\Desktop\UAI\DAW\Proyecto\Codigo_ProyectoDAW\SERVICIOS\bin\Debug\BE.pdb
+C:\Users\Usuario\Desktop\UAI\DAW\Proyecto\Codigo_ProyectoDAW\SERVICIOS\bin\Debug\DAL.pdb
+C:\Users\Usuario\Desktop\UAI\DAW\Proyecto\Codigo_ProyectoDAW\SERVICIOS\obj\Debug\SERVICIOS.csproj.AssemblyReference.cache
+C:\Users\Usuario\Desktop\UAI\DAW\Proyecto\Codigo_ProyectoDAW\SERVICIOS\obj\Debug\SERVICIOS.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Desktop\UAI\DAW\Proyecto\Codigo_ProyectoDAW\SERVICIOS\obj\Debug\SERVICIOS.csproj.Up2Date
+C:\Users\Usuario\Desktop\UAI\DAW\Proyecto\Codigo_ProyectoDAW\SERVICIOS\obj\Debug\SERVICIOS.dll
+C:\Users\Usuario\Desktop\UAI\DAW\Proyecto\Codigo_ProyectoDAW\SERVICIOS\obj\Debug\SERVICIOS.pdb
