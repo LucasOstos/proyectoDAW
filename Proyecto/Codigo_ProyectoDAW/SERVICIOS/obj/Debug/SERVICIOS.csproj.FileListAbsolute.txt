@@ -20,3 +20,14 @@ F:\Code\Facultad\daw\ProyectoWeb\proyectoDAW\Proyecto\Codigo_ProyectoDAW\SERVICI
 F:\Code\Facultad\daw\ProyectoWeb\proyectoDAW\Proyecto\Codigo_ProyectoDAW\SERVICIOS\obj\Debug\SERVICIOS.csproj.Up2Date
 F:\Code\Facultad\daw\ProyectoWeb\proyectoDAW\Proyecto\Codigo_ProyectoDAW\SERVICIOS\obj\Debug\SERVICIOS.dll
 F:\Code\Facultad\daw\ProyectoWeb\proyectoDAW\Proyecto\Codigo_ProyectoDAW\SERVICIOS\obj\Debug\SERVICIOS.pdb
+C:\Facultad\proyectoDAW\Proyecto\Codigo_ProyectoDAW\SERVICIOS\bin\Debug\SERVICIOS.dll
+C:\Facultad\proyectoDAW\Proyecto\Codigo_ProyectoDAW\SERVICIOS\bin\Debug\SERVICIOS.pdb
+C:\Facultad\proyectoDAW\Proyecto\Codigo_ProyectoDAW\SERVICIOS\bin\Debug\BE.dll
+C:\Facultad\proyectoDAW\Proyecto\Codigo_ProyectoDAW\SERVICIOS\bin\Debug\DAL.dll
+C:\Facultad\proyectoDAW\Proyecto\Codigo_ProyectoDAW\SERVICIOS\bin\Debug\BE.pdb
+C:\Facultad\proyectoDAW\Proyecto\Codigo_ProyectoDAW\SERVICIOS\bin\Debug\DAL.pdb
+C:\Facultad\proyectoDAW\Proyecto\Codigo_ProyectoDAW\SERVICIOS\obj\Debug\SERVICIOS.csproj.AssemblyReference.cache
+C:\Facultad\proyectoDAW\Proyecto\Codigo_ProyectoDAW\SERVICIOS\obj\Debug\SERVICIOS.csproj.CoreCompileInputs.cache
+C:\Facultad\proyectoDAW\Proyecto\Codigo_ProyectoDAW\SERVICIOS\obj\Debug\SERVICIOS.csproj.Up2Date
+C:\Facultad\proyectoDAW\Proyecto\Codigo_ProyectoDAW\SERVICIOS\obj\Debug\SERVICIOS.dll
+C:\Facultad\proyectoDAW\Proyecto\Codigo_ProyectoDAW\SERVICIOS\obj\Debug\SERVICIOS.pdb

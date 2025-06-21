@@ -20,3 +20,14 @@ F:\Code\Facultad\daw\ProyectoWeb\proyectoDAW\Proyecto\Codigo_ProyectoDAW\BLL\obj
 F:\Code\Facultad\daw\ProyectoWeb\proyectoDAW\Proyecto\Codigo_ProyectoDAW\BLL\obj\Debug\BLL.csproj.Up2Date
 F:\Code\Facultad\daw\ProyectoWeb\proyectoDAW\Proyecto\Codigo_ProyectoDAW\BLL\obj\Debug\BLL.dll
 F:\Code\Facultad\daw\ProyectoWeb\proyectoDAW\Proyecto\Codigo_ProyectoDAW\BLL\obj\Debug\BLL.pdb
+C:\Facultad\proyectoDAW\Proyecto\Codigo_ProyectoDAW\BLL\bin\Debug\BLL.dll
+C:\Facultad\proyectoDAW\Proyecto\Codigo_ProyectoDAW\BLL\bin\Debug\BLL.pdb
+C:\Facultad\proyectoDAW\Proyecto\Codigo_ProyectoDAW\BLL\bin\Debug\BE.dll
+C:\Facultad\proyectoDAW\Proyecto\Codigo_ProyectoDAW\BLL\bin\Debug\DAL.dll
+C:\Facultad\proyectoDAW\Proyecto\Codigo_ProyectoDAW\BLL\bin\Debug\BE.pdb
+C:\Facultad\proyectoDAW\Proyecto\Codigo_ProyectoDAW\BLL\bin\Debug\DAL.pdb
+C:\Facultad\proyectoDAW\Proyecto\Codigo_ProyectoDAW\BLL\obj\Debug\BLL.csproj.AssemblyReference.cache
+C:\Facultad\proyectoDAW\Proyecto\Codigo_ProyectoDAW\BLL\obj\Debug\BLL.csproj.CoreCompileInputs.cache
+C:\Facultad\proyectoDAW\Proyecto\Codigo_ProyectoDAW\BLL\obj\Debug\BLL.csproj.Up2Date
+C:\Facultad\proyectoDAW\Proyecto\Codigo_ProyectoDAW\BLL\obj\Debug\BLL.dll
+C:\Facultad\proyectoDAW\Proyecto\Codigo_ProyectoDAW\BLL\obj\Debug\BLL.pdb
