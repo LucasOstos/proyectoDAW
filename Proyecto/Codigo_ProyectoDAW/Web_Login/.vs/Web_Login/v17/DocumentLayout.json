@@ -3,21 +3,11 @@
   "WorkspaceRootPath": "F:\\Code\\Facultad\\daw\\ProyectoWeb\\proyectoDAW\\Proyecto\\Codigo_ProyectoDAW\\Web_Login\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5DF71D1F-94AA-41CE-8A20-84718486F469}|F:\\Code\\Facultad\\daw\\ProyectoWeb\\proyectoDAW\\Proyecto\\Codigo_ProyectoDAW\\Web_Login|f:\\code\\facultad\\daw\\proyectoweb\\proyectodaw\\proyecto\\codigo_proyectodaw\\web_login\\gestionusuarios.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5DF71D1F-94AA-41CE-8A20-84718486F469}|F:\\Code\\Facultad\\daw\\ProyectoWeb\\proyectoDAW\\Proyecto\\Codigo_ProyectoDAW\\Web_Login|solutionrelative:gestionusuarios.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{37A95A28-3442-4FC7-9A1A-DE41425740ED}|..\\BLL\\BLL.csproj|f:\\code\\facultad\\daw\\proyectoweb\\proyectodaw\\proyecto\\codigo_proyectodaw\\bll\\gestorusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AB79FCB6-0D2F-439C-BBE4-025A775FADDD}|..\\DAL\\DAL.csproj|f:\\code\\facultad\\daw\\proyectoweb\\proyectodaw\\proyecto\\codigo_proyectodaw\\dal\\usuariodal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5DF71D1F-94AA-41CE-8A20-84718486F469}|F:\\Code\\Facultad\\daw\\ProyectoWeb\\proyectoDAW\\Proyecto\\Codigo_ProyectoDAW\\Web_Login|f:\\code\\facultad\\daw\\proyectoweb\\proyectodaw\\proyecto\\codigo_proyectodaw\\web_login\\gestionusuarios.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{5DF71D1F-94AA-41CE-8A20-84718486F469}|F:\\Code\\Facultad\\daw\\ProyectoWeb\\proyectoDAW\\Proyecto\\Codigo_ProyectoDAW\\Web_Login|solutionrelative:gestionusuarios.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{49C19490-AC62-429F-8411-F50826478C25}|..\\BE\\BE.csproj|f:\\code\\facultad\\daw\\proyectoweb\\proyectodaw\\proyecto\\codigo_proyectodaw\\be\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5DF71D1F-94AA-41CE-8A20-84718486F469}|F:\\Code\\Facultad\\daw\\ProyectoWeb\\proyectoDAW\\Proyecto\\Codigo_ProyectoDAW\\Web_Login|f:\\code\\facultad\\daw\\proyectoweb\\proyectodaw\\proyecto\\codigo_proyectodaw\\web_login\\login.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{5DF71D1F-94AA-41CE-8A20-84718486F469}|F:\\Code\\Facultad\\daw\\ProyectoWeb\\proyectoDAW\\Proyecto\\Codigo_ProyectoDAW\\Web_Login|solutionrelative:login.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,7 +17,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -35,67 +25,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UsuarioDAL.cs",
-              "DocumentMoniker": "F:\\Code\\Facultad\\daw\\ProyectoWeb\\proyectoDAW\\Proyecto\\Codigo_ProyectoDAW\\DAL\\UsuarioDAL.cs",
-              "RelativeDocumentMoniker": "..\\DAL\\UsuarioDAL.cs",
-              "ToolTip": "F:\\Code\\Facultad\\daw\\ProyectoWeb\\proyectoDAW\\Proyecto\\Codigo_ProyectoDAW\\DAL\\UsuarioDAL.cs",
-              "RelativeToolTip": "..\\DAL\\UsuarioDAL.cs",
-              "ViewState": "AgIAAC0AAAAAAAAAAAA2wFIAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-21T21:57:02.631Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "Usuario.cs",
               "DocumentMoniker": "F:\\Code\\Facultad\\daw\\ProyectoWeb\\proyectoDAW\\Proyecto\\Codigo_ProyectoDAW\\BE\\Usuario.cs",
               "RelativeDocumentMoniker": "..\\BE\\Usuario.cs",
               "ToolTip": "F:\\Code\\Facultad\\daw\\ProyectoWeb\\proyectoDAW\\Proyecto\\Codigo_ProyectoDAW\\BE\\Usuario.cs",
               "RelativeToolTip": "..\\BE\\Usuario.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-21T21:54:58.017Z",
+              "WhenOpened": "2025-06-21T22:23:17.562Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "GestorUsuario.cs",
-              "DocumentMoniker": "F:\\Code\\Facultad\\daw\\ProyectoWeb\\proyectoDAW\\Proyecto\\Codigo_ProyectoDAW\\BLL\\GestorUsuario.cs",
-              "RelativeDocumentMoniker": "..\\BLL\\GestorUsuario.cs",
-              "ToolTip": "F:\\Code\\Facultad\\daw\\ProyectoWeb\\proyectoDAW\\Proyecto\\Codigo_ProyectoDAW\\BLL\\GestorUsuario.cs",
-              "RelativeToolTip": "..\\BLL\\GestorUsuario.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAkwB0AAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-21T21:45:22.262Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "GestionUsuarios.aspx.cs",
-              "DocumentMoniker": "F:\\Code\\Facultad\\daw\\ProyectoWeb\\proyectoDAW\\Proyecto\\Codigo_ProyectoDAW\\Web_Login\\GestionUsuarios.aspx.cs",
-              "RelativeDocumentMoniker": "GestionUsuarios.aspx.cs",
-              "ToolTip": "F:\\Code\\Facultad\\daw\\ProyectoWeb\\proyectoDAW\\Proyecto\\Codigo_ProyectoDAW\\Web_Login\\GestionUsuarios.aspx.cs",
-              "RelativeToolTip": "GestionUsuarios.aspx.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-21T21:43:30.417Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "GestionUsuarios.aspx",
-              "DocumentMoniker": "F:\\Code\\Facultad\\daw\\ProyectoWeb\\proyectoDAW\\Proyecto\\Codigo_ProyectoDAW\\Web_Login\\GestionUsuarios.aspx",
-              "RelativeDocumentMoniker": "GestionUsuarios.aspx",
-              "ToolTip": "F:\\Code\\Facultad\\daw\\ProyectoWeb\\proyectoDAW\\Proyecto\\Codigo_ProyectoDAW\\Web_Login\\GestionUsuarios.aspx",
-              "RelativeToolTip": "GestionUsuarios.aspx",
+              "Title": "Login.aspx",
+              "DocumentMoniker": "F:\\Code\\Facultad\\daw\\ProyectoWeb\\proyectoDAW\\Proyecto\\Codigo_ProyectoDAW\\Web_Login\\Login.aspx",
+              "RelativeDocumentMoniker": "Login.aspx",
+              "ToolTip": "F:\\Code\\Facultad\\daw\\ProyectoWeb\\proyectoDAW\\Proyecto\\Codigo_ProyectoDAW\\Web_Login\\Login.aspx",
+              "RelativeToolTip": "Login.aspx",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2025-06-21T21:37:05.41Z",
+              "WhenOpened": "2025-06-21T22:23:07.733Z",
               "EditorCaption": ""
             }
           ]

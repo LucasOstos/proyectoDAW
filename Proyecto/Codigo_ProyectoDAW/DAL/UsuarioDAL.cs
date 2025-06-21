@@ -81,5 +81,24 @@ namespace DAL
             }
             Conexion.Instancia.CerrarConexion();
         }
+
+        public List<string> ObtenerTodosNombresUsuarios()
+        {
+            List<string> U = new List<string>();
+            string Query = $"SELECT * FROM Usuario";
+            using (SqlCommand CM = new SqlCommand(Query, Conexion.Instancia.ReturnConexion()))
+            {
+                Conexion.Instancia.AbrirConexion();
+                using (SqlDataReader DR = CM.ExecuteReader())
+                {
+                    while (DR.Read())
+                    {
+                        U.Add(DR[3].ToString());
+                    }
+                }
+            }
+            Conexion.Instancia.CerrarConexion();
+            return U;
+        }
     }
 }
