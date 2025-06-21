@@ -17,21 +17,25 @@ public partial class Login : System.Web.UI.Page
 
     protected void btnLogin_Click(object sender, EventArgs e)
     {
-        if (!Sesion.Instancia.IsLogueado())
+        try
         {
-            Usuario u = GestorUsuario.Instancia.ObtenerUsuario(tbNombreUsuario.Text);
-            if (u != null)
+            if (!Sesion.Instancia.IsLogueado())
             {
-                if(Sesion.Instancia.Verificar(u.NombreUsuario, tbContraseña.Text))
+                Usuario u = GestorUsuario.Instancia.ObtenerUsuario(tbNombreUsuario.Text);
+                if (u != null)
                 {
-                    Sesion.Instancia.LogIn(u);
-                    labelErrores.ForeColor = System.Drawing.Color.Green; labelErrores.Text = "Bien virgo";
+                    if (Sesion.Instancia.Verificar(u.NombreUsuario, tbContraseña.Text))
+                    {
+                        Sesion.Instancia.LogIn(u);
+                        labelErrores.ForeColor = System.Drawing.Color.Green; labelErrores.Text = "Bien virgo";
+                    }
+                    else { labelErrores.ForeColor = System.Drawing.Color.Red; labelErrores.Text = "Credenciales incorrectas"; }
                 }
-                else { labelErrores.ForeColor = System.Drawing.Color.Red; labelErrores.Text = "Credenciales incorrectas"; }
+                else { labelErrores.ForeColor = System.Drawing.Color.Red; labelErrores.Text = "No existe el usuario"; }
             }
-            else { labelErrores.ForeColor = System.Drawing.Color.Red; labelErrores.Text = "No existe el usuario"; }
+            else { labelErrores.ForeColor = System.Drawing.Color.Orange; labelErrores.Text = "Ya hay una sesión iniciada"; }
         }
-        else { labelErrores.ForeColor = System.Drawing.Color.Orange; labelErrores.Text = "Ya hay una sesión iniciada"; }
+        catch { labelErrores.ForeColor = System.Drawing.Color.Red; labelErrores.Text = "Tiempo de espera agotado."; }
     }
 
     protected void btnLogout_Click(object sender, EventArgs e)

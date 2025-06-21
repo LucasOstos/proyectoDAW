@@ -23,5 +23,15 @@ namespace BLL
         {
             return UsuarioDAL.Instancia.ObtenerUsuario(pUsuario);
         }
+
+        public void InsertarUsuario(Usuario pUsuario)
+        {
+            UsuarioDAL.Instancia.InsertarUsuario(pUsuario);
+        }
+
+        public List<string> ObtenerTodosNombresUsuarios()
+        {
+            return UsuarioDAL.Instancia.ObtenerTodosNombresUsuarios();
+        }
     }
 }
