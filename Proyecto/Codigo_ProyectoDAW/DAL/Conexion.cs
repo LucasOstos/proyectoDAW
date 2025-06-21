@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 namespace DAL
 {
     public class Conexion
-    {        
-        private SqlConnection CO = new SqlConnection("Data Source=.;Initial Catalog=Proyecto_DAW;Integrated Security=True;");
+    {
+        private SqlConnection CO = null;
+        private readonly string connectionString = "Data Source=.;Initial Catalog=Proyecto_DAW;Integrated Security=True;";
+
         private static Conexion instancia;
         public static Conexion Instancia
         {
@@ -32,7 +34,17 @@ namespace DAL
         }
         public SqlConnection ReturnConexion()
         {
+            if (CO == null)
+                CO = new SqlConnection(connectionString);
+
+            if (CO.State == System.Data.ConnectionState.Closed || CO.State == System.Data.ConnectionState.Broken)
+            {
+                CO.ConnectionString = connectionString;
+                CO.Open();
+            }
+
             return CO;
         }
+
     }
 }
