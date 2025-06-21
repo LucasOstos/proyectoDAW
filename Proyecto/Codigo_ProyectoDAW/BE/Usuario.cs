@@ -26,5 +26,15 @@ namespace BE
             Email = pEmail;
             Rol = rol;
         }
+        public Usuario(int pDNI, string pNombre, string pApellido, string pUsuario, string pPassword, string pEmail)
+        {
+            DNI = pDNI;
+            Nombre = pNombre;
+            Apellido = pApellido;
+            NombreUsuario = pUsuario;
+            Password = pPassword;
+            Email = pEmail;
+            Rol = "Usuario";
+        }
     }
 }
