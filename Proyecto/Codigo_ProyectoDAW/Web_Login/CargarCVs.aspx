@@ -6,9 +6,21 @@
     <meta charset="utf-8" />
     <title>Cargar CVs</title>
     <style>
+        body {
+            transform: scale(1.1);
+            margin-top: 80px;
+            font-family: Arial, sans-serif;
+        }
+
+        .contenedor {
+            max-width: 800px;
+            margin: auto;
+            text-align: center;
+        }
+
         #dropZone {
             width: 100%;
-            max-width: 400px;
+            max-width: 580px;
             height: 200px;
             border: 2px dashed #007bff;
             border-radius: 10px;
@@ -16,8 +28,8 @@
             line-height: 180px;
             color: #007bff;
             margin: 20px auto;
-            font-family: Arial, sans-serif;
             transition: background-color 0.3s;
+            cursor: pointer;
         }
 
         #dropZone.dragover {
@@ -25,49 +37,94 @@
         }
 
         #fileList {
-            text-align: center;
-            font-family: Arial, sans-serif;
             margin-top: 20px;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
-    <form id="form1" runat="server">
-        <asp:DropDownList ID="DropDownList1" runat="server">
+    <form id="form1" runat="server" enctype="multipart/form-data" method="post" >
+        <div class="contenedor">
 
-        </asp:DropDownList><div id="dropZone">Arrastra aquí archivos PDF o imágenes</div>
-        <div id="fileList"></div>
+            <asp:DropDownList ID="DropDownList1" runat="server" />
 
-        <asp:FileUpload ID="FileUpload1" runat="server" AllowMultiple="true" Style="display:none;" /><asp:Button ID="Button1" runat="server" Text="Subir Archivo" />
+            <!-- Zona drag & drop -->
+            <div id="dropZone">Arrastrá aquí archivos PDF o imágenes, o hacé clic para seleccionar</div>
+
+            <!-- Input file HTML (oculto visualmente, se activa al hacer clic en dropZone) -->
+            <input type="file" id="fileUpload" name="fileUpload" style="display: none;" />
+
+            <!-- Lista de archivos -->
+            <div id="fileList"></div>
+
+            <!-- Botón de envío -->
+            <asp:Button ID="Button1" runat="server" Text="Subir Archivo" OnClick="Button1_Click" />
+            <br />
+            <asp:Label ID="Confirmacion" runat="server" Text=""></asp:Label>
+        </div>
+
+        <div class="contenedor" style="margin-top: 40px;">
+            <asp:TextBox ID="TextBoxNumeroCV" runat="server" placeholder="Ingrese número de CV" Width="150px" />
+
+            <asp:Button ID="ButtonMostrarCV" runat="server" Text="Mostrar CV por número" OnClick="ButtonMostrarCV_Click" Style="margin-left: 10px;" />
+
+            <br /><br />
+
+            <div id="visorCV" runat="server" style="
+                margin-top: 20px;
+                width: 580px;
+                height: 600px;
+                border: 2px solid #007bff;
+                border-radius: 10px;
+                overflow: auto;
+                text-align: center;
+                line-height: normal;
+                background-color: #f9f9f9;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            ">
+                <asp:Literal ID="LiteralVisorCV" runat="server" />
+            </div>
+        </div>
     </form>
 
     <script>
         const dropZone = document.getElementById("dropZone");
+        const fileInput = document.getElementById("fileUpload");
         const fileList = document.getElementById("fileList");
 
+        // Hacer clic en dropZone abre selector de archivos
+        dropZone.addEventListener("click", () => {
+            fileInput.click();
+        });
+
+        // Drag & drop visual
         dropZone.addEventListener("dragover", function (e) {
             e.preventDefault();
-            e.stopPropagation();
             dropZone.classList.add("dragover");
         });
 
         dropZone.addEventListener("dragleave", function (e) {
             e.preventDefault();
-            e.stopPropagation();
             dropZone.classList.remove("dragover");
         });
 
         dropZone.addEventListener("drop", function (e) {
             e.preventDefault();
-            e.stopPropagation();
             dropZone.classList.remove("dragover");
-
             const files = e.dataTransfer.files;
-            fileList.innerHTML = "";
+            updateFileList(files);
+        });
 
+        fileInput.addEventListener("change", function () {
+            updateFileList(fileInput.files);
+        });
+
+        function updateFileList(files) {
+            fileList.innerHTML = "";
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
-
                 if (file.type === "application/pdf" || file.type.startsWith("image/")) {
                     const item = document.createElement("div");
                     item.textContent = file.name;
@@ -76,10 +133,7 @@
                     alert("Solo se permiten archivos PDF o imágenes.");
                 }
             }
-
-        // Si querés, también podés asignar los archivos al FileUpload (no completamente funcional sin backend)
-            // document.getElementById('<%= FileUpload1.ClientID %>').files = files;
-        });
+        }
     </script>
 </body>
 </html>
