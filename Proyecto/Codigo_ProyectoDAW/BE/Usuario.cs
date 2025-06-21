@@ -11,20 +11,20 @@ namespace BE
         public int DNI { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
-        public int Celular { get; set; }
         public string NombreUsuario { get; set; }
         public string Email { get; set; }
-        public string Contraseña { get; set; }
+        public string Password { get; set; }
+        public string Rol { get; set; }
 
-        public Usuario(int pDNI, string pNombre, string pApellido, int pCelular, string pUsuario, string pContraseña, string pEmail)
+        public Usuario(int pDNI, string pNombre, string pApellido,  string pUsuario, string pPassword, string pEmail, string rol)
         {
             DNI = pDNI;
             Nombre = pNombre;
             Apellido = pApellido;
-            Celular = pCelular;
             NombreUsuario = pUsuario;
-            Contraseña = pContraseña;
+            Password = pPassword;
             Email = pEmail;
+            Rol = rol;
         }
     }
 }

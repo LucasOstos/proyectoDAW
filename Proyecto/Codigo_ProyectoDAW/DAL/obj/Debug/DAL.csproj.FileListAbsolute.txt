@@ -7,3 +7,12 @@ C:\Users\Usuario\Desktop\UAI\DAW\Proyecto\Codigo_ProyectoDAW\DAL\obj\Debug\DAL.c
 C:\Users\Usuario\Desktop\UAI\DAW\Proyecto\Codigo_ProyectoDAW\DAL\obj\Debug\DAL.csproj.Up2Date
 C:\Users\Usuario\Desktop\UAI\DAW\Proyecto\Codigo_ProyectoDAW\DAL\obj\Debug\DAL.dll
 C:\Users\Usuario\Desktop\UAI\DAW\Proyecto\Codigo_ProyectoDAW\DAL\obj\Debug\DAL.pdb
+F:\Code\Facultad\daw\ProyectoWeb\proyectoDAW\Proyecto\Codigo_ProyectoDAW\DAL\bin\Debug\DAL.dll
+F:\Code\Facultad\daw\ProyectoWeb\proyectoDAW\Proyecto\Codigo_ProyectoDAW\DAL\bin\Debug\DAL.pdb
+F:\Code\Facultad\daw\ProyectoWeb\proyectoDAW\Proyecto\Codigo_ProyectoDAW\DAL\bin\Debug\BE.dll
+F:\Code\Facultad\daw\ProyectoWeb\proyectoDAW\Proyecto\Codigo_ProyectoDAW\DAL\bin\Debug\BE.pdb
+F:\Code\Facultad\daw\ProyectoWeb\proyectoDAW\Proyecto\Codigo_ProyectoDAW\DAL\obj\Debug\DAL.csproj.AssemblyReference.cache
+F:\Code\Facultad\daw\ProyectoWeb\proyectoDAW\Proyecto\Codigo_ProyectoDAW\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+F:\Code\Facultad\daw\ProyectoWeb\proyectoDAW\Proyecto\Codigo_ProyectoDAW\DAL\obj\Debug\DAL.csproj.Up2Date
+F:\Code\Facultad\daw\ProyectoWeb\proyectoDAW\Proyecto\Codigo_ProyectoDAW\DAL\obj\Debug\DAL.dll
+F:\Code\Facultad\daw\ProyectoWeb\proyectoDAW\Proyecto\Codigo_ProyectoDAW\DAL\obj\Debug\DAL.pdb

@@ -22,11 +22,11 @@ namespace DAL
         public bool ValidarUsuario(string pUsuario, string Contra)
         {
             bool x = false;
-            string query = $"SELECT * FROM Usuario WHERE username = @username AND contraseña = @contraseña";
+            string query = $"SELECT * FROM Usuario WHERE username = @username AND password = @password";
             using (SqlCommand CM = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
             {
                 CM.Parameters.AddWithValue("@username", pUsuario);
-                CM.Parameters.AddWithValue("@contraseña", Contra);
+                CM.Parameters.AddWithValue("@password", Contra);
                 Conexion.Instancia.AbrirConexion();
                 using (SqlDataReader DR = CM.ExecuteReader())
                 {
@@ -55,12 +55,31 @@ namespace DAL
                 {
                     if (DR.Read())
                     {
-                        U = new Usuario(int.Parse(DR[0].ToString()), DR[1].ToString(), DR[2].ToString(), int.Parse(DR[3].ToString()), DR[4].ToString(), DR[5].ToString(), DR[6].ToString());                        
+                        U = new Usuario(int.Parse(DR[0].ToString()), DR[1].ToString(), DR[2].ToString(), DR[3].ToString(), DR[4].ToString(), DR[5].ToString(), DR[6].ToString());
                     }
                 }
             }
             Conexion.Instancia.CerrarConexion();
             return U;
+        }
+
+        public void InsertarUsuario(Usuario U)
+        {
+            string Query = $"INSERT INTO Usuario (DNI, Nombre, Apellido, username, password, Mail, Rol) VALUES (@DNI, @Nombre, @Apellido, @Username, @Pass, @Mail, @Rol)";
+
+            using (SqlCommand CM = new SqlCommand(Query, Conexion.Instancia.ReturnConexion()))
+            {
+                Conexion.Instancia.AbrirConexion();
+                CM.Parameters.AddWithValue("@DNI", U.DNI);
+                CM.Parameters.AddWithValue("@Nombre", U.Nombre);
+                CM.Parameters.AddWithValue("@Apellido", U.Apellido);
+                CM.Parameters.AddWithValue("@Username", U.NombreUsuario);
+                CM.Parameters.AddWithValue("@Pass", U.Password);
+                CM.Parameters.AddWithValue("@Mail", U.Email);
+                CM.Parameters.AddWithValue("@Rol", U.Rol);
+                CM.ExecuteNonQuery();
+            }
+            Conexion.Instancia.CerrarConexion();
         }
     }
 }
