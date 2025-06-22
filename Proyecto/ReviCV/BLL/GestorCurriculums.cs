@@ -19,5 +19,20 @@ namespace BLL
         {
             return CurriculumDAL.Instancia.ObtenerCurriculumPorID(id);
         }
+
+        public Curriculum ObtenerCurriculumFiltrado(string rubro, string idioma)
+        {
+            return CurriculumDAL.Instancia.ObtenerCurriculumFiltrado(rubro, idioma);
+        }
+
+        public Dictionary<int, string> ObtenerIdiomas()
+        {
+            return CurriculumDAL.Instancia.ObtenerIdiomas();
+        }
+
+        public Dictionary<int, string> ObtenerRubros()
+        {
+            return CurriculumDAL.Instancia.ObtenerRubros();
+        }
     }
 }

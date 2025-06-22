@@ -7,24 +7,63 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using BLL;
 using BE;
+using System.Runtime.CompilerServices;
 
 public partial class CargarCVs : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        GestorUsuario gUsuarios = new GestorUsuario();
-        DropDownList1.Items.Clear();
-
-        var nombres = gUsuarios.ObtenerTodosNombresUsuarios()
-                   .OrderBy(c => c)
-                   .ToList();
-
-
-        foreach (string nombre in nombres)
+        if (!IsPostBack)
         {
-            DropDownList1.Items.Add(new ListItem(nombre));
+            CargarRubros();
+            CargarIdiomas();
+
+            GestorUsuario gUsuarios = new GestorUsuario();
+            DropDownList1.Items.Clear();
+
+            var nombres = gUsuarios.ObtenerTodosNombresUsuarios()
+                       .OrderBy(c => c)
+                       .ToList();
+
+
+            foreach (string nombre in nombres)
+            {
+                DropDownList1.Items.Add(new ListItem(nombre));
+            }
+
         }
+
+    }
+
+    private void CargarIdiomas()
+    {
+        GestorCurriculums gCurriculums = new GestorCurriculums();
+        var idiomas = gCurriculums.ObtenerIdiomas();
+
+        ddlIdioma.DataSource = idiomas;
+        ddlIdioma.DataTextField = "Value";  // Nombre que se muestra
+        ddlIdioma.DataValueField = "Key";   // ID que se usa internamente
+        ddlIdioma.DataBind();
+
+        ddlIdioma.Items.Insert(0, new ListItem("¿En qué idioma está tu CV?", ""));
+        ddlIdioma.Items[0].Attributes.Add("disabled", "true");
+        ddlIdioma.Items[0].Selected = true;
+    }
+
+    private void CargarRubros()
+    {
+        GestorCurriculums gCurriculums = new GestorCurriculums();
+        var rubros = gCurriculums.ObtenerRubros();
+
+        ddlRubro.DataSource = rubros;
+        ddlRubro.DataTextField = "Value";  // Nombre que se muestra
+        ddlRubro.DataValueField = "Key";   // ID que se usa internamente
+        ddlRubro.DataBind();
+
+        ddlRubro.Items.Insert(0, new ListItem("¿De que rubro es tu CV?", ""));
+        ddlRubro.Items[0].Attributes.Add("disabled", "true");
+        ddlRubro.Items[0].Selected = true;
     }
 
 
@@ -49,6 +88,8 @@ public partial class CargarCVs : System.Web.UI.Page
                         archivo.InputStream.CopyTo(ms);
                         cvActual.ArchivoCV = ms.ToArray();
                     }
+                    cvActual.Idioma = (int.Parse(ddlIdioma.SelectedValue), ddlIdioma.SelectedItem.Text);
+                    cvActual.Rubro = (int.Parse(ddlRubro.SelectedValue), ddlRubro.SelectedItem.Text);
 
                     GestorCurriculums gCurriculum = new GestorCurriculums();
                     gCurriculum.GuardarCurriculum(cvActual);
@@ -91,14 +132,15 @@ public partial class CargarCVs : System.Web.UI.Page
 
         if (esPdf)
         {
-            // Mostrar PDF en iframe con base64
-            LiteralVisorCV.Text = $"<iframe src='data:application/pdf;base64,{base64String}' style='width:100%; height:100%; border:none;'></iframe>";
+            // Usar embed en lugar de iframe para ocultar controles
+            LiteralVisorCV.Text = $"<embed src='data:application/pdf;base64,{base64String}#toolbar=0&navpanes=0&scrollbar=0' type='application/pdf' style='width:100%; height:100%; border: none;' />";
         }
         else
         {
             // Mostrar imagen (asumimos png/jpg)
-            LiteralVisorCV.Text = $"<img src='data:image;base64,{base64String}' style='max-width:100%; max-height:100%;' alt='CV imagen' />";
+            LiteralVisorCV.Text = $"<img src='data:image;base64,{base64String}' style='max-width:100%; max-height:100%; object-fit: contain;' alt='CV imagen' />";
         }
+
 
         Confirmacion.Text = $"Mostrando CV número {idCV}";
     }

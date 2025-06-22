@@ -8,8 +8,8 @@
             background: radial-gradient(circle at center, #ffffff 0%, #e1f5fe 8%, #b3e5fc 20%, #b3e5fc 100%);
             height: 100%;
             margin: 0;
-            transform:scale(1.35);
-            overflow: hidden; /* Esconde las barras */
+            transform: scale(1.35);
+            overflow: hidden;
         }
 
         .rectangle {
@@ -38,13 +38,6 @@
             }
         }
 
-
-        /* 
-        :nth-child(n) selecciona el hijo número "n" dentro de su contenedor padre.
-        En este caso, usamos diferentes delays (retrasos) en la animación 
-        para que los elementos no se animen todos al mismo tiempo, 
-        sino uno tras otro en forma escalonada.
-        */
         .rectangle:nth-child(1) {
             animation-delay: -9.6s;
         }
@@ -65,7 +58,6 @@
             animation-delay: 0s;
         }
 
-        /* CONTENEDOR CENTRAL */
         .selector {
             position: absolute;
             top: 50%;
@@ -78,22 +70,18 @@
             z-index: 20;
         }
 
-        /* CONTENEDOR BOTONES (boton principal + burger) */
-.button-row {
-    position: relative;
-    width: 100%;
-    max-width: 360px;
-    display: flex;
-    justify-content: center;
-}
+        .button-row {
+            position: relative;
+            width: 100%;
+            max-width: 360px;
+            display: flex;
+            justify-content: center;
+        }
 
-
-        /* BOTÓN PRINCIPAL */
         .glass-button {
             max-width: 275px;
             width: 100%;
             text-align: center;
-            transform: translate(0, 0);
             padding: 15px 28px;
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(4px);
@@ -122,87 +110,81 @@
                 box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
             }
 
-           /* Textbox container: predeterminado oculto */
-.textbox-container {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-    width: 100%;
-    max-width: 233px;
-    background: rgba(255, 255, 255, 0.25);
-    border-radius: 20px;
-    backdrop-filter: blur(4px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+        .textbox-container {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            width: 100%;
+            max-width: 233px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            padding: 0 15px;
+            transition: max-height 0.4s ease-in-out, opacity 0.6s ease-in-out, padding 0.4s ease-in-out;
+        }
 
-    /* Inicialmente oculto */
-    max-height: 0;
-    opacity: 0;
-    padding: 0 15px;
-    transition:
-        max-height 0.4s ease-in-out,
-        opacity 0.6s ease-in-out,
-        padding 0.4s ease-in-out;
-}
+            .textbox-container.show {
+                max-height: 300px;
+                opacity: 1;
+                padding: 15px 15px;
+            }
 
-/* Visible */
-.textbox-container.show {
-    max-height: 300px;
-    opacity: 1;
-    padding: 15px 15px;
-}
+            .textbox-container .textbox-input {
+                height: 32px;
+                font-size: 10px;
+                border: none;
+                border-radius: 12px;
+                padding: 5px 10px;
+                background: rgba(255, 255, 255, 0.6);
+                color: #555;
+                font-weight: 500;
+                appearance: none;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                cursor: pointer;
+                outline: none;
+                box-sizing: border-box;
+                width: 100%;
+            }
 
-
-/* Inputs dentro del textbox */
-.textbox-container input[type="text"] {
-    height: 20px;
-    font-size: 10px;
-    border: none;
-    border-radius: 12px;
-    padding: 5px 10px;
-    background: rgba(255, 255, 255, 0.6);
-    color: #555;
-    font-weight: 500;
-}
-
-/* Burger visual simple + cambio de color al tocar */
-.burger-button {
-    width: 24px;
-    height: 18px;
-    position: absolute;
-    right: -32px;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    cursor: pointer;
-    background: transparent;
-    border: none;
-    padding: 0;
-}
-
-.burger-button span {
-    display: block;
-    height: 4px;
-    background-color: #00bcd4;
-    border-radius: 2px;
-    transition: background-color 0.3s ease;
-}
-
-/* Cambia color al hacer clic */
-.burger-button.clicked span {
-    background-color: #007c91;
-}
-
-.textbox-container input[type="text"]:focus {
-
+            .textbox-input option {
+    font-size: 14px; /* Solo el texto de las opciones desplegables */
 }
 
 
+        .burger-button {
+            width: 24px;
+            height: 18px;
+            position: absolute;
+            right: -32px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            padding: 0;
+        }
 
-           
+            .burger-button span {
+                display: block;
+                height: 4px;
+                background-color: #00bcd4;
+                border-radius: 2px;
+                transition: background-color 0.3s ease;
+            }
+
+            .burger-button.clicked span {
+                background-color: #007c91;
+            }
     </style>
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Landing Page</title>
 </head>
@@ -217,7 +199,7 @@
 
             <div class="selector">
                 <div class="button-row">
-                    <button type="button" class="glass-button">¡Evalúa un nuevo talento!</button>
+                    <asp:Button ID="EvaluarCVBoton" type="button" runat="server" CssClass="glass-button" Text="¡Evalúa un nuevo talento!" OnClick="EvaluarCVBoton_Click" />
                     <button type="button" class="burger-button" id="burgerBtn" aria-label="Menú burger">
                         <span></span>
                         <span></span>
@@ -226,23 +208,31 @@
                 </div>
 
                 <div class="textbox-container" id="textboxContainer">
-                    <input type="text" placeholder="¿Qué rubro queres analizar?" />
-                    <input type="text" placeholder="¿En qué idioma?" />
-                    <input type="text" placeholder="¿Que otra pregunta metemos acá?" />
+                    <asp:DropDownList ID="ddlRubro" runat="server" CssClass="textbox-input" AppendDataBoundItems="true">
+                        <asp:ListItem Text="¿Qué rubro queres analizar?" Value="" Enabled="false" Selected="True" />
+                    </asp:DropDownList>
+
+                    <asp:DropDownList ID="ddlIdioma" runat="server" CssClass="textbox-input" AppendDataBoundItems="true">
+                        <asp:ListItem Text="¿En qué idioma?" Value="" Enabled="false" Selected="True" />
+                    </asp:DropDownList>
+
+                    <asp:DropDownList ID="ddlOtraPregunta" runat="server" CssClass="textbox-input" AppendDataBoundItems="true">
+                        <asp:ListItem Text="¿Qué otra pregunta metemos acá?" Value="" Enabled="false" Selected="True" />
+                    </asp:DropDownList>
+               
                 </div>
             </div>
         </div>
     </form>
 
-<script>
-    const burgerBtn = document.getElementById('burgerBtn');
-    const textboxContainer = document.getElementById('textboxContainer');
+    <script>
+        const burgerBtn = document.getElementById('burgerBtn');
+        const textboxContainer = document.getElementById('textboxContainer');
 
-    burgerBtn.addEventListener('click', () => {
-        textboxContainer.classList.toggle('show');
-        burgerBtn.classList.toggle('clicked');
-    });
-</script>
-
+        burgerBtn.addEventListener('click', () => {
+            textboxContainer.classList.toggle('show');
+            burgerBtn.classList.toggle('clicked');
+        });
+    </script>
 </body>
 </html>
