@@ -9,7 +9,7 @@
     <!-- Font Awesome para íconos -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
 
-    <link href="BR.css" rel="stylesheet" type="text/css" />
+    <link href="Estilos_css\BR.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">

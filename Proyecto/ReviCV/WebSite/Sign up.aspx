@@ -5,7 +5,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <title>Registro de Usuario</title>
-    <link href="signup.css" rel="stylesheet" />
+    <link href="Estilos_css\signup.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
