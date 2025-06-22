@@ -13,10 +13,10 @@ namespace BE
         public string Apellido { get; set; }
         public string NombreUsuario { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; } //SOLO PARA CREAR EL USUARIO
+        public string Password { get; set; }
         public string Rol { get; set; }
 
-        public Usuario(int pDNI, string pNombre, string pApellido,  string pUsuario, string pPassword, string pEmail, string rol)
+        public Usuario(int pDNI, string pNombre, string pApellido, string pUsuario, string pPassword, string pEmail, string rol)
         {
             DNI = pDNI;
             Nombre = pNombre;
