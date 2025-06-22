@@ -43,15 +43,14 @@
     </style>
 </head>
 <body>
-    <form id="form1" runat="server" enctype="multipart/form-data" method="post" >
+    <form id="form1" runat="server" enctype="multipart/form-data" method="post">
         <div class="contenedor">
-
             <asp:DropDownList ID="DropDownList1" runat="server" />
 
             <!-- Zona drag & drop -->
             <div id="dropZone">Arrastrá aquí archivos PDF o imágenes, o hacé clic para seleccionar</div>
 
-            <!-- Input file HTML (oculto visualmente, se activa al hacer clic en dropZone) -->
+            <!-- Input file HTML (oculto visualmente) -->
             <input type="file" id="fileUpload" name="fileUpload" style="display: none;" />
 
             <!-- Lista de archivos -->
@@ -63,28 +62,27 @@
             <asp:Label ID="Confirmacion" runat="server" Text=""></asp:Label>
         </div>
 
-        <div class="contenedor" style="margin-top: 40px;">
-            <asp:TextBox ID="TextBoxNumeroCV" runat="server" placeholder="Ingrese número de CV" Width="150px" />
-
-            <asp:Button ID="ButtonMostrarCV" runat="server" Text="Mostrar CV por número" OnClick="ButtonMostrarCV_Click" Style="margin-left: 10px;" />
-
-            <br /><br />
-
+        <!-- SECTOR VISOR Y CONTROLES -->
+        <div class="contenedor" style="margin-top: 40px; display: flex; justify-content: center; gap: 30px; align-items: flex-start;">
+            <!-- Visor del CV -->
             <div id="visorCV" runat="server" style="
-                margin-top: 20px;
                 width: 580px;
                 height: 600px;
                 border: 2px solid #007bff;
                 border-radius: 10px;
-                overflow: auto;
-                text-align: center;
-                line-height: normal;
+                overflow: hidden;
                 background-color: #f9f9f9;
                 display: flex;
                 align-items: center;
                 justify-content: center;
             ">
                 <asp:Literal ID="LiteralVisorCV" runat="server" />
+            </div>
+
+            <!-- Controles -->
+            <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 10px;">
+                <asp:TextBox ID="TextBoxNumeroCV" runat="server" placeholder="Ingrese número de CV" Width="200px" />
+                <asp:Button ID="ButtonMostrarCV" runat="server" Text="Mostrar CV por número" OnClick="ButtonMostrarCV_Click" />
             </div>
         </div>
     </form>
@@ -94,12 +92,12 @@
         const fileInput = document.getElementById("fileUpload");
         const fileList = document.getElementById("fileList");
 
-        // Hacer clic en dropZone abre selector de archivos
+        // Abrir selector al hacer clic
         dropZone.addEventListener("click", () => {
             fileInput.click();
         });
 
-        // Drag & drop visual
+        // Drag & Drop
         dropZone.addEventListener("dragover", function (e) {
             e.preventDefault();
             dropZone.classList.add("dragover");

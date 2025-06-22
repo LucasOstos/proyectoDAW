@@ -91,14 +91,15 @@ public partial class CargarCVs : System.Web.UI.Page
 
         if (esPdf)
         {
-            // Mostrar PDF en iframe con base64
-            LiteralVisorCV.Text = $"<iframe src='data:application/pdf;base64,{base64String}' style='width:100%; height:100%; border:none;'></iframe>";
+            // Usar embed en lugar de iframe para ocultar controles
+            LiteralVisorCV.Text = $"<embed src='data:application/pdf;base64,{base64String}#toolbar=0&navpanes=0&scrollbar=0' type='application/pdf' style='width:100%; height:100%; border: none;' />";
         }
         else
         {
             // Mostrar imagen (asumimos png/jpg)
-            LiteralVisorCV.Text = $"<img src='data:image;base64,{base64String}' style='max-width:100%; max-height:100%;' alt='CV imagen' />";
+            LiteralVisorCV.Text = $"<img src='data:image;base64,{base64String}' style='max-width:100%; max-height:100%; object-fit: contain;' alt='CV imagen' />";
         }
+
 
         Confirmacion.Text = $"Mostrando CV número {idCV}";
     }
