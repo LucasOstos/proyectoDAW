@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,11 +10,51 @@ public partial class LandingPage : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            CargarRubros();
+            CargarIdiomas();
 
+        }
     }
+
+    private void CargarIdiomas()
+    {
+        GestorCurriculums gCurriculums = new GestorCurriculums();
+        var idiomas = gCurriculums.ObtenerIdiomas();
+
+        ddlIdioma.DataSource = idiomas;
+        ddlIdioma.DataTextField = "Value";  // Nombre que se muestra
+        ddlIdioma.DataValueField = "Key";   // ID que se usa internamente
+        ddlIdioma.DataBind();
+
+        ddlIdioma.Items.Insert(0, new ListItem("¿En qué idioma?", ""));
+        ddlIdioma.Items[0].Attributes.Add("disabled", "true");
+        ddlIdioma.Items[0].Selected = true;
+    }
+
+    private void CargarRubros()
+    {
+        GestorCurriculums gCurriculums = new GestorCurriculums();
+        var rubros = gCurriculums.ObtenerRubros();
+
+        ddlRubro.DataSource = rubros;
+        ddlRubro.DataTextField = "Value";  // Nombre que se muestra
+        ddlRubro.DataValueField = "Key";   // ID que se usa internamente
+        ddlRubro.DataBind();
+
+        ddlRubro.Items.Insert(0, new ListItem("¿Qué rubro queres analizar?", ""));
+        ddlRubro.Items[0].Attributes.Add("disabled", "true");
+        ddlRubro.Items[0].Selected = true;
+    }
+
 
     protected void EvaluarCVBoton_Click(object sender, EventArgs e)
     {
+        Session["RubroSeleccionado"] = ddlRubro.SelectedValue;
+        Session["IdiomaSeleccionado"] = ddlIdioma.SelectedValue;
+
         Response.Redirect("EvaluarCV.aspx");
     }
+
 }

@@ -1,8 +1,12 @@
-﻿<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Reseña de CV</title>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="EvaluarCV.aspx.cs" Inherits="EvaluarCV" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+
     <style>
         body {
             margin: 0;
@@ -40,6 +44,23 @@
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
+        }
+
+        /* Estilos para el contenido del Literal */
+        .imagen-cv iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .imagen-cv embed {
+            width: 100%;
+            height: 100%;
+        }
+
+        .imagen-cv object {
+            width: 100%;
+            height: 100%;
         }
 
         .seccion-resena {
@@ -156,11 +177,12 @@
             align-items: center;
         }
     </style>
+
 </head>
 <body>
     <div class="contenedor">
         <div class="imagen-cv">
-            <img src="ruta-desde-backend.png" alt="CV de usuario" />
+            <asp:Literal ID="VisorCV" runat="server" />
         </div>
 
         <div class="seccion-resena">
@@ -170,15 +192,15 @@
                 <div class="categoria">
                     <span>Contenido</span>
                     <div class="calificacion">
-                        <input value="5" name="contenido" id="contenido5" type="radio">
+                        <input value="5" name="contenido" id="contenido5" type="radio"/>
                         <label for="contenido5"></label>
-                        <input value="4" name="contenido" id="contenido4" type="radio">
+                        <input value="4" name="contenido" id="contenido4" type="radio"/>
                         <label for="contenido4"></label>
-                        <input value="3" name="contenido" id="contenido3" type="radio">
+                        <input value="3" name="contenido" id="contenido3" type="radio"/>
                         <label for="contenido3"></label>
-                        <input value="2" name="contenido" id="contenido2" type="radio">
+                        <input value="2" name="contenido" id="contenido2" type="radio"/>
                         <label for="contenido2"></label>
-                        <input value="1" name="contenido" id="contenido1" type="radio">
+                        <input value="1" name="contenido" id="contenido1" type="radio"/>
                         <label for="contenido1"></label>
                     </div>
                 </div>
@@ -186,15 +208,15 @@
                 <div class="categoria">
                     <span>Diseño</span>
                     <div class="calificacion">
-                        <input value="5" name="diseno" id="diseno5" type="radio">
+                        <input value="5" name="diseno" id="diseno5" type="radio"/>
                         <label for="diseno5"></label>
-                        <input value="4" name="diseno" id="diseno4" type="radio">
+                        <input value="4" name="diseno" id="diseno4" type="radio"/>
                         <label for="diseno4"></label>
-                        <input value="3" name="diseno" id="diseno3" type="radio">
+                        <input value="3" name="diseno" id="diseno3" type="radio"/>
                         <label for="diseno3"></label>
-                        <input value="2" name="diseno" id="diseno2" type="radio">
+                        <input value="2" name="diseno" id="diseno2" type="radio"/>
                         <label for="diseno2"></label>
-                        <input value="1" name="diseno" id="diseno1" type="radio">
+                        <input value="1" name="diseno" id="diseno1" type="radio"/>
                         <label for="diseno1"></label>
                     </div>
                 </div>
@@ -202,15 +224,15 @@
                 <div class="categoria">
                     <span>Claridad</span>
                     <div class="calificacion">
-                        <input value="5" name="claridad" id="claridad5" type="radio">
+                        <input value="5" name="claridad" id="claridad5" type="radio"/>
                         <label for="claridad5"></label>
-                        <input value="4" name="claridad" id="claridad4" type="radio">
+                        <input value="4" name="claridad" id="claridad4" type="radio"/>
                         <label for="claridad4"></label>
-                        <input value="3" name="claridad" id="claridad3" type="radio">
+                        <input value="3" name="claridad" id="claridad3" type="radio"/>
                         <label for="claridad3"></label>
-                        <input value="2" name="claridad" id="claridad2" type="radio">
+                        <input value="2" name="claridad" id="claridad2" type="radio"/>
                         <label for="claridad2"></label>
-                        <input value="1" name="claridad" id="claridad1" type="radio">
+                        <input value="1" name="claridad" id="claridad1" type="radio"/>
                         <label for="claridad1"></label>
                     </div>
                 </div>
@@ -218,15 +240,15 @@
                 <div class="categoria">
                     <span>Relevancia</span>
                     <div class="calificacion">
-                        <input value="5" name="relevancia" id="relevancia5" type="radio">
+                        <input value="5" name="relevancia" id="relevancia5" type="radio"/>
                         <label for="relevancia5"></label>
-                        <input value="4" name="relevancia" id="relevancia4" type="radio">
+                        <input value="4" name="relevancia" id="relevancia4" type="radio"/>
                         <label for="relevancia4"></label>
-                        <input value="3" name="relevancia" id="relevancia3" type="radio">
+                        <input value="3" name="relevancia" id="relevancia3" type="radio"/>
                         <label for="relevancia3"></label>
-                        <input value="2" name="relevancia" id="relevancia2" type="radio">
+                        <input value="2" name="relevancia" id="relevancia2" type="radio"/>
                         <label for="relevancia2"></label>
-                        <input value="1" name="relevancia" id="relevancia1" type="radio">
+                        <input value="1" name="relevancia" id="relevancia1" type="radio"/>
                         <label for="relevancia1"></label>
                     </div>
                 </div>

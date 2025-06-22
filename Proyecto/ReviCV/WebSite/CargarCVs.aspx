@@ -47,6 +47,17 @@
         <div class="contenedor">
             <asp:DropDownList ID="DropDownList1" runat="server" />
 
+             <div style="margin-bottom: 10px; text-align: left;">
+        <label for="ddlRubro" style="font-weight: bold;">Seleccioná un rubro:</label><br />
+        <asp:DropDownList ID="ddlRubro" runat="server" Width="250px" />
+    </div>
+
+    <!-- DDL Idioma -->
+    <div style="margin-bottom: 20px; text-align: left;">
+        <label for="ddlIdioma" style="font-weight: bold;">Seleccioná un idioma:</label><br />
+        <asp:DropDownList ID="ddlIdioma" runat="server" Width="250px" />
+    </div>
+
             <!-- Zona drag & drop -->
             <div id="dropZone">Arrastrá aquí archivos PDF o imágenes, o hacé clic para seleccionar</div>
 
