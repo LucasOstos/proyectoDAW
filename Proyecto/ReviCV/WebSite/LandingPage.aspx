@@ -217,7 +217,7 @@
 
             <div class="selector">
                 <div class="button-row">
-                    <button type="button" class="glass-button">¡Evalúa un nuevo talento!</button>
+                    <asp:Button ID="EvaluarCVBoton" type="button" runat="server" class="glass-button" Text="¡Evalúa un nuevo talento!" OnClick="EvaluarCVBoton_Click"/>
                     <button type="button" class="burger-button" id="burgerBtn" aria-label="Menú burger">
                         <span></span>
                         <span></span>

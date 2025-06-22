@@ -1,27 +1,22 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="EvaluarCV.aspx.cs" Inherits="EvaluarCV" %>
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Reseña de CV</title>
     <style>
-        html, body {
-            height: 100%;
+        body {
             margin: 0;
-            font-family: 'Segoe UI', sans-serif;
+            font-family: Segoe UI, sans-serif;
             background: linear-gradient(to bottom right, #cceeff, #a0dcff);
-            transform:scale(1.08);
-        }
-
-        .wrapper {
+            transform: scale(1.08);
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100%;
+            overflow: hidden; /* Esconde las barras */
         }
 
-        .container {
+        .contenedor {
             display: flex;
             gap: 60px;
             padding: 40px;
@@ -29,7 +24,7 @@
             max-width: 1300px;
         }
 
-        .cv-visual {
+        .imagen-cv {
             background-color: white;
             border: 1px solid #ccc;
             width: 455px;
@@ -41,13 +36,13 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
-        .cv-visual img {
+        .imagen-cv img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
         }
 
-        .review-section {
+        .seccion-resena {
             flex: 1;
             max-width: 600px;
             color: #005f9e;
@@ -57,72 +52,73 @@
             height: 100%;
         }
 
-        .review-section h2 {
+        .seccion-resena h2 {
             font-size: 34px;
             margin-bottom: 30px;
             text-align: center;
         }
 
-        .category {
+        .categoria {
             display: flex;
             align-items: center;
             margin-bottom: 5px;
         }
 
-        .category span {
+        .categoria span {
             font-weight: bold;
             width: 140px;
             font-size: 20px;
         }
 
-        .rating {
-            display: flex;
-            flex-direction: row-reverse;
-        }
-
-        .rating:not(:checked) > input {
+       /* ========================================
+           RATING STARS COMPONENT
+           Fuente: https://uiverse.io/andrew-demchenk0/clever-elephant-35
+           ======================================== */
+        .calificacion:not(:checked) > input {
             position: absolute;
             appearance: none;
         }
 
-        .rating:not(:checked) > label {
+        .calificacion:not(:checked) > label {
+            float: right;
             cursor: pointer;
             font-size: 36px;
             color: #666;
             margin: 0px 0px 5px 0px;
         }
 
-        .rating:not(:checked) > label:before {
+        .calificacion:not(:checked) > label:before {
             content: '★';
         }
 
-        .rating > input:checked + label:hover,
-        .rating > input:checked + label:hover ~ label,
-        .rating > input:checked ~ label:hover,
-        .rating > input:checked ~ label:hover ~ label,
-        .rating > label:hover ~ input:checked ~ label {
+        .calificacion > input:checked + label:hover,
+        .calificacion > input:checked + label:hover ~ label,
+        .calificacion > input:checked ~ label:hover,
+        .calificacion > input:checked ~ label:hover ~ label,
+        .calificacion > label:hover ~ input:checked ~ label {
             color: #e58e09;
         }
 
-        .rating:not(:checked) > label:hover,
-        .rating:not(:checked) > label:hover ~ label {
+        .calificacion:not(:checked) > label:hover,
+        .calificacion:not(:checked) > label:hover ~ label {
             color: #ff9e0b;
         }
 
-        .rating > input:checked ~ label {
+        .calificacion > input:checked ~ label {
             color: #ffa723;
         }
+        /* ======================================== */
 
-        .comment-section {
+        .seccion-comentario {
             margin-top: 40px;
         }
 
-        .comment-section p {
+        .seccion-comentario p {
             text-align: center;
             margin-bottom: 20px;
         }
 
-        .comment-section textarea {
+        .seccion-comentario textarea {
             width: 100%;
             height: 120px;
             border: none;
@@ -135,7 +131,7 @@
             box-sizing: border-box;
         }
 
-        .submit-btn {
+        .boton-enviar {
             margin-top: 25px;
             background-color: #5ec9ff;
             color: white;
@@ -150,33 +146,30 @@
             margin-right: auto;
         }
 
-        .submit-btn:hover {
+        .boton-enviar:hover {
             background-color: #44b6ef;
         }
 
-        .reviews{
-            display:flex;
-            flex-direction:column;
-            align-items:center;
+        .calificaciones {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
     </style>
 </head>
 <body>
-    <div class="wrapper">
-        <div class="container">
-            <!-- CV Visual -->
-            <div class="cv-visual">
-                <img src="ruta-desde-backend.png" alt="CV de usuario" />
-            </div>
+    <div class="contenedor">
+        <div class="imagen-cv">
+            <img src="ruta-desde-backend.png" alt="CV de usuario" />
+        </div>
 
-            <!-- Reseña -->
-            <div class="review-section">
-                <h2>¿Qué opinas de este CV?</h2>
+        <div class="seccion-resena">
+            <h2>¿Qué opinas de este CV?</h2>
 
-                <div class="reviews">
-                <div class="category">
+            <div class="calificaciones">
+                <div class="categoria">
                     <span>Contenido</span>
-                    <div class="rating">
+                    <div class="calificacion">
                         <input value="5" name="contenido" id="contenido5" type="radio">
                         <label for="contenido5"></label>
                         <input value="4" name="contenido" id="contenido4" type="radio">
@@ -190,9 +183,9 @@
                     </div>
                 </div>
 
-                <div class="category">
+                <div class="categoria">
                     <span>Diseño</span>
-                    <div class="rating">
+                    <div class="calificacion">
                         <input value="5" name="diseno" id="diseno5" type="radio">
                         <label for="diseno5"></label>
                         <input value="4" name="diseno" id="diseno4" type="radio">
@@ -206,9 +199,9 @@
                     </div>
                 </div>
 
-                <div class="category">
+                <div class="categoria">
                     <span>Claridad</span>
-                    <div class="rating">
+                    <div class="calificacion">
                         <input value="5" name="claridad" id="claridad5" type="radio">
                         <label for="claridad5"></label>
                         <input value="4" name="claridad" id="claridad4" type="radio">
@@ -222,9 +215,9 @@
                     </div>
                 </div>
 
-                <div class="category">
+                <div class="categoria">
                     <span>Relevancia</span>
-                    <div class="rating">
+                    <div class="calificacion">
                         <input value="5" name="relevancia" id="relevancia5" type="radio">
                         <label for="relevancia5"></label>
                         <input value="4" name="relevancia" id="relevancia4" type="radio">
@@ -237,14 +230,13 @@
                         <label for="relevancia1"></label>
                     </div>
                 </div>
-                </div>
+            </div>
 
-                <div class="comment-section">
-                    <p>Agrega un comentario adicional para ayudar a <strong>DANIELA</strong>!</p>
-                    <textarea placeholder="¿Qué le recomendarías a DANIELA?"></textarea>
-                    <br />
-                    <button class="submit-btn">¡Enviá tu reseña!</button>
-                </div>
+            <div class="seccion-comentario">
+                <p>Agrega un comentario adicional para ayudar a <strong>DANIELA</strong>!</p>
+                <textarea placeholder="¿Qué le recomendarías a DANIELA?"></textarea>
+                <br />
+                <button class="boton-enviar">¡Enviá tu reseña!</button>
             </div>
         </div>
     </div>

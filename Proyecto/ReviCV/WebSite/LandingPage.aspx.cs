@@ -11,4 +11,9 @@ public partial class LandingPage : System.Web.UI.Page
     {
 
     }
+
+    protected void EvaluarCVBoton_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("EvaluarCV.aspx");
+    }
 }
