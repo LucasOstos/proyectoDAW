@@ -25,6 +25,7 @@ namespace BLL
             return CurriculumDAL.Instancia.ObtenerCurriculumFiltrado(rubro, idioma);
         }
 
+        //Se obtienen los idiomas y rubros desde el gestor de Curriculums ya que solo son tablas que afectan a los mismos
         public Dictionary<int, string> ObtenerIdiomas()
         {
             return CurriculumDAL.Instancia.ObtenerIdiomas();

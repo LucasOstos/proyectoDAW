@@ -21,8 +21,9 @@ public partial class Sign_up : System.Web.UI.Page
     {
         if (TbPassw1.Text == TbPassw2.Text)
         {
+            GestorUsuario gestorUsuario = new GestorUsuario();
             Usuario usuario = new Usuario(int.Parse(TbDNI.Text), TbNombre.Text, TbApellido.Text, TbUserName.Text, TbPassw1.Text, TbMail.Text);
-            GestorUsuario.Instancia.InsertarUsuario(usuario);
+            gestorUsuario.InsertarUsuario(usuario);
             ErrorContraseñasLB.Visible = true;
             ErrorContraseñasLB.ForeColor = System.Drawing.Color.Green;
             ErrorContraseñasLB.Text = "Usuario registrado correctamente";
