@@ -10,7 +10,7 @@
 <body>
     <form id="form1" runat="server">
         <div class="login-container">
-            <h2>Iniciar Sesión</h2>
+            <h2>LogIn</h2>
 
             <div class="form-group">
                 <asp:Label ID="Label1" runat="server" Text="UserName"></asp:Label>
@@ -18,13 +18,13 @@
             </div>
 
             <div class="form-group">
-                <asp:Label ID="Label2" runat="server" Text="Contraseña"></asp:Label>
+                <asp:Label ID="Label2" runat="server" Text="Password"></asp:Label>
                 <asp:TextBox ID="tbContraseña" runat="server" TextMode="Password" CssClass="aspNetTextBox"></asp:TextBox>
             </div>
 
             <div class="form-buttons">
-                <asp:Button ID="btnLogin" runat="server" Text="Iniciar Sesión" OnClick="btnLogin_Click" />
-                <asp:Button ID="btnLogout" runat="server" Text="Cerrar Sesión" OnClick="btnLogout_Click" />
+                <asp:Button ID="btnLogin" runat="server" Text="Login" OnClick="btnLogin_Click" />
+                <asp:Button ID="btnLogout" runat="server" Text="Sign up" OnClick="btnLogout_Click" />
             </div>
 
             <asp:Label ID="labelErrores" runat="server" CssClass="error-label" Visible="true"></asp:Label>

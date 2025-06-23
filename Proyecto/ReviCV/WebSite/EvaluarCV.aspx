@@ -19,7 +19,6 @@
             justify-content: center;
             overflow: hidden; /* Esconde las barras */
         }
-        /*Hola*/
         .contenedor {
             display: flex;
             gap: 60px;

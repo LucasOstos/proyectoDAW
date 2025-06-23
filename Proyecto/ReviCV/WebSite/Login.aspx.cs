@@ -27,6 +27,8 @@ public partial class Login : System.Web.UI.Page
                     if (Sesion.Instancia.Verificar(u.NombreUsuario, tbContraseña.Text))
                     {
                         Sesion.Instancia.LogIn(u);
+                        Session["username"] = $"{u.NombreUsuario}";
+                        Response.Redirect("LandingPage.aspx");
                         labelErrores.ForeColor = System.Drawing.Color.Green; labelErrores.Text = "Bien virgo";
                     }
                     else { labelErrores.ForeColor = System.Drawing.Color.Red; labelErrores.Text = "Credenciales incorrectas"; }
@@ -41,5 +43,6 @@ public partial class Login : System.Web.UI.Page
     protected void btnLogout_Click(object sender, EventArgs e)
     {
         Sesion.Instancia.LogOut();
+        Response.Redirect("Sign_Up.aspx");
     }
 }
