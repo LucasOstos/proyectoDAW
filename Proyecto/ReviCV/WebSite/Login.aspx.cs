@@ -21,7 +21,8 @@ public partial class Login : System.Web.UI.Page
         {
             if (!Sesion.Instancia.IsLogueado())
             {
-                Usuario u = GestorUsuario.Instancia.ObtenerUsuario(tbNombreUsuario.Text);
+                GestorUsuario gestorUsuario = new GestorUsuario();
+                Usuario u =gestorUsuario.ObtenerUsuario(tbNombreUsuario.Text);
                 if (u != null)
                 {
                     if (Sesion.Instancia.Verificar(u.NombreUsuario, tbContraseña.Text))
