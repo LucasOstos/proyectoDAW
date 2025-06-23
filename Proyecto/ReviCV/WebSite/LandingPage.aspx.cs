@@ -51,15 +51,28 @@ public partial class LandingPage : System.Web.UI.Page
 
     protected void EvaluarCVBoton_Click(object sender, EventArgs e)
     {
-        Session["RubroSeleccionado"] = ddlRubro.SelectedValue;
-        Session["IdiomaSeleccionado"] = ddlIdioma.SelectedValue;
+        if (Session["username"] == null)
+        {
+            Response.Redirect("Login.aspx");
+        }
+        else
+        {
+            Session["RubroSeleccionado"] = ddlRubro.SelectedValue;
+            Session["IdiomaSeleccionado"] = ddlIdioma.SelectedValue;
 
-        Response.Redirect("EvaluarCV.aspx");
+            Response.Redirect("EvaluarCV.aspx");
+        }
     }
 
-
-    protected void btnLogout_Click(object sender, EventArgs e)
+    protected void imgUserIcon_Click(object sender, ImageClickEventArgs e)
     {
-
+        if (Session["username"] == null)
+        {
+            Response.Redirect("Login.aspx");
+        }
+        else
+        {
+            Response.Redirect("PanelUsuario.aspx");
+        }
     }
 }

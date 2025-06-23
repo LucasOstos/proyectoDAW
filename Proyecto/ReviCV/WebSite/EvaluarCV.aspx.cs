@@ -44,4 +44,16 @@ public partial class EvaluarCV : System.Web.UI.Page
         }
     }
 
+
+    protected void imgUserIcon_Click(object sender, ImageClickEventArgs e)
+    {
+        if (Session["username"] == null)
+        {
+            Response.Redirect("Login.aspx");
+        }
+        else
+        {
+            Response.Redirect("PanelUsuario.aspx");
+        }
+    }
 }
