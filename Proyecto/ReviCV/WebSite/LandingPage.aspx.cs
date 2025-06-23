@@ -57,4 +57,9 @@ public partial class LandingPage : System.Web.UI.Page
         Response.Redirect("EvaluarCV.aspx");
     }
 
+
+    protected void btnLogout_Click(object sender, EventArgs e)
+    {
+
+    }
 }

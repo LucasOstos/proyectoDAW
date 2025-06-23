@@ -183,6 +183,7 @@
             .burger-button.clicked span {
                 background-color: #007c91;
             }
+           
     </style>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -190,6 +191,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        
         <div class="principal">
             <div class="rectangle"></div>
             <div class="rectangle"></div>

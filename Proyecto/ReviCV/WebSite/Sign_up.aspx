@@ -86,6 +86,10 @@
             <div class="form-group">
                 <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Registrarse" />
             </div>
+
+<div class="form-group">
+    <asp:Button ID="btnVolver" runat="server" Text="Volver" OnClick="btnVolver_Click" CausesValidation="false" />
+</div>
         </div>
     </form>
 </body>

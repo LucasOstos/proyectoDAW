@@ -45,4 +45,9 @@ public partial class Sign_up : System.Web.UI.Page
         TbPassw1.Text = string.Empty;
         TbMail.Text = string.Empty;
     }
+
+    protected void btnVolver_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("login.aspx");
+    }
 }
