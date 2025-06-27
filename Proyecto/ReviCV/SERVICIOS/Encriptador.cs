@@ -21,7 +21,7 @@ namespace SERVICIOS
                 return instancia;
             }
         }
-        public string EncriptarContraseña(string contraseña) //SHA256
+        public string EncriptarIrreversible(string contraseña) //SHA256
         {
             using (SHA256 encrypt = SHA256.Create())
             {

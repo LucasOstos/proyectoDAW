@@ -21,7 +21,7 @@ public partial class Login : System.Web.UI.Page
                 if (u != null)
                 {
                     Validador validador = new Validador();
-                    if (validador.Verificar(u.NombreUsuario, Encriptador.Instancia.EncriptarContraseña(tbContraseña.Text)))
+                    if (validador.Verificar(u.NombreUsuario, Encriptador.Instancia.EncriptarIrreversible(tbContraseña.Text)))
                     {
                         Session["username"] = $"{u.NombreUsuario}";
                         Session["Rol"] = $"{u.Rol}";

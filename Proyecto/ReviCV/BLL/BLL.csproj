@@ -51,9 +51,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BE\BE.csproj">
+    <ProjectReference Include="..\BE\ENTIDADES.csproj">
       <Project>{61b47825-c92d-4065-ace4-64f65fe66eb0}</Project>
-      <Name>BE</Name>
+      <Name>ENTIDADES</Name>
     </ProjectReference>
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{65c0642b-fd41-408c-b93e-f453e76fd795}</Project>
