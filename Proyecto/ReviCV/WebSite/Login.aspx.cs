@@ -10,21 +10,18 @@ using System.Web.UI.WebControls;
 
 public partial class Login : System.Web.UI.Page
 {
-    protected void Page_Load(object sender, EventArgs e)
-    {
-
-    }
-
     protected void btnLogin_Click(object sender, EventArgs e)
     {
         try
         {
-            if (!Sesion.Instancia.IsLogueado())
+            if (Session["username"] == null)
             {
-                Usuario u = GestorUsuario.Instancia.ObtenerUsuario(tbNombreUsuario.Text);
+                GestorUsuario gestorUsuario = new GestorUsuario();
+                Usuario u = gestorUsuario.ObtenerUsuario(tbNombreUsuario.Text);
                 if (u != null)
                 {
-                    if (Sesion.Instancia.Verificar(u.NombreUsuario, tbContraseña.Text))
+                    Validador validador = new Validador();
+                    if (validador.Verificar(u.NombreUsuario, Encriptador.Instancia.EncriptarIrreversible(tbContraseña.Text)))
                     {
                         Sesion.Instancia.LogIn(u);
                         GuardarSession(u);
@@ -40,10 +37,8 @@ public partial class Login : System.Web.UI.Page
         catch { labelErrores.ForeColor = System.Drawing.Color.Red; labelErrores.Text = "Tiempo de espera agotado."; }
     }
 
-    protected void btnLogout_Click(object sender, EventArgs e)
+    protected void btnSignUp_Click(object sender, EventArgs e)
     {
-        Sesion.Instancia.LogOut();
-        Session["username"] = null;
         Response.Redirect("Sign_Up.aspx");
     }
     public void GuardarSession(Usuario u)

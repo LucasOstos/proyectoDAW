@@ -46,15 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Conexion.cs" />
-    <Compile Include="CurriculumDAL.cs" />
+    <Compile Include="Tecnico\Conexion.cs" />
+    <Compile Include="Negocio\CurriculumDAL.cs" />
+    <Compile Include="Tecnico\IntegridadDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UsuarioDAL.cs" />
+    <Compile Include="Negocio\UsuarioDAL.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BE\BE.csproj">
+    <ProjectReference Include="..\BE\ENTIDADES.csproj">
       <Project>{61b47825-c92d-4065-ace4-64f65fe66eb0}</Project>
-      <Name>BE</Name>
+      <Name>ENTIDADES</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

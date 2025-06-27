@@ -24,7 +24,7 @@
 
             <div class="form-buttons">
                 <asp:Button ID="btnLogin" runat="server" Text="Login" OnClick="btnLogin_Click" />
-                <asp:Button ID="btnLogout" runat="server" Text="Sign up" OnClick="btnLogout_Click" />
+                <asp:Button ID="btnSignUp" runat="server" Text="Sign up" OnClick="btnSignUp_Click" />
             </div>
 
             <asp:Label ID="labelErrores" runat="server" CssClass="error-label" Visible="true"></asp:Label>
@@ -32,3 +32,15 @@
     </form>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
