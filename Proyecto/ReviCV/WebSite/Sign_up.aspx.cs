@@ -1,6 +1,6 @@
 ﻿using BE;
 using BLL;
-using DAL;
+using SERVICIOS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +22,7 @@ public partial class Sign_up : System.Web.UI.Page
         if (TbPassw1.Text == TbPassw2.Text)
         {
             GestorUsuario gestorUsuario = new GestorUsuario();
-            Usuario usuario = new Usuario(int.Parse(TbDNI.Text), TbNombre.Text, TbApellido.Text, TbUserName.Text, TbPassw1.Text, TbMail.Text);
+            Usuario usuario = new Usuario(int.Parse(TbDNI.Text), TbNombre.Text, TbApellido.Text, TbUserName.Text, Encriptador.Instancia.EncriptarContraseña(TbPassw1.Text), TbMail.Text);
             gestorUsuario.InsertarUsuario(usuario);
             ErrorContraseñasLB.Visible = true;
             ErrorContraseñasLB.ForeColor = System.Drawing.Color.Green;

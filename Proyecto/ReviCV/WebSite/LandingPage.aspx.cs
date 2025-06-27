@@ -14,7 +14,6 @@ public partial class LandingPage : System.Web.UI.Page
         {
             CargarRubros();
             CargarIdiomas();
-
         }
     }
 
