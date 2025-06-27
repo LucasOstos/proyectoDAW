@@ -34,23 +34,22 @@ namespace SERVICIOS
                 {
                     while(DR.Read())
                     {
-                        Bitacora log = new Bitacora(DR[0].ToString(), DR[1].ToString(), DR[2].ToString(), DR[3].ToString());
+                        Bitacora log = new Bitacora(DateTime.Parse(DR[0].ToString()), DR[1].ToString(), DR[2].ToString());
                         listaLogs.Add(log);
                     }
                 }
             }
             return listaLogs;
         }
-        public void GuardarLog(string pID, string pEvento, string pCriticidad, string pModulo)
+        public void GuardarLog(string pOperacion, string pUsuario)
         {
-            string query = "INSERT INTO Bitacora (ID, Evento, Criticidad, Modulo) VALUES (@ID, @Evento, @Criticidad, @Modulo)";
+            string query = "INSERT INTO Bitacora (Fecha, Operacion, Usuario) VALUES (@Fecha, @Operacion, @Usuario)";
             using (SqlCommand CM = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
             {
                 Conexion.Instancia.AbrirConexion();
-                CM.Parameters.AddWithValue("@ID", pID);
-                CM.Parameters.AddWithValue("@Evento", pEvento);
-                CM.Parameters.AddWithValue("@Criticidad", pCriticidad);
-                CM.Parameters.AddWithValue("@Modulo", pModulo);
+                CM.Parameters.AddWithValue("@Fecha", DateTime.Now);
+                CM.Parameters.AddWithValue("@Operacion", pOperacion);
+                CM.Parameters.AddWithValue("@Usuario", pUsuario);
                 CM.ExecuteNonQuery();
                 Conexion.Instancia.CerrarConexion();
             }

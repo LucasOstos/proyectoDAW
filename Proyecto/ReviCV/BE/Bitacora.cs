@@ -8,17 +8,15 @@ namespace BE
 {
     public class Bitacora
     {
-        public string ID {  get; set; }
-        public string Evento {  get; set; }
-        public string Criticidad {  get; set; }
-        public string Modulo {  get; set; }
+        public DateTime Fecha {  get; set; }
+        public string Operacion {  get; set; }
+        public string Usuario {  get; set; }        
 
-        public Bitacora(string pID, string pEvento, string pCriticidad, string pModulo)
+        public Bitacora(DateTime pFecha, string pOperacion, string pUsuario)
         {
-            ID = pID;
-            Evento = pEvento;
-            Criticidad = pCriticidad;
-            Modulo = pModulo;
+            Fecha = pFecha;
+            Operacion = pOperacion;
+            Usuario = pUsuario;
         }
     }
 }
