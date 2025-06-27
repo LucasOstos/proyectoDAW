@@ -27,8 +27,7 @@ public partial class Login : System.Web.UI.Page
                     if (Sesion.Instancia.Verificar(u.NombreUsuario, tbContraseña.Text))
                     {
                         Sesion.Instancia.LogIn(u);
-                        Session["username"] = $"{u.NombreUsuario}";
-                        Session["Rol"] = $"{u.Rol}";
+                        GuardarSession(u);
                         Response.Redirect("Probando Session.aspx");
                         labelErrores.ForeColor = System.Drawing.Color.Green; labelErrores.Text = "Bien virgo";
                     }
@@ -46,5 +45,15 @@ public partial class Login : System.Web.UI.Page
         Sesion.Instancia.LogOut();
         Session["username"] = null;
         Response.Redirect("Sign_Up.aspx");
+    }
+    public void GuardarSession(Usuario u)
+    {
+        Session["username"] = $"{u.NombreUsuario}";
+        Session["Rol"] = $"{u.Rol}";
+        Session["DNI"] = $"{u.DNI}";
+        Session["Nombre"] = $"{u.Nombre}";
+        Session["Apellido"] = $"{u.Apellido}";
+        Session["Mail"] = $"{u.Email}";
+        Session["Passw"] = $"{u.Password}";
     }
 }
