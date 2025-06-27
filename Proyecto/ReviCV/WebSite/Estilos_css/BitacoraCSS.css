@@ -1,0 +1,23 @@
+﻿body {
+}
+.contenedor{
+    text-align: center;
+}
+h1 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #2c3e50;
+}
+
+.gridview {
+    text-align: center;
+    padding-right: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    color: black;
+}
+
+.gridview Columns{
+    text-align: center;
+    padding-right: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    color: black;
+}

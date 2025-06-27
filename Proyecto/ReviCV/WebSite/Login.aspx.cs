@@ -25,6 +25,7 @@ public partial class Login : System.Web.UI.Page
                     {
                         Session["username"] = $"{u.NombreUsuario}";
                         Session["Rol"] = $"{u.Rol}";
+                        GestorBitacora.Instancia.GuardarLog("Login", Session["username"].ToString());
                         Response.Redirect("LandingPage.aspx");
                     }
                     else { labelErrores.ForeColor = System.Drawing.Color.Red; labelErrores.Text = "Credenciales incorrectas"; }
