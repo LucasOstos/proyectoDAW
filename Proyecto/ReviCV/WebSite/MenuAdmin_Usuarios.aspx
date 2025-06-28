@@ -7,163 +7,249 @@
     <title>Gestión de Usuarios</title>
     <style>
         html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: sans-serif;
-        }
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Cambiar de 100% a 100vh */
+    font-family: sans-serif;
+    overflow-x: hidden; /* Evitar scroll horizontal */
+}
 
-        .contenedor {
-            display: flex;
-            height: 100vh;
-        }
+.contenedor {
+    padding: 0; /* Quitar el padding de 30px */
+    max-width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    min-height: 100vh; /* Asegurar altura completa */
+    display: flex;
+    flex-direction: column;
+}
 
-        .barra-lateral {
-            width: 250px;
-            background-color: #2c3e50;
-            padding-top: 20px;
-        }
+.barra-lateral {
+    width: 250px;
+    background-color: #2c3e50;
+    padding-top: 20px;
+}
 
-        .boton-icono {
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #2980b9;
-            font-size: 16px;
-        }
+.boton-icono {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #2980b9;
+    font-size: 16px;
+}
 
-            .boton-icono:hover {
-                color: #1c598a;
-            }
+    .boton-icono:hover {
+        color: #1c598a;
+    }
 
-        .boton-enlace {
-            display: block;
-            padding: 15px 20px;
-            color: white;
-            background: none;
-            border: none;
-            width: 100%;
-            text-align: left;
-            font: inherit;
-            cursor: pointer;
-            text-decoration: none;
-        }
+.boton-enlace {
+    display: block;
+    padding: 15px 20px;
+    color: white;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+    text-decoration: none;
+}
 
-            .boton-enlace:hover {
-                background-color: #34495e;
-            }
+    .boton-enlace:hover {
+        background-color: #34495e;
+    }
 
-        .contenido-principal {
-            flex: 1;
-            padding: 30px;
-            background-color: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            min-width: 0;
-        }
+.contenido-principal {
+    flex: 1;
+    padding: 20px; /* Reducir padding de 30px a 20px */
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: calc(100vh - 60px); /* Restar altura del navbar */
+}
 
-        .seccion-tabla {
-            height: 100%;
-            min-height: 300px;
-            overflow-y: auto;
-            border: 1px solid #ccc;
-            background: white;
-            padding: 20px;
-            border-radius: 6px;
-            box-sizing: border-box;
-        }
+.seccion-tabla {
+    height: 100%;
+    min-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    background: white;
+    padding: 20px;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
 
-        .estilo-tabla {
-            width: 100%;
-            border-collapse: collapse;
-        }
+.estilo-tabla {
+    width: 100%;
+    border-collapse: collapse;
+}
 
-            .estilo-tabla th {
-                background-color: #2c3e50;
-                color: white;
-                text-align: left;
-                padding: 10px;
-            }
+    .estilo-tabla th {
+        background-color: #2c3e50;
+        color: white;
+        text-align: left;
+        padding: 10px;
+    }
 
-            .estilo-tabla td {
-                padding: 8px;
-                border-bottom: 1px solid #ddd;
-            }
+    .estilo-tabla td {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+    }
 
-        .fila-normal {
-            background-color: white;
-            transition: background-color 0.3s ease;
-        }
+.fila-normal {
+    background-color: white;
+    transition: background-color 0.3s ease;
+}
 
-        .fila-seleccionada {
-            background-color: #d6eaff !important;
-            font-weight: bold;
-        }
+.fila-seleccionada {
+    background-color: #d6eaff !important;
+    font-weight: bold;
+}
 
-        .seccion-inferior {
-            display: flex;
-            gap: 20px;
-        }
+.seccion-inferior {
+    display: flex;
+    gap: 20px;
+}
 
-        .seccion-abm, .seccion-filtro {
-            flex: 1;
-            background: white;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-        }
+.seccion-abm, .seccion-filtro {
+    flex: 1;
+    background: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
 
-        .campo-formulario {
-            width: 98%;
-            padding: 8px;
-            margin-bottom: 10px;
-            font-size: 14px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
+.campo-formulario {
+    width: 98%;
+    padding: 8px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 
-        .boton {
-            padding: 8px 12px;
-            border: none;
-            border-radius: 4px;
-            color: white;
-            cursor: pointer;
-            margin-right: 10px;
-        }
+.boton {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    margin-right: 10px;
+}
 
-        .boton-verde {
-            background-color: #27ae60;
-        }
+.boton-verde {
+    background-color: #27ae60;
+}
 
-        .boton-azul {
-            background-color: #2980b9;
-        }
+.boton-azul {
+    background-color: #2980b9;
+}
 
-        .boton-rojo {
-            background-color: #c0392b;
-        }
+.boton-rojo {
+    background-color: #c0392b;
+}
 
-        .boton-gris {
-            background-color: #7f8c8d;
-        }
+.boton-gris {
+    background-color: #7f8c8d;
+}
 
-        h2, h3 {
-            margin-top: 0;
-        }
+h2, h3 {
+    margin-top: 0;
+}
+
+.navbar {
+    background-color: #2c3e50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px; /* Reducir padding lateral de 30px a 20px */
+    height: 60px;
+    color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.navbar .logo {
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar .menu {
+    display: flex;
+    gap: 20px;
+}
+
+.menu-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px;
+    transition: background 0.3s ease;
+}
+
+.menu-button:hover {
+    background-color: #34495e;
+    border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+        padding: 10px 20px;
+    }
+
+    .navbar .menu {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .menu-button {
+        width: 100%;
+        justify-content: flex-start;
+    }
+}
     </style>
 </head>
 <body>
     <form runat="server">
         <div class="contenedor">
-            <div class="barra-lateral">
-     <asp:LinkButton ID="btnInicio" runat="server" OnClick="btnInicio_Click" CssClass="boton-enlace">Inicio</asp:LinkButton>
-     <asp:LinkButton ID="btnUsuarios" runat="server" OnClick="btnUsuarios_Click" CssClass="boton-enlace">Usuarios</asp:LinkButton>
-                <asp:LinkButton ID="btnRubrosIdiomas" runat="server" CssClass ="boton-enlace" OnClick="btnRubrosIdiomas_Click">Rubros e Idiomas</asp:LinkButton>
-     <asp:LinkButton ID="btnVolverALanding" runat="server" OnClick="btnVolverALanding_Click" CssClass="boton-enlace">Volver a búsqueda de CVs</asp:LinkButton>
-     <asp:LinkButton ID="btnBitacora" runat="server" CssClass="boton-enlace" OnClick="btnBitacora_Click">Bitácora</asp:LinkButton>
-     <asp:LinkButton ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" CssClass="boton-enlace">Cerrar Sesión</asp:LinkButton>
- </div>
+            <div class="navbar">
+    <div class="logo">
+        <i class="fa-solid fa-cogs"></i>
+        AdminPanel
+    </div>
+    <div class="menu">
+        <asp:LinkButton ID="btnInicio" runat="server" OnClick="btnInicio_Click" CssClass="menu-button">
+            <i class="fa fa-home"></i> Inicio
+        </asp:LinkButton>
+        <asp:LinkButton ID="btnUsuarios" runat="server" OnClick="btnUsuarios_Click" CssClass="menu-button">
+            <i class="fa fa-users"></i> Usuarios
+        </asp:LinkButton>
+        <asp:LinkButton ID="btnRubrosIdiomas" runat="server" OnClick="btnRubrosIdiomas_Click" CssClass="menu-button">
+            <i class="fa fa-language"></i> Rubros e Idiomas
+        </asp:LinkButton>
+        <asp:LinkButton ID="btnVolverALanding" runat="server" OnClick="btnVolverALanding_Click" CssClass="menu-button">
+            <i class="fa fa-arrow-left"></i> Volver
+        </asp:LinkButton>
+        <asp:LinkButton ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" CssClass="menu-button">
+            <i class="fa fa-sign-out-alt"></i> Cerrar Sesión
+        </asp:LinkButton>
+    </div>
+</div>
 
             <div class="contenido-principal">
                 <h2>Listado de Usuarios</h2>
