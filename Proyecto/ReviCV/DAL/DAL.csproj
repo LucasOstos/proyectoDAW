@@ -46,11 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnumTablasBD.cs" />
     <Compile Include="Tecnico\Conexion.cs" />
     <Compile Include="Negocio\CurriculumDAL.cs" />
     <Compile Include="Tecnico\IntegridadDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Negocio\UsuarioDAL.cs" />
+    <Compile Include="Tecnico\UsuarioDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BE\ENTIDADES.csproj">

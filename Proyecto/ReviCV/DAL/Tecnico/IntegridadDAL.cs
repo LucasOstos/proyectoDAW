@@ -1,171 +1,123 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL
 {
     public class IntegridadDAL
     {
-
-        public void SaveTableIntegrity(string tableName)
+        private readonly HashSet<string> tablasExcluidas = new HashSet<string>
         {
-            try
-            {
-                Dictionary<string, string> keyValues = DefineTableIntegrity(tableName);
+            TablasBD.DigitoVerificador.ToString(),
+            TablasBD.Bitacora.ToString()
+        };
 
-                string query = @"
-                    MERGE INTO TableVerifyDigitsTable AS target
-                    USING (SELECT @TableName AS TableName) AS source
-                    ON (target.TableName = source.TableName)
-                    WHEN MATCHED THEN 
-                        UPDATE SET HorizontalVerifyDigit = @HorizontalVerifyDigit, VerticalVerifyDigit = @VerticalVerifyDigit
-                    WHEN NOT MATCHED THEN
-                        INSERT (TableName, HorizontalVerifyDigit, VerticalVerifyDigit) 
-                        VALUES (@TableName, @HorizontalVerifyDigit, @VerticalVerifyDigit);";
-
-                using (SqlCommand cmd = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
-                {
-                    cmd.Parameters.AddWithValue("@TableName", tableName);
-                    cmd.Parameters.AddWithValue("@HorizontalVerifyDigit", keyValues["HVD"]);
-                    cmd.Parameters.AddWithValue("@VerticalVerifyDigit", keyValues["VVD"]);
-                    Conexion.Instancia.AbrirConexion();
-                    cmd.ExecuteNonQuery();
-                }
-
-            }
-            catch (Exception ex) { }
-            finally
-            {
-                Conexion.Instancia.CerrarConexion();
-            }
-        }
-
-        public bool CheckTableIntegrity(string tableName)
+        public List<string> ObtenerTablasAVerificar()
         {
-            try
+            var tablas = new List<string>();
+            using (var conn = Conexion.Instancia.ReturnConexion())
             {
-                Dictionary<string, string> keyValues = DefineTableIntegrity(tableName);
-
-                string query = $"SELECT * FROM TableVerifyDigitsTable WHERE TableName = '{tableName}'";
-
-                using (var conn = Conexion.Instancia.ReturnConexion())
+                string query = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE'";
+                using (var cmd = new SqlCommand(query, conn))
+                using (var reader = cmd.ExecuteReader())
                 {
-                    Conexion.Instancia.AbrirConexion();
-
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            string a = reader[1].ToString();
-                            if (reader[1].Equals(keyValues["HVD"]) && reader[2].Equals(keyValues["VVD"]))
-                            {
-                                Conexion.Instancia.CerrarConexion();
-                                return true;
-                            }
-                            else
-                            {
-                                Conexion.Instancia.CerrarConexion();
-                                return false;
-                            }
-                        }
+                        string nombreTabla = reader.GetString(0);
+                        if (!tablasExcluidas.Contains(nombreTabla))
+                            tablas.Add(nombreTabla);
                     }
                 }
-
-                Conexion.Instancia.CerrarConexion();
-                return false;
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return false;
-            }
-            finally
-            {
-                Conexion.Instancia.CerrarConexion();
-            }
+            return tablas;
         }
 
-        private string GenerateVerifyDigit(List<string[]> data)
+        public (List<string[]> filas, List<string[]> columnas) ObtenerDatosTabla(TablasBD tabla)
         {
-            //Guardo todos los datos hasheados
-            List<string> hashedData = new List<string>();
-
-            foreach (string[] row in data)
-            {
-                hashedData.Add(GenerateVerifyDigitUniqueRow(row));
-            }
-
-            return GenerateVerifyDigitUniqueRow(hashedData.ToArray());
-        }
-
-        private string GenerateVerifyDigitUniqueRow(string[] row)
-        {
-            //Guardo el hash actual
-            string actualData = null;
-
-            for (int i = 0; i < row.Length; i++)
-            {
-                //Le agrego el texto de la nueva posición al string
-                actualData += row[i];
-
-                //Hasheo el string para asegurarme evitar un overflow en tablas grandes
-                //actualData = Encriptadr(actualData);
-            }
-
-            return actualData;
-        }
-
-        private Dictionary<string, string> DefineTableIntegrity(string tableName)
-        {
-            var rows = new List<string[]>();
-            var columns = new List<string[]>(); // Cada elemento será un string[] que representa una columna
+            string nombreTabla = tabla.ToString();
+            var filas = new List<string[]>();
+            var columnas = new List<List<string>>();
 
             using (var conn = Conexion.Instancia.ReturnConexion())
             {
-                Conexion.Instancia.AbrirConexion();
 
-                // Obtener la cantidad de filas y columnas
-                int rowCount = (int)new SqlCommand($"SELECT COUNT(*) FROM {tableName};", conn).ExecuteScalar();
-                int colCount = (int)new SqlCommand($"SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '{tableName}';", conn).ExecuteScalar();
+                var colCountCmd = new SqlCommand("SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tabla", conn);
+                colCountCmd.Parameters.AddWithValue("@tabla", nombreTabla);
+                int colCount = (int)colCountCmd.ExecuteScalar();
 
-                // Inicializar la lista de columnas
                 for (int i = 0; i < colCount; i++)
-                {
-                    columns.Add(new string[rowCount]); // Inicializar cada columna como un array de strings
-                }
+                    columnas.Add(new List<string>());
 
-                // Cargar filas y columnas
-                using (var cmd = new SqlCommand($"SELECT * FROM {tableName};", conn))
+                using (var cmd = new SqlCommand($"SELECT * FROM {nombreTabla}", conn))
                 using (var reader = cmd.ExecuteReader())
                 {
-                    int currentRow = 0; // Para llevar el seguimiento de la fila actual
-
                     while (reader.Read())
                     {
-                        var rowData = new string[colCount];
-                        for (int col = 0; col < colCount; col++)
+                        var fila = new string[colCount];
+                        for (int i = 0; i < colCount; i++)
                         {
-                            rowData[col] = reader[col].ToString();
-                            columns[col][currentRow] = rowData[col]; // Asignar el valor a la columna correspondiente
+                            string val = reader[i].ToString();
+                            fila[i] = val;
+                            columnas[i].Add(val);
                         }
-                        rows.Add(rowData);
-                        currentRow++; // Avanzar a la siguiente fila
+                        filas.Add(fila);
                     }
                 }
             }
 
-            Conexion.Instancia.CerrarConexion();
+            var columnasFinales = new List<string[]>();
+            foreach (var col in columnas)
+                columnasFinales.Add(col.ToArray());
 
-            // Crear el diccionario de integridad
-            return new Dictionary<string, string>
+            return (filas, columnasFinales);
+        }
+
+        public void GuardarRegistroIntegridad(TablasBD tabla, string HVD, string VVD)
+        {
+            string nombreTabla = tabla.ToString();
+
+            string query = $@"
+                MERGE INTO {TablasBD.DigitoVerificador} AS destino
+                USING (SELECT @NombreTabla AS NombreTabla) AS origen
+                ON (destino.NombreTabla = origen.NombreTabla)
+                WHEN MATCHED THEN 
+                    UPDATE SET DigitoVerificadorHorizontal = @HVD, DigitoVerificadorVertical = @VVD
+                WHEN NOT MATCHED THEN
+                    INSERT (NombreTabla, DigitoVerificadorHorizontal, DigitoVerificadorVertical) 
+                    VALUES (@NombreTabla, @HVD, @VVD);";
+
+            using (var conn = Conexion.Instancia.ReturnConexion())
+            using (var cmd = new SqlCommand(query, conn))
             {
-                { "HVD", GenerateVerifyDigit(rows) ?? "0" },
-                { "VVD", GenerateVerifyDigit(columns) ?? "0" }
-            };
+                cmd.Parameters.AddWithValue("@NombreTabla", nombreTabla);
+                cmd.Parameters.AddWithValue("@HVD", HVD);
+                cmd.Parameters.AddWithValue("@VVD", VVD);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public (string HVD, string VVD)? LeerRegistroIntegridad(TablasBD tabla)
+        {
+            string nombreTabla = tabla.ToString();
+            string query = $@"
+                SELECT DigitoVerificadorHorizontal, DigitoVerificadorVertical 
+                FROM {TablasBD.DigitoVerificador} 
+                WHERE NombreTabla = @NombreTabla";
+
+            using (var conn = Conexion.Instancia.ReturnConexion())
+            using (var cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@NombreTabla", nombreTabla);
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return (reader.GetString(0), reader.GetString(1));
+                    }
+                }
+            }
+
+            return null;
         }
     }
 }

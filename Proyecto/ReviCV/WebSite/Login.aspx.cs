@@ -21,12 +21,11 @@ public partial class Login : System.Web.UI.Page
                 if (u != null)
                 {
                     Validador validador = new Validador();
-                    if (validador.Verificar(u.NombreUsuario, Encriptador.Instancia.EncriptarIrreversible(tbContraseña.Text)))
+                    Encriptador encriptador = new Encriptador();
+                    if (validador.Verificar(u.NombreUsuario, encriptador.EncriptarIrreversible(tbContraseña.Text)))
                     {
-                        Sesion.Instancia.LogIn(u);
                         GuardarSession(u);
                         Response.Redirect("Probando Session.aspx");
-                        labelErrores.ForeColor = System.Drawing.Color.Green; labelErrores.Text = "Bien virgo";
                     }
                     else { labelErrores.ForeColor = System.Drawing.Color.Red; labelErrores.Text = "Credenciales incorrectas"; }
                 }
