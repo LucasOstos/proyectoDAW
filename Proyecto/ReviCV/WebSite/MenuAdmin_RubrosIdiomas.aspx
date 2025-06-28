@@ -9,44 +9,74 @@
         html, body {
             margin: 0;
             padding: 0;
-            height: 100%;
+            height: 100vh;
             font-family: sans-serif;
+            overflow-x: hidden;
         }
 
         .contenedor {
+            padding: 0;
+            max-width: 100%;
+            margin: 0;
+            box-sizing: border-box;
+            min-height: 100vh;
             display: flex;
-            height: 100vh;
+            flex-direction: column;
         }
 
-        .barra-lateral {
-            width: 250px;
+        .navbar {
             background-color: #2c3e50;
-            padding-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            height: 60px;
+            color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        .boton-enlace {
-            display: block;
-            padding: 15px 20px;
-            color: white;
+        .navbar .logo {
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar .menu {
+            display: flex;
+            gap: 20px;
+        }
+
+        .menu-button {
             background: none;
             border: none;
-            width: 100%;
-            text-align: left;
-            font: inherit;
+            color: white;
+            font-size: 15px;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px;
+            transition: background 0.3s ease;
             text-decoration: none;
         }
 
-        .boton-enlace:hover {
+        .menu-button:hover {
             background-color: #34495e;
+            border-radius: 4px;
         }
 
         .contenido-principal {
             flex: 1;
-            padding: 30px;
+            padding: 20px;
             background-color: #f4f4f4;
             display: flex;
             gap: 30px;
+            min-height: calc(100vh - 60px);
+            box-sizing: border-box;
         }
 
         .seccion {
@@ -59,7 +89,7 @@
             flex-direction: column;
             gap: 20px;
             overflow-y: auto;
-            max-height: 90vh;
+            max-height: calc(100vh - 120px);
         }
 
         .cuadro-grilla {
@@ -140,18 +170,64 @@
         h2, h3 {
             margin-top: 0;
         }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                height: auto;
+                padding: 10px 20px;
+            }
+
+            .navbar .menu {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .menu-button {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .contenido-principal {
+                flex-direction: column;
+                min-height: calc(100vh - 140px);
+            }
+
+            .seccion {
+                max-height: none;
+            }
+        }
     </style>
 </head>
 <body>
 <form runat="server">
     <div class="contenedor">
-        <div class="barra-lateral">
-            <asp:LinkButton ID="btnInicio" runat="server" OnClick="btnInicio_Click" CssClass="boton-enlace">Inicio</asp:LinkButton>
-            <asp:LinkButton ID="btnUsuarios" runat="server" OnClick="btnUsuarios_Click" CssClass="boton-enlace">Usuarios</asp:LinkButton>
-            <asp:LinkButton ID="btnRubrosIdiomas" runat="server" CssClass="boton-enlace" OnClick="btnRubrosIdiomas_Click">Rubros e Idiomas</asp:LinkButton>
-            <asp:LinkButton ID="btnVolverALanding" runat="server" OnClick="btnVolverALanding_Click" CssClass="boton-enlace">Volver a búsqueda de CVs</asp:LinkButton>
-            <asp:LinkButton ID="btnBitacora" runat="server" OnClick="btnBitacora_Click" CssClass="boton-enlace">Bitácora</asp:LinkButton>
-            <asp:LinkButton ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" CssClass="boton-enlace">Cerrar Sesión</asp:LinkButton>
+        <div class="navbar">
+            <div class="logo">
+                <i class="fa-solid fa-cogs"></i>
+                AdminPanel
+            </div>
+            <div class="menu">
+                <asp:LinkButton ID="btnInicio" runat="server" OnClick="btnInicio_Click" CssClass="menu-button">
+                    <i class="fa fa-home"></i> Inicio
+                </asp:LinkButton>
+                <asp:LinkButton ID="btnUsuarios" runat="server" OnClick="btnUsuarios_Click" CssClass="menu-button">
+                    <i class="fa fa-users"></i> Usuarios
+                </asp:LinkButton>
+                <asp:LinkButton ID="btnRubrosIdiomas" runat="server" OnClick="btnRubrosIdiomas_Click" CssClass="menu-button">
+                    <i class="fa fa-language"></i> Rubros e Idiomas
+                </asp:LinkButton>
+                <asp:LinkButton ID="btnVolverALanding" runat="server" OnClick="btnVolverALanding_Click" CssClass="menu-button">
+                    <i class="fa fa-arrow-left"></i> Volver
+                </asp:LinkButton>
+                <asp:LinkButton ID="btnBitacora" runat="server" OnClick="btnBitacora_Click" CssClass="menu-button">
+                    <i class="fa fa-clipboard-list"></i> Bitácora
+                </asp:LinkButton>
+                <asp:LinkButton ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" CssClass="menu-button">
+                    <i class="fa fa-sign-out-alt"></i> Cerrar Sesión
+                </asp:LinkButton>
+            </div>
         </div>
 
         <div class="contenido-principal">
