@@ -1,4 +1,4 @@
-﻿using BE;
+﻿using ENTIDADES;
 using DAL;
 using System;
 using System.Collections.Generic;

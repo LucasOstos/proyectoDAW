@@ -1,4 +1,4 @@
-﻿using BE;
+﻿using ENTIDADES;
 
 public class Curriculum
 {

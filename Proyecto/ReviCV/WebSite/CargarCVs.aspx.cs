@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BLL;
-using BE;
+using ENTIDADES;
 using System.Runtime.CompilerServices;
 
 public partial class CargarCVs : System.Web.UI.Page

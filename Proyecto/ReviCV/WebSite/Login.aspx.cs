@@ -1,4 +1,4 @@
-﻿using BE;
+﻿using ENTIDADES;
 using BLL;
 using SERVICIOS;
 using System;

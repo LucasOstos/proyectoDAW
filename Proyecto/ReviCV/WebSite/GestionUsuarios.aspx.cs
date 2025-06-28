@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using BE;
+using ENTIDADES;
 using BLL;
 
 public partial class GestionUsuarios : System.Web.UI.Page
