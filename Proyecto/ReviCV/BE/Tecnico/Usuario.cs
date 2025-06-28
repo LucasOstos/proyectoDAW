@@ -36,5 +36,9 @@ namespace BE
             Email = pEmail;
             Rol = "Usuario";
         }
+        public Usuario()
+        {
+
+        }
     }
 }

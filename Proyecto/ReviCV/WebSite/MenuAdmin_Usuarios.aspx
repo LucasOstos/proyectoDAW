@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head runat="server">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
     <title>Gestión de Usuarios</title>
     <style>
         html, body {
@@ -22,7 +23,18 @@
             background-color: #2c3e50;
             padding-top: 20px;
         }
+        .btn-icon {
+              background: none;
+              border: none;
+              cursor: pointer;
+              color: #2980b9;
+              font-size: 16px;
 
+        }
+        .btn-icon:hover {
+            color: #1c598a;
+
+        }
         .link-button {
             display: block;
             padding: 15px 20px;
@@ -41,25 +53,55 @@
         }
 
         .main-content {
-            flex: 1;
-            padding: 30px;
-            background-color: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
+    flex: 1;
+    padding: 30px;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    min-width: 0;
+
         }
 
         .grid-section {
-            height: 300px;
-            overflow-y: auto;
-            border: 1px solid #ccc;
-            background: white;
-            padding: 10px;
+    height: 100%;
+    min-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    background: white;
+    padding: 20px;
+    border-radius: 6px;
+    box-sizing: border-box;
+
         }
 
-        .gridview-style td, .gridview-style th {
-            padding: 6px;
-        }
+       .gridview-style {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.gridview-style th {
+    background-color: #2c3e50;
+    color: white;
+    text-align: left;
+    padding: 10px;
+}
+
+.gridview-style td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+.fila-normal {
+    background-color: white;
+    transition: background-color 0.3s ease;
+}
+
+.fila-seleccionada {
+    background-color: #d6eaff !important; 
+    font-weight: bold;
+
+}
+
 
         .bottom-sections {
             display: flex;
@@ -115,16 +157,26 @@
             <div class="main-content">
                 <h2>Listado de Usuarios</h2>
                 <div class="grid-section">
-                    <asp:GridView ID="gvUsuarios" runat="server" AutoGenerateColumns="False" Width="100%" CssClass="gridview-style">
-                        <Columns>
-                            <asp:BoundField DataField="DNI" HeaderText="DNI" />
-                            <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-                            <asp:BoundField DataField="Apellido" HeaderText="Apellido" />
-                            <asp:BoundField DataField="NombreUsuario" HeaderText="Username" />
-                            <asp:BoundField DataField="Email" HeaderText="Email" />
-                            <asp:BoundField DataField="Rol" HeaderText="Rol" />
-                        </Columns>
-                    </asp:GridView>
+                    <asp:GridView ID="gvUsuarios" runat="server" AutoGenerateColumns="False" 
+    CssClass="gridview-style" Width="100%" OnSelectedIndexChanged="gvUsuarios_SelectedIndexChanged">
+    <RowStyle CssClass="fila-normal" /> <SelectedRowStyle CssClass="fila-seleccionada" /> 
+    <Columns>
+        <asp:TemplateField>
+            <ItemTemplate>
+                <asp:LinkButton ID="btnSeleccionar" runat="server" CommandName="Select" CssClass="btn-icon" ToolTip="Seleccionar">
+                     <i class="fa fa-arrow-right"></i>
+                </asp:LinkButton>
+            </ItemTemplate>
+        </asp:TemplateField>
+
+        <asp:BoundField DataField="DNI" HeaderText="DNI" />
+        <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+        <asp:BoundField DataField="Apellido" HeaderText="Apellido" />
+        <asp:BoundField DataField="NombreUsuario" HeaderText="Username" />
+        <asp:BoundField DataField="Email" HeaderText="Email" />
+        <asp:BoundField DataField="Rol" HeaderText="Rol" />
+    </Columns>
+</asp:GridView>
                 </div>
 
                 <div class="bottom-sections">
@@ -142,9 +194,9 @@
                             <asp:ListItem Text="Usuario" Value="User" />
                         </asp:DropDownList>
                         <div>
-                            <asp:Button ID="btnAgregar" runat="server" Text="Agregar" CssClass="btn btn-success" />
-                            <asp:Button ID="btnModificar" runat="server" Text="Modificar" CssClass="btn btn-primary" />
-                            <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger" />
+                            <asp:Button ID="btnAgregar" runat="server" Text="Agregar" CssClass="btn btn-success" OnClick="btnAgregar_Click" />
+                            <asp:Button ID="btnModificar" runat="server" Text="Modificar" CssClass="btn btn-primary" OnClick="btnModificar_Click" />
+                            <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger" OnClick="btnEliminar_Click" />
                         </div>
                     </div>
 
@@ -159,8 +211,8 @@
                             <asp:ListItem Text="Recruiter" Value="Recruiter" />
                             <asp:ListItem Text="User" Value="User" />
                         </asp:DropDownList>
-                        <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" CssClass="btn btn-secondary" />
-                        <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" CssClass="btn btn-secondary" />
+                        <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" CssClass="btn btn-secondary" OnClick="btnFiltrar_Click" />
+                        <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" CssClass="btn btn-secondary" OnClick="btnLimpiar_Click" />
                     </div>
                 </div>
             </div>

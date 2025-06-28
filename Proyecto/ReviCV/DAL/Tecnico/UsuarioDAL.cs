@@ -34,6 +34,68 @@ namespace DAL
             Conexion.Instancia.CerrarConexion();
             return x;
         }
+        public List<Usuario> FiltrarUsuarios(string dni, string username, string email, string rol)
+        {
+            List<Usuario> lista = new List<Usuario>();
+            List<string> condiciones = new List<string>();
+            SqlCommand cmd = new SqlCommand();
+
+            string query = $"SELECT * FROM {TablasBD.Usuario}";
+
+            if (!string.IsNullOrWhiteSpace(dni))
+            {
+                condiciones.Add("DNI = @DNI");
+                cmd.Parameters.AddWithValue("@DNI", dni);
+            }
+
+            if (!string.IsNullOrWhiteSpace(username))
+            {
+                condiciones.Add("username LIKE @Username");
+                cmd.Parameters.AddWithValue("@Username", $"%{username}%");
+            }
+
+            if (!string.IsNullOrWhiteSpace(email))
+            {
+                condiciones.Add("Mail LIKE @Email");
+                cmd.Parameters.AddWithValue("@Email", $"%{email}%");
+            }
+
+            if (!string.IsNullOrWhiteSpace(rol))
+            {
+                condiciones.Add("Rol = @Rol");
+                cmd.Parameters.AddWithValue("@Rol", rol);
+            }
+
+            if (condiciones.Count > 0)
+            {
+                query += " WHERE " + string.Join(" AND ", condiciones);
+            }
+
+            cmd.CommandText = query;
+            cmd.Connection = Conexion.Instancia.ReturnConexion();
+
+            Conexion.Instancia.AbrirConexion();
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    Usuario u = new Usuario()
+                    {
+                        DNI = int.Parse(reader["DNI"].ToString()),
+                        Nombre = reader["Nombre"].ToString(),
+                        Apellido = reader["Apellido"].ToString(),
+                        NombreUsuario = reader["username"].ToString(),
+                        Password = reader["password"].ToString(),
+                        Email = reader["Mail"].ToString(),
+                        Rol = reader["Rol"].ToString()
+                    };
+                    lista.Add(u);
+                }
+            }
+            Conexion.Instancia.CerrarConexion();
+
+            return lista;
+        }
         public Usuario ObtenerUsuario(string pUsuario)
         {
             Usuario U = null;
@@ -72,7 +134,18 @@ namespace DAL
             }
             Conexion.Instancia.CerrarConexion();
         }
+        public void EliminarUsuario(string dni)
+        {
+            string query = $"DELETE FROM {TablasBD.Usuario} WHERE DNI = @DNI";
 
+            using (SqlCommand cm = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
+            {
+                Conexion.Instancia.AbrirConexion();
+                cm.Parameters.AddWithValue("@DNI", dni);
+                cm.ExecuteNonQuery();
+                Conexion.Instancia.CerrarConexion();
+            }
+        }
         public List<string> ObtenerTodosNombresUsuarios()
         {
             List<string> U = new List<string>();
@@ -91,7 +164,24 @@ namespace DAL
             Conexion.Instancia.CerrarConexion();
             return U;
         }
+        public void ModificarUsuario(Usuario U)
+        {
+            string query = $@"UPDATE {TablasBD.Usuario} SET Nombre = @Nombre,Apellido = @Apellido, username = @Username, password = @Pass, Mail = @Mail, Rol = @Rol WHERE DNI = @DNI";
 
+            using (SqlCommand cm = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
+            {
+                Conexion.Instancia.AbrirConexion();
+                cm.Parameters.AddWithValue("@Nombre", U.Nombre);
+                cm.Parameters.AddWithValue("@Apellido", U.Apellido);
+                cm.Parameters.AddWithValue("@Username", U.NombreUsuario);
+                cm.Parameters.AddWithValue("@Pass", U.Password);
+                cm.Parameters.AddWithValue("@Mail", U.Email);
+                cm.Parameters.AddWithValue("@Rol", U.Rol);
+                cm.Parameters.AddWithValue("@DNI", U.DNI);
+                cm.ExecuteNonQuery();
+                Conexion.Instancia.CerrarConexion();
+            }
+        }
         public List<Usuario> ObtenerTodosUsuarios()
         {
             List<Usuario> usuarios = new List<Usuario>();

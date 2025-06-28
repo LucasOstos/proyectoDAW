@@ -23,9 +23,18 @@ namespace BLL
             usuarioDAL.InsertarUsuario(pUsuario);
 
             GestorIntegridad gestorIntegridad = new GestorIntegridad();
-            gestorIntegridad.GuardarIntegridad(TablasBD.Usuario);
+           // gestorIntegridad.GuardarIntegridad(TablasBD.Usuario);
         }
-
+        public void EliminarUsuario(string dni)
+        {
+            UsuarioDAL usuarioDAL=new UsuarioDAL();
+            usuarioDAL.EliminarUsuario(dni);
+        }
+        public void ModificarUsuario(Usuario nuevo)
+        {
+            UsuarioDAL usuarioDAL = new UsuarioDAL();
+            usuarioDAL.ModificarUsuario(nuevo);
+        }
         public List<string> ObtenerTodosNombresUsuarios()
         {
             UsuarioDAL usuarioDAL = new UsuarioDAL();
@@ -36,6 +45,11 @@ namespace BLL
         {
             UsuarioDAL usuarioDAL = new UsuarioDAL();
             return usuarioDAL.ObtenerTodosUsuarios();
+        }
+        public List<Usuario> FiltrarUsuarios(string dni, string username, string email, string rol)
+        {
+            UsuarioDAL usuarioDAL = new UsuarioDAL();
+            return usuarioDAL.FiltrarUsuarios(dni, username, email, rol);
         }
     }
 }
