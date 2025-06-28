@@ -10,15 +10,6 @@ namespace DAL
 {
     public class UsuarioDAL
     {
-        private static UsuarioDAL instancia;
-        public static UsuarioDAL Instancia
-        {
-            get
-            {
-                if (instancia == null) { instancia = new UsuarioDAL(); }
-                return instancia;
-            }
-        }
         public bool ValidarUsuario(string pUsuario, string Contra)
         {
             bool x = false;

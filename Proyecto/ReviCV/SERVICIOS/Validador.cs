@@ -12,7 +12,8 @@ namespace SERVICIOS
     {
         public bool Verificar(string pUsuario, string pContra)
         {            
-            return UsuarioDAL.Instancia.ValidarUsuario(pUsuario, pContra);
+            UsuarioDAL usuarioDAL = new UsuarioDAL();
+            return usuarioDAL.ValidarUsuario(pUsuario, pContra);
         }
     }
 }
