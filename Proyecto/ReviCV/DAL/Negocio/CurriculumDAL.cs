@@ -11,7 +11,7 @@ namespace DAL
     {
         public void GuardarCurriculum(Curriculum cv)
         {
-            string query = "INSERT INTO Curriculum (UsernameUsuario, Curriculum, Idioma, Rubro) VALUES (@UsernameUsuario, @Curriculum, @Idioma, @Rubro)";
+            string query = $"INSERT INTO {TablasBD.Curriculum} (UsernameUsuario, Curriculum, Idioma, Rubro) VALUES (@UsernameUsuario, @Curriculum, @Idioma, @Rubro)";
 
             using (SqlCommand cmd = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
             {
@@ -39,7 +39,7 @@ namespace DAL
             List<SqlParameter> parametros = new List<SqlParameter>();
 
             // Consulta base con TOP 1 y selección aleatoria
-            string queryBase = "SELECT TOP 1 ID_CV, UsernameUsuario, Curriculum FROM Curriculum WHERE 1=1";
+            string queryBase = $"SELECT TOP 1 ID_CV, UsernameUsuario, Curriculum FROM {TablasBD.Curriculum} WHERE 1=1";
 
             // Agregar filtros dinámicamente
             if (!string.IsNullOrEmpty(rubro))
@@ -106,7 +106,7 @@ namespace DAL
         {
             Curriculum cv = null;
 
-            string query = "SELECT ID_CV, UsernameUsuario, Curriculum FROM Curriculum WHERE ID_CV = @ID";
+            string query = $"SELECT ID_CV, UsernameUsuario, Curriculum FROM {TablasBD.Curriculum} WHERE ID_CV = @ID";
 
             using (SqlConnection conn = Conexion.Instancia.ReturnConexion())
             {
@@ -158,7 +158,7 @@ namespace DAL
         public Dictionary<int, string> ObtenerIdiomas()
         {
             Dictionary<int, string> idiomas = new Dictionary<int, string>();
-            string query = "SELECT ID_Idioma, Idioma FROM Idioma";
+            string query = $"SELECT ID_Idioma, Idioma FROM {TablasBD.Idioma}";
 
             using (SqlConnection conn = Conexion.Instancia.ReturnConexion())
             {
@@ -184,7 +184,7 @@ namespace DAL
         public Dictionary<int, string> ObtenerRubros()
         {
             Dictionary<int, string> rubros = new Dictionary<int, string>();
-            string query = "SELECT ID_Rubro, Rubro FROM Rubro";
+            string query = $"SELECT ID_Rubro, Rubro FROM {TablasBD.Rubro}";
 
             using (SqlConnection conn = Conexion.Instancia.ReturnConexion())
             {

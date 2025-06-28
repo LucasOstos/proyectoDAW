@@ -31,5 +31,11 @@ namespace BLL
             UsuarioDAL usuarioDAL = new UsuarioDAL();
             return usuarioDAL.ObtenerTodosNombresUsuarios();
         }
+
+        public List<Usuario> ObtenerTodosUsuarios()
+        {
+            UsuarioDAL usuarioDAL = new UsuarioDAL();
+            return usuarioDAL.ObtenerTodosUsuarios();
+        }
     }
 }

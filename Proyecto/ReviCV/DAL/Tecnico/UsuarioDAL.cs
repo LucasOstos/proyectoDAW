@@ -91,5 +91,37 @@ namespace DAL
             Conexion.Instancia.CerrarConexion();
             return U;
         }
+
+        public List<Usuario> ObtenerTodosUsuarios()
+        {
+            List<Usuario> usuarios = new List<Usuario>();
+            string query = $"SELECT * FROM {TablasBD.Usuario}";
+
+            using (SqlCommand cm = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
+            {
+                Conexion.Instancia.AbrirConexion();
+                using (SqlDataReader dr = cm.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Usuario u = new Usuario
+                        (
+                            int.Parse(dr["DNI"].ToString()),
+                            dr["Nombre"].ToString(),
+                            dr["Apellido"].ToString(),
+                            dr["username"].ToString(),
+                            "",
+                            dr["Mail"].ToString(),
+                            dr["Rol"].ToString()
+                        );
+
+                        usuarios.Add(u);
+                    }
+                }
+            }
+            Conexion.Instancia.CerrarConexion();
+            return usuarios;
+        }
+
     }
 }

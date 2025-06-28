@@ -71,7 +71,9 @@ public partial class LandingPage : System.Web.UI.Page
         }
         else
         {
-            Response.Redirect("PanelUsuario.aspx");
+            if (Session["Rol"].ToString() == "Usuario") Response.Redirect("PanelUsuario.aspx");
+            if (Session["Rol"].ToString() == "Admin") Response.Redirect("MenuAdmin.aspx");
+            if (Session["Rol"].ToString() == "Webmaster") Response.Redirect("MenuWebmaster.aspx");
         }
     }
 }
