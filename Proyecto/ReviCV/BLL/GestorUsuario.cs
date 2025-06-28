@@ -23,7 +23,7 @@ namespace BLL
             usuarioDAL.InsertarUsuario(pUsuario);
 
             GestorIntegridad gestorIntegridad = new GestorIntegridad();
-           // gestorIntegridad.GuardarIntegridad(TablasBD.Usuario);
+           gestorIntegridad.GuardarIntegridad(TablasBD.Usuario);
         }
         public void EliminarUsuario(string dni)
         {
