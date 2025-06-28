@@ -21,10 +21,10 @@ public partial class Login : System.Web.UI.Page
                 if (u != null)
                 {
                     Validador validador = new Validador();
-                    if (validador.Verificar(u.NombreUsuario, Encriptador.Instancia.EncriptarContraseña(tbContraseña.Text)))
+                    Encriptador encriptador = new Encriptador();
+                    if (validador.Verificar(u.NombreUsuario, encriptador.EncriptarIrreversible(tbContraseña.Text)))
                     {
-                        Session["username"] = $"{u.NombreUsuario}";
-                        Session["Rol"] = $"{u.Rol}";
+                        GuardarSession(u);
                         GestorBitacora.Instancia.GuardarLog("Login", Session["username"].ToString());
                         Response.Redirect("LandingPage.aspx");
                     }
@@ -40,5 +40,10 @@ public partial class Login : System.Web.UI.Page
     protected void btnSignUp_Click(object sender, EventArgs e)
     {
         Response.Redirect("Sign_Up.aspx");
+    }
+    public void GuardarSession(Usuario u)
+    {
+        Session["username"] = $"{u.NombreUsuario}";
+        Session["Rol"] = $"{u.Rol}";
     }
 }

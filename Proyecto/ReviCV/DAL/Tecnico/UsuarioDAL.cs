@@ -10,19 +10,10 @@ namespace DAL
 {
     public class UsuarioDAL
     {
-        private static UsuarioDAL instancia;
-        public static UsuarioDAL Instancia
-        {
-            get
-            {
-                if (instancia == null) { instancia = new UsuarioDAL(); }
-                return instancia;
-            }
-        }
         public bool ValidarUsuario(string pUsuario, string Contra)
         {
             bool x = false;
-            string query = $"SELECT * FROM Usuario WHERE username = @username AND password = @password";
+            string query = $"SELECT * FROM {TablasBD.Usuario} WHERE username = @username AND password = @password";
             using (SqlCommand CM = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
             {
                 CM.Parameters.AddWithValue("@username", pUsuario);
@@ -46,7 +37,7 @@ namespace DAL
         public Usuario ObtenerUsuario(string pUsuario)
         {
             Usuario U = null;
-            string Query = $"SELECT * FROM Usuario WHERE username = @username";
+            string Query = $"SELECT * FROM {TablasBD.Usuario} WHERE username = @username";
             using (SqlCommand CM = new SqlCommand(Query, Conexion.Instancia.ReturnConexion()))
             {
                 Conexion.Instancia.AbrirConexion();
@@ -65,7 +56,7 @@ namespace DAL
 
         public void InsertarUsuario(Usuario U)
         {
-            string Query = $"INSERT INTO Usuario (DNI, Nombre, Apellido, username, password, Mail, Rol) VALUES (@DNI, @Nombre, @Apellido, @Username, @Pass, @Mail, @Rol)";
+            string Query = $"INSERT INTO {TablasBD.Usuario} (DNI, Nombre, Apellido, username, password, Mail, Rol) VALUES (@DNI, @Nombre, @Apellido, @Username, @Pass, @Mail, @Rol)";
 
             using (SqlCommand CM = new SqlCommand(Query, Conexion.Instancia.ReturnConexion()))
             {
@@ -85,7 +76,7 @@ namespace DAL
         public List<string> ObtenerTodosNombresUsuarios()
         {
             List<string> U = new List<string>();
-            string Query = $"SELECT * FROM Usuario";
+            string Query = $"SELECT * FROM {TablasBD.Usuario}";
             using (SqlCommand CM = new SqlCommand(Query, Conexion.Instancia.ReturnConexion()))
             {
                 Conexion.Instancia.AbrirConexion();

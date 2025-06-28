@@ -9,16 +9,6 @@ namespace DAL
 {
     public class CurriculumDAL
     {
-        private static CurriculumDAL instancia;
-        public static CurriculumDAL Instancia
-        {
-            get
-            {
-                if (instancia == null) { instancia = new CurriculumDAL(); }
-                return instancia;
-            }
-        }
-
         public void GuardarCurriculum(Curriculum cv)
         {
             string query = "INSERT INTO Curriculum (UsernameUsuario, Curriculum, Idioma, Rubro) VALUES (@UsernameUsuario, @Curriculum, @Idioma, @Rubro)";
