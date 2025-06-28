@@ -191,7 +191,7 @@
                             <asp:ListItem Text="Seleccionar rol" Value="" />
                             <asp:ListItem Text="Administrador" Value="Admin" />
                             <asp:ListItem Text="Reclutador" Value="Recruiter" />
-                            <asp:ListItem Text="Usuario" Value="User" />
+                            <asp:ListItem Text="Usuario" Value="Usuario" />
                         </asp:DropDownList>
                         <div>
                             <asp:Button ID="btnAgregar" runat="server" Text="Agregar" CssClass="btn btn-success" OnClick="btnAgregar_Click" />
@@ -209,7 +209,7 @@
                             <asp:ListItem Text="Todos los roles" Value="" />
                             <asp:ListItem Text="Admin" Value="Admin" />
                             <asp:ListItem Text="Recruiter" Value="Recruiter" />
-                            <asp:ListItem Text="User" Value="User" />
+                            <asp:ListItem Text="Usuario" Value="Usuario" />
                         </asp:DropDownList>
                         <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" CssClass="btn btn-secondary" OnClick="btnFiltrar_Click" />
                         <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" CssClass="btn btn-secondary" OnClick="btnLimpiar_Click" />

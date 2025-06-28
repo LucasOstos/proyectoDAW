@@ -53,6 +53,7 @@
                 <asp:LinkButton ID="btnInicio" runat="server" OnClick="btnInicio_Click" CssClass="link-button">Inicio</asp:LinkButton>
                 <asp:LinkButton ID="btnUsuarios" runat="server" OnClick="btnUsuarios_Click" CssClass="link-button">Usuarios</asp:LinkButton>
                 <asp:LinkButton ID="btnVolverALanding" runat="server" OnClick="btnVolverALanding_Click" CssClass="link-button">Volver a búsqueda de CVs</asp:LinkButton>
+                <asp:LinkButton ID="btnBitacora" runat="server" CssClass="link-button" OnClick="btnBitacora_Click">Bitacora</asp:LinkButton>
                 <asp:LinkButton ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" CssClass="link-button">Cerrar Sesión</asp:LinkButton>
             </div>
             <div class="main-content">

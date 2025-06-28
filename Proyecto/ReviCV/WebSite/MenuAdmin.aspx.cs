@@ -23,4 +23,9 @@ public partial class MenuAdmin : Page
     {
         Response.Redirect("LandingPage.aspx");
     }
+
+    protected void btnBitacora_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("BitacoraPage.aspx");
+    }
 }
