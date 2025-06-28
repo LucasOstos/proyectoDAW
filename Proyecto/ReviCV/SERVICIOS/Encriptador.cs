@@ -9,18 +9,6 @@ namespace SERVICIOS
 {
     public class Encriptador
     {
-        private static Encriptador instancia;
-        public static Encriptador Instancia
-        {
-            get
-            {
-                if (instancia == null)
-                {
-                    instancia = new Encriptador();
-                }
-                return instancia;
-            }
-        }
         public string EncriptarIrreversible(string contraseña) //SHA256
         {
             using (SHA256 encrypt = SHA256.Create())

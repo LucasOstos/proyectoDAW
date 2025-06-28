@@ -50,7 +50,7 @@
     <Compile Include="Negocio\Curriculum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Negocio\Reseña.cs" />
-    <Compile Include="Negocio\Usuario.cs" />
+    <Compile Include="Tecnico\Usuario.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

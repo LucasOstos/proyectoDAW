@@ -1,5 +1,6 @@
 ﻿using BE;
 using DAL;
+using SERVICIOS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,17 +13,29 @@ namespace BLL
     {
         public Usuario ObtenerUsuario(string pUsuario)
         {
-            return UsuarioDAL.Instancia.ObtenerUsuario(pUsuario);
+            UsuarioDAL usuarioDAL = new UsuarioDAL();
+            return usuarioDAL.ObtenerUsuario(pUsuario);
         }
 
         public void InsertarUsuario(Usuario pUsuario)
         {
-            UsuarioDAL.Instancia.InsertarUsuario(pUsuario);
+            UsuarioDAL usuarioDAL = new UsuarioDAL();
+            usuarioDAL.InsertarUsuario(pUsuario);
+
+            GestorIntegridad gestorIntegridad = new GestorIntegridad();
+            gestorIntegridad.GuardarIntegridad(TablasBD.Usuario);
         }
 
         public List<string> ObtenerTodosNombresUsuarios()
         {
-            return UsuarioDAL.Instancia.ObtenerTodosNombresUsuarios();
+            UsuarioDAL usuarioDAL = new UsuarioDAL();
+            return usuarioDAL.ObtenerTodosNombresUsuarios();
+        }
+
+        public List<Usuario> ObtenerTodosUsuarios()
+        {
+            UsuarioDAL usuarioDAL = new UsuarioDAL();
+            return usuarioDAL.ObtenerTodosUsuarios();
         }
     }
 }

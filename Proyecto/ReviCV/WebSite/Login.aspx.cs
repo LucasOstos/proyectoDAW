@@ -21,11 +21,13 @@ public partial class Login : System.Web.UI.Page
                 if (u != null)
                 {
                     Validador validador = new Validador();
-                    if (validador.Verificar(u.NombreUsuario, Encriptador.Instancia.EncriptarIrreversible(tbContraseña.Text)))
+                    Encriptador encriptador = new Encriptador();
+                    if (validador.Verificar(u.NombreUsuario, encriptador.EncriptarIrreversible(tbContraseña.Text)))
                     {
                         GuardarSession(u);
-                        Response.Redirect("Probando Session.aspx");
-                        labelErrores.ForeColor = System.Drawing.Color.Green; labelErrores.Text = "Bien virgo";
+                        GestorBitacora.Instancia.GuardarLog("Login", Session["username"].ToString());
+                        Response.Redirect("LandingPage.aspx");
+                        Context.ApplicationInstance.CompleteRequest();
                     }
                     else { labelErrores.ForeColor = System.Drawing.Color.Red; labelErrores.Text = "Credenciales incorrectas"; }
                 }
@@ -40,14 +42,10 @@ public partial class Login : System.Web.UI.Page
     {
         Response.Redirect("Sign_Up.aspx");
     }
+
     public void GuardarSession(Usuario u)
     {
         Session["username"] = $"{u.NombreUsuario}";
         Session["Rol"] = $"{u.Rol}";
-        Session["DNI"] = $"{u.DNI}";
-        Session["Nombre"] = $"{u.Nombre}";
-        Session["Apellido"] = $"{u.Apellido}";
-        Session["Mail"] = $"{u.Email}";
-        Session["Passw"] = $"{u.Password}";
     }
 }
