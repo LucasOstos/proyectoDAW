@@ -13,29 +13,30 @@
             font-family: sans-serif;
         }
 
-        .container {
+        .contenedor {
             display: flex;
             height: 100vh;
         }
 
-        .sidebar {
+        .barra-lateral {
             width: 250px;
             background-color: #2c3e50;
             padding-top: 20px;
         }
-        .btn-icon {
-              background: none;
-              border: none;
-              cursor: pointer;
-              color: #2980b9;
-              font-size: 16px;
 
+        .boton-icono {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #2980b9;
+            font-size: 16px;
         }
-        .btn-icon:hover {
-            color: #1c598a;
 
-        }
-        .link-button {
+            .boton-icono:hover {
+                color: #1c598a;
+            }
+
+        .boton-enlace {
             display: block;
             padding: 15px 20px;
             color: white;
@@ -48,67 +49,64 @@
             text-decoration: none;
         }
 
-        .link-button:hover {
-            background-color: #34495e;
+            .boton-enlace:hover {
+                background-color: #34495e;
+            }
+
+        .contenido-principal {
+            flex: 1;
+            padding: 30px;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            min-width: 0;
         }
 
-        .main-content {
-    flex: 1;
-    padding: 30px;
-    background-color: #f4f4f4;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    min-width: 0;
-
+        .seccion-tabla {
+            height: 100%;
+            min-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            box-sizing: border-box;
         }
 
-        .grid-section {
-    height: 100%;
-    min-height: 300px;
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    background: white;
-    padding: 20px;
-    border-radius: 6px;
-    box-sizing: border-box;
-
+        .estilo-tabla {
+            width: 100%;
+            border-collapse: collapse;
         }
 
-       .gridview-style {
-    width: 100%;
-    border-collapse: collapse;
-}
+            .estilo-tabla th {
+                background-color: #2c3e50;
+                color: white;
+                text-align: left;
+                padding: 10px;
+            }
 
-.gridview-style th {
-    background-color: #2c3e50;
-    color: white;
-    text-align: left;
-    padding: 10px;
-}
+            .estilo-tabla td {
+                padding: 8px;
+                border-bottom: 1px solid #ddd;
+            }
 
-.gridview-style td {
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
-}
-.fila-normal {
-    background-color: white;
-    transition: background-color 0.3s ease;
-}
+        .fila-normal {
+            background-color: white;
+            transition: background-color 0.3s ease;
+        }
 
-.fila-seleccionada {
-    background-color: #d6eaff !important; 
-    font-weight: bold;
+        .fila-seleccionada {
+            background-color: #d6eaff !important;
+            font-weight: bold;
+        }
 
-}
-
-
-        .bottom-sections {
+        .seccion-inferior {
             display: flex;
             gap: 20px;
         }
 
-        .abm-section, .filter-section {
+        .seccion-abm, .seccion-filtro {
             flex: 1;
             background: white;
             padding: 20px;
@@ -116,8 +114,8 @@
             border-radius: 6px;
         }
 
-        .form-control {
-            width: 100%;
+        .campo-formulario {
+            width: 98%;
             padding: 8px;
             margin-bottom: 10px;
             font-size: 14px;
@@ -125,7 +123,7 @@
             border-radius: 4px;
         }
 
-        .btn {
+        .boton {
             padding: 8px 12px;
             border: none;
             border-radius: 4px;
@@ -134,10 +132,21 @@
             margin-right: 10px;
         }
 
-        .btn-success { background-color: #27ae60; }
-        .btn-primary { background-color: #2980b9; }
-        .btn-danger { background-color: #c0392b; }
-        .btn-secondary { background-color: #7f8c8d; }
+        .boton-verde {
+            background-color: #27ae60;
+        }
+
+        .boton-azul {
+            background-color: #2980b9;
+        }
+
+        .boton-rojo {
+            background-color: #c0392b;
+        }
+
+        .boton-gris {
+            background-color: #7f8c8d;
+        }
 
         h2, h3 {
             margin-top: 0;
@@ -146,77 +155,142 @@
 </head>
 <body>
     <form runat="server">
-        <div class="container">
-            <div class="sidebar">
-                <asp:LinkButton ID="btnInicio" runat="server" OnClick="btnInicio_Click" CssClass="link-button">Inicio</asp:LinkButton>
-                <asp:LinkButton ID="btnUsuarios" runat="server" OnClick="btnUsuarios_Click" CssClass="link-button">Usuarios</asp:LinkButton>
-                <asp:LinkButton ID="btnVolverALanding" runat="server" OnClick="btnVolverALanding_Click" CssClass="link-button">Volver a búsqueda de CVs</asp:LinkButton>
-                <asp:LinkButton ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" CssClass="link-button">Cerrar Sesión</asp:LinkButton>
+        <div class="contenedor">
+            <div class="barra-lateral">
+                <asp:LinkButton ID="btnInicio" runat="server" OnClick="btnInicio_Click" CssClass="boton-enlace">Inicio</asp:LinkButton>
+                <asp:LinkButton ID="btnUsuarios" runat="server" OnClick="btnUsuarios_Click" CssClass="boton-enlace">Usuarios</asp:LinkButton>
+                <asp:LinkButton ID="btnVolverALanding" runat="server" OnClick="btnVolverALanding_Click" CssClass="boton-enlace">Volver a búsqueda de CVs</asp:LinkButton>
+                <asp:LinkButton ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" CssClass="boton-enlace">Cerrar Sesión</asp:LinkButton>
             </div>
 
-            <div class="main-content">
+            <div class="contenido-principal">
                 <h2>Listado de Usuarios</h2>
-                <div class="grid-section">
-                    <asp:GridView ID="gvUsuarios" runat="server" AutoGenerateColumns="False" 
-    CssClass="gridview-style" Width="100%" OnSelectedIndexChanged="gvUsuarios_SelectedIndexChanged">
-    <RowStyle CssClass="fila-normal" /> <SelectedRowStyle CssClass="fila-seleccionada" /> 
-    <Columns>
-        <asp:TemplateField>
-            <ItemTemplate>
-                <asp:LinkButton ID="btnSeleccionar" runat="server" CommandName="Select" CssClass="btn-icon" ToolTip="Seleccionar">
-                     <i class="fa fa-arrow-right"></i>
-                </asp:LinkButton>
-            </ItemTemplate>
-        </asp:TemplateField>
+                <div class="seccion-tabla">
+                    <asp:GridView ID="gvUsuarios" runat="server" AutoGenerateColumns="False"
+                        CssClass="estilo-tabla" Width="100%">
+                        <RowStyle CssClass="fila-normal" />
+                        <SelectedRowStyle CssClass="fila-seleccionada" />
+                        <Columns>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <button type="button" class="boton-icono select-user-btn">
+                                        <i class="fa fa-arrow-right"></i>
+                                    </button>
+                                </ItemTemplate>
+                            </asp:TemplateField>
 
-        <asp:BoundField DataField="DNI" HeaderText="DNI" />
-        <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-        <asp:BoundField DataField="Apellido" HeaderText="Apellido" />
-        <asp:BoundField DataField="NombreUsuario" HeaderText="Username" />
-        <asp:BoundField DataField="Email" HeaderText="Email" />
-        <asp:BoundField DataField="Rol" HeaderText="Rol" />
-    </Columns>
-</asp:GridView>
+                            <asp:BoundField DataField="DNI" HeaderText="DNI" />
+                            <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+                            <asp:BoundField DataField="Apellido" HeaderText="Apellido" />
+                            <asp:BoundField DataField="NombreUsuario" HeaderText="Usuario" />
+                            <asp:BoundField DataField="Email" HeaderText="Email" />
+                            <asp:BoundField DataField="Rol" HeaderText="Rol" />
+                        </Columns>
+                    </asp:GridView>
                 </div>
 
-                <div class="bottom-sections">
-                    <div class="abm-section">
+                <div class="seccion-inferior">
+                    <div class="seccion-abm">
                         <h3>Creación de usuarios</h3>
-                        <asp:TextBox ID="txtDni" runat="server" CssClass="form-control" placeholder="DNI" />
-                        <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" placeholder="Nombre" />
-                        <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control" placeholder="Apellido" />
-                        <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control" placeholder="Username" />
-                        <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" placeholder="Email" TextMode="Email" />
-                        <asp:DropDownList ID="ddlRol" runat="server" CssClass="form-control">
-                            <asp:ListItem Text="Seleccionar rol" Value="" />
-                            <asp:ListItem Text="Administrador" Value="Admin" />
-                            <asp:ListItem Text="Reclutador" Value="Recruiter" />
-                            <asp:ListItem Text="Usuario" Value="Usuario" />
-                        </asp:DropDownList>
+                        <asp:TextBox ID="txtDni" runat="server" CssClass="campo-formulario" ClientIDMode="Static" placeholder="DNI" />
+                        <asp:TextBox ID="txtNombre" runat="server" CssClass="campo-formulario" ClientIDMode="Static" placeholder="Nombre" />
+                        <asp:TextBox ID="txtApellido" runat="server" CssClass="campo-formulario" ClientIDMode="Static" placeholder="Apellido" />
+                        <asp:TextBox ID="txtUsername" runat="server" CssClass="campo-formulario" ClientIDMode="Static" placeholder="Nombre de Usuario" />
+                        <asp:TextBox ID="txtEmail" runat="server" CssClass="campo-formulario" ClientIDMode="Static" placeholder="Email" />
+                        <asp:DropDownList ID="ddlRol" runat="server" CssClass="campo-formulario" ClientIDMode="Static" placeholder="Rol" />
                         <div>
-                            <asp:Button ID="btnAgregar" runat="server" Text="Agregar" CssClass="btn btn-success" OnClick="btnAgregar_Click" />
-                            <asp:Button ID="btnModificar" runat="server" Text="Modificar" CssClass="btn btn-primary" OnClick="btnModificar_Click" />
-                            <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger" OnClick="btnEliminar_Click" />
+                            <asp:Button ID="btnAgregar" runat="server" Text="Agregar" CssClass="boton boton-verde" OnClick="btnAgregar_Click" />
+                            <asp:Button ID="btnModificar" runat="server" Text="Modificar" CssClass="boton boton-azul" OnClick="btnModificar_Click" />
+                            <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="boton boton-rojo" OnClick="btnEliminar_Click" />
                         </div>
                     </div>
 
-                    <div class="filter-section">
+                    <div class="seccion-filtro">
                         <h3>Filtrar Usuarios</h3>
-                        <asp:TextBox ID="txtFiltroDni" runat="server" CssClass="form-control" placeholder="DNI" />
-                        <asp:TextBox ID="txtFiltroUsername" runat="server" CssClass="form-control" placeholder="Username" />
-                        <asp:TextBox ID="txtFiltroEmail" runat="server" CssClass="form-control" placeholder="Email" />
-                        <asp:DropDownList ID="ddlFiltroRol" runat="server" CssClass="form-control">
-                            <asp:ListItem Text="Todos los roles" Value="" />
-                            <asp:ListItem Text="Admin" Value="Admin" />
-                            <asp:ListItem Text="Recruiter" Value="Recruiter" />
-                            <asp:ListItem Text="Usuario" Value="Usuario" />
-                        </asp:DropDownList>
-                        <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" CssClass="btn btn-secondary" OnClick="btnFiltrar_Click" />
-                        <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" CssClass="btn btn-secondary" OnClick="btnLimpiar_Click" />
+                        <asp:TextBox ID="txtFiltroDni" runat="server" CssClass="campo-formulario" placeholder="DNI" />
+                        <asp:TextBox ID="txtFiltroUsername" runat="server" CssClass="campo-formulario" placeholder="Usuario" />
+                        <asp:TextBox ID="txtFiltroEmail" runat="server" CssClass="campo-formulario" placeholder="Email" />
+                        <asp:DropDownList ID="ddlFiltroRol" runat="server" CssClass="campo-formulario" />
+                        <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" CssClass="boton boton-gris" OnClick="btnFiltrar_Click" />
+                        <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" CssClass="boton boton-gris" OnClick="btnLimpiar_Click" />
                     </div>
                 </div>
             </div>
         </div>
     </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnAgregar = document.getElementById('<%= btnAgregar.ClientID %>');
+            const campos = [
+                { id: 'txtDni', tipo: 'texto' },
+                { id: 'txtNombre', tipo: 'texto' },
+                { id: 'txtApellido', tipo: 'texto' },
+                { id: 'txtUsername', tipo: 'texto' },
+                { id: 'txtEmail', tipo: 'texto' },
+                { id: 'ddlRol', tipo: 'seleccion' }
+            ];
+
+            function limpiarBorde(elemento) {
+                elemento.style.border = '';
+            }
+
+            campos.forEach(campo => {
+                const elemento = document.getElementById(campo.id);
+                if (!elemento) return;
+                elemento.addEventListener('focus', () => limpiarBorde(elemento));
+            });
+
+            btnAgregar.addEventListener('click', function (e) {
+                let todoOk = true;
+                campos.forEach(campo => {
+                    const elemento = document.getElementById(campo.id);
+                    if (!elemento) return;
+                    if (campo.tipo === 'texto' && !elemento.value.trim()) {
+                        elemento.style.border = '2px solid red';
+                        todoOk = false;
+                        setTimeout(() => limpiarBorde(elemento), 2500);
+                    }
+                    if (campo.tipo === 'seleccion' && !elemento.value) {
+                        elemento.style.border = '2px solid red';
+                        todoOk = false;
+                        setTimeout(() => limpiarBorde(elemento), 2500);
+                    }
+                });
+                if (!todoOk) e.preventDefault();
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const botonesSeleccionar = document.querySelectorAll('.select-user-btn');
+
+            botonesSeleccionar.forEach(boton => {
+                boton.addEventListener('click', function () {
+                    const fila = this.closest('tr');
+                    const celdas = fila.querySelectorAll('td');
+
+                    botonesSeleccionar.forEach(btn => {
+                        const otraFila = btn.closest('tr');
+                        otraFila.classList.remove('fila-seleccionada');
+                    });
+
+                    fila.classList.add('fila-seleccionada');
+
+                    document.getElementById('txtDni').value = decodeHTMLEntidades(celdas[1].innerHTML.trim());
+                    document.getElementById('txtNombre').value = decodeHTMLEntidades(celdas[2].innerHTML.trim());
+                    document.getElementById('txtApellido').value = decodeHTMLEntidades(celdas[3].innerHTML.trim());
+                    document.getElementById('txtUsername').value = decodeHTMLEntidades(celdas[4].innerHTML.trim());
+                    document.getElementById('txtEmail').value = decodeHTMLEntidades(celdas[5].innerHTML.trim());
+                    document.getElementById('ddlRol').value = decodeHTMLEntidades(celdas[6].innerHTML.trim());
+                });
+            });
+
+            function decodeHTMLEntidades(texto) {
+                const area = document.createElement('textarea');
+                area.innerHTML = texto;
+                return area.value;
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Web.UI;
 using System.Collections.Generic;
 using BE;
@@ -48,29 +49,37 @@ public partial class MenuAdmin_Usuarios : Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        CargarUsuarios();
+        if (!IsPostBack)
+        {
+            CargarUsuarios();
+            CargarRoles();
+        }
     }
+
 
     protected void btnAgregar_Click(object sender, EventArgs e)
     {
         Encriptador encriptador = new Encriptador();
-        if (int.TryParse(txtDni.Text, out int x) && txtNombre.Text != "" && txtApellido.Text != "" && txtUsername.Text != "" && txtEmail.Text != "" && ddlRol.SelectedValue != "")
+        if (int.TryParse(txtDni.Text, out int x) && !string.IsNullOrEmpty(txtNombre.Text) && !string.IsNullOrEmpty(txtApellido.Text) && !string.IsNullOrEmpty(txtUsername.Text) && !string.IsNullOrEmpty(txtEmail.Text) && !string.IsNullOrEmpty(ddlRol.SelectedValue))
         {
             Usuario usuario = new Usuario
-                    (
-                        int.Parse(txtDni.Text),
-                        txtNombre.Text,
-                        txtApellido.Text,
-                        txtUsername.Text,
-                        encriptador.EncriptarIrreversible(txtDni.Text),
-                        txtEmail.Text,
-                        ddlRol.SelectedValue
-                    );
+            (
+                int.Parse(txtDni.Text),
+                txtNombre.Text,
+                txtApellido.Text,
+                txtUsername.Text,
+                encriptador.EncriptarIrreversible(txtDni.Text),
+                txtEmail.Text,
+                ddlRol.SelectedValue
+            );
+
             GestorUsuario gestorUsuarios = new GestorUsuario();
             gestorUsuarios.InsertarUsuario(usuario);
             CargarUsuarios();
+            LimpiarTxt();
         }
     }
+
 
     protected void btnFiltrar_Click(object sender, EventArgs e)
     {
@@ -78,38 +87,29 @@ public partial class MenuAdmin_Usuarios : Page
         CargarUsuariosFiltrados(txtFiltroDni.Text, txtFiltroUsername.Text, txtFiltroEmail.Text, ddlFiltroRol.SelectedValue.ToString());
     }
 
-    protected void gvUsuarios_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        GridViewRow fila = gvUsuarios.SelectedRow;
-        txtDni.Text = fila.Cells[1].Text;
-        txtNombre.Text = fila.Cells[2].Text;
-        txtApellido.Text = fila.Cells[3].Text;
-        txtUsername.Text = fila.Cells[4].Text;
-        txtEmail.Text = fila.Cells[5].Text;
-        ddlRol.SelectedValue = fila.Cells[6].Text;
-    }
-
     protected void btnModificar_Click(object sender, EventArgs e)
     {
-        if (int.TryParse(txtDni.Text, out int x) && txtNombre.Text != "" && txtApellido.Text != "" && txtUsername.Text != "" && txtEmail.Text != "" && ddlRol.SelectedValue != "")
+        Encriptador encriptador = new Encriptador();
+        if (int.TryParse(txtDni.Text, out int x) && !string.IsNullOrEmpty(txtNombre.Text) && !string.IsNullOrEmpty(txtApellido.Text) && !string.IsNullOrEmpty(txtUsername.Text) && !string.IsNullOrEmpty(txtEmail.Text) && !string.IsNullOrEmpty(ddlRol.SelectedValue))
         {
             Usuario usuario = new Usuario
-                                        (
-                                            int.Parse(txtDni.Text),
-                                            txtNombre.Text,
-                                            txtApellido.Text,
-                                            txtUsername.Text,
-                                            txtDni.Text,
-                                            txtEmail.Text,
-                                            ddlRol.SelectedValue
-                                        );
+            (
+                int.Parse(txtDni.Text),
+                txtNombre.Text,
+                txtApellido.Text,
+                txtUsername.Text,
+                "",
+                txtEmail.Text,
+                ddlRol.SelectedValue
+            );
+
             GestorUsuario gestorUsuario = new GestorUsuario();
             gestorUsuario.ModificarUsuario(usuario);
             CargarUsuarios();
             LimpiarTxt();
         }
-            
     }
+
 
     protected void btnEliminar_Click(object sender, EventArgs e)
     {
@@ -143,4 +143,30 @@ public partial class MenuAdmin_Usuarios : Page
     {
         LimpiarFiltros();
     }
+
+    private void CargarRoles()
+    {
+        List<ListItem> roles = new List<ListItem>
+    {
+        new ListItem("Selecciona un rol", ""),
+        new ListItem("Administrador", "Admin"),
+        new ListItem("Webmaster", "Webmaster"),
+        new ListItem("Usuario", "Usuario")
+    };
+
+        // Desactivar la opción por defecto
+        roles[0].Attributes.Add("disabled", "true");
+        roles[0].Selected = true;
+
+        ddlRol.Items.Clear();
+        ddlFiltroRol.Items.Clear();
+
+        ddlRol.Items.AddRange(roles.ToArray());
+        ddlFiltroRol.Items.Add(new ListItem("Todos los roles", ""));
+        for (int i = 1; i < roles.Count; i++)
+        {
+            ddlFiltroRol.Items.Add(roles[i]);
+        }
+    }
+
 }

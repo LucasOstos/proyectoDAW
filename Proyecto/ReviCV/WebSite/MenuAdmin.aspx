@@ -11,18 +11,18 @@
             font-family: sans-serif;
         }
 
-        .container {
+        .contenedor {
             display: flex;
             height: 100vh;
         }
 
-        .sidebar {
+        .barra-lateral {
             width: 250px;
             background-color: #2c3e50;
             padding-top: 20px;
         }
 
-        .sidebar .link-button {
+        .barra-lateral .boton-enlace {
             display: block;
             padding: 15px 20px;
             color: white;
@@ -35,11 +35,11 @@
             cursor: pointer;
         }
 
-        .sidebar .link-button:hover {
+        .barra-lateral .boton-enlace:hover {
             background-color: #34495e;
         }
 
-        .main-content {
+        .contenido-principal {
             flex-grow: 1;
             padding: 30px;
             background-color: #f4f4f4;
@@ -48,15 +48,15 @@
 </head>
 <body>
     <form runat="server">
-        <div class="container">
-            <div class="sidebar">
-                <asp:LinkButton ID="btnInicio" runat="server" OnClick="btnInicio_Click" CssClass="link-button">Inicio</asp:LinkButton>
-                <asp:LinkButton ID="btnUsuarios" runat="server" OnClick="btnUsuarios_Click" CssClass="link-button">Usuarios</asp:LinkButton>
-                <asp:LinkButton ID="btnVolverALanding" runat="server" OnClick="btnVolverALanding_Click" CssClass="link-button">Volver a búsqueda de CVs</asp:LinkButton>
-                <asp:LinkButton ID="btnBitacora" runat="server" CssClass="link-button" OnClick="btnBitacora_Click">Bitacora</asp:LinkButton>
-                <asp:LinkButton ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" CssClass="link-button">Cerrar Sesión</asp:LinkButton>
+        <div class="contenedor">
+            <div class="barra-lateral">
+                <asp:LinkButton ID="btnInicio" runat="server" OnClick="btnInicio_Click" CssClass="boton-enlace">Inicio</asp:LinkButton>
+                <asp:LinkButton ID="btnUsuarios" runat="server" OnClick="btnUsuarios_Click" CssClass="boton-enlace">Usuarios</asp:LinkButton>
+                <asp:LinkButton ID="btnVolverALanding" runat="server" OnClick="btnVolverALanding_Click" CssClass="boton-enlace">Volver a búsqueda de CVs</asp:LinkButton>
+                <asp:LinkButton ID="btnBitacora" runat="server" CssClass="boton-enlace" OnClick="btnBitacora_Click">Bitácora</asp:LinkButton>
+                <asp:LinkButton ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" CssClass="boton-enlace">Cerrar Sesión</asp:LinkButton>
             </div>
-            <div class="main-content">
+            <div class="contenido-principal">
                 <h2>Bienvenido al panel de administración</h2>
                 <p>Seleccioná una opción del menú para comenzar.</p>
             </div>
