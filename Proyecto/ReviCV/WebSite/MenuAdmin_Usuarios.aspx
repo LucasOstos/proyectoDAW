@@ -245,9 +245,6 @@ h2, h3 {
         <asp:LinkButton ID="btnVolverALanding" runat="server" OnClick="btnVolverALanding_Click" CssClass="menu-button">
             <i class="fa fa-arrow-left"></i> Volver
         </asp:LinkButton>
-        <asp:LinkButton ID="btnBitacora" runat="server" OnClick="btnBitacora_Click" CssClass="menu-button">
-            <i class="fa fa-clipboard-list"></i> Bitácora
-        </asp:LinkButton>
         <asp:LinkButton ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" CssClass="menu-button">
             <i class="fa fa-sign-out-alt"></i> Cerrar Sesión
         </asp:LinkButton>
