@@ -174,4 +174,9 @@ public partial class MenuAdmin_Usuarios : Page
     {
 
     }
+
+    protected void btnRubrosIdiomas_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("MenuAdmin_RubrosIdiomas.aspx");
+    }
 }

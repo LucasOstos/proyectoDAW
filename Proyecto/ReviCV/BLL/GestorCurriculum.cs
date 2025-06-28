@@ -9,7 +9,7 @@ using SERVICIOS;
 
 namespace BLL
 {
-    public class GestorCurriculums
+    public class GestorCurriculum
     {
         public void GuardarCurriculum(Curriculum pCurriculum)
         {

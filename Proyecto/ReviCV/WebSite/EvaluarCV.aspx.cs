@@ -12,7 +12,7 @@ public partial class EvaluarCV : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            GestorCurriculums gCurriculums = new GestorCurriculums();
+            GestorCurriculum gCurriculums = new GestorCurriculum();
             Curriculum cvMostrar = gCurriculums.ObtenerCurriculumFiltrado(Session["RubroSeleccionado"].ToString(), Session["IdiomaSeleccionado"].ToString());
 
 
