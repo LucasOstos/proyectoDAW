@@ -23,7 +23,6 @@ public partial class Login : System.Web.UI.Page
                     Validador validador = new Validador();
                     if (validador.Verificar(u.NombreUsuario, Encriptador.Instancia.EncriptarIrreversible(tbContraseña.Text)))
                     {
-                        Sesion.Instancia.LogIn(u);
                         GuardarSession(u);
                         Response.Redirect("Probando Session.aspx");
                         labelErrores.ForeColor = System.Drawing.Color.Green; labelErrores.Text = "Bien virgo";

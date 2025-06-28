@@ -68,7 +68,7 @@
             <div id="fileList"></div>
 
             <!-- Botón de envío -->
-            <asp:Button ID="Button1" runat="server" Text="Subir Archivo" OnClick="Button1_Click" />
+            <asp:Button ID="Button1" runat="server" Text="Subir Archivo" OnClick="Button1_Click" Height="26px" />
             <br />
             <asp:Label ID="Confirmacion" runat="server" Text=""></asp:Label>
         </div>

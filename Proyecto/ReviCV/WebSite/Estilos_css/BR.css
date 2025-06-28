@@ -119,3 +119,12 @@ asp\\:TextBox, input[type="text"] {
     font-family: "Font Awesome 6 Free";
     font-weight: 900;
 }
+
+/* ----------- Label de Confirmación ----------- */
+.confirm-label {
+    display: block;
+    margin-top: 10px;
+    font-weight: 600;
+    color: #27ae60;
+    font-size: 14px;
+}
