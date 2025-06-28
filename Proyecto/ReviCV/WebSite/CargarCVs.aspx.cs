@@ -38,7 +38,7 @@ public partial class CargarCVs : System.Web.UI.Page
 
     private void CargarIdiomas()
     {
-        GestorCurriculums gCurriculums = new GestorCurriculums();
+        GestorCurriculum gCurriculums = new GestorCurriculum();
         var idiomas = gCurriculums.ObtenerIdiomas();
 
         ddlIdioma.DataSource = idiomas;
@@ -53,7 +53,7 @@ public partial class CargarCVs : System.Web.UI.Page
 
     private void CargarRubros()
     {
-        GestorCurriculums gCurriculums = new GestorCurriculums();
+        GestorCurriculum gCurriculums = new GestorCurriculum();
         var rubros = gCurriculums.ObtenerRubros();
 
         ddlRubro.DataSource = rubros;
@@ -91,7 +91,7 @@ public partial class CargarCVs : System.Web.UI.Page
                     cvActual.Idioma = (int.Parse(ddlIdioma.SelectedValue), ddlIdioma.SelectedItem.Text);
                     cvActual.Rubro = (int.Parse(ddlRubro.SelectedValue), ddlRubro.SelectedItem.Text);
 
-                    GestorCurriculums gCurriculum = new GestorCurriculums();
+                    GestorCurriculum gCurriculum = new GestorCurriculum();
                     gCurriculum.GuardarCurriculum(cvActual);
 
                     Confirmacion.Text = $"El CV se ha subido correctamente a la cuenta del usuario {DropDownList1.SelectedItem.Text.ToString()}";
@@ -110,7 +110,7 @@ public partial class CargarCVs : System.Web.UI.Page
             return;
         }
 
-        GestorCurriculums gCurriculum = new GestorCurriculums();
+        GestorCurriculum gCurriculum = new GestorCurriculum();
         Curriculum cvMostrar = gCurriculum.ObtenerCurriculumPorID(idCV);
 
         if (cvMostrar == null || cvMostrar.ArchivoCV == null)

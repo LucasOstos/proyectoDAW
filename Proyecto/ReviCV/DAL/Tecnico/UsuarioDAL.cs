@@ -166,7 +166,7 @@ namespace DAL
         }
         public void ModificarUsuario(Usuario U)
         {
-            string query = $@"UPDATE {TablasBD.Usuario} SET Nombre = @Nombre,Apellido = @Apellido, username = @Username, password = @Pass, Mail = @Mail, Rol = @Rol WHERE DNI = @DNI";
+            string query = $@"UPDATE {TablasBD.Usuario} SET Nombre = @Nombre,Apellido = @Apellido, username = @Username, Mail = @Mail, Rol = @Rol WHERE DNI = @DNI";
 
             using (SqlCommand cm = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
             {
@@ -174,7 +174,6 @@ namespace DAL
                 cm.Parameters.AddWithValue("@Nombre", U.Nombre);
                 cm.Parameters.AddWithValue("@Apellido", U.Apellido);
                 cm.Parameters.AddWithValue("@Username", U.NombreUsuario);
-                cm.Parameters.AddWithValue("@Pass", U.Password);
                 cm.Parameters.AddWithValue("@Mail", U.Email);
                 cm.Parameters.AddWithValue("@Rol", U.Rol);
                 cm.Parameters.AddWithValue("@DNI", U.DNI);

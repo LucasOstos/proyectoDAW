@@ -28,4 +28,9 @@ public partial class MenuAdmin : Page
     {
         Response.Redirect("BitacoraPage.aspx");
     }
+
+    protected void btnRubrosIdiomas_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("MenuAdmin_RubrosIdiomas.aspx");
+    }
 }

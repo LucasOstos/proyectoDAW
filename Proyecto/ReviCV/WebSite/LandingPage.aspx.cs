@@ -19,7 +19,7 @@ public partial class LandingPage : System.Web.UI.Page
 
     private void CargarIdiomas()
     {
-        GestorCurriculums gCurriculums = new GestorCurriculums();
+        GestorCurriculum gCurriculums = new GestorCurriculum();
         var idiomas = gCurriculums.ObtenerIdiomas();
 
         ddlIdioma.DataSource = idiomas;
@@ -34,7 +34,7 @@ public partial class LandingPage : System.Web.UI.Page
 
     private void CargarRubros()
     {
-        GestorCurriculums gCurriculums = new GestorCurriculums();
+        GestorCurriculum gCurriculums = new GestorCurriculum();
         var rubros = gCurriculums.ObtenerRubros();
 
         ddlRubro.DataSource = rubros;
