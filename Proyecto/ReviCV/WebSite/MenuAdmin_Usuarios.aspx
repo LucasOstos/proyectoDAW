@@ -157,11 +157,12 @@
     <form runat="server">
         <div class="contenedor">
             <div class="barra-lateral">
-                <asp:LinkButton ID="btnInicio" runat="server" OnClick="btnInicio_Click" CssClass="boton-enlace">Inicio</asp:LinkButton>
-                <asp:LinkButton ID="btnUsuarios" runat="server" OnClick="btnUsuarios_Click" CssClass="boton-enlace">Usuarios</asp:LinkButton>
-                <asp:LinkButton ID="btnVolverALanding" runat="server" OnClick="btnVolverALanding_Click" CssClass="boton-enlace">Volver a búsqueda de CVs</asp:LinkButton>
-                <asp:LinkButton ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" CssClass="boton-enlace">Cerrar Sesión</asp:LinkButton>
-            </div>
+     <asp:LinkButton ID="btnInicio" runat="server" OnClick="btnInicio_Click" CssClass="boton-enlace">Inicio</asp:LinkButton>
+     <asp:LinkButton ID="btnUsuarios" runat="server" OnClick="btnUsuarios_Click" CssClass="boton-enlace">Usuarios</asp:LinkButton>
+     <asp:LinkButton ID="btnVolverALanding" runat="server" OnClick="btnVolverALanding_Click" CssClass="boton-enlace">Volver a búsqueda de CVs</asp:LinkButton>
+     <asp:LinkButton ID="btnBitacora" runat="server" CssClass="boton-enlace" OnClick="btnBitacora_Click">Bitácora</asp:LinkButton>
+     <asp:LinkButton ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" CssClass="boton-enlace">Cerrar Sesión</asp:LinkButton>
+ </div>
 
             <div class="contenido-principal">
                 <h2>Listado de Usuarios</h2>

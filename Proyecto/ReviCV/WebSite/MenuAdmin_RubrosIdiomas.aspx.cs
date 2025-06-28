@@ -36,4 +36,9 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page
     {
 
     }
+
+    protected void btnBitacora_Click(object sender, EventArgs e)
+    {
+
+    }
 }

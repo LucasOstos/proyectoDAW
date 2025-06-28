@@ -169,4 +169,9 @@ public partial class MenuAdmin_Usuarios : Page
         }
     }
 
+
+    protected void btnBitacora_Click(object sender, EventArgs e)
+    {
+
+    }
 }
