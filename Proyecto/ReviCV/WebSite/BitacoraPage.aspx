@@ -11,15 +11,17 @@
 <body>
     <form id="form1" runat="server">
         <div class="contenedor">
-            <h1>Bitácora </h1>
+            <h1>Bitácora del sistema</h1>
         </div>
-        <asp:GridView ID="gvBitacora" runat="server" AutoGenerateColumns="False" CssClass="table">
-            <Columns>
-                <asp:BoundField DataField="Fecha" HeaderText="Fecha" DataFormatString="{0:dd/MM/yyyy HH:mm}" />
-                <asp:BoundField DataField="Operacion" HeaderText="Operación" />
-                <asp:BoundField DataField="Usuario" HeaderText="Usuario" />
-            </Columns>
-        </asp:GridView>
+        <div>
+            <asp:GridView ID="gvBitacora" runat="server" AutoGenerateColumns="False" CssClass="tabla-bitacora">
+                <Columns>
+                    <asp:BoundField DataField="Fecha" HeaderText="Fecha" DataFormatString="{0:dd/MM/yyyy HH:mm}"/>
+                    <asp:BoundField DataField="Operacion" HeaderText="Operación"/>
+                    <asp:BoundField DataField="Usuario" HeaderText="Usuario"/>
+                </Columns>
+            </asp:GridView>
+        </div>
     </form>
 </body>
 </html>

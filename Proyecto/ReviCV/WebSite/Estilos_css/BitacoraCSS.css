@@ -1,23 +1,40 @@
 ﻿body {
 }
-.contenedor{
-    text-align: center;
+.contenedor {
+    text-align: left;
 }
 h1 {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: #2c3e50;
 }
 
-.gridview {
-    text-align: center;
-    padding-right: 20px;
-    font-family: 'Times New Roman', Times, serif;
-    color: black;
+.tabla-bitacora {
+    width: 100%;
+    margin: 20px auto;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 15px;
+    color: #333;
 }
 
-.gridview Columns{
+.tabla-bitacora td {
+    border: 2px solid #ddd;
+    padding: 12px 15px;
     text-align: center;
-    padding-right: 20px;
-    font-family: 'Times New Roman', Times, serif;
+}
+
+.tabla-bitacora th {
+    border: 2px solid #ddd;
+    padding: 12px 15px;
+    text-align: center;
+    background-color: #e0e0e0;
     color: black;
+    font-weight: 600;
+}    
+
+.tabla-bitacora tr{
+    background-color: #fafafa;
+}
+.tabla-bitacora tr:hover {
+    background-color: #e5e5e5;
+    transition: background-color 0.4s ease;
 }
