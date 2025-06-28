@@ -289,9 +289,10 @@
 
                 <div class="seccion-comentario">
                     <p>Agrega un comentario adicional para ayudar a <strong>DANIELA</strong>!</p>
-                    <textarea placeholder="¿Qué le recomendarías a DANIELA?"></textarea>
+                    <asp:TextBox ID="txtComentarios" runat="server" TextMode="MultiLine" CssClass="comentarios-textarea" placeholder="¿Qué le recomendarías a DANIELA?" />
+
                     <br />
-                    <button class="boton-enviar">¡Enviá tu reseña!</button>
+                    <asp:Button ID="enviar" class="boton-enviar" runat="server" Text="¡Enviá tu reseña!" OnClick="enviar_Click" />
                 </div>
             </div>
         </div>
