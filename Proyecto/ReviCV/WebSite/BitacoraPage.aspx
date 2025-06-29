@@ -38,6 +38,7 @@
         <div>
             <asp:GridView ID="gvBitacora" runat="server" AutoGenerateColumns="False" CssClass="tabla-bitacora">
                 <Columns>
+                    <asp:BoundField DataField="ID" HeaderText="ID"/>
                     <asp:BoundField DataField="Fecha" HeaderText="Fecha" DataFormatString="{0:dd/MM/yyyy HH:mm}"/>
                     <asp:BoundField DataField="Operacion" HeaderText="Operación"/>
                     <asp:BoundField DataField="Usuario" HeaderText="Usuario"/>

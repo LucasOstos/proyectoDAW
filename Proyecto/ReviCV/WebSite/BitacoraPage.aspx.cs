@@ -72,7 +72,7 @@ public partial class BitacoraPage : System.Web.UI.Page
             {
                 while (dr.Read())
                 {
-                    Bitacora log = new Bitacora(DateTime.Parse(dr["Fecha"].ToString()), dr["Operacion"].ToString(), dr["Usuario"].ToString());
+                    Bitacora log = new Bitacora(int.Parse(dr["ID"].ToString()), DateTime.Parse(dr["Fecha"].ToString()), dr["Operacion"].ToString(), dr["Usuario"].ToString());
                     listaLogs.Add(log);
                 }
             }
