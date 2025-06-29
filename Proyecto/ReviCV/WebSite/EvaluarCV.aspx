@@ -20,12 +20,6 @@
             font-size: 1.1rem; 
         }
 
-        body.swal2-shown {
-    padding-right: 0 !important;
-    overflow: hidden !important;
-}
-
-
         .contenedor {
             display: flex;
             gap: 66px;
@@ -295,8 +289,9 @@
                 </div>
 
                 <div class="seccion-comentario">
-                    <p>Agrega un comentario adicional para ayudar a <strong>DANIELA</strong>!</p>
-                    <asp:TextBox ID="txtComentarios" runat="server" TextMode="MultiLine" CssClass="comentarios-textarea" placeholder="¿Qué le recomendarías a DANIELA?" />
+                    <p id="pComentario" runat="server"></p>
+
+                    <asp:TextBox ID="txtComentarios" runat="server" TextMode="MultiLine" CssClass="comentarios-textarea"/>
 
                     <br />
                     <asp:Button ID="enviar" class="boton-enviar" runat="server" Text="¡Enviá tu reseña!" OnClick="enviar_Click" />

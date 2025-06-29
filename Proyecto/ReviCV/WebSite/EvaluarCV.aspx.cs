@@ -1,11 +1,12 @@
 ﻿using BLL;
+using ENTIDADES;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using ENTIDADES;
+using System.Web.UI.WebControls.WebParts;
 
 public partial class EvaluarCV : System.Web.UI.Page
 {
@@ -42,6 +43,10 @@ public partial class EvaluarCV : System.Web.UI.Page
                 // Mostrar imagen (asumimos png/jpg)
                 VisorCV.Text = $"<img src='data:image;base64,{base64String}' style='max-width:100%; max-height:100%; object-fit: contain;' alt='CV imagen' />";
             }
+
+            pComentario.InnerHtml = $"Agrega un comentario adicional para ayudar a <strong>{cvMostrar.Usuario.Nombre.ToUpper()}</ strong >!";
+            txtComentarios.Attributes["placeholder"] = $"¿Qué le recomendarias a {cvMostrar.Usuario.Nombre.ToUpper()}?";
+
         }
     }
 
