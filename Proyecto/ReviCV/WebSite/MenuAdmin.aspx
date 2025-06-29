@@ -47,6 +47,7 @@
             gap: 6px;
             padding: 10px;
             transition: background 0.3s ease;
+            text-decoration: none;
         }
 
         .menu-button:hover {
@@ -113,7 +114,7 @@
         <div class="navbar">
             <div class="logo">
                 <i class="fa-solid fa-cogs"></i>
-                AdminPanel
+                Panel de administración
             </div>
             <div class="menu">
                 <asp:LinkButton ID="btnInicio" runat="server" OnClick="btnInicio_Click" CssClass="menu-button">
