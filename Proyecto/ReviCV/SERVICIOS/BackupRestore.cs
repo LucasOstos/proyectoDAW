@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,10 +20,10 @@ namespace SERVICIOS
                 return Instance;
             }
         }
-        public void RealizarBackup(string backupPath)
+        public string RealizarBackup(string backupPath)
         {
             string nombreArchivo = $"ProyectoDAW_{DateTime.Now:ddMMyy_HHmm}.bak";
-            string rutaCompleta = System.IO.Path.Combine(backupPath, nombreArchivo);
+            string rutaCompleta = Path.Combine(backupPath, nombreArchivo);
             string comandoBackup = $"BACKUP DATABASE Proyecto_DAW TO DISK='{rutaCompleta}'";
 
             using (SqlCommand cmd = new SqlCommand(comandoBackup, Conexion.Instancia.ReturnConexion()))
@@ -31,6 +32,8 @@ namespace SERVICIOS
                 cmd.ExecuteNonQuery();
                 Conexion.Instancia.CerrarConexion();
             }
+
+            return rutaCompleta;
         }
         public void RealizarRestore(string backupFilePath)
         {
