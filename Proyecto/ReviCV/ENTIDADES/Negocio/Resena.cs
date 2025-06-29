@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BE
+namespace ENTIDADES
 {
     public class Resena
     {
@@ -17,7 +17,7 @@ namespace BE
         public int Relevancia { get; set; }
         public string Comentarios { get; set; }
 
-        public Resena(int idReseña, int idCV, string nUsuarioReseñador, int nDiseno, int nClaridad, int nRelevancia, string comentarios)
+        public Resena(int idReseña, int idCV, string nUsuarioReseñador, int nDiseno, int nClaridad, int nRelevancia, string comentarios, int a)
         {
             ID_Resena = idReseña;
             ID_CV = idCV;

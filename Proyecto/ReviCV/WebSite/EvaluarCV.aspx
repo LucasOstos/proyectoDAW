@@ -20,6 +20,12 @@
             font-size: 1.1rem; 
         }
 
+        body.swal2-shown {
+    padding-right: 0 !important;
+    overflow: hidden !important;
+}
+
+
         .contenedor {
             display: flex;
             gap: 66px;
@@ -209,6 +215,7 @@
 </head>
 <body>
      <form id="form1" runat="server">
+         <asp:ScriptManager ID="ScriptManager1" runat="server" />
         <div class="user-icon">
             <asp:ImageButton ID="imgUserIcon" runat="server" ImageUrl="Imagenes/userIcon.png" OnClick="imgUserIcon_Click" CssClass="auto-style1" />
         </div>
@@ -297,5 +304,8 @@
             </div>
         </div>
     </form>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </body>
 </html>

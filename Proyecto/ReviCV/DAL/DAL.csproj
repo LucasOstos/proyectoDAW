@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumTablasBD.cs" />
+    <Compile Include="Negocio\ResenaDAL.cs" />
     <Compile Include="Tecnico\Conexion.cs" />
     <Compile Include="Negocio\CurriculumDAL.cs" />
     <Compile Include="Tecnico\IntegridadDAL.cs" />
@@ -54,13 +55,13 @@
     <Compile Include="Tecnico\UsuarioDAL.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BE\ENTIDADES.csproj">
-      <Project>{61b47825-c92d-4065-ace4-64f65fe66eb0}</Project>
-      <Name>ENTIDADES</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\ENTIDADES\ENTIDADES.csproj">
+      <Project>{4c62b0bb-9fa5-4ab7-a8d0-a055f4b06a35}</Project>
+      <Name>ENTIDADES</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
