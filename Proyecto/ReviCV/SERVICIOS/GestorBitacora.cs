@@ -1,4 +1,4 @@
-﻿using BE;
+﻿using ENTIDADES;
 using DAL;
 using System;
 using System.Collections.Generic;
@@ -34,7 +34,7 @@ namespace SERVICIOS
                 {
                     while(DR.Read())
                     {
-                        Bitacora log = new Bitacora(DateTime.Parse(DR[0].ToString()), DR[1].ToString(), DR[2].ToString());
+                        Bitacora log = new Bitacora(int.Parse(DR[0].ToString()), DateTime.Parse(DR[1].ToString()), DR[2].ToString(), DR[3].ToString());
                         listaLogs.Add(log);
                     }
                 }

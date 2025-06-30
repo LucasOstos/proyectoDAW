@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BE;
+using ENTIDADES;
 using DAL;
 using SERVICIOS;
 
@@ -31,6 +31,8 @@ namespace BLL
             CurriculumDAL curriculumDAL = new CurriculumDAL();
             return curriculumDAL.ObtenerCurriculumFiltrado(rubro, idioma);
         }
+
+
 
         //Se obtienen los idiomas y rubros desde el gestor de Curriculums ya que solo son tablas que afectan a los mismos
         public Dictionary<int, string> ObtenerIdiomas()

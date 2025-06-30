@@ -209,6 +209,7 @@
 </head>
 <body>
      <form id="form1" runat="server">
+         <asp:ScriptManager ID="ScriptManager1" runat="server" />
         <div class="user-icon">
             <asp:ImageButton ID="imgUserIcon" runat="server" ImageUrl="Imagenes/userIcon.png" OnClick="imgUserIcon_Click" CssClass="auto-style1" />
         </div>
@@ -288,8 +289,9 @@
                 </div>
 
                 <div class="seccion-comentario">
-                    <p>Agrega un comentario adicional para ayudar a <strong>DANIELA</strong>!</p>
-                    <asp:TextBox ID="txtComentarios" runat="server" TextMode="MultiLine" CssClass="comentarios-textarea" placeholder="¿Qué le recomendarías a DANIELA?" />
+                    <p id="pComentario" runat="server"></p>
+
+                    <asp:TextBox ID="txtComentarios" runat="server" TextMode="MultiLine" CssClass="comentarios-textarea"/>
 
                     <br />
                     <asp:Button ID="enviar" class="boton-enviar" runat="server" Text="¡Enviá tu reseña!" OnClick="enviar_Click" />
@@ -297,5 +299,8 @@
             </div>
         </div>
     </form>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </body>
 </html>

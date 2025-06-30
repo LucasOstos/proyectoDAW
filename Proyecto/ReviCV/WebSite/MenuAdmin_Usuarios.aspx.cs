@@ -2,10 +2,11 @@
 using System.Web;
 using System.Web.UI;
 using System.Collections.Generic;
-using BE;
 using BLL;
 using System.Web.UI.WebControls;
 using SERVICIOS;
+using ENTIDADES;
+
 
 public partial class MenuAdmin_Usuarios : Page
 {
