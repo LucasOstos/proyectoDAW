@@ -221,9 +221,6 @@
                 <asp:LinkButton ID="btnVolverALanding" runat="server" OnClick="btnVolverALanding_Click" CssClass="menu-button">
                     <i class="fa fa-arrow-left"></i> Volver
                 </asp:LinkButton>
-                <asp:LinkButton ID="btnBitacora" runat="server" OnClick="btnBitacora_Click" CssClass="menu-button">
-                    <i class="fa fa-clipboard-list"></i> Bitácora
-                </asp:LinkButton>
                 <asp:LinkButton ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" CssClass="menu-button">
                     <i class="fa fa-sign-out-alt"></i> Cerrar Sesión
                 </asp:LinkButton>
@@ -254,9 +251,9 @@
                 <h3>Alta / Modificación</h3>
                 <asp:TextBox ID="txtDescripcionRubro" runat="server" CssClass="textbox-contenido" placeholder="Rubro" />
                 <div class="grupo-botones">
-                    <asp:Button ID="btnAgregarRubro" runat="server" Text="Agregar" CssClass="boton boton-bien" />
-                    <asp:Button ID="btnModificarRubro" runat="server" Text="Modificar" CssClass="boton boton-principal" />
-                    <asp:Button ID="btnEliminarRubro" runat="server" Text="Eliminar" CssClass="boton boton-peligro" />
+                    <asp:Button ID="btnAgregarRubro" runat="server" Text="Agregar" CssClass="boton boton-bien" OnClick="btnAgregarRubro_Click" />
+                    <asp:Button ID="btnModificarRubro" runat="server" Text="Modificar" CssClass="boton boton-principal" OnClick="btnModificarRubro_Click" />
+                    <asp:Button ID="btnEliminarRubro" runat="server" Text="Eliminar" CssClass="boton boton-peligro" OnClick="btnEliminarRubro_Click" />
                 </div>
             </div>
 
@@ -283,9 +280,9 @@
                 <h3>Alta / Modificación</h3>
                 <asp:TextBox ID="txtDescripcionIdioma" runat="server" CssClass="textbox-contenido" placeholder="Idioma" />
                 <div class="grupo-botones">
-                    <asp:Button ID="btnAgregarIdioma" runat="server" Text="Agregar" CssClass="boton boton-bien" />
+                    <asp:Button ID="btnAgregarIdioma" runat="server" Text="Agregar" CssClass="boton boton-bien" OnClick="btnAgregarIdioma_Click" />
                     <asp:Button ID="btnModificarIdioma" runat="server" Text="Modificar" CssClass="boton boton-principal" />
-                    <asp:Button ID="btnEliminarIdioma" runat="server" Text="Eliminar" CssClass="boton boton-peligro" />
+                    <asp:Button ID="btnEliminarIdioma" runat="server" Text="Eliminar" CssClass="boton boton-peligro" OnClick="btnEliminarIdioma_Click" />
                 </div>
             </div>
         </div>

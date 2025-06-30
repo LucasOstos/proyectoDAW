@@ -44,5 +44,35 @@ namespace BLL
             CurriculumDAL curriculumDAL = new CurriculumDAL();
             return curriculumDAL.ObtenerRubros();
         }
+        public void AltaIdioma(string idioma)
+        {
+            CurriculumDAL curriculumDAL = new CurriculumDAL();
+            curriculumDAL.AltaIdioma(idioma);
+        }
+        public void BajaIdioma(string id)
+        {
+            CurriculumDAL curriculumDAL = new CurriculumDAL();
+            curriculumDAL.BajaIdioma(id);
+        }
+        public void ModificarIdioma(string id, string idioma)
+        {
+            CurriculumDAL curriculumDAL = new CurriculumDAL();
+            curriculumDAL.ModificarIdioma(id, idioma);
+        }
+        public void AltaRubro(string idioma)
+        {
+            CurriculumDAL curriculumDAL = new CurriculumDAL();
+            curriculumDAL.AltaRubro(idioma);
+        }
+        public void BajaRubro(string id)
+        {
+            CurriculumDAL curriculumDAL = new CurriculumDAL();
+            curriculumDAL.BajaRubro(id);
+        }
+        public void ModificarRubro(string id, string idioma)
+        {
+            CurriculumDAL curriculumDAL = new CurriculumDAL();
+            curriculumDAL.ModificarRubro(id, idioma);
+        }
     }
 }

@@ -40,7 +40,7 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page
 
     protected void btnInicio_Click(object sender, EventArgs e)
     {
-
+        Response.Redirect("MenuAdmin.aspx");
     }
 
     protected void btnUsuarios_Click(object sender, EventArgs e)
@@ -67,5 +67,51 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page
     protected void btnBitacora_Click(object sender, EventArgs e)
     {
 
+    }
+
+    protected void btnAgregarRubro_Click(object sender, EventArgs e)
+    {
+        if(!string.IsNullOrEmpty(txtDescripcionRubro.Text))
+        {
+            GestorCurriculum gestorCurriculums = new GestorCurriculum();
+            gestorCurriculums.AltaRubro(txtDescripcionRubro.Text);
+            CargarRubros();
+        }
+        
+    }
+
+    protected void btnAgregarIdioma_Click(object sender, EventArgs e)
+    {
+        if (!string.IsNullOrEmpty(txtDescripcionIdioma.Text))
+        {
+            GestorCurriculum gestorCurriculums = new GestorCurriculum();
+            gestorCurriculums.AltaIdioma(txtDescripcionIdioma.Text);
+            CargarIdiomas();
+        }
+    }
+
+    protected void btnEliminarIdioma_Click(object sender, EventArgs e)
+    {
+        if (!string.IsNullOrEmpty(txtDescripcionIdioma.Text))
+        {
+            GestorCurriculum gestorCurriculums = new GestorCurriculum();
+            gestorCurriculums.BajaIdioma(txtDescripcionIdioma.Text);
+            CargarIdiomas();
+        }
+    }
+
+    protected void btnModificarRubro_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void btnEliminarRubro_Click(object sender, EventArgs e)
+    {
+        if (!string.IsNullOrEmpty(txtDescripcionRubro.Text))
+        {
+            GestorCurriculum gestorCurriculums = new GestorCurriculum();
+            gestorCurriculums.BajaRubro(txtDescripcionRubro.Text);
+            CargarIdiomas();
+        }
     }
 }
