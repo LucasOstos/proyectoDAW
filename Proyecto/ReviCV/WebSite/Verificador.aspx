@@ -32,15 +32,19 @@
         }
 
         .btn {
+            border-style: none;
+            border-color: inherit;
+            border-width: medium;
             width: 100%;
             padding: 0.6em 0;
             font-size: 0.95em;
-            border: none;
             background: transparent;
             color: #fff;
             cursor: pointer;
             position: relative;
             z-index: 1;
+            top: 0px;
+            left: 1px;
         }
 
         svg {
@@ -138,6 +142,18 @@
                         <rect class="rect" x="0" y="0" width="100" height="40" />
                     </svg>
                 </div>
+                                 <div class="btn-container">
+     <asp:Button ID="Button1" CssClass="btn" runat="server" Text="Bitacora" OnClick="Button1_Click" />
+     <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+         <rect class="rect" x="0" y="0" width="100" height="40" />
+     </svg>
+ </div>
+     <div class="btn-container">
+    <asp:Button ID="Button2" CssClass="btn" runat="server" Text="Cerrar Sesion" OnClick="Button2_Click" />
+    <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+        <rect class="rect" x="0" y="0" width="100" height="40" />
+    </svg>
+</div>
             </div>
         </div>
 

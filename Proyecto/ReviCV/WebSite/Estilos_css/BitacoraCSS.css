@@ -1,7 +1,4 @@
-﻿body {
-    background-color: #eef2f5;
-}
-.contenedor {
+﻿.contenedor {
     text-align: center;
 }
 h1 {
@@ -11,6 +8,8 @@ h1 {
 h2 {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     color: #2c3e50;
+    justify-content: center;
+    text-align: center;
 }
 .tabla-bitacora {
     width: 100%;
@@ -42,12 +41,11 @@ h2 {
     background-color: #e5e5e5;
     transition: background-color 0.4s ease;
 }
-
 .filtros-bitacora {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: left;
+    justify-content: center;
     align-items: center;
     padding-top: 0px;
     background-color: #eef2f5;
@@ -95,4 +93,68 @@ h2 {
 
 .boton-filtrar:hover {
     background-color: #0056b3;
+}
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #ecf0f1;
+}
+
+.nav {
+    width: 100%;
+    background: #2c3e50;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.6em 1em;
+    gap: 10px;
+}
+
+.btn-container {
+    position: relative;
+    flex: 1;
+    text-align: center;
+}
+
+.btn {
+    border-style: none;
+    border-color: inherit;
+    border-width: medium;
+    width: 100%;
+    padding: 0.6em 0;
+    font-size: 0.95em;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    top: 0px;
+    left: 1px;
+}
+
+svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.rect {
+    stroke: #fff;
+    fill: transparent;
+    stroke-width: 2.5;
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    transition: stroke-dashoffset 0.4s ease;
+}
+
+.btn-container:hover .rect {
+    stroke-dashoffset: 0;
 }

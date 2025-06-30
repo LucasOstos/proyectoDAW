@@ -31,4 +31,15 @@ public partial class WebMaster_Menu : System.Web.UI.Page
     {
         Response.Redirect("Verificador.aspx");
     }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("BitacoraPage.aspx");
+    }
+
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+        Session.Clear();
+        Response.Redirect("LandingPage.aspx");
+    }
 }

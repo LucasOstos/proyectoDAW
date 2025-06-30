@@ -89,4 +89,30 @@ public partial class BitacoraPage : System.Web.UI.Page
         gvBitacora.DataSource = Filtros(desde, hasta, usuario, txtOperacion.Text);
         gvBitacora.DataBind();
     }
+
+    protected void btnHome_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("WebMaster_Menu.aspx");
+    }
+
+    protected void btnContact_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("BackUp_ReStore.aspx");
+    }
+
+    protected void btnFAQ_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Verificador.aspx");
+    }
+
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+        Session.Clear();
+        Response.Redirect("LandingPage.aspx");
+    }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("BackUp_ReStore.aspx");
+    }
 }

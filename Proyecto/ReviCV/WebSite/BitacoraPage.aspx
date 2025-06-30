@@ -10,6 +10,40 @@
 </head>
 <body>
     <form id="form1" runat="server">
+                <div class="nav">
+            <div class="container">
+                <div class="btn-container">
+                    <asp:Button ID="btnHome" CssClass="btn" runat="server" Text="Inicio" OnClick="btnHome_Click" />
+                    <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+                        <rect class="rect" x="0" y="0" width="100" height="40" />
+                    </svg>
+                </div>
+                <div class="btn-container">
+                    <asp:Button ID="btnContact" CssClass="btn" runat="server" Text="Backup/Restore" OnClick="btnContact_Click" />
+                    <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+                        <rect class="rect" x="0" y="0" width="100" height="40" />
+                    </svg>
+                </div>
+                <div class="btn-container">
+                    <asp:Button ID="btnFAQ" CssClass="btn" runat="server" Text="Digitos Verificadores" OnClick="btnFAQ_Click" />
+                    <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+                        <rect class="rect" x="0" y="0" width="100" height="40" />
+                    </svg>
+                </div>
+                 <div class="btn-container">
+     <asp:Button ID="Button1" CssClass="btn" runat="server" Text="Bitacora" OnClick="Button1_Click" />
+     <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+         <rect class="rect" x="0" y="0" width="100" height="40" />
+     </svg>
+ </div>
+     <div class="btn-container">
+    <asp:Button ID="Button2" CssClass="btn" runat="server" Text="Cerrar Sesion" OnClick="Button2_Click" />
+    <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+        <rect class="rect" x="0" y="0" width="100" height="40" />
+    </svg>
+</div>
+            </div>
+        </div>
         <div class="contenedor">
             <h1>Bitácora del sistema</h1>
         </div>

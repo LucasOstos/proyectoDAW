@@ -218,6 +218,18 @@ svg {
                     <rect class="rect" x="0" y="0" width="100" height="40" />
                 </svg>
             </div>
+            <div class="btn-container">
+    <asp:Button ID="Button3" CssClass="btn" runat="server" Text="Bitacora" OnClick="Button3_Click" />
+    <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+        <rect class="rect" x="0" y="0" width="100" height="40" />
+    </svg>
+</div>
+                        <div class="btn-container">
+    <asp:Button ID="Button4" CssClass="btn" runat="server" Text="Cerrar Sesion" OnClick="Button4_Click"  />
+    <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+        <rect class="rect" x="0" y="0" width="100" height="40" />
+    </svg>
+</div>
         </div>
     </div>
         <div class="contenedor">

@@ -50,11 +50,22 @@ public partial class Verificador : System.Web.UI.Page
 
     protected void btnAbout_Click(object sender, EventArgs e)
     {
-
+        Response.Redirect("Verificador.aspx");
     }
 
     protected void btnFAQ_Click(object sender, EventArgs e)
     {
 
+    }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("BitacoraPage.aspx");
+    }
+
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+        Session.Clear();
+        Response.Redirect("LandingPage.aspx");
     }
 }

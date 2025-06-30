@@ -88,4 +88,15 @@ public partial class BackUp_ReStore : System.Web.UI.Page
     {
         Response.Redirect("Verificador.aspx");
     }
+
+    protected void Button3_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("BitacoraPage.aspx");
+    }
+
+    protected void Button4_Click(object sender, EventArgs e)
+    {
+        Session.Clear();
+        Response.Redirect("LandingPage.aspx");
+    }
 }
