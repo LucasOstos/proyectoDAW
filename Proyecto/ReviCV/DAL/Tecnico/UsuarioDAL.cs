@@ -44,8 +44,8 @@ namespace DAL
 
             if (!string.IsNullOrWhiteSpace(dni))
             {
-                condiciones.Add("DNI = @DNI");
-                cmd.Parameters.AddWithValue("@DNI", dni);
+                condiciones.Add("DNI LIKE @DNI");
+                cmd.Parameters.AddWithValue("@DNI", $"%{dni}%");
             }
 
             if (!string.IsNullOrWhiteSpace(username))

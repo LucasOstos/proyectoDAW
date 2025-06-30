@@ -37,4 +37,24 @@ public partial class Verificador : System.Web.UI.Page
         }
         Label1.Text = mensaje;
     }
+
+    protected void btnHome_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("WebMaster_Menu.aspx");
+    }
+
+    protected void btnContact_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("BackUp_ReStore.aspx");
+    }
+
+    protected void btnAbout_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void btnFAQ_Click(object sender, EventArgs e)
+    {
+
+    }
 }

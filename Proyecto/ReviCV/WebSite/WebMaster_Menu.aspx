@@ -1,14 +1,15 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Verificador.aspx.cs" Inherits="Verificador" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="WebMaster_Menu.aspx.cs" Inherits="WebMaster_Menu" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Recalcular Dígitos Verificadores</title>
+    <meta charset="utf-8" />
+    <title>Panel de Administración</title>
     <style>
         body, html {
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', sans-serif;
+            font-family: sans-serif;
             background-color: #ecf0f1;
         }
 
@@ -65,59 +66,39 @@
         .btn-container:hover .rect {
             stroke-dashoffset: 0;
         }
-
-        .contenedor {
-           position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 700px;
-    background: #fff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+      .contenido {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 60px);
     text-align: center;
+}
+
+.centrado h2 {
+    font-size: 30px;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.centrado p {
+    font-size: 18px;
+    color: #555;
+}
+
+        .contenido h2 {
+            color: #2c3e50;
+            font-size: 28px;
+            margin-bottom: 10px;
         }
 
-        h2 {
-            color: #333;
-            margin-bottom: 25px;
-        }
-
-        .boton-verificar {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 12px 20px;
+        .contenido p {
+            color: #555;
             font-size: 16px;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        .boton-verificar:hover {
-            background-color: #0056b3;
-        }
-
-        .resultado {
-            margin-top: 25px;
-            text-align: left;
-            font-size: 14px;
-        }
-
-        .resultado-error {
-            color: #dc3545;
-        }
-
-        .resultado-warning {
-            color: #ffc107;
         }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
-        
-        <!-- Menú de navegación -->
         <div class="nav">
             <div class="container">
                 <div class="btn-container">
@@ -133,21 +114,19 @@
                     </svg>
                 </div>
                 <div class="btn-container">
-                    <asp:Button ID="btnAbout" CssClass="btn" runat="server" Text="Digito Verificador" OnClick="btnAbout_Click" />
+                    <asp:Button ID="btnFAQ" CssClass="btn" runat="server" Text="Digitos Verificadores" OnClick="btnFAQ_Click" />
                     <svg viewBox="0 0 100 40" preserveAspectRatio="none">
                         <rect class="rect" x="0" y="0" width="100" height="40" />
                     </svg>
                 </div>
             </div>
         </div>
-
-        <!-- Contenido principal -->
-        <div class="contenedor">
-            <h2>Recalcular Dígitos Verificadores</h2>
-            <asp:Button ID="btnRecalcular" runat="server" Text="Verificar dígitos" CssClass="boton-verificar" OnClick="btnRecalcular_Click" />
-            <asp:Label ID="Label1" runat="server"></asp:Label>
-        </div>
-
+        <div class ="contenido">
+       <div class="centrado">
+    <h2>Bienvenido al panel de Web Master</h2>
+    <p>Seleccioná una opción del menú para comenzar</p>
+</div>
+      </div>
     </form>
 </body>
 </html>

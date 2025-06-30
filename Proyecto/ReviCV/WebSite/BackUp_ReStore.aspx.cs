@@ -73,4 +73,19 @@ public partial class BackUp_ReStore : System.Web.UI.Page
     {
 
     }
+
+    protected void btnHome_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("WebMaster_Menu.aspx");
+    }
+
+    protected void btnContact_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void btnFAQ_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Verificador.aspx");
+    }
 }
