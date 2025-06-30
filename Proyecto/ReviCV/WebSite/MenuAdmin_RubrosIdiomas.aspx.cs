@@ -109,7 +109,7 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page
         {
             GestorCurriculum gestorCurriculums = new GestorCurriculum();
             gestorCurriculums.BajaRubro(txtDescripcionRubro.Text);
-            CargarIdiomas();
+            CargarRubros();
         }
     }
 }
