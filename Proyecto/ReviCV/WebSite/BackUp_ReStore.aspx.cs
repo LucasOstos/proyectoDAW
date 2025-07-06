@@ -15,7 +15,6 @@ public partial class BackUp_ReStore : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-
         // Ruta donde guardás temporalmente el archivo en el servidor
         string backupFolder = Server.MapPath("~/TempBackups");
 
@@ -25,13 +24,9 @@ public partial class BackUp_ReStore : System.Web.UI.Page
 
         // Llamás a tu función y obtenés la ruta real del .bak
         string rutaGenerada = BackupRestore.DalBURS.RealizarBackup(backupFolder);
-
+        GestorBitacora.Instancia.GuardarLog("Backup de la base de datos creado", $"{Session["username"].ToString()}");
         // Forzás la descarga al navegador
         DescargarArchivo(rutaGenerada);
-
-       
-
-
     }
     private void DescargarArchivo(string rutaCompleta)
     {
@@ -60,6 +55,7 @@ public partial class BackUp_ReStore : System.Web.UI.Page
             string rutaDestino = Path.Combine(rutaCarpeta, nombreArchivo);
             archivo_BackUp.SaveAs(rutaDestino);
             BackupRestore.DalBURS.RealizarRestore(rutaDestino);
+            GestorBitacora.Instancia.GuardarLog("Restauración de la base de datos", $"{Session["username"].ToString()}");
             LblConfirmacionRestore.Text = "Restore Realizado con exito";
         }
     }

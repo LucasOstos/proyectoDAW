@@ -25,8 +25,13 @@ public partial class Login : System.Web.UI.Page
                     if (validador.Verificar(u.NombreUsuario, encriptador.EncriptarIrreversible(tbContraseña.Text)))
                     {
                         GuardarSession(u);
-                        GestorBitacora gestorBitacora = new GestorBitacora();
-                        gestorBitacora.GuardarLogBitacora("Login", Session["username"].ToString());
+
+                        if (Session["Rol"].ToString() != "Usuario")
+                        {
+                            GestorBitacora gestorBitacora = new GestorBitacora();
+                            gestorBitacora.GuardarLog("Login", Session["username"].ToString());
+                        }
+
                         GestorIntegridad gestorIntegridad = new GestorIntegridad();
                         string bdErrores = gestorIntegridad.VerificarIntegridadTodasLasTablas();
                         Application["EstadoBD"] = bdErrores == "" ? true : false;
@@ -38,6 +43,7 @@ public partial class Login : System.Web.UI.Page
                         }
                         else
                         {
+                            Application["ErroresBD"] = bdErrores;
                             if (Session["Rol"].Equals("WebMaster"))
                             {
                                 Response.Redirect("WebMaster_menu.aspx");
