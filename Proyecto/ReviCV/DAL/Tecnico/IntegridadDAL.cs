@@ -43,7 +43,10 @@ namespace DAL
                 {
                     while (reader.Read())
                     {
-                        dvhs.Add(reader.GetString(0));
+                        if(!reader.IsDBNull(0))
+                        {
+                            dvhs.Add(reader.GetString(0));
+                        }
                     }
                 }
             }

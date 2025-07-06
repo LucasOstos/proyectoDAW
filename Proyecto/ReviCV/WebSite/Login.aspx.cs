@@ -25,7 +25,6 @@ public partial class Login : System.Web.UI.Page
                     if (validador.Verificar(u.NombreUsuario, encriptador.EncriptarIrreversible(tbContraseña.Text)))
                     {
                         GuardarSession(u);
-
                         if (Session["Rol"].ToString() != "Usuario")
                         {
                             GestorBitacora gestorBitacora = new GestorBitacora();
@@ -44,7 +43,7 @@ public partial class Login : System.Web.UI.Page
                         else
                         {
                             Application["ErroresBD"] = bdErrores;
-                            if (Session["Rol"].Equals("WebMaster"))
+                            if (Session["Rol"].Equals("Webmaster"))
                             {
                                 Response.Redirect("WebMaster_menu.aspx");
                             }

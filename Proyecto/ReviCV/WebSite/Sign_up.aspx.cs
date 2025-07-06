@@ -12,6 +12,12 @@ public partial class Sign_up : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Application["EstadoBD"] == null)
+        {
+            GestorIntegridad gestor = new GestorIntegridad();
+            string bdErrores = gestor.VerificarIntegridadTodasLasTablas();
+            Application["EstadoBD"] = bdErrores == "" ? true : false;
+        }
         if (Application["EstadoBD"].Equals(false)) Response.Redirect("AvisoErrorBD.aspx");
         ErrorContraseñasLB.Visible = false;
         Page.UnobtrusiveValidationMode = System.Web.UI.UnobtrusiveValidationMode.None;
