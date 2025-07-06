@@ -53,16 +53,16 @@ namespace BLL
             if (string.IsNullOrWhiteSpace(dni) || !dni.All(char.IsDigit) || dni.Length < 7 || dni.Length > 8)
                 errores.Add("dni");
 
-            if (string.IsNullOrWhiteSpace(nombre))
+            if (string.IsNullOrWhiteSpace(nombre) || !nombre.All(char.IsLetter))
                 errores.Add("nombre");
 
-            if (string.IsNullOrWhiteSpace(apellido))
+            if (string.IsNullOrWhiteSpace(apellido)|| !apellido.All(char.IsLetter))
                 errores.Add("apellido");
 
             if (string.IsNullOrWhiteSpace(username) || username.Length < 4)
                 errores.Add("username");
 
-            if (string.IsNullOrWhiteSpace(contraseña) || contraseña.Length < 6)
+            if (string.IsNullOrWhiteSpace(contraseña))
                 errores.Add("contraseña");
 
             if (string.IsNullOrWhiteSpace(mail))
