@@ -36,6 +36,7 @@ public partial class MenuAdmin : Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if(Session["Rol"].ToString() != "Admin") Response.Redirect("LandingPage.aspx");
+        if (Application["EstadoBD"].Equals(false)) Response.Redirect("AvisoErrorBD.aspx");
+        if (Session["Rol"].ToString() != "Admin") Response.Redirect("LandingPage.aspx");
     }
 }

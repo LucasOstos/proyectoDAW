@@ -10,7 +10,7 @@ public partial class BackUp_ReStore : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (Session["Rol"].ToString() != "Webmaster") Response.Redirect("LandingPage.aspx");
     }
 
     protected void Button1_Click(object sender, EventArgs e)

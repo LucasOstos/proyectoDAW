@@ -14,7 +14,6 @@ public partial class LandingPage : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         GestorIntegridad gestorIntegridad = new GestorIntegridad();
-        //gestorIntegridad.GuardarIntegridadTabla(TablasBD.Usuario);
         gestorIntegridad.VerificarIntegridadTodasLasTablas();
         if (!IsPostBack)
         {
@@ -29,8 +28,8 @@ public partial class LandingPage : System.Web.UI.Page
         var idiomas = gCurriculums.ObtenerIdiomas();
 
         ddlIdioma.DataSource = idiomas;
-        ddlIdioma.DataTextField = "Value";  // Nombre que se muestra
-        ddlIdioma.DataValueField = "Key";   // ID que se usa internamente
+        ddlIdioma.DataTextField = "Value"; 
+        ddlIdioma.DataValueField = "Key";   
         ddlIdioma.DataBind();
 
         ddlIdioma.Items.Insert(0, new ListItem("¿En qué idioma?", ""));
@@ -44,8 +43,8 @@ public partial class LandingPage : System.Web.UI.Page
         var rubros = gCurriculums.ObtenerRubros();
 
         ddlRubro.DataSource = rubros;
-        ddlRubro.DataTextField = "Value";  // Nombre que se muestra
-        ddlRubro.DataValueField = "Key";   // ID que se usa internamente
+        ddlRubro.DataTextField = "Value";  
+        ddlRubro.DataValueField = "Key";  
         ddlRubro.DataBind();
 
         ddlRubro.Items.Insert(0, new ListItem("¿Qué rubro queres analizar?", ""));

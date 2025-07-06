@@ -13,7 +13,7 @@ public partial class CargarCVs : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (Application["EstadoBD"].Equals(false)) Response.Redirect("AvisoErrorBD.aspx");
         if (!IsPostBack)
         {
             CargarRubros();

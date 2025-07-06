@@ -7,6 +7,10 @@ namespace DAL
 {
     public class IntegridadDAL
     {
+        private readonly HashSet<string> tablasExcluidas = new HashSet<string>
+        {
+            TablasBD.DigitoVerificador.ToString()
+        };
         public List<string> ObtenerTablasAVerificar()
         {
             var tablas = new List<string>();
@@ -19,7 +23,8 @@ namespace DAL
                     while (reader.Read())
                     {
                         string nombreTabla = reader.GetString(0);
-                        tablas.Add(nombreTabla);
+                        if (!tablasExcluidas.Contains(nombreTabla))
+                            tablas.Add(nombreTabla);
                     }
                 }
             }
@@ -139,6 +144,57 @@ namespace DAL
                             return null;
 
                         return (reader.GetString(0), reader.GetInt32(1));
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        public void GuardarNuevoDVH(TablasBD tabla, string clavePK, string dvhCalculado)
+        {
+            string nombreTabla = tabla.ToString();
+            string nombrePK = ObtenerClavePrimariaDesdeBD(nombreTabla);
+
+            if (string.IsNullOrEmpty(nombrePK))
+                throw new InvalidOperationException($"No se encontró clave primaria para la tabla {nombreTabla}");
+
+            string query = $@"UPDATE {nombreTabla} SET DVH = @DVH WHERE {nombrePK} = @Clave";
+
+            using (var conn = Conexion.Instancia.ReturnConexion())
+            {
+                using (var cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@DVH", dvhCalculado);
+                    cmd.Parameters.AddWithValue("@Clave", clavePK);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+        private string ObtenerClavePrimariaDesdeBD(string nombreTabla)
+        {
+            string query = @"
+                SELECT KU.COLUMN_NAME
+                FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS TC
+                INNER JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE KU
+                ON TC.CONSTRAINT_NAME = KU.CONSTRAINT_NAME
+                AND TC.TABLE_NAME = KU.TABLE_NAME
+                WHERE TC.CONSTRAINT_TYPE = 'PRIMARY KEY'
+                AND KU.TABLE_NAME = @Tabla";
+
+            using (var conn = Conexion.Instancia.ReturnConexion())
+            {
+                using (var cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Tabla", nombreTabla);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return reader.GetString(0);
+                        }
                     }
                 }
             }

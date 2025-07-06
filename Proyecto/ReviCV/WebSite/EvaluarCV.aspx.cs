@@ -13,6 +13,7 @@ public partial class EvaluarCV : System.Web.UI.Page
     Curriculum cvMostrar;
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Application["EstadoBD"].Equals(false)) Response.Redirect("AvisoErrorBD.aspx");
         if (!IsPostBack)
         {
             GestorCurriculum gCurriculums = new GestorCurriculum();

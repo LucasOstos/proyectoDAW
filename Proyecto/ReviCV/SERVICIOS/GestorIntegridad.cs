@@ -24,21 +24,6 @@ namespace SERVICIOS
             return acumulado;
         }
 
-        //private void GuardarIntegridadTabla(TablasBD tabla)
-        //{
-        //    List<(string[] datos, string dvh)> datosLeidos = dal.ObtenerDatosTabla(tabla);
-        //    List<string> DVHs = new List<string>();
-        //    int cantidadRegistros = datosLeidos.Count;
-        //    for (int i = 0; i < cantidadRegistros; i++)
-        //    {
-        //        var fila = datosLeidos[i];
-        //        DVHs.Add(CalcularDigitoVerificador(fila.datos));
-        //    }
-
-        //    string DigitoVerificadorVertical = CalcularDigitoVerificador(DVHs.ToArray());
-
-        //    dal.GuardarRegistroIntegridad(tabla, DigitoVerificadorVertical, cantidadRegistros);
-        //}
 
         public void GuardarIntegridadTabla(TablasBD tabla)
         {
@@ -47,6 +32,43 @@ namespace SERVICIOS
             string DigitoVerificadorVertical = CalcularDigitoVerificador(DVHs.ToArray());
             dal.GuardarRegistroIntegridad(tabla, DigitoVerificadorVertical, cantidadRegistros);
         }
+
+        public void GuardarIntegridadTodasLasTablas()
+        {
+            var tablasString = dal.ObtenerTablasAVerificar();
+            foreach (var tablaStr in tablasString)
+            {
+                if (Enum.TryParse<TablasBD>(tablaStr, out var tablaEnum))
+                {
+                    GuardarIntegridadTabla(tablaEnum);
+                }
+            }
+        }
+
+        public void RecalcularTodasLasTablas()
+        {
+            var tablasString = dal.ObtenerTablasAVerificar();
+
+            foreach (var tablaStr in tablasString)
+            {
+                if (Enum.TryParse<TablasBD>(tablaStr, out var tablaEnum))
+                {
+                    var datosTabla = dal.ObtenerDatosTabla(tablaEnum);
+
+                    if (datosTabla != null && datosTabla.Count > 0)
+                    {
+                        foreach (var datos in datosTabla)
+                        {
+                            string dvhCalculado = CalcularDigitoVerificador(datos.datos);
+                            dal.GuardarNuevoDVH(tablaEnum, datos.datos[0], dvhCalculado); 
+                        }
+
+                        GuardarIntegridadTabla(tablaEnum);
+                    }
+                }
+            }
+        }
+
 
         public string VerificarIntegridadTodasLasTablas()
         {
@@ -61,7 +83,6 @@ namespace SERVICIOS
                     if (!string.IsNullOrEmpty(mensaje))
                     {
                         mensajesDeError.AppendLine(mensaje);
-                        mensajesDeError.Append("\n");
                     }
                 }
             }
@@ -84,10 +105,10 @@ namespace SERVICIOS
             }
 
             if (datosTabla.Count > datosLeidos.Value.CR)
-                mensajesDeError.AppendLine("Se han agregado registros de manera externa.");
+                mensajesDeError.AppendLine($"Se han agregado registros de manera externa en la tabla {tabla.ToString()}.");
 
             if (datosTabla.Count < datosLeidos.Value.CR)
-                mensajesDeError.AppendLine("Se han eliminado registros de manera externa.");
+                mensajesDeError.AppendLine($"Se han eliminado registros de manera externa en la tabla {tabla.ToString()}.");
 
             foreach (var datos in datosTabla)
             {
@@ -96,14 +117,14 @@ namespace SERVICIOS
 
                 if (dvhCalculado != datos.dvh)
                 {
-                    mensajesDeError.AppendLine($"DVH incorrecto en fila con clave \"{datos.datos[0]}\". Se ha modificado el registro.");
+                    mensajesDeError.AppendLine($"Error en registro con clave \"{datos.datos[0]}\" en la tabla {tabla.ToString()}.");
                 }
             }
 
             string DVVCalculado = CalcularDigitoVerificador(DVHs.ToArray());
 
             if (DVVCalculado != datosLeidos.Value.DVV)
-                mensajeDVV = $"El DVV de la tabla \"{tabla}\" no coincide. Se ha modificado la tabla de manera externa.";
+                mensajeDVV = $" La tabla \"{tabla}\" posee datos corruptos.";
 
             if (mensajeDVV != null)
                 mensajesDeError.Insert(0, mensajeDVV + Environment.NewLine);
