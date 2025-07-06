@@ -33,4 +33,9 @@ public partial class MenuAdmin : Page
     {
         Response.Redirect("MenuAdmin_RubrosIdiomas.aspx");
     }
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if(Session["Rol"].ToString() != "Admin") Response.Redirect("LandingPage.aspx");
+    }
 }

@@ -9,7 +9,7 @@ public partial class WebMaster_Menu : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (Session["Rol"].ToString() != "Webmaster") Response.Redirect("LandingPage.aspx");
     }
 
     protected void btnHome_Click(object sender, EventArgs e)
