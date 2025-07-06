@@ -58,7 +58,7 @@ public partial class MenuAdmin_Usuarios : Page
             Response.Redirect("AvisoErrorBD.aspx");
         }
 
-        if (rol != "Admin")
+        if (rol != "Administrador")
         {
             Response.Redirect("LandingPage.aspx");
         }
