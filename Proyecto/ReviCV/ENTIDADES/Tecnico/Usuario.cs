@@ -40,5 +40,19 @@ namespace ENTIDADES
         {
 
         }
+
+        public string[] ToArray()
+        {
+            return new string[]
+            {
+                DNI.ToString(),
+                Nombre,
+                Apellido,
+                NombreUsuario,
+                Password,
+                Email,
+                Rol
+            };
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace BLL
             curriculumDAL.GuardarCurriculum(pCurriculum);
 
             GestorIntegridad gestorIntegridad = new GestorIntegridad();
-            gestorIntegridad.GuardarIntegridad(TablasBD.Curriculum);
+            //gestorIntegridad.GuardarIntegridad(TablasBD.Curriculum);
         }
 
         public Curriculum ObtenerCurriculumPorID(int id)

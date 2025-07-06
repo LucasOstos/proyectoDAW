@@ -26,8 +26,14 @@ public partial class Login : System.Web.UI.Page
                     {
                         GuardarSession(u);
                         GestorBitacora.Instancia.GuardarLog("Login", Session["username"].ToString());
-                        Response.Redirect("LandingPage.aspx");
-                        Context.ApplicationInstance.CompleteRequest();
+                        GestorIntegridad gestorIntegridad = new GestorIntegridad();
+                        //Application["EstadoBD"] = gestorIntegridad.VerificarIntegridadTodasLasTablas();
+
+                        if (Application["EstadoBD"].Equals(true))
+                        {
+                            Response.Redirect("LandingPage.aspx");
+                            Context.ApplicationInstance.CompleteRequest();
+                        }
                     }
                     else { labelErrores.ForeColor = System.Drawing.Color.Red; labelErrores.Text = "Credenciales incorrectas"; }
                 }

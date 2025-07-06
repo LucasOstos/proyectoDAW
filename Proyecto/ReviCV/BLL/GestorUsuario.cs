@@ -20,10 +20,10 @@ namespace BLL
         public void InsertarUsuario(Usuario pUsuario)
         {
             UsuarioDAL usuarioDAL = new UsuarioDAL();
-            usuarioDAL.InsertarUsuario(pUsuario);
-
             GestorIntegridad gestorIntegridad = new GestorIntegridad();
-           gestorIntegridad.GuardarIntegridad(TablasBD.Usuario);
+            string DVH = gestorIntegridad.CalcularDigitoVerificador(pUsuario.ToArray());
+            usuarioDAL.InsertarUsuario(pUsuario, DVH);
+            gestorIntegridad.GuardarIntegridadTabla(TablasBD.Usuario);
         }
         public void EliminarUsuario(string dni)
         {
