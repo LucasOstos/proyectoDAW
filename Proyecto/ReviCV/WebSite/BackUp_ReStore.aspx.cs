@@ -24,7 +24,8 @@ public partial class BackUp_ReStore : System.Web.UI.Page
 
         // Llamás a tu función y obtenés la ruta real del .bak
         string rutaGenerada = BackupRestore.DalBURS.RealizarBackup(backupFolder);
-        GestorBitacora.Instancia.GuardarLog("Backup de la base de datos creado", $"{Session["username"].ToString()}");
+        GestorBitacora gestorBitacora = new GestorBitacora();
+        gestorBitacora.GuardarLogBitacora("Backup de la base de datos creado", $"{Session["username"].ToString()}");
         // Forzás la descarga al navegador
         DescargarArchivo(rutaGenerada);
     }
@@ -55,7 +56,8 @@ public partial class BackUp_ReStore : System.Web.UI.Page
             string rutaDestino = Path.Combine(rutaCarpeta, nombreArchivo);
             archivo_BackUp.SaveAs(rutaDestino);
             BackupRestore.DalBURS.RealizarRestore(rutaDestino);
-            GestorBitacora.Instancia.GuardarLog("Restauración de la base de datos", $"{Session["username"].ToString()}");
+            GestorBitacora gestorBitacora = new GestorBitacora();
+            gestorBitacora.GuardarLogBitacora("Restauración de la base de datos", $"{Session["username"].ToString()}");
             LblConfirmacionRestore.Text = "Restore Realizado con exito";
         }
     }

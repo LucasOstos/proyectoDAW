@@ -29,7 +29,7 @@ public partial class Login : System.Web.UI.Page
                         if (Session["Rol"].ToString() != "Usuario")
                         {
                             GestorBitacora gestorBitacora = new GestorBitacora();
-                            gestorBitacora.GuardarLog("Login", Session["username"].ToString());
+                            gestorBitacora.GuardarLogBitacora("Login", Session["username"].ToString());
                         }
 
                         GestorIntegridad gestorIntegridad = new GestorIntegridad();

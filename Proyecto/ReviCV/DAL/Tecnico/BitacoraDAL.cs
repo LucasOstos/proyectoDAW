@@ -98,18 +98,5 @@ namespace DAL.Tecnico
             }
             return listaLogs;
         }
-        public void GuardarLog(string pOperacion, string pUsuario)
-        {
-            string query = "INSERT INTO Bitacora (Fecha, Operacion, Usuario) VALUES (@Fecha, @Operacion, @Usuario)";
-            using (SqlCommand CM = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
-            {
-                Conexion.Instancia.AbrirConexion();
-                CM.Parameters.AddWithValue("@Fecha", DateTime.Now);
-                CM.Parameters.AddWithValue("@Operacion", pOperacion);
-                CM.Parameters.AddWithValue("@Usuario", pUsuario);
-                CM.ExecuteNonQuery();
-                Conexion.Instancia.CerrarConexion();
-            }
-        }
     }
 }

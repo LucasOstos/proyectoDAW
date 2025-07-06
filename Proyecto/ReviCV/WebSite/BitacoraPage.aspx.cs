@@ -6,7 +6,6 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using ENTIDADES;
-using DAL;
 using SERVICIOS;
 using BLL;
 
@@ -39,7 +38,8 @@ public partial class BitacoraPage : System.Web.UI.Page
     }
     private List<Bitacora> Filtros(DateTime? desde, DateTime? hasta, string usuario, string operacion)
     {
-        return GestorBitacora.Instancia.FiltrosBitacora(desde, hasta, usuario, operacion);
+        GestorBitacora gestorBitacora = new GestorBitacora();
+        return gestorBitacora.FiltrosBitacora(desde, hasta, usuario, operacion);
     }
 
     protected void btnFiltrar_Click(object sender, EventArgs e)

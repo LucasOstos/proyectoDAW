@@ -16,7 +16,8 @@ public partial class MenuAdmin : Page
 
     protected void btnCerrarSesion_Click(object sender, EventArgs e)
     {
-        GestorBitacora.Instancia.GuardarLog("Logout", Session["username"].ToString());
+        GestorBitacora gestorBitacora = new GestorBitacora();
+        gestorBitacora.GuardarLogBitacora("Logout", Session["username"].ToString());
         Session.Clear();
         Response.Redirect("LandingPage.aspx");
     }

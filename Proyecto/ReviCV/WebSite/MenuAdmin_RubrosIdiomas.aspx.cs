@@ -68,16 +68,10 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page
 
     }
 
-    protected void btnAgregarRubro_Click(object sender, EventArgs e)
-    {
-        if(!string.IsNullOrEmpty(txtDescripcionRubro.Text))
-        {
-            GestorCurriculum gestorCurriculums = new GestorCurriculum();
-            gestorCurriculums.AltaRubro(txtDescripcionRubro.Text);
-            CargarRubros();
-        }
-        
-    }
+
+
+
+
 
     protected void btnAgregarIdioma_Click(object sender, EventArgs e)
     {
@@ -89,28 +83,71 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page
         }
     }
 
+
+    protected void btnModificarIdioma_Click(object sender, EventArgs e)
+    {
+        if (!string.IsNullOrEmpty(txtDescripcionIdioma.Text) && int.TryParse(hfIdIdioma.Value, out int idIdioma))
+        {
+            GestorCurriculum gestorCurriculums = new GestorCurriculum();
+            gestorCurriculums.ModificarIdioma(int.Parse(hfIdIdioma.Value), txtDescripcionIdioma.Text);
+            CargarIdiomas();
+
+            txtDescripcionIdioma.Text = "";
+            hfIdIdioma.Value = "";
+        }
+    }
+
     protected void btnEliminarIdioma_Click(object sender, EventArgs e)
     {
-        if (!string.IsNullOrEmpty(txtDescripcionIdioma.Text))
+        if (!string.IsNullOrEmpty(txtDescripcionIdioma.Text) && int.TryParse(hfIdIdioma.Value, out int idIdioma))
         {
             GestorCurriculum gestorCurriculums = new GestorCurriculum();
             gestorCurriculums.BajaIdioma(int.Parse(hfIdIdioma.Value));
             CargarIdiomas();
+
+            txtDescripcionIdioma.Text = "";
+            hfIdIdioma.Value = "";
         }
     }
 
-    protected void btnModificarRubro_Click(object sender, EventArgs e)
-    {
 
-    }
-
-    protected void btnEliminarRubro_Click(object sender, EventArgs e)
+    protected void btnAgregarRubro_Click(object sender, EventArgs e)
     {
         if (!string.IsNullOrEmpty(txtDescripcionRubro.Text))
         {
             GestorCurriculum gestorCurriculums = new GestorCurriculum();
+            gestorCurriculums.AltaRubro(txtDescripcionRubro.Text);
+            CargarRubros();
+
+            txtDescripcionRubro.Text = "";
+            hfIdRubro.Value = "";
+        }
+
+    }
+
+    protected void btnModificarRubro_Click(object sender, EventArgs e)
+    {
+        if (!string.IsNullOrEmpty(txtDescripcionRubro.Text) && int.TryParse(hfIdRubro.Value, out int idRubro))
+        {
+            GestorCurriculum gestorCurriculums = new GestorCurriculum();
+            gestorCurriculums.ModificarRubro(int.Parse(hfIdRubro.Value), txtDescripcionRubro.Text);
+            CargarRubros();
+
+            txtDescripcionRubro.Text = "";
+            hfIdRubro.Value = "";
+        }
+    }
+
+    protected void btnEliminarRubro_Click(object sender, EventArgs e)
+    {
+        if (!string.IsNullOrEmpty(txtDescripcionRubro.Text) && int.TryParse(hfIdRubro.Value, out int idRubro))
+        {
+            GestorCurriculum gestorCurriculums = new GestorCurriculum();
             gestorCurriculums.BajaRubro(int.Parse(hfIdRubro.Value));
             CargarRubros();
+
+            txtDescripcionRubro.Text = "";
+            hfIdRubro.Value = "";
         }
     }
 }

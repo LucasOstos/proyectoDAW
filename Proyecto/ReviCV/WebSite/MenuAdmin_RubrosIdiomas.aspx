@@ -283,7 +283,7 @@
                 <asp:TextBox ID="txtDescripcionIdioma" runat="server" CssClass="textbox-contenido" placeholder="Idioma" />
                 <div class="grupo-botones">
                     <asp:Button ID="btnAgregarIdioma" runat="server" Text="Agregar" CssClass="boton boton-bien" OnClick="btnAgregarIdioma_Click" />
-                    <asp:Button ID="btnModificarIdioma" runat="server" Text="Modificar" CssClass="boton boton-principal" />
+                    <asp:Button ID="btnModificarIdioma" runat="server" Text="Modificar" CssClass="boton boton-principal" OnClick="btnModificarIdioma_Click" />
                     <asp:Button ID="btnEliminarIdioma" runat="server" Text="Eliminar" CssClass="boton boton-peligro" OnClick="btnEliminarIdioma_Click" />
                 </div>
             </div>
