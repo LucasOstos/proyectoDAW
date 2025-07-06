@@ -11,4 +11,10 @@ public partial class AvisoErrorBD : System.Web.UI.Page
     {
 
     }
+
+    protected void btnCerrarSesion_Click(object sender, EventArgs e)
+    {
+        Session.Clear();
+        Response.Redirect("LandingPage.aspx");
+    }
 }
