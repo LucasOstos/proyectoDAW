@@ -10,8 +10,19 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Application["EstadoBD"].Equals(false)) Response.Redirect("AvisoErrorBD.aspx");
-        if (Session["Rol"].ToString() != "Admin") Response.Redirect("LandingPage.aspx");
+        var estadoBD = Application["EstadoBD"];
+        var rol = Session["Rol"]?.ToString();
+
+        if (estadoBD is bool bdOk && !bdOk)
+        {
+            Response.Redirect("AvisoErrorBD.aspx");
+        }
+
+        if (rol != "Administrador")
+        {
+            Response.Redirect("LandingPage.aspx");
+        }
+
         if (!IsPostBack)
         {
             CargarRubros();
