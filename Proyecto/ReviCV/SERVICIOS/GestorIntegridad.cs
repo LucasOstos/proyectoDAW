@@ -60,7 +60,7 @@ namespace SERVICIOS
                         foreach (var datos in datosTabla)
                         {
                             string dvhCalculado = CalcularDigitoVerificador(datos.datos);
-                            dal.GuardarNuevoDVH(tablaEnum, datos.datos[0], dvhCalculado); 
+                            dal.GuardarNuevoDVH(tablaEnum, datos.datos[0], dvhCalculado);
                         }
 
                         GuardarIntegridadTabla(tablaEnum);
@@ -133,87 +133,20 @@ namespace SERVICIOS
         }
 
 
+        public void ActualizarDVHRegistro(TablasBD tabla, int id)
+        {
+            var datosTabla = dal.ObtenerDatosTabla(tabla);
+
+            var fila = datosTabla.Where(f => f.datos != null && int.TryParse(f.datos[0], out int val) && val == id).FirstOrDefault();
+
+            if (fila.datos == null) return;
+
+            string nuevoDVH = CalcularDigitoVerificador(fila.datos);
+            dal.GuardarNuevoDVH(tabla, fila.datos[0], nuevoDVH);
+
+            GuardarIntegridadTabla(tabla);
+        }
 
 
-
-
-
-
-        //public void GuardarIntegridad(TablasBD tabla)
-        //{
-        //    var (filas, columnas) = dal.ObtenerDatosTabla(tabla);
-        //    List<(int, string)> HVD = CalcularDV(filas);
-        //    List<(int, string)> VVD = CalcularDV(columnas);
-        //    dal.GuardarRegistroIntegridad(tabla, HVD, VVD);
-        //}
-
-        //public void GuardarIntegridadTodasLasTablas()
-        //{
-        //    var tablasString = dal.ObtenerTablasAVerificar();
-
-        //    foreach (var tablaStr in tablasString)
-        //    {
-        //        if (Enum.TryParse<TablasBD>(tablaStr, out var tablaEnum))
-        //        {
-        //            GuardarIntegridad(tablaEnum);
-        //        }
-        //        else
-        //        {
-        //            // Manejar tablas no mapeadas si se desea
-        //        }
-        //    }
-        //}
-
-        //public Dictionary<TablasBD, bool> VerificarIntegridadTodasLasTablas()
-        //{
-        //    var resultados = new Dictionary<TablasBD, bool>();
-        //    var tablasString = dal.ObtenerTablasAVerificar();
-        //    foreach (var tablaStr in tablasString)
-        //    {
-        //        if (Enum.TryParse<TablasBD>(tablaStr, out var tablaEnum))
-        //        {
-        //            bool resultado = VerificarIntegridad(tablaEnum);
-        //            resultados[tablaEnum] = resultado;
-        //        }
-        //        else
-        //        {
-        //            resultados[default] = false;
-        //        }
-        //    }
-        //    return resultados;
-        //}
-
-        //public bool VerificarIntegridad(TablasBD tabla)
-        //{
-        //    var (filas, columnas) = dal.ObtenerDatosTabla(tabla);
-        //    var HVD = CalcularDV(filas);
-        //    var VVD = CalcularDV(columnas);
-
-        //    var resultado = dal.LeerRegistroIntegridad(tabla);
-        //    if (resultado == null) return false;
-
-        //    return true;
-        //    //return HVD == resultado.Value.HVD && VVD == resultado.Value.VVD;
-        //}
-
-        //private List<(int, string)> CalcularDV(List<string[]> datos)
-        //{
-        //    var hasheados = new List<(int, string)>();
-        //    foreach (var fila in datos)
-        //        hasheados.Add((int.Parse(datos[0].ToString()), CalcularDVFila(fila)));
-        //    return hasheados;
-        //}
-
-        //private string CalcularDVFila(string[] datos)
-        //{
-        //    var encriptador = new Encriptador();
-        //    string acumulado = "";
-        //    foreach (var item in datos)
-        //    {
-        //        acumulado += item;
-        //        acumulado = encriptador.EncriptarIrreversible(acumulado);
-        //    }
-        //    return acumulado;
-        //}
     }
 }

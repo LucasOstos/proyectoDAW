@@ -231,6 +231,7 @@
             <div class="seccion">
                 <h2>Gestión de Rubros</h2>
                 <div class="cuadro-grilla">
+                    <asp:HiddenField ID="hfIdRubro" runat="server" />
                     <asp:GridView ID="gvRubros" runat="server" AutoGenerateColumns="False" CssClass="grilla-estilo" Width="100%">
                         <RowStyle CssClass="fila-normal" />
                         <SelectedRowStyle CssClass="fila-seleccionada" />
@@ -260,6 +261,7 @@
             <div class="seccion">
                 <h2>Gestión de Idiomas</h2>
                 <div class="cuadro-grilla">
+                    <asp:HiddenField ID="hfIdIdioma" runat="server" />
                     <asp:GridView ID="gvIdiomas" runat="server" AutoGenerateColumns="False" CssClass="grilla-estilo" Width="100%">
                         <RowStyle CssClass="fila-normal" />
                         <SelectedRowStyle CssClass="fila-seleccionada" />
@@ -296,18 +298,25 @@
             btn.addEventListener('click', function () {
                 const fila = btn.closest('tr');
                 const celdas = fila.querySelectorAll('td');
+
                 document.querySelectorAll('.grilla-estilo tr').forEach(f => f.classList.remove('fila-seleccionada'));
                 fila.classList.add('fila-seleccionada');
+
                 const targetInputId = btn.getAttribute('data-target');
                 const texto = celdas[2]?.innerText?.trim() || '';
+                const id = celdas[1]?.innerText?.trim() || '';
+
                 if (targetInputId === 'txtDescripcionRubro') {
                     document.getElementById('<%= txtDescripcionRubro.ClientID %>').value = texto;
-                } else if (targetInputId === 'txtDescripcionIdioma') {
-                    document.getElementById('<%= txtDescripcionIdioma.ClientID %>').value = texto;
-                }
-            });
+                document.getElementById('<%= hfIdRubro.ClientID %>').value = id;
+            } else if (targetInputId === 'txtDescripcionIdioma') {
+                document.getElementById('<%= txtDescripcionIdioma.ClientID %>').value = texto;
+                document.getElementById('<%= hfIdIdioma.ClientID %>').value = id;
+            }
         });
     });
+    });
+
 </script>
 </body>
 </html>

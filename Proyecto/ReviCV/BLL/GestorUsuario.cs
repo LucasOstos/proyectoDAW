@@ -20,20 +20,26 @@ namespace BLL
         public void InsertarUsuario(Usuario pUsuario)
         {
             UsuarioDAL usuarioDAL = new UsuarioDAL();
+            usuarioDAL.InsertarUsuario(pUsuario);
+
             GestorIntegridad gestorIntegridad = new GestorIntegridad();
-            string DVH = gestorIntegridad.CalcularDigitoVerificador(pUsuario.ToArray());
-            usuarioDAL.InsertarUsuario(pUsuario, DVH);
-            gestorIntegridad.GuardarIntegridadTabla(TablasBD.Usuario);
+            gestorIntegridad.ActualizarDVHRegistro(TablasBD.Usuario, pUsuario.DNI);
         }
         public void EliminarUsuario(string dni)
         {
             UsuarioDAL usuarioDAL=new UsuarioDAL();
             usuarioDAL.EliminarUsuario(dni);
+
+            GestorIntegridad gestorIntegridad = new GestorIntegridad();
+            gestorIntegridad.GuardarIntegridadTabla(TablasBD.Usuario);
         }
-        public void ModificarUsuario(Usuario nuevo)
+        public void ModificarUsuario(Usuario pUsuario)
         {
             UsuarioDAL usuarioDAL = new UsuarioDAL();
-            usuarioDAL.ModificarUsuario(nuevo);
+            usuarioDAL.ModificarUsuario(pUsuario);
+
+            GestorIntegridad gestorIntegridad = new GestorIntegridad();
+            gestorIntegridad.ActualizarDVHRegistro(TablasBD.Usuario, pUsuario.DNI);
         }
         public List<string> ObtenerTodosNombresUsuarios()
         {

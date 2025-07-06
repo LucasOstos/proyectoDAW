@@ -9,9 +9,12 @@ namespace DAL
 {
     public class CurriculumDAL
     {
-        public void GuardarCurriculum(Curriculum cv)
+        public int GuardarCurriculum(Curriculum cv)
         {
-            string query = $"INSERT INTO {TablasBD.Curriculum} (UsernameUsuario, Curriculum, Idioma, Rubro) VALUES (@UsernameUsuario, @Curriculum, @Idioma, @Rubro)";
+            string query = $@"
+        INSERT INTO {TablasBD.Curriculum} (UsernameUsuario, Curriculum, Idioma, Rubro)
+        VALUES (@UsernameUsuario, @Curriculum, @Idioma, @Rubro);
+        SELECT CAST(SCOPE_IDENTITY() AS INT);";
 
             using (SqlCommand cmd = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
             {
@@ -22,88 +25,111 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@Idioma", cv.Idioma.Item1);
                 cmd.Parameters.AddWithValue("@Rubro", cv.Rubro.Item1);
 
-                cmd.ExecuteNonQuery();
+                int id = (int)cmd.ExecuteScalar();
 
                 Conexion.Instancia.CerrarConexion();
+                return id;
             }
         }
-        public void AltaRubro(string NombreRubro)
+
+        public int AltaRubro(string NombreRubro)
         {
-            string query = $"INSERT INTO {TablasBD.Rubro} (Rubro) VALUES (@Rubro)";
+            string query = $@"
+        INSERT INTO {TablasBD.Rubro} (Rubro)
+        VALUES (@Rubro);
+        SELECT CAST(SCOPE_IDENTITY() AS INT);";
+
+            using (var conn = Conexion.Instancia.ReturnConexion())
+            {
+                Conexion.Instancia.AbrirConexion();
+                using (var cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Rubro", NombreRubro);
+                    int nuevoId = (int)cmd.ExecuteScalar();
+                    Conexion.Instancia.CerrarConexion();
+                    return nuevoId;
+                }
+            }
+        }
+
+        public void BajaRubro(int ID)
+        {
+            string query = $"Delete from {TablasBD.Rubro} where ID_Rubro = @Id";
 
             using (SqlCommand cmd = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
             {
                 Conexion.Instancia.AbrirConexion();
-                cmd.Parameters.AddWithValue("@Rubro", NombreRubro);
-
+                cmd.Parameters.AddWithValue("@Id", ID);
                 cmd.ExecuteNonQuery();
-
                 Conexion.Instancia.CerrarConexion();
             }
         }
-        public void BajaRubro(string Nombre)
+        public void ModificarRubro(int ID, string nNombreRubro)
         {
-            string query = $"Delete from {TablasBD.Rubro} where Rubro = @Id";
+            string query = $"UPDATE {TablasBD.Rubro} SET Rubro = @Rubro WHERE ID_Rubro = @Id";
+
+            using (var conn = Conexion.Instancia.ReturnConexion())
+            {
+                Conexion.Instancia.AbrirConexion();
+                using (var cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Rubro", nNombreRubro);
+                    cmd.Parameters.AddWithValue("@Id", ID);
+                    cmd.ExecuteNonQuery();
+                }
+                Conexion.Instancia.CerrarConexion();
+            }
+        }
+
+        public int AltaIdioma(string NombreIdioma)
+        {
+            string query = $@"
+        INSERT INTO {TablasBD.Idioma} (Idioma)
+        VALUES (@Idioma);
+        SELECT CAST(SCOPE_IDENTITY() AS INT);";
+
+            using (var conn = Conexion.Instancia.ReturnConexion())
+            {
+                Conexion.Instancia.AbrirConexion();
+                using (var cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Idioma", NombreIdioma);
+                    int nuevoId = (int)cmd.ExecuteScalar();
+                    Conexion.Instancia.CerrarConexion();
+                    return nuevoId;
+                }
+            }
+        }
+
+        public void BajaIdioma(int ID)
+        {
+            string query = $"Delete from {TablasBD.Idioma} where ID_Idioma = @Id";
 
             using (SqlCommand cmd = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
             {
                 Conexion.Instancia.AbrirConexion();
-                cmd.Parameters.AddWithValue("@Id", Nombre);
+                cmd.Parameters.AddWithValue("@Id", ID);
                 cmd.ExecuteNonQuery();
                 Conexion.Instancia.CerrarConexion();
             }
         }
-        public void ModificarRubro(string NombreViejo, string NombreRubro)
+        public void ModificarIdioma(int ID, string nNombreIdioma)
         {
-            string query = $"Update {TablasBD.Rubro} set Rubro = @Rubro where Rubro = @Id";
+            string query = $"UPDATE {TablasBD.Idioma} SET Idioma = @Idioma WHERE ID_Idioma = @Id";
 
-            using (SqlCommand cmd = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
+            using (var conn = Conexion.Instancia.ReturnConexion())
             {
                 Conexion.Instancia.AbrirConexion();
-                cmd.Parameters.AddWithValue("@Id", NombreViejo);
-                cmd.Parameters.AddWithValue("@Rubro", NombreRubro);
-                cmd.ExecuteNonQuery();
+                using (var cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Idioma", nNombreIdioma);
+                    cmd.Parameters.AddWithValue("@Id", ID);
+                    cmd.ExecuteNonQuery();
+                }
                 Conexion.Instancia.CerrarConexion();
             }
         }
-        public void AltaIdioma(string NombreIdioma)
-        {
-            string query = $"INSERT INTO {TablasBD.Idioma} (Idioma) VALUES (@Idioma)";
 
-            using (SqlCommand cmd = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
-            {
-                Conexion.Instancia.AbrirConexion();
-                cmd.Parameters.AddWithValue("@Idioma", NombreIdioma);
-                cmd.ExecuteNonQuery();
-
-                Conexion.Instancia.CerrarConexion();
-            }
-        }
-        public void BajaIdioma(string Nombre)
-        {
-            string query = $"Delete from {TablasBD.Idioma} where Idioma = @Id";
-
-            using (SqlCommand cmd = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
-            {
-                Conexion.Instancia.AbrirConexion();
-                cmd.Parameters.AddWithValue("@Id", Nombre);
-                cmd.ExecuteNonQuery();
-                Conexion.Instancia.CerrarConexion();
-            }
-        }
-        public void ModificarIdioma(string NombreIdiomaViejo, string NombreIdiomaNuevo)
-        {
-            string query = $"Update {TablasBD.Idioma} set Idioma = @Idioma where Idioma = @Id";
-
-            using (SqlCommand cmd = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
-            {
-                Conexion.Instancia.AbrirConexion();
-                cmd.Parameters.AddWithValue("@Id", NombreIdiomaViejo);
-                cmd.Parameters.AddWithValue("@Idioma", NombreIdiomaNuevo);
-                cmd.ExecuteNonQuery();
-                Conexion.Instancia.CerrarConexion();
-            }
-        }
         public Curriculum ObtenerCurriculumFiltrado(string rubro, string idioma)
         {
             Curriculum cv = null;

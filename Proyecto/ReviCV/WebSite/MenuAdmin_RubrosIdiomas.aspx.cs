@@ -94,7 +94,7 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page
         if (!string.IsNullOrEmpty(txtDescripcionIdioma.Text))
         {
             GestorCurriculum gestorCurriculums = new GestorCurriculum();
-            gestorCurriculums.BajaIdioma(txtDescripcionIdioma.Text);
+            gestorCurriculums.BajaIdioma(int.Parse(hfIdIdioma.Value));
             CargarIdiomas();
         }
     }
@@ -109,7 +109,7 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page
         if (!string.IsNullOrEmpty(txtDescripcionRubro.Text))
         {
             GestorCurriculum gestorCurriculums = new GestorCurriculum();
-            gestorCurriculums.BajaRubro(txtDescripcionRubro.Text);
+            gestorCurriculums.BajaRubro(int.Parse(hfIdRubro.Value));
             CargarRubros();
         }
     }

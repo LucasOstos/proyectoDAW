@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="EnumTablasBD.cs" />
     <Compile Include="Negocio\ResenaDAL.cs" />
+    <Compile Include="Tecnico\BitacoraDAL.cs" />
     <Compile Include="Tecnico\Conexion.cs" />
     <Compile Include="Negocio\CurriculumDAL.cs" />
     <Compile Include="Tecnico\IntegridadDAL.cs" />

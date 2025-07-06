@@ -14,10 +14,10 @@ namespace BLL
         public void GuardarCurriculum(Curriculum pCurriculum)
         {
             CurriculumDAL curriculumDAL = new CurriculumDAL();
-            curriculumDAL.GuardarCurriculum(pCurriculum);
+            int id = curriculumDAL.GuardarCurriculum(pCurriculum);
 
             GestorIntegridad gestorIntegridad = new GestorIntegridad();
-            //gestorIntegridad.GuardarIntegridad(TablasBD.Curriculum);
+            gestorIntegridad.ActualizarDVHRegistro(TablasBD.Curriculum, id);
         }
 
         public Curriculum ObtenerCurriculumPorID(int id)
@@ -40,41 +40,61 @@ namespace BLL
             CurriculumDAL curriculumDAL = new CurriculumDAL();
             return curriculumDAL.ObtenerIdiomas();
         }
+        public void AltaIdioma(string idioma)
+        {
+            CurriculumDAL curriculumDAL = new CurriculumDAL();
+            int id = curriculumDAL.AltaIdioma(idioma);
+
+            GestorIntegridad gestorIntegridad = new GestorIntegridad();
+            gestorIntegridad.ActualizarDVHRegistro(TablasBD.Idioma, id);
+        }
+        public void BajaIdioma(int id)
+        {
+            CurriculumDAL curriculumDAL = new CurriculumDAL();
+            curriculumDAL.BajaIdioma(id);
+
+            GestorIntegridad gestorIntegridad = new GestorIntegridad();
+            gestorIntegridad.GuardarIntegridadTabla(TablasBD.Idioma);
+        }
+        public void ModificarIdioma(int id, string idioma)
+        {
+            CurriculumDAL curriculumDAL = new CurriculumDAL();
+            curriculumDAL.ModificarIdioma(id, idioma);
+
+            GestorIntegridad gestorIntegridad = new GestorIntegridad();
+            gestorIntegridad.ActualizarDVHRegistro(TablasBD.Idioma, id);
+        }
+
+
 
         public Dictionary<int, string> ObtenerRubros()
         {
             CurriculumDAL curriculumDAL = new CurriculumDAL();
             return curriculumDAL.ObtenerRubros();
         }
-        public void AltaIdioma(string idioma)
+        public void AltaRubro(string rubro)
         {
             CurriculumDAL curriculumDAL = new CurriculumDAL();
-            curriculumDAL.AltaIdioma(idioma);
+            int id = curriculumDAL.AltaRubro(rubro);
+
+            GestorIntegridad gestorIntegridad = new GestorIntegridad();
+            gestorIntegridad.ActualizarDVHRegistro(TablasBD.Rubro, id);
         }
-        public void BajaIdioma(string id)
-        {
-            CurriculumDAL curriculumDAL = new CurriculumDAL();
-            curriculumDAL.BajaIdioma(id);
-        }
-        public void ModificarIdioma(string id, string idioma)
-        {
-            CurriculumDAL curriculumDAL = new CurriculumDAL();
-            curriculumDAL.ModificarIdioma(id, idioma);
-        }
-        public void AltaRubro(string idioma)
-        {
-            CurriculumDAL curriculumDAL = new CurriculumDAL();
-            curriculumDAL.AltaRubro(idioma);
-        }
-        public void BajaRubro(string id)
+        public void BajaRubro(int id)
         {
             CurriculumDAL curriculumDAL = new CurriculumDAL();
             curriculumDAL.BajaRubro(id);
+
+            GestorIntegridad gestorIntegridad = new GestorIntegridad();
+            gestorIntegridad.GuardarIntegridadTabla(TablasBD.Rubro);
         }
-        public void ModificarRubro(string id, string idioma)
+        public void ModificarRubro(int id, string rubro)
         {
             CurriculumDAL curriculumDAL = new CurriculumDAL();
-            curriculumDAL.ModificarRubro(id, idioma);
+            curriculumDAL.ModificarRubro(id, rubro);
+
+            GestorIntegridad gestorIntegridad = new GestorIntegridad();
+            gestorIntegridad.ActualizarDVHRegistro(TablasBD.Rubro, id);
         }
     }
 }

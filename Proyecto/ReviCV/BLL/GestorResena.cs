@@ -1,5 +1,6 @@
-﻿using ENTIDADES;
-using DAL;
+﻿using DAL;
+using ENTIDADES;
+using SERVICIOS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,10 @@ namespace BLL
         public void GuardarResena(Resena r)
         {
             ResenaDAL resenaDAL = new ResenaDAL();
-            resenaDAL.GuardarResena(r);
+            int id =  resenaDAL.GuardarResena(r);
+
+            GestorIntegridad gestorIntegridad = new GestorIntegridad();
+            gestorIntegridad.ActualizarDVHRegistro(TablasBD.Resena, id);
         }
     }
 }

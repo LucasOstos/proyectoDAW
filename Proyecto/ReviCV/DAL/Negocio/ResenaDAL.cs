@@ -10,13 +10,16 @@ namespace DAL
 {
     public class ResenaDAL
     {
-        public void GuardarResena(Resena r)
+        public int GuardarResena(Resena r)
         {
-            string query = "INSERT INTO Resena (Diseno, Comentarios, ID_CV, username_resenador, Contenido, Claridad, Relevancia) " +
-                           "VALUES (@Diseno, @Comentarios, @ID_CV, @UsernameResenador, @Contenido, @Claridad, @Relevancia)";
+            string query = @"INSERT INTO Resena (Diseno, Comentarios, ID_CV, username_resenador, Contenido, Claridad, Relevancia) 
+                     VALUES (@Diseno, @Comentarios, @ID_CV, @UsernameResenador, @Contenido, @Claridad, @Relevancia);
+                     SELECT CAST(SCOPE_IDENTITY() AS INT);";
 
             using (SqlCommand cmd = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
             {
+                Conexion.Instancia.AbrirConexion();
+
                 cmd.Parameters.AddWithValue("@Diseno", r.Diseno);
                 cmd.Parameters.AddWithValue("@Comentarios", r.Comentarios);
                 cmd.Parameters.AddWithValue("@ID_CV", r.ID_CV);
@@ -25,10 +28,13 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@Claridad", r.Claridad);
                 cmd.Parameters.AddWithValue("@Relevancia", r.Relevancia);
 
-                cmd.ExecuteNonQuery();
+                int nuevoId = (int)cmd.ExecuteScalar();
 
                 Conexion.Instancia.CerrarConexion();
+
+                return nuevoId;
             }
         }
+
     }
 }

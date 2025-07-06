@@ -24,7 +24,8 @@ public partial class BitacoraPage : System.Web.UI.Page
 
     private void CargarBitacora()
     {
-        List<Bitacora> logs = GestorBitacora.Instancia.ObtenerLogs();
+        GestorBitacora gestorBitacora = new GestorBitacora();
+        List<Bitacora> logs = gestorBitacora.ObtenerLogs();
         gvBitacora.DataSource = logs;
         gvBitacora.DataBind();
     }
