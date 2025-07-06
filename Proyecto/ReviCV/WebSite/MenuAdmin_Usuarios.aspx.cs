@@ -50,14 +50,26 @@ public partial class MenuAdmin_Usuarios : Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Application["EstadoBD"].Equals(false)) Response.Redirect("AvisoErrorBD.aspx");
-        if (Session["Rol"].ToString() != "Admin") Response.Redirect("LandingPage.aspx");
+        var estadoBD = Application["EstadoBD"];
+        var rol = Session["Rol"]?.ToString();
+
+        if (estadoBD is bool bdOk && !bdOk)
+        {
+            Response.Redirect("AvisoErrorBD.aspx");
+        }
+
+        if (rol != "Admin")
+        {
+            Response.Redirect("LandingPage.aspx");
+        }
+
         if (!IsPostBack)
         {
             CargarUsuarios();
             CargarRoles();
         }
     }
+
 
 
     protected void btnAgregar_Click(object sender, EventArgs e)
