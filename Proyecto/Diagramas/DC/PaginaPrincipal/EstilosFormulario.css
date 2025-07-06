@@ -1,0 +1,71 @@
+﻿body {
+}
+
+.entrada {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    padding-bottom: 20px;
+    margin-left: 200px;
+}
+
+.entrada-filtro {
+    border: 1px solid #ccc;
+    padding: 5px;
+    width: 207px;
+}
+
+
+.entrada label {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    color: black;
+}
+
+.barraVertical {
+    position: fixed;
+    height: 100%;
+    width: 175px;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+    background: linear-gradient(to bottom, #0f044c, #630062);
+}
+
+.barraVertical li {
+    color:white;
+}
+
+.barraVertical li a {
+    color:white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+}
+
+.botones {
+    margin-left: 200px;    
+}
+
+.boton {
+    margin-right: 15px;
+    width: 100px;
+    padding: 5px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    color: black;
+    border-radius: 10px;
+    background-color: cornflowerblue;
+}
+
+.boton:hover {
+    background-color: #aaaaaa;
+    cursor: pointer;
+}
+
+.error {
+    color: red;
+    font-size: 15px;
+    font-family: 'Arial Rounded MT';
+    width: 250px;
+}
+
