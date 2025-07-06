@@ -10,7 +10,7 @@ public partial class BackUp_ReStore : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (Session["Rol"].ToString() != "Webmaster") Response.Redirect("LandingPage.aspx");
     }
 
     protected void Button1_Click(object sender, EventArgs e)
@@ -68,5 +68,31 @@ public partial class BackUp_ReStore : System.Web.UI.Page
     protected void BtnBuscarRestore_Click(object sender, EventArgs e)
     {
 
+    }
+
+    protected void btnHome_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("WebMaster_Menu.aspx");
+    }
+
+    protected void btnContact_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void btnFAQ_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Verificador.aspx");
+    }
+
+    protected void Button3_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("BitacoraPage.aspx");
+    }
+
+    protected void Button4_Click(object sender, EventArgs e)
+    {
+        Session.Clear();
+        Response.Redirect("LandingPage.aspx");
     }
 }

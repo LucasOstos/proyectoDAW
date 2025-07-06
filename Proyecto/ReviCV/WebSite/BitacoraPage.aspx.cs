@@ -14,6 +14,7 @@ public partial class BitacoraPage : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Session["Rol"].ToString() != "Webmaster") Response.Redirect("LandingPage.aspx");
         if (!IsPostBack)
         {
             CargarBitacora();
@@ -47,5 +48,31 @@ public partial class BitacoraPage : System.Web.UI.Page
         string usuario = ddlUsuario.SelectedValue;
         gvBitacora.DataSource = Filtros(desde, hasta, usuario, txtOperacion.Text);
         gvBitacora.DataBind();
+    }
+
+    protected void btnHome_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("WebMaster_Menu.aspx");
+    }
+
+    protected void btnContact_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("BackUp_ReStore.aspx");
+    }
+
+    protected void btnFAQ_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Verificador.aspx");
+    }
+
+    protected void Button2_Click(object sender, EventArgs e)
+    {
+        Session.Clear();
+        Response.Redirect("LandingPage.aspx");
+    }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("BackUp_ReStore.aspx");
     }
 }

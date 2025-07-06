@@ -1,4 +1,7 @@
 ﻿using BLL;
+using ENTIDADES;
+using SERVICIOS;
+using DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +13,8 @@ public partial class LandingPage : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        GestorIntegridad gestorIntegridad = new GestorIntegridad();
+        gestorIntegridad.GuardarIntegridadTodasLasTablas();
         if (!IsPostBack)
         {
             CargarRubros();
@@ -23,8 +28,8 @@ public partial class LandingPage : System.Web.UI.Page
         var idiomas = gCurriculums.ObtenerIdiomas();
 
         ddlIdioma.DataSource = idiomas;
-        ddlIdioma.DataTextField = "Value";  // Nombre que se muestra
-        ddlIdioma.DataValueField = "Key";   // ID que se usa internamente
+        ddlIdioma.DataTextField = "Value"; 
+        ddlIdioma.DataValueField = "Key";   
         ddlIdioma.DataBind();
 
         ddlIdioma.Items.Insert(0, new ListItem("¿En qué idioma?", ""));
@@ -38,8 +43,8 @@ public partial class LandingPage : System.Web.UI.Page
         var rubros = gCurriculums.ObtenerRubros();
 
         ddlRubro.DataSource = rubros;
-        ddlRubro.DataTextField = "Value";  // Nombre que se muestra
-        ddlRubro.DataValueField = "Key";   // ID que se usa internamente
+        ddlRubro.DataTextField = "Value";  
+        ddlRubro.DataValueField = "Key";  
         ddlRubro.DataBind();
 
         ddlRubro.Items.Insert(0, new ListItem("¿Qué rubro queres analizar?", ""));
@@ -73,7 +78,7 @@ public partial class LandingPage : System.Web.UI.Page
         {
             if (Session["Rol"].ToString() == "Usuario") Response.Redirect("PanelUsuario.aspx");
             if (Session["Rol"].ToString() == "Admin") Response.Redirect("MenuAdmin.aspx");
-            if (Session["Rol"].ToString() == "Webmaster") Response.Redirect("MenuWebmaster.aspx");
+            if (Session["Rol"].ToString() == "Webmaster") Response.Redirect("WebMaster_Menu.aspx");
         }
     }
 }

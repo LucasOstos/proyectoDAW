@@ -44,8 +44,8 @@ namespace DAL
 
             if (!string.IsNullOrWhiteSpace(dni))
             {
-                condiciones.Add("DNI = @DNI");
-                cmd.Parameters.AddWithValue("@DNI", dni);
+                condiciones.Add("DNI LIKE @DNI");
+                cmd.Parameters.AddWithValue("@DNI", $"%{dni}%");
             }
 
             if (!string.IsNullOrWhiteSpace(username))
@@ -116,9 +116,9 @@ namespace DAL
             return U;
         }
 
-        public void InsertarUsuario(Usuario U)
+        public void InsertarUsuario(Usuario U, string DVH)
         {
-            string Query = $"INSERT INTO {TablasBD.Usuario} (DNI, Nombre, Apellido, username, password, Mail, Rol) VALUES (@DNI, @Nombre, @Apellido, @Username, @Pass, @Mail, @Rol)";
+            string Query = $"INSERT INTO {TablasBD.Usuario} (DNI, Nombre, Apellido, username, password, Mail, Rol, DVH) VALUES (@DNI, @Nombre, @Apellido, @Username, @Pass, @Mail, @Rol, @DVH)";
 
             using (SqlCommand CM = new SqlCommand(Query, Conexion.Instancia.ReturnConexion()))
             {
@@ -130,6 +130,7 @@ namespace DAL
                 CM.Parameters.AddWithValue("@Pass", U.Password);
                 CM.Parameters.AddWithValue("@Mail", U.Email);
                 CM.Parameters.AddWithValue("@Rol", U.Rol);
+                CM.Parameters.AddWithValue("@DVH", DVH);
                 CM.ExecuteNonQuery();
             }
             Conexion.Instancia.CerrarConexion();

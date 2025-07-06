@@ -1,17 +1,19 @@
 ﻿using BLL;
+using ENTIDADES;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using BE;
+using System.Web.UI.WebControls.WebParts;
 
 public partial class EvaluarCV : System.Web.UI.Page
 {
     Curriculum cvMostrar;
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Application["EstadoBD"].Equals(false)) Response.Redirect("AvisoErrorBD.aspx");
         if (!IsPostBack)
         {
             GestorCurriculum gCurriculums = new GestorCurriculum();
@@ -42,6 +44,10 @@ public partial class EvaluarCV : System.Web.UI.Page
                 // Mostrar imagen (asumimos png/jpg)
                 VisorCV.Text = $"<img src='data:image;base64,{base64String}' style='max-width:100%; max-height:100%; object-fit: contain;' alt='CV imagen' />";
             }
+
+            pComentario.InnerHtml = $"Agrega un comentario adicional para ayudar a <strong>{cvMostrar.Usuario.Nombre.ToUpper()}</ strong >!";
+            txtComentarios.Attributes["placeholder"] = $"¿Qué le recomendarias a {cvMostrar.Usuario.Nombre.ToUpper()}?";
+
         }
     }
 
@@ -71,7 +77,48 @@ public partial class EvaluarCV : System.Web.UI.Page
         resena.Claridad = LeerValorRadio("claridad");
         resena.Relevancia = LeerValorRadio("relevancia");
 
+        GestorResena gestorResenas = new GestorResena();
+        gestorResenas.GuardarResena(resena);
 
+        //JS puro
+        //ClientScript.RegisterStartupScript(
+        //    this.GetType(),
+        //    "alerta",
+        //    "alert('¡La reseña fue enviada con éxito!'); window.location='LandingPage.aspx';",
+        //    true
+        //);
+
+        //Con SweetAlert https://sweetalert2.github.io/
+
+        string script = @"
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    title: '¡Gracias!',
+                    text: 'Tu reseña fue enviada con éxito.',
+                    icon: 'success',
+                    confirmButtonText: 'Ir al inicio',
+                    backdrop: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    customClass: {
+                        container: 'swal-container-fix'
+                    }
+                }).then(() => {
+                    window.location.href = 'LandingPage.aspx';
+                });
+            } else {
+                window.location.href = 'LandingPage.aspx';
+            }
+        });";
+
+        ScriptManager.RegisterStartupScript(
+            this,
+            this.GetType(),
+            "SwalSuccess",
+            script,
+            true
+        );
     }
 
     private int LeerValorRadio(string nombreCampo)
@@ -79,6 +126,4 @@ public partial class EvaluarCV : System.Web.UI.Page
         string valor = Request.Form[nombreCampo];
         return int.TryParse(valor, out int resultado) ? resultado : 0;
     }
-
-
 }

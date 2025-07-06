@@ -10,11 +10,11 @@ namespace DAL
     {
         Bitacora,
         Curriculum,
-        DigitoVerificador,
         Idioma,
         Resena,
         Rubro,
-        Usuario
+        Usuario,
+        DigitoVerificador
     }
 
 }

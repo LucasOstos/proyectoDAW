@@ -212,13 +212,10 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <!-- Ícono de usuario, SIEMPRE en la esquina superior derecha -->
         <div class="user-icon">
             <asp:ImageButton ID="imgUserIcon" runat="server" ImageUrl="Imagenes/userIcon.png" OnClick="imgUserIcon_Click" CssClass="user-icon-img" />
         </div>
 
-
-        <!-- Contenedor principal -->
         <div class="principal">
             <div class="rectangle"></div>
             <div class="rectangle"></div>

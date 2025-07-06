@@ -10,8 +10,9 @@
     margin: 0;
     padding: 0;
     height: 100vh; /* Cambiar de 100% a 100vh */
-    font-family: sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     overflow-x: hidden; /* Evitar scroll horizontal */
+    background-color: #f4f4f4;
 }
 
 .contenedor {
@@ -165,12 +166,10 @@ h2, h3 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px; /* Reducir padding lateral de 30px a 20px */
+    padding: 0 30px;
     height: 60px;
     color: white;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    width: 100%;
-    box-sizing: border-box;
 }
 
 .navbar .logo {
@@ -197,6 +196,7 @@ h2, h3 {
     gap: 6px;
     padding: 10px;
     transition: background 0.3s ease;
+    text-decoration: none;
 }
 
 .menu-button:hover {
@@ -230,7 +230,7 @@ h2, h3 {
             <div class="navbar">
     <div class="logo">
         <i class="fa-solid fa-cogs"></i>
-        AdminPanel
+        Panel de administración
     </div>
     <div class="menu">
         <asp:LinkButton ID="btnInicio" runat="server" OnClick="btnInicio_Click" CssClass="menu-button">

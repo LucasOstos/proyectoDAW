@@ -28,11 +28,28 @@ public partial class Login : System.Web.UI.Page
                         if (Session["Rol"].ToString() != "Usuario")
                         {
                             GestorBitacora.Instancia.GuardarLog("Login", Session["username"].ToString());
+                        }
+                        GestorIntegridad gestorIntegridad = new GestorIntegridad();
+                        string bdErrores = gestorIntegridad.VerificarIntegridadTodasLasTablas();
+                        Application["EstadoBD"] = bdErrores == null ? true : false;
+
+                        if (Application["EstadoBD"].Equals(true))
+                        {
                             Response.Redirect("LandingPage.aspx");
                             Context.ApplicationInstance.CompleteRequest();
                         }
-                        Response.Redirect("LandingPage.aspx");
-                        Context.ApplicationInstance.CompleteRequest();
+                        else
+                        {
+                            if (Session["Rol"].Equals("WebMaster"))
+                            {
+                                Response.Redirect("WebMaster_menu.aspx");
+                            }
+                            else
+                            {
+                                Response.Redirect("AvisoErrorBD.aspx");
+                                Context.ApplicationInstance.CompleteRequest();
+                            }
+                        }
                     }
                     else { labelErrores.ForeColor = System.Drawing.Color.Red; labelErrores.Text = "Credenciales incorrectas"; }
                 }
