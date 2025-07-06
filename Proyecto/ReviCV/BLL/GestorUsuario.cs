@@ -89,8 +89,7 @@ namespace BLL
         private List<string> UsuarioYaExiste(string dni, string username, string mail)
         {
             List<string> repetidos = new List<string>();
-            UsuarioDAL usuarioDAL = new UsuarioDAL();
-            List<Usuario> usuariosRegistrados = usuarioDAL.ObtenerTodosUsuarios();
+            List<Usuario> usuariosRegistrados = ObtenerTodosUsuarios();
 
             if (usuariosRegistrados.Any(u => u.DNI.ToString() == dni))
                 repetidos.Add("dni");
