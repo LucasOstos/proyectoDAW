@@ -37,7 +37,7 @@ h2 {
     .form-group input[type="text"],
     .form-group input[type="password"],
     .aspNetTextBox {
-        width: 100%;
+        width: 94%;
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 6px;
