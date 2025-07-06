@@ -14,8 +14,7 @@ public partial class PanelUsuario : System.Web.UI.Page
     }
 
     protected void Button1_Click(object sender, EventArgs e)
-    {
-        GestorBitacora.Instancia.GuardarLog("Logout", Session["username"].ToString());
+    {        
         Session.Clear();
         Response.Redirect("LandingPage.aspx");
     }

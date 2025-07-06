@@ -25,7 +25,12 @@ public partial class Login : System.Web.UI.Page
                     if (validador.Verificar(u.NombreUsuario, encriptador.EncriptarIrreversible(tbContraseña.Text)))
                     {
                         GuardarSession(u);
-                        GestorBitacora.Instancia.GuardarLog("Login", Session["username"].ToString());
+                        if (Session["Rol"].ToString() != "Usuario")
+                        {
+                            GestorBitacora.Instancia.GuardarLog("Login", Session["username"].ToString());
+                            Response.Redirect("LandingPage.aspx");
+                            Context.ApplicationInstance.CompleteRequest();
+                        }
                         Response.Redirect("LandingPage.aspx");
                         Context.ApplicationInstance.CompleteRequest();
                     }

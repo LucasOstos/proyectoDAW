@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Tecnico\BackupRestoreDAL.cs" />
+    <Compile Include="Tecnico\BitacoraDAL.cs" />
     <Compile Include="EnumTablasBD.cs" />
     <Compile Include="Tecnico\Conexion.cs" />
     <Compile Include="Negocio\CurriculumDAL.cs" />

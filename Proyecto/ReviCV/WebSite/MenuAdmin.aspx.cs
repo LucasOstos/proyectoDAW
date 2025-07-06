@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.UI;
+using SERVICIOS;
 
 public partial class MenuAdmin : Page
 {
@@ -15,6 +16,7 @@ public partial class MenuAdmin : Page
 
     protected void btnCerrarSesion_Click(object sender, EventArgs e)
     {
+        GestorBitacora.Instancia.GuardarLog("Logout", Session["username"].ToString());
         Session.Clear();
         Response.Redirect("LandingPage.aspx");
     }

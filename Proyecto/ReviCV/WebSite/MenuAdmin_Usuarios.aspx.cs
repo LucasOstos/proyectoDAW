@@ -2,7 +2,7 @@
 using System.Web;
 using System.Web.UI;
 using System.Collections.Generic;
-using BE;
+using ENTIDADES;
 using BLL;
 using System.Web.UI.WebControls;
 using SERVICIOS;
@@ -75,6 +75,7 @@ public partial class MenuAdmin_Usuarios : Page
 
             GestorUsuario gestorUsuarios = new GestorUsuario();
             gestorUsuarios.InsertarUsuario(usuario);
+            GestorBitacora.Instancia.GuardarLog($"Alta del usuario: {usuario.NombreUsuario}", Session["username"].ToString());
             CargarUsuarios();
             LimpiarTxt();
         }
@@ -105,6 +106,7 @@ public partial class MenuAdmin_Usuarios : Page
 
             GestorUsuario gestorUsuario = new GestorUsuario();
             gestorUsuario.ModificarUsuario(usuario);
+            GestorBitacora.Instancia.GuardarLog($"Modificación del usuario: {usuario.NombreUsuario}", Session["username"].ToString());
             CargarUsuarios();
             LimpiarTxt();
         }
@@ -117,6 +119,7 @@ public partial class MenuAdmin_Usuarios : Page
         {
             GestorUsuario gestorUsuario = new GestorUsuario();
             gestorUsuario.EliminarUsuario(txtDni.Text.ToString());
+            GestorBitacora.Instancia.GuardarLog($"Baja del usuario: {txtDni.Text}", Session["username"].ToString());
             CargarUsuarios();
             LimpiarTxt();
         }

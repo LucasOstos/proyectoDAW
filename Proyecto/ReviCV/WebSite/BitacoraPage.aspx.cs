@@ -37,49 +37,8 @@ public partial class BitacoraPage : System.Web.UI.Page
     }
     private List<Bitacora> Filtros(DateTime? desde, DateTime? hasta, string usuario, string operacion)
     {
-        List<Bitacora> listaLogs = new List<Bitacora>();
-
-        string query = "SELECT * FROM Bitacora WHERE 1=1";
-
-        if (desde.HasValue)
-            query += " AND Fecha >= @Desde";
-
-        if (hasta.HasValue)
-            query += " AND Fecha <= @Hasta";
-
-        if (!string.IsNullOrEmpty(usuario))
-            query += " AND Usuario LIKE @Usuario";
-
-        if (!string.IsNullOrEmpty(operacion))
-            query += " AND Operacion LIKE @Operacion";
-
-        using (SqlCommand cmd = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
-        {
-            if (desde.HasValue)
-                cmd.Parameters.AddWithValue("@Desde", desde.Value);
-
-            if (hasta.HasValue)
-                cmd.Parameters.AddWithValue("@Hasta", hasta.Value);
-
-            if (!string.IsNullOrEmpty(usuario))
-                cmd.Parameters.AddWithValue("@Usuario", "%" + usuario + "%");
-
-            if (!string.IsNullOrEmpty(operacion))
-                cmd.Parameters.AddWithValue("@Operacion", "%" + operacion + "%");
-
-            Conexion.Instancia.AbrirConexion();
-            using (SqlDataReader dr = cmd.ExecuteReader())
-            {
-                while (dr.Read())
-                {
-                    Bitacora log = new Bitacora(int.Parse(dr["ID"].ToString()), DateTime.Parse(dr["Fecha"].ToString()), dr["Operacion"].ToString(), dr["Usuario"].ToString());
-                    listaLogs.Add(log);
-                }
-            }
-        }
-        return listaLogs;
+        return GestorBitacora.Instancia.FiltrosBitacora(desde, hasta, usuario, operacion);
     }
-
 
     protected void btnFiltrar_Click(object sender, EventArgs e)
     {
