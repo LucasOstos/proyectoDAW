@@ -36,5 +36,9 @@ namespace ENTIDADES
             Email = pEmail;
             Rol = "Usuario";
         }
+        public Usuario()
+        {
+
+        }
     }
 }

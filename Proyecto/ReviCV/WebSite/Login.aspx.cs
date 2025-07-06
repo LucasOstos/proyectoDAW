@@ -27,6 +27,7 @@ public partial class Login : System.Web.UI.Page
                         GuardarSession(u);
                         GestorBitacora.Instancia.GuardarLog("Login", Session["username"].ToString());
                         Response.Redirect("LandingPage.aspx");
+                        Context.ApplicationInstance.CompleteRequest();
                     }
                     else { labelErrores.ForeColor = System.Drawing.Color.Red; labelErrores.Text = "Credenciales incorrectas"; }
                 }
@@ -41,6 +42,7 @@ public partial class Login : System.Web.UI.Page
     {
         Response.Redirect("Sign_Up.aspx");
     }
+
     public void GuardarSession(Usuario u)
     {
         Session["username"] = $"{u.NombreUsuario}";

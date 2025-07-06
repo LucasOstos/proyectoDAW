@@ -5,17 +5,18 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using BE;
 
 public partial class EvaluarCV : System.Web.UI.Page
 {
+    Curriculum cvMostrar;
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            GestorCurriculums gCurriculums = new GestorCurriculums();
-            Curriculum cvMostrar = gCurriculums.ObtenerCurriculumFiltrado(Session["RubroSeleccionado"].ToString(), Session["IdiomaSeleccionado"].ToString());
-
-
+            GestorCurriculum gCurriculums = new GestorCurriculum();
+            cvMostrar = gCurriculums.ObtenerCurriculumFiltrado(Session["RubroSeleccionado"].ToString(), Session["IdiomaSeleccionado"].ToString());
+            Session["CurriculumLeido"] = cvMostrar;
             if (cvMostrar == null || cvMostrar.ArchivoCV == null)
             {
                 Response.Redirect("LandingPage.aspx");
@@ -56,4 +57,28 @@ public partial class EvaluarCV : System.Web.UI.Page
             Response.Redirect("PanelUsuario.aspx");
         }
     }
+
+    protected void enviar_Click(object sender, EventArgs e)
+    {
+        Resena resena = new Resena();
+        resena.Comentarios = txtComentarios.Text;
+        resena.ID_CV = (Session["CurriculumLeido"] as Curriculum).ID_CV;
+        resena.UsuarioReseñador = Session["username"].ToString();
+
+        // Leer las calificaciones desde el formulario
+        resena.Contenido = LeerValorRadio("contenido");
+        resena.Diseno = LeerValorRadio("diseno");
+        resena.Claridad = LeerValorRadio("claridad");
+        resena.Relevancia = LeerValorRadio("relevancia");
+
+
+    }
+
+    private int LeerValorRadio(string nombreCampo)
+    {
+        string valor = Request.Form[nombreCampo];
+        return int.TryParse(valor, out int resultado) ? resultado : 0;
+    }
+
+
 }
