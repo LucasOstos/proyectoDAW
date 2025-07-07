@@ -113,7 +113,7 @@ namespace SERVICIOS
             foreach (var datos in datosTabla)
             {
                 string dvhCalculado = CalcularDigitoVerificador(datos.datos);
-                DVHs.Add(datos.dvh);
+                DVHs.Add(dvhCalculado);
 
                 if (dvhCalculado != datos.dvh)
                 {

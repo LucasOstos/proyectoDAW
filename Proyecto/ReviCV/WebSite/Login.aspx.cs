@@ -24,19 +24,19 @@ public partial class Login : System.Web.UI.Page
                     Encriptador encriptador = new Encriptador();
                     if (validador.Verificar(u.NombreUsuario, encriptador.EncriptarIrreversible(tbContraseña.Text)))
                     {
-                        GuardarSession(u);
-                        if (Session["Rol"].ToString() != "Usuario")
-                        {
-                            GestorBitacora gestorBitacora = new GestorBitacora();
-                            gestorBitacora.GuardarLogBitacora("Login", Session["username"].ToString());
-                        }
-
                         GestorIntegridad gestorIntegridad = new GestorIntegridad();
                         string bdErrores = gestorIntegridad.VerificarIntegridadTodasLasTablas();
                         Application["EstadoBD"] = bdErrores == "" ? true : false;
 
+                        GuardarSession(u);
                         if (Application["EstadoBD"].Equals(true))
                         {
+                            if (Session["Rol"].ToString() != "Usuario")
+                            {
+                                GestorBitacora gestorBitacora = new GestorBitacora();
+                                gestorBitacora.GuardarLogBitacora("Login", Session["username"].ToString());
+                            }
+
                             Response.Redirect("LandingPage.aspx");
                             Context.ApplicationInstance.CompleteRequest();
                         }
