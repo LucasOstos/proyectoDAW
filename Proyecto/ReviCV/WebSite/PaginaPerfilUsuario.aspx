@@ -234,6 +234,11 @@
             gap: 12px;
             margin: 0 20px 20px 20px;
         }
+
+        .nombre-perfil,
+        .usuario-perfil {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -246,9 +251,10 @@
             <div class="contenedor-perfil">
                 <div class="tarjeta-perfil">
                     <div class="encabezado-perfil">
-                        <div class="nombre-perfil">Juan Gomez</div>
-                        <div class="usuario-perfil">@UsuarioPrueba123</div>
+                        <asp:Label ID="lblNombrePerfil" runat="server" CssClass="nombre-perfil" Text="Juan Gomez" />
+                        <asp:Label ID="lblUsuarioPerfil" runat="server" CssClass="usuario-perfil" Text="@UsuarioPrueba123" />
                     </div>
+
 
                     <div class="contenido-perfil">
 
@@ -290,7 +296,7 @@
 
                                 <div class="botones-accion">
                                     <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-guardar" Text="💾 Guardar Cambios" OnClick="btnGuardar_Click" />
-                                    <asp:Button ID="btnCancelar" runat="server" CssClass="btn btn-cancelar" Text="✖️ Cancelar" OnClick="btnCancelar_Click" CausesValidation="False" />
+                                    <asp:Button ID="btnCancelar" runat="server" CssClass="btn btn-cancelar" Text="✖️ Cancelar" OnClick="btnCancelar_Click" CausesValidation="False" UseSubmitBehavior="false" />
                                 </div>
                             </asp:Panel>
                         </div>
@@ -329,14 +335,18 @@
         <asp:HiddenField ID="hfOriginalFirstName" runat="server" />
         <asp:HiddenField ID="hfOriginalLastName" runat="server" />
         <asp:HiddenField ID="hfOriginalEmail" runat="server" />
+        <asp:HiddenField ID="hfOriginalDNI" runat="server" />
+        <asp:HiddenField ID="hfOriginalRol" runat="server" />
 
     </form>
 
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
 
         function switchTab(tabName) {
- 
+
             document.querySelectorAll('.boton-tab').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.contenido-tab').forEach(content => content.classList.remove('active'));
 

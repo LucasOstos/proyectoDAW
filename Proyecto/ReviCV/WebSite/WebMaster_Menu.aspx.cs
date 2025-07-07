@@ -22,10 +22,6 @@ public partial class WebMaster_Menu : System.Web.UI.Page
         Response.Redirect("BackUp_ReStore.aspx");
     }
 
-    protected void btnAbout_Click(object sender, EventArgs e)
-    {
-
-    }
 
     protected void btnFAQ_Click(object sender, EventArgs e)
     {
@@ -45,6 +41,6 @@ public partial class WebMaster_Menu : System.Web.UI.Page
 
     protected void btnPerfil_Click(object sender, EventArgs e)
     {
-        Response.Redirect("PanelUsuario.aspx");
+        Response.Redirect("PaginaPerfilUsuario.aspx");
     }
 }

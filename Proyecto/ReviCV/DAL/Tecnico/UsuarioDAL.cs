@@ -212,5 +212,19 @@ namespace DAL
             return usuarios;
         }
 
+        public void CambiarPassword(int dni, string pPassword)
+        {
+            string query = $"UPDATE {TablasBD.Usuario} SET password = @Password WHERE DNI = @DNI";
+
+            using (SqlCommand cm = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
+            {
+                Conexion.Instancia.AbrirConexion();
+                cm.Parameters.AddWithValue("@Password", pPassword);
+                cm.Parameters.AddWithValue("@DNI", dni);
+                cm.ExecuteNonQuery();
+                Conexion.Instancia.CerrarConexion();
+            }
+        }
+
     }
 }
