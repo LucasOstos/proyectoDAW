@@ -33,6 +33,9 @@ public partial class Verificador : System.Web.UI.Page
         lblMensaje.ForeColor = System.Drawing.Color.Green;
         lblMensaje.Text = "Integridad de las tablas recalculada correctamente.";
         lblMensaje.Visible = true;
+
+        GestorBitacora gestorBitacora = new GestorBitacora();
+        gestorBitacora.GuardarLogBitacora($"Se recalcularon los digitos de la base de datos", Session["username"].ToString());
     }
 
 
@@ -71,6 +74,7 @@ public partial class Verificador : System.Web.UI.Page
     {
         GestorIntegridad gestorIntegridad = new GestorIntegridad();
         string resultados = gestorIntegridad.VerificarIntegridadTodasLasTablas();
+        string msj = "";
 
         if (!string.IsNullOrWhiteSpace(resultados))
         {
@@ -78,13 +82,18 @@ public partial class Verificador : System.Web.UI.Page
             lblMensaje.ForeColor = System.Drawing.Color.Red;
             lblMensaje.Text = resultados.Replace("\n", "<br />");
             lblMensaje.Visible = true;
+            msj = "incorrecto";
         }
         else
         {
             lblMensaje.ForeColor = System.Drawing.Color.Green;
             lblMensaje.Text = "La base de datos no presenta problemas de integridad.";
             lblMensaje.Visible = true;
+            msj = "correcto";
         }
+
+        GestorBitacora gestorBitacora = new GestorBitacora();
+        gestorBitacora.GuardarLogBitacora($"Se verificaron los digitos de la base de datos. Su estado fue {msj}", Session["username"].ToString());
     }
 
 

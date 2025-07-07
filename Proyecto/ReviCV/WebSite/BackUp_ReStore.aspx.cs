@@ -15,18 +15,14 @@ public partial class BackUp_ReStore : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        // Ruta donde guardás temporalmente el archivo en el servidor
         string backupFolder = Server.MapPath("~/TempBackups");
 
-        // Asegurarte que exista el directorio
         if (!Directory.Exists(backupFolder))
             Directory.CreateDirectory(backupFolder);
 
-        // Llamás a tu función y obtenés la ruta real del .bak
         string rutaGenerada = BackupRestore.DalBURS.RealizarBackup(backupFolder);
         GestorBitacora gestorBitacora = new GestorBitacora();
         gestorBitacora.GuardarLogBitacora("Backup de la base de datos creado", $"{Session["username"].ToString()}");
-        // Forzás la descarga al navegador
         DescargarArchivo(rutaGenerada);
     }
     private void DescargarArchivo(string rutaCompleta)

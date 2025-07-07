@@ -26,7 +26,9 @@ namespace DAL
             if(CO.State == System.Data.ConnectionState.Open)
             {
             }
-            else { CO.Open(); }
+            else {
+                CO = new SqlConnection(connectionString);
+                CO.Open(); }
         }
         public void CerrarConexion()
         {
