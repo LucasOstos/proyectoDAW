@@ -163,52 +163,6 @@
                     <span class="delete-btn" onclick="eliminarCurriculum(this)">✖</span>
                     <button class="review-btn" onclick="verResenas()">Ver reseñas</button>
                 </div>
-                <div class="curriculum-item">
-    <span class="curriculum-title">Curriculum de medicina - Español</span>
-    <span class="delete-btn" onclick="eliminarCurriculum(this)">✖</span>
-    <button class="review-btn" onclick="verResenas()">Ver reseñas</button>
-</div>
-<div class="curriculum-item">
-    <span class="curriculum-title">Curriculum de medicina - Inglés</span>
-    <span class="delete-btn" onclick="eliminarCurriculum(this)">✖</span>
-    <button class="review-btn" onclick="verResenas()">Ver reseñas</button>
-</div>
-<div class="curriculum-item">
-    <span class="curriculum-title">Curriculum para Globant</span>
-    <span class="delete-btn" onclick="eliminarCurriculum(this)">✖</span>
-    <button class="review-btn" onclick="verResenas()">Ver reseñas</button>
-</div>
-                <div class="curriculum-item">
-    <span class="curriculum-title">Curriculum de medicina - Español</span>
-    <span class="delete-btn" onclick="eliminarCurriculum(this)">✖</span>
-    <button class="review-btn" onclick="verResenas()">Ver reseñas</button>
-</div>
-<div class="curriculum-item">
-    <span class="curriculum-title">Curriculum de medicina - Inglés</span>
-    <span class="delete-btn" onclick="eliminarCurriculum(this)">✖</span>
-    <button class="review-btn" onclick="verResenas()">Ver reseñas</button>
-</div>
-<div class="curriculum-item">
-    <span class="curriculum-title">Curriculum para Globant</span>
-    <span class="delete-btn" onclick="eliminarCurriculum(this)">✖</span>
-    <button class="review-btn" onclick="verResenas()">Ver reseñas</button>
-</div>
-                <div class="curriculum-item">
-    <span class="curriculum-title">Curriculum de medicina - Español</span>
-    <span class="delete-btn" onclick="eliminarCurriculum(this)">✖</span>
-    <button class="review-btn" onclick="verResenas()">Ver reseñas</button>
-</div>
-<div class="curriculum-item">
-    <span class="curriculum-title">Curriculum de medicina - Inglés</span>
-    <span class="delete-btn" onclick="eliminarCurriculum(this)">✖</span>
-    <button class="review-btn" onclick="verResenas()">Ver reseñas</button>
-</div>
-<div class="curriculum-item">
-    <span class="curriculum-title">Curriculum para Globant</span>
-    <span class="delete-btn" onclick="eliminarCurriculum(this)">✖</span>
-    <button class="review-btn" onclick="verResenas()">Ver reseñas</button>
-</div>
-
 
                 <!-- Botón Agregar -->
                 <div class="add-curriculum" onclick="subirCurriculum()">+</div>

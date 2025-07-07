@@ -4,19 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using SERVICIOS;
 
-public partial class PanelUsuario : System.Web.UI.Page
+public partial class PaginaPerfilUsuario : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        //if (Application["EstadoBD"].Equals(false)) Response.Redirect("AvisoErrorBD.aspx");
-    }
 
-    protected void Button1_Click(object sender, EventArgs e)
-    {        
-        Session.Clear();
-        Response.Redirect("LandingPage.aspx");
     }
 
     protected void btnGuardar_Click(object sender, EventArgs e)
@@ -29,14 +22,18 @@ public partial class PanelUsuario : System.Web.UI.Page
 
     }
 
-    protected void btnCambiarPass_Click(object sender, EventArgs e)
+    protected void btnCambiarPassword_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void btnVolverPrincipal_Click(object sender, EventArgs e)
     {
 
     }
 
     protected void btnCerrarSesion_Click(object sender, EventArgs e)
     {
-        Session.Clear();
-        Response.Redirect("LandingPage.aspx");
+
     }
 }
