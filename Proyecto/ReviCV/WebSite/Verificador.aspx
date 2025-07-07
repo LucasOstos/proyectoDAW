@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Recalcular Dígitos Verificadores</title>
+    <title>Verificador de Base de Datos</title>
     <style>
         body, html {
             margin: 0;

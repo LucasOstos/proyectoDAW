@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head runat="server">
-    <title>Gestión de Rubros e Idiomas</title>
+    <title>PA - Gestión de Rubros e Idiomas</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
     <style>
         html, body {

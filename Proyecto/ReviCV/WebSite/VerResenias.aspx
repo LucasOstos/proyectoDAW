@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta charset="utf-8" />
-    <title></title>
+    <title>Reseñas de tu CV (WIP)</title>
     <style>
         html, body {
             margin: 0; padding: 0; height: 100%; width: 100%;

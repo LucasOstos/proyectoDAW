@@ -21,7 +21,7 @@ namespace DAL
             {
                 Conexion.Instancia.AbrirConexion();
 
-                cmd.Parameters.AddWithValue("@UsernameUsuario", cv.Usuario.NombreUsuario);
+                cmd.Parameters.AddWithValue("@UsernameUsuario", cv.Usuario);
                 cmd.Parameters.AddWithValue("@Curriculum", cv.ArchivoCV);
                 cmd.Parameters.AddWithValue("@Idioma", cv.Idioma.Item1);
                 cmd.Parameters.AddWithValue("@Rubro", cv.Rubro.Item1);
@@ -217,26 +217,19 @@ namespace DAL
                 }
             }
 
-            // Ahora que la conexión está cerrada, podemos llamar a ObtenerUsuario
-            if (username != null)
+            cv = new Curriculum
             {
-                UsuarioDAL gUsuarios = new UsuarioDAL();
-                var usuario = gUsuarios.ObtenerUsuario(username);
-
-                cv = new Curriculum
-                {
-                    ID_CV = idCV,
-                    Usuario = usuario,
-                    ArchivoCV = archivoBytes
-                };
-            }
-
+                ID_CV = idCV,
+                Usuario = username,
+                ArchivoCV = archivoBytes
+            };
             return cv;
         }
 
         public Curriculum ObtenerCurriculumPorID(int id)
         {
             Curriculum cv = null;
+            string username = null;
 
             string query = $"SELECT ID_CV, UsernameUsuario, Curriculum FROM {TablasBD.Curriculum} WHERE ID_CV = @ID";
 
@@ -247,7 +240,6 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@ID", id);
                     Conexion.Instancia.AbrirConexion();
 
-                    string username = null;
                     byte[] archivoBytes = null;
                     int idCV = 0;
 
@@ -267,24 +259,14 @@ namespace DAL
                         }
                     }
 
-                    // Cerrá conexión antes de llamar a otro método que abre reader
-                    Conexion.Instancia.CerrarConexion();
-
-                    if (username != null)
-                    {
-                        UsuarioDAL gUsuarios = new UsuarioDAL();
-                        var usuario = gUsuarios.ObtenerUsuario(username);
-
-                        cv = new Curriculum();
-                        cv.ID_CV = idCV;
-                        cv.Usuario = usuario;
-                        cv.ArchivoCV = archivoBytes;
-                    }
-                    Conexion.Instancia.CerrarConexion();
+                    cv = new Curriculum();
+                    cv.ID_CV = idCV;
+                    cv.Usuario = username;
+                    cv.ArchivoCV = archivoBytes;
                 }
-            }
 
-            return cv;
+                return cv;
+            }
         }
 
         public Dictionary<int, string> ObtenerIdiomas()
@@ -376,9 +358,9 @@ namespace DAL
                         Curriculum cv = new Curriculum
                         {
                             ID_CV = idCV,
-                            Usuario = new Usuario { NombreUsuario = nombreUsuario }, 
+                            Usuario = nombreUsuario,
                             ArchivoCV = archivoBytes,
-                            Idioma = (idIdioma, ""), 
+                            Idioma = (idIdioma, ""),
                             Rubro = (idRubro, ""),
                             Nombre = nombreArchivo
                         };

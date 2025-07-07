@@ -58,8 +58,17 @@ public partial class LandingPage : System.Web.UI.Page
         }
         else
         {
-            Session["RubroSeleccionado"] = ddlRubro.SelectedValue;
-            Session["IdiomaSeleccionado"] = ddlIdioma.SelectedValue;
+            if (FiltroHabilitado.Value == "true")
+            {
+                Session["RubroSeleccionado"] = ddlRubro.SelectedValue;
+                Session["IdiomaSeleccionado"] = ddlIdioma.SelectedValue;
+            }
+            else
+            {
+                Session["RubroSeleccionado"] = "";
+                Session["IdiomaSeleccionado"] = "";
+            }
+
 
             Response.Redirect("EvaluarCV.aspx");
         }

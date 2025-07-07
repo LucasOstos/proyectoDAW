@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta charset="utf-8" />
-    <title>Registro de Usuario</title>
+    <title>Registro de Usuario - ReviCV</title>
     <link href="Estilos_css\signup.css" rel="stylesheet" />
 </head>
 <body>

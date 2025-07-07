@@ -13,6 +13,7 @@ public partial class EvaluarCV : System.Web.UI.Page
     Curriculum cvMostrar;
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Session["Rol"] == null) Response.Redirect("LandingPage.aspx");
         if (Application["EstadoBD"].Equals(false)) Response.Redirect("AvisoErrorBD.aspx");
         if (!IsPostBack)
         {
@@ -45,8 +46,8 @@ public partial class EvaluarCV : System.Web.UI.Page
                 VisorCV.Text = $"<img src='data:image;base64,{base64String}' style='max-width:100%; max-height:100%; object-fit: contain;' alt='CV imagen' />";
             }
 
-            pComentario.InnerHtml = $"Agrega un comentario adicional para ayudar a <strong>{cvMostrar.Usuario.Nombre.ToUpper()}</ strong >!";
-            txtComentarios.Attributes["placeholder"] = $"¿Qué le recomendarias a {cvMostrar.Usuario.Nombre.ToUpper()}?";
+            pComentario.InnerHtml = $"Agrega un comentario adicional para ayudar a <strong>{cvMostrar.Usuario.ToUpper()}</ strong >!";
+            txtComentarios.Attributes["placeholder"] = $"¿Qué le recomendarias a {cvMostrar.Usuario.ToUpper()}?";
 
         }
     }

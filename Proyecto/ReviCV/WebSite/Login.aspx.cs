@@ -73,4 +73,9 @@ public partial class Login : System.Web.UI.Page
         Session["username"] = $"{u.NombreUsuario}";
         Session["Rol"] = $"{u.Rol}";
     }
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Session["Rol"] != null) Response.Redirect("LandingPage.aspx");
+    }
 }

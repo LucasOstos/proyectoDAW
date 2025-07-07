@@ -12,6 +12,7 @@ public partial class Sign_up : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Session["Rol"] != null) Response.Redirect("LandingPage.aspx");
         if (Application["EstadoBD"] == null)
         {
             GestorIntegridad gestor = new GestorIntegridad();

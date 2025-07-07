@@ -13,6 +13,7 @@ public partial class BitacoraPage : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Session["Rol"] == null) Response.Redirect("LandingPage.aspx");
         if (Session["Rol"].ToString() != "Webmaster") Response.Redirect("LandingPage.aspx");
         if (!IsPostBack)
         {

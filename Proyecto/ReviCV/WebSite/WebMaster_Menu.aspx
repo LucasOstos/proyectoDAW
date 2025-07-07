@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta charset="utf-8" />
-    <title>Panel de Administración</title>
+    <title>Panel de WebMaster</title>
     <style>
         body, html {
             margin: 0;

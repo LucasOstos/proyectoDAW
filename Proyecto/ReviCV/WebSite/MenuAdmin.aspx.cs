@@ -39,6 +39,8 @@ public partial class MenuAdmin : Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Session["Rol"] == null) Response.Redirect("LandingPage.aspx");
+
         var estadoBD = Application["EstadoBD"];
         var rol = Session["Rol"]?.ToString();
 

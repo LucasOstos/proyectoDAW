@@ -4,7 +4,7 @@
 <html lang="es">
 <head>
     <meta charset="utf-8" />
-    <title>Perfil de Usuario</title>
+    <title>Tu Perfil - ReviCV</title>
     <style>
         * {
             box-sizing: border-box;
@@ -74,7 +74,7 @@
             }
 
         .tarjeta-perfil {
-            height: 785px;
+            height: 745px;
             width: 450px;
             min-width: 400px;
             background: #f8f9ff;
@@ -223,8 +223,8 @@
         .botones-accion {
             display: flex;
             gap: 12px;
-            margin-top: 140px;
-            margin-bottom: -140px;
+            margin-top: 110px;
+            margin-bottom: -110px;
         }
 
         .botones-inferiores {

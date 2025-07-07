@@ -12,6 +12,7 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Session["Rol"] == null) Response.Redirect("LandingPage.aspx");
         if (Session["username"].ToString() == "") Response.Redirect("LandingPage.aspx");
         if (!IsPostBack)
         {
@@ -304,7 +305,7 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page
             GestorUsuario gUsuarios = new GestorUsuario();
 
             Curriculum cv = new Curriculum();
-            cv.Usuario = gUsuarios.ObtenerUsuario(nombreUsuario);
+            cv.Usuario = nombreUsuario;
 
             using (var ms = new MemoryStream())
             {

@@ -208,13 +208,15 @@
     </style>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Landing Page</title>
+    <title>¡Bienvenido a ReviCV!</title>
 </head>
 <body>
     <form id="form1" runat="server">
         <div class="user-icon">
             <asp:ImageButton ID="imgUserIcon" runat="server" ImageUrl="Imagenes/userIcon.png" OnClick="imgUserIcon_Click" CssClass="user-icon-img" />
         </div>
+
+        <asp:HiddenField ID="FiltroHabilitado" runat="server" Value="false"/>
 
         <div class="principal">
             <div class="rectangle"></div>
@@ -249,10 +251,13 @@
     <script>
         const burgerBtn = document.getElementById('burgerBtn');
         const textboxContainer = document.getElementById('textboxContainer');
+        const filtroHidden = document.getElementById('<%= FiltroHabilitado.ClientID %>');
 
         burgerBtn.addEventListener('click', () => {
             textboxContainer.classList.toggle('show');
             burgerBtn.classList.toggle('clicked');
+
+            filtroHidden.value = burgerBtn.classList.contains('clicked') ? "true" : "false";
         });
     </script>
 </body>
