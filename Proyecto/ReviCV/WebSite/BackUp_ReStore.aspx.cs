@@ -96,6 +96,6 @@ public partial class BackUp_ReStore : System.Web.UI.Page
 
     protected void btnPerfil_Click(object sender, EventArgs e)
     {
-        Response.Redirect("PanelUsuario.aspx");
+        Response.Redirect("PaginaPerfilUsuario.aspx");
     }
 }

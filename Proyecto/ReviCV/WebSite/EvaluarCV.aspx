@@ -16,7 +16,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden; /* Esconde las barras */
+            overflow: hidden; 
             font-size: 1.1rem; 
         }
 
@@ -46,7 +46,6 @@
                 object-fit: contain;
             }
 
-            /* Estilos para el contenido del Literal */
             .imagen-cv iframe {
                 width: 100%;
                 height: 100%;

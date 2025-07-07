@@ -55,6 +55,6 @@ public partial class MenuAdmin : Page
 
     protected void btnVerPerfilUsuario_Click(object sender, EventArgs e)
     {
-        Response.Redirect("PanelUsuario.aspx");
+        Response.Redirect("PaginaPerfilUsuario.aspx");
     }
 }

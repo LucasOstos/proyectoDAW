@@ -60,7 +60,7 @@ public partial class EvaluarCV : System.Web.UI.Page
         }
         else
         {
-            Response.Redirect("PanelUsuario.aspx");
+            Response.Redirect("PaginaPerfilUsuario.aspx");
         }
     }
 

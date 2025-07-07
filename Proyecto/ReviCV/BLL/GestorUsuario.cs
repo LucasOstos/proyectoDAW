@@ -124,5 +124,15 @@ namespace BLL
             UsuarioDAL usuarioDAL = new UsuarioDAL();
             return usuarioDAL.FiltrarUsuarios(dni, username, email, rol);
         }
+
+        public void CambiarPassword(int dni, string pPassword)
+        {
+            UsuarioDAL usuarioDAL = new UsuarioDAL();
+            Encriptador encriptador = new Encriptador();
+            usuarioDAL.CambiarPassword(dni, encriptador.EncriptarIrreversible(pPassword));
+
+            GestorIntegridad gestorIntegridad = new GestorIntegridad();
+            gestorIntegridad.ActualizarDVHRegistro(TablasBD.Usuario, dni);
+        }
     }
 }
