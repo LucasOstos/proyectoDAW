@@ -137,7 +137,13 @@
                     </svg>
                 </div>
                 <div class="btn-container">
-                    <asp:Button ID="btnAbout" CssClass="btn" runat="server" Text="Digito Verificador" OnClick="btnAbout_Click" />
+                    <asp:Button ID="btnAbout" CssClass="btn" runat="server" Text="Digitos Verificadores" OnClick="btnAbout_Click" />
+                    <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+                        <rect class="rect" x="0" y="0" width="100" height="40" />
+                    </svg>
+                </div>
+                <div class="btn-container">
+                    <asp:Button ID="btnVerPefil" CssClass="btn" runat="server" Text="Ver Perfil" OnClick="btnPerfil_Click" />
                     <svg viewBox="0 0 100 40" preserveAspectRatio="none">
                         <rect class="rect" x="0" y="0" width="100" height="40" />
                     </svg>

@@ -129,6 +129,9 @@
                 <asp:LinkButton ID="btnVolverALanding" runat="server" OnClick="btnVolverALanding_Click" CssClass="menu-button">
                     <i class="fa fa-arrow-left"></i> Volver
                 </asp:LinkButton>
+                <asp:LinkButton ID="btnVerPerfilUsuario" runat="server" OnClick="btnVerPerfilUsuario_Click" CssClass="menu-button">
+                    <i class="fa fa-user"></i> Ver perfil de usuario
+                </asp:LinkButton>
                 <asp:LinkButton ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" CssClass="menu-button">
                     <i class="fa fa-sign-out-alt"></i> Cerrar Sesión
                 </asp:LinkButton>

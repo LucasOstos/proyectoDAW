@@ -66,24 +66,25 @@
         .btn-container:hover .rect {
             stroke-dashoffset: 0;
         }
-      .contenido {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: calc(100vh - 60px);
-    text-align: center;
-}
 
-.centrado h2 {
-    font-size: 30px;
-    color: #2c3e50;
-    margin-bottom: 15px;
-}
+        .contenido {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 60px);
+            text-align: center;
+        }
 
-.centrado p {
-    font-size: 18px;
-    color: #555;
-}
+        .centrado h2 {
+            font-size: 30px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .centrado p {
+            font-size: 18px;
+            color: #555;
+        }
 
         .contenido h2 {
             color: #2c3e50;
@@ -119,26 +120,33 @@
                         <rect class="rect" x="0" y="0" width="100" height="40" />
                     </svg>
                 </div>
-                 <div class="btn-container">
-     <asp:Button ID="Button1" CssClass="btn" runat="server" Text="Bitacora" OnClick="Button1_Click" />
-     <svg viewBox="0 0 100 40" preserveAspectRatio="none">
-         <rect class="rect" x="0" y="0" width="100" height="40" />
-     </svg>
- </div>
-     <div class="btn-container">
-    <asp:Button ID="Button2" CssClass="btn" runat="server" Text="Cerrar Sesion" OnClick="Button2_Click" />
-    <svg viewBox="0 0 100 40" preserveAspectRatio="none">
-        <rect class="rect" x="0" y="0" width="100" height="40" />
-    </svg>
-</div>
+
+                <div class="btn-container">
+                    <asp:Button ID="btnVerPefil" CssClass="btn" runat="server" Text="Ver Perfil" OnClick="btnPerfil_Click" />
+                    <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+                        <rect class="rect" x="0" y="0" width="100" height="40" />
+                    </svg>
+                </div>
+                <div class="btn-container">
+                    <asp:Button ID="Button1" CssClass="btn" runat="server" Text="Bitacora" OnClick="Button1_Click" />
+                    <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+                        <rect class="rect" x="0" y="0" width="100" height="40" />
+                    </svg>
+                </div>
+                <div class="btn-container">
+                    <asp:Button ID="Button2" CssClass="btn" runat="server" Text="Cerrar Sesion" OnClick="Button2_Click" />
+                    <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+                        <rect class="rect" x="0" y="0" width="100" height="40" />
+                    </svg>
+                </div>
             </div>
         </div>
-        <div class ="contenido">
-       <div class="centrado">
-    <h2>Bienvenido al panel de Web Master</h2>
-    <p>Seleccioná una opción del menú para comenzar</p>
-</div>
-      </div>
+        <div class="contenido">
+            <div class="centrado">
+                <h2>Bienvenido al panel de Web Master</h2>
+                <p>Seleccioná una opción del menú para comenzar</p>
+            </div>
+        </div>
     </form>
 </body>
 </html>
