@@ -206,7 +206,7 @@
         <div class="navbar">
             <div class="logo">
                 <i class="fa-solid fa-cogs"></i>
-                AdminPanel
+                Panel de Administracion
             </div>
             <div class="menu">
                 <asp:LinkButton ID="btnInicio" runat="server" OnClick="btnInicio_Click" CssClass="menu-button">
