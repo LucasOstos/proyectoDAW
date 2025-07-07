@@ -11,9 +11,6 @@ public partial class Verificador : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-<<<<<<< HEAD
-        if (Session["Rol"].ToString() != "Webmaster") Response.Redirect("LandingPage.aspx");
-=======
         lblMensaje.Visible = false;
         if (Application["ErroresBD"].ToString() != "")
         {
@@ -21,7 +18,6 @@ public partial class Verificador : System.Web.UI.Page
             lblMensaje.Text = Application["ErroresBD"].ToString().Replace("\n", "<br />");
             lblMensaje.Visible = true;
         }
->>>>>>> 0dd126a69cd7e77f8a877f35842501fa0665b77c
     }
 
     protected void btnRecalcular_Click(object sender, EventArgs e)
