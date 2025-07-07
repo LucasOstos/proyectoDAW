@@ -52,4 +52,9 @@ public partial class MenuAdmin : Page
             Response.Redirect("LandingPage.aspx");
         }
     }
+
+    protected void btnVerPerfilUsuario_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("PanelUsuario.aspx");
+    }
 }

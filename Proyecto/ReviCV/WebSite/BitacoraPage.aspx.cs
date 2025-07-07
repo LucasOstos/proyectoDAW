@@ -77,11 +77,18 @@ public partial class BitacoraPage : System.Web.UI.Page
         Response.Redirect("BackUp_ReStore.aspx");
     }
 
+
     protected void btnLimpiarFiltros_Click(object sender, EventArgs e)
     {
         txtFechaDesde.Text = "";
         txtFechaHasta.Text = "";
         ddlUsuario.SelectedValue = null;
         txtOperacion.Text = "";
+    }
+    
+    protected void btnPerfil_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("PanelUsuario.aspx");
+
     }
 }

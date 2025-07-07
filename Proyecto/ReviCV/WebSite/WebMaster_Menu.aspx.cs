@@ -42,4 +42,9 @@ public partial class WebMaster_Menu : System.Web.UI.Page
         Session.Clear();
         Response.Redirect("LandingPage.aspx");
     }
+
+    protected void btnPerfil_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("PanelUsuario.aspx");
+    }
 }
