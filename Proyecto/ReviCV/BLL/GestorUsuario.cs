@@ -103,63 +103,7 @@ namespace BLL
             UsuarioDAL usuarioDAL = new UsuarioDAL();
             return usuarioDAL.ObtenerTodosNombresUsuarios();
         }
-        public List<string> ValidarSignUp(string dni, string nombre, string apellido, string username, string contraseña, string mail)
-        {
-            HashSet<string> errores = new HashSet<string>();
-
-            if (string.IsNullOrWhiteSpace(dni) || !dni.All(char.IsDigit) || dni.Length < 7 || dni.Length > 8)
-                errores.Add("dni");
-
-            if (string.IsNullOrWhiteSpace(nombre) || !nombre.All(char.IsLetter))
-                errores.Add("nombre");
-
-            if (string.IsNullOrWhiteSpace(apellido)|| !apellido.All(char.IsLetter))
-                errores.Add("apellido");
-
-            if (string.IsNullOrWhiteSpace(username) || username.Length < 4)
-                errores.Add("username");
-
-            if (string.IsNullOrWhiteSpace(contraseña))
-                errores.Add("contraseña");
-
-            if (string.IsNullOrWhiteSpace(mail))
-                errores.Add("mail");
-            else
-            {
-                try
-                {
-                    var addr = new System.Net.Mail.MailAddress(mail);
-                    if (addr.Address != mail)
-                        errores.Add("mail");
-                }
-                catch
-                {
-                    errores.Add("mail");
-                }
-            }
-            foreach (var campo in UsuarioYaExiste(dni, username, mail))
-                errores.Add(campo);
-
-            return errores.ToList();
-        }
-
-        private List<string> UsuarioYaExiste(string dni, string username, string mail)
-        {
-            List<string> repetidos = new List<string>();
-            List<Usuario> usuariosRegistrados = ObtenerTodosUsuarios();
-
-            if (usuariosRegistrados.Any(u => u.DNI.ToString() == dni))
-                repetidos.Add("dni");
-
-            if (usuariosRegistrados.Any(u => u.NombreUsuario == username))
-                repetidos.Add("username");
-
-            if (usuariosRegistrados.Any(u => u.Email == mail))
-                repetidos.Add("mail");
-
-            return repetidos;
-        }
-
+        
         public List<Usuario> ObtenerTodosUsuarios()
         {
             UsuarioDAL usuarioDAL = new UsuarioDAL();
