@@ -35,8 +35,6 @@ public partial class Sign_up : System.Web.UI.Page
         string mail = TbMail.Text.Trim();
         GestorUsuario gestorUsuario = new GestorUsuario();
         List<string> errores = gestorUsuario.ValidarSignUp(dni, nombre, apellido, username, contraseña, mail);
-
-        // Validar contraseñas iguales
         if (contraseña != repetirContraseña)
         {
             errores.Add("contraseña");
@@ -44,8 +42,6 @@ public partial class Sign_up : System.Web.UI.Page
             ErrorContraseñasLB.ForeColor = System.Drawing.Color.Red;
             ErrorContraseñasLB.Text = "Las contraseñas no coinciden";
         }
-
-        // Si hay errores, mostrarlos
         if (errores.Count > 0)
         {
             foreach (string campo in errores)
