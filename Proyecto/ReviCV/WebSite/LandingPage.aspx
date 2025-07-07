@@ -241,10 +241,6 @@
                     <asp:DropDownList ID="ddlIdioma" runat="server" CssClass="textbox-input" AppendDataBoundItems="true">
                         <asp:ListItem Text="¿En qué idioma?" Value="" Enabled="false" Selected="True" />
                     </asp:DropDownList>
-
-                    <asp:DropDownList ID="ddlOtraPregunta" runat="server" CssClass="textbox-input" AppendDataBoundItems="true">
-                        <asp:ListItem Text="¿Qué otra pregunta metemos acá?" Value="" Enabled="false" Selected="True" />
-                    </asp:DropDownList>
                 </div>
             </div>
         </div>

@@ -7,6 +7,7 @@ public class Curriculum
     public Usuario Usuario { get; set; }
     public (int,string) Idioma { get; set; }
     public (int, string) Rubro { get; set; }
+    public string Nombre { get; set; }
 
     // Contenido del archivo en binario para mostrarlo posteriormente como una imagen
     public byte[] ArchivoCV { get; set; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ENTIDADES;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -12,8 +13,8 @@ namespace DAL
         public int GuardarCurriculum(Curriculum cv)
         {
             string query = $@"
-        INSERT INTO {TablasBD.Curriculum} (UsernameUsuario, Curriculum, Idioma, Rubro)
-        VALUES (@UsernameUsuario, @Curriculum, @Idioma, @Rubro);
+        INSERT INTO {TablasBD.Curriculum} (UsernameUsuario, Curriculum, Idioma, Rubro, NombreArchivo)
+        VALUES (@UsernameUsuario, @Curriculum, @Idioma, @Rubro, @Nombre);
         SELECT CAST(SCOPE_IDENTITY() AS INT);";
 
             using (SqlCommand cmd = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
@@ -24,6 +25,7 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@Curriculum", cv.ArchivoCV);
                 cmd.Parameters.AddWithValue("@Idioma", cv.Idioma.Item1);
                 cmd.Parameters.AddWithValue("@Rubro", cv.Rubro.Item1);
+                cmd.Parameters.AddWithValue("@Nombre", cv.Nombre);
 
                 int id = (int)cmd.ExecuteScalar();
 
@@ -337,6 +339,84 @@ namespace DAL
             return rubros;
         }
 
+        public List<Curriculum> ObtenerCurriculumsPorUsuario(string nombreUsuario)
+        {
+            List<Curriculum> listaCV = new List<Curriculum>();
+
+            string query = $@"
+        SELECT ID_CV, Curriculum, Idioma, Rubro, NombreArchivo 
+        FROM {TablasBD.Curriculum} 
+        WHERE UsernameUsuario = @UsernameUsuario";
+
+            using (SqlConnection conn = Conexion.Instancia.ReturnConexion())
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@UsernameUsuario", nombreUsuario);
+
+                Conexion.Instancia.AbrirConexion();
+
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        int idCV = dr.GetInt32(dr.GetOrdinal("ID_CV"));
+                        int idIdioma = dr.IsDBNull(dr.GetOrdinal("Idioma")) ? -1 : dr.GetInt32(dr.GetOrdinal("Idioma"));
+                        int idRubro = dr.IsDBNull(dr.GetOrdinal("Rubro")) ? -1 : dr.GetInt32(dr.GetOrdinal("Rubro"));
+                        string nombreArchivo = dr.GetString(dr.GetOrdinal("NombreArchivo"));
+
+                        byte[] archivoBytes = null;
+                        if (!dr.IsDBNull(dr.GetOrdinal("Curriculum")))
+                        {
+                            long length = dr.GetBytes(dr.GetOrdinal("Curriculum"), 0, null, 0, 0);
+                            archivoBytes = new byte[length];
+                            dr.GetBytes(dr.GetOrdinal("Curriculum"), 0, archivoBytes, 0, (int)length);
+                        }
+
+                        // Agregar a la lista
+                        Curriculum cv = new Curriculum
+                        {
+                            ID_CV = idCV,
+                            Usuario = new Usuario { NombreUsuario = nombreUsuario }, 
+                            ArchivoCV = archivoBytes,
+                            Idioma = (idIdioma, ""), 
+                            Rubro = (idRubro, ""),
+                            Nombre = nombreArchivo
+                        };
+
+                        listaCV.Add(cv);
+                    }
+                }
+
+                Conexion.Instancia.CerrarConexion();
+            }
+
+            var idiomas = ObtenerIdiomas();
+            var rubros = ObtenerRubros();
+
+            foreach (var cv in listaCV)
+            {
+                if (idiomas.TryGetValue(cv.Idioma.Item1, out var nombreIdioma))
+                    cv.Idioma = (cv.Idioma.Item1, nombreIdioma);
+
+                if (rubros.TryGetValue(cv.Rubro.Item1, out var nombreRubro))
+                    cv.Rubro = (cv.Rubro.Item1, nombreRubro);
+            }
+
+            return listaCV;
+        }
+
+        public void EliminarCurriculum(int idCV)
+        {
+            string query = $"DELETE FROM {TablasBD.Curriculum} WHERE ID_CV = @Id";
+
+            using (SqlCommand cmd = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
+            {
+                Conexion.Instancia.AbrirConexion();
+                cmd.Parameters.AddWithValue("@Id", idCV);
+                cmd.ExecuteNonQuery();
+                Conexion.Instancia.CerrarConexion();
+            }
+        }
 
     }
 }

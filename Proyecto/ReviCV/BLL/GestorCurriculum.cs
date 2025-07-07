@@ -106,5 +106,20 @@ namespace BLL
             GestorIntegridad gestorIntegridad = new GestorIntegridad();
             gestorIntegridad.ActualizarDVHRegistro(TablasBD.Rubro, id);
         }
+
+        public List<Curriculum> ObtenerCurriculumsPorUsuario(string nombreUsuario)
+        {
+            CurriculumDAL curriculumDAL = new CurriculumDAL();
+            return curriculumDAL.ObtenerCurriculumsPorUsuario(nombreUsuario);
+        }
+
+        public void EliminarCurriculum(int idCV)
+        {
+            CurriculumDAL curriculumDAL = new CurriculumDAL();
+             curriculumDAL.EliminarCurriculum(idCV);
+
+            GestorIntegridad gestorIntegridad = new GestorIntegridad();
+            gestorIntegridad.ActualizarDVHRegistro(TablasBD.Curriculum, idCV);
+        }
     }
 }

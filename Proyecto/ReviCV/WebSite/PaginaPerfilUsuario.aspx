@@ -74,7 +74,7 @@
             }
 
         .tarjeta-perfil {
-            height: 94%;
+            height: 785px;
             width: 450px;
             min-width: 400px;
             background: #f8f9ff;
@@ -245,7 +245,17 @@
     <form id="form1" runat="server">
         <div class="contenedor">
             <div class="curriculums scrollbar-hidden">
-                <div class="agregar-curriculum" onclick="subirCurriculum()">+</div>
+                <div style="margin-bottom: 10px;">
+                    <asp:DropDownList ID="ddlIdiomas" runat="server" Width="160px" Height="45px" CssClass="form-input" />
+                    <asp:DropDownList ID="ddlRubros" runat="server" Width="160px" Height="45px" CssClass="form-input" />
+                </div>
+
+                <asp:FileUpload ID="fileUpload" runat="server" Style="display: none;" />
+                <asp:HiddenField ID="hfNombreArchivo" runat="server" />
+                <asp:Button ID="btnSubirArchivo" runat="server" OnClick="btnSubirArchivo_Click" Style="display: none;" />
+                <asp:LinkButton ID="btnAbrirCarga" runat="server" OnClientClick="abrirDialogoArchivo(); return false;" CssClass="agregar-curriculum">+</asp:LinkButton>
+
+                <asp:PlaceHolder ID="phCurriculums" runat="server" />
             </div>
 
             <div class="contenedor-perfil">
@@ -302,7 +312,6 @@
                         </div>
 
 
-
                         <div id="security-tab" class="contenido-tab">
                             <asp:Panel ID="securityPanel" runat="server">
                                 <div class="grupo-input">
@@ -353,6 +362,40 @@
             event.target.classList.add('active');
             document.getElementById(tabName + '-tab').classList.add('active');
         }
+
+        function abrirDialogoArchivo() {
+            const input = document.getElementById("<%= fileUpload.ClientID %>");
+            input.click();
+
+            input.onchange = function () {
+                const file = input.files[0];
+                if (!file) return;
+
+                const valid = file.type === "application/pdf" || file.type.startsWith("image/");
+                if (!valid) {
+                    Swal.fire("Archivo inválido", "Solo se permiten PDF o imágenes", "error");
+                    input.value = "";
+                    return;
+                }
+
+                Swal.fire({
+                    title: "Nombre del archivo",
+                    input: "text",
+                    inputLabel: "¿Cómo querés llamarlo?",
+                    inputPlaceholder: "Ej: Curriculum Abogacía Blanco y Negro - Inglés",
+                    showCancelButton: true,
+                    confirmButtonText: "Subir"
+                }).then(result => {
+                    if (result.isConfirmed && result.value.trim() !== "") {
+                        document.getElementById("<%= hfNombreArchivo.ClientID %>").value = result.value.trim();
+                            document.getElementById("<%= btnSubirArchivo.ClientID %>").click();
+                        } else {
+                            input.value = "";
+                        }
+                    });
+            };
+        }
+
 
     </script>
 </body>
