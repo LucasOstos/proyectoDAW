@@ -25,6 +25,16 @@ namespace BLL
             GestorIntegridad gestorIntegridad = new GestorIntegridad();
             gestorIntegridad.ActualizarDVHRegistro(TablasBD.Usuario, pUsuario.DNI);
         }
+        public bool UsuarioExistente(int pDNI, string username)
+        {
+            UsuarioDAL usuarioDAL = new UsuarioDAL();
+            return usuarioDAL.UsuarioYaRegistrado(pDNI, username);
+        }
+        public bool UsernameRepetido(string username)
+        {
+            UsuarioDAL usuarioDAL = new UsuarioDAL();
+            return usuarioDAL.UsernameRepetido(username);
+        }
         public List<string> ValidarSignUp(string dni, string Nombre, string Apellido, string username, string contraseña, string mail)
         {
             HashSet<string> errores = new HashSet<string>();
@@ -82,7 +92,7 @@ namespace BLL
 
             return repetidos;
         }
-        public void EliminarUsuario(string dni)
+        public void EliminarUsuario(int dni)
         {
             UsuarioDAL usuarioDAL=new UsuarioDAL();
             usuarioDAL.EliminarUsuario(dni);

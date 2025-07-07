@@ -81,23 +81,23 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page
     }
 
 
-
-
-
-
     protected void btnAgregarIdioma_Click(object sender, EventArgs e)
     {
         if (!string.IsNullOrEmpty(txtDescripcionIdioma.Text))
         {
             GestorCurriculum gestorCurriculums = new GestorCurriculum();
-            gestorCurriculums.AltaIdioma(txtDescripcionIdioma.Text);
-            CargarIdiomas();
+            Dictionary<int, string> idiomas = gestorCurriculums.ObtenerIdiomas();
+            if (!idiomas.ContainsValue(txtDescripcionIdioma.Text))
+            {
+                gestorCurriculums.AltaIdioma(txtDescripcionIdioma.Text);
+                CargarIdiomas();
 
-            GestorBitacora gestorBitacora = new GestorBitacora();
-            gestorBitacora.GuardarLogBitacora($"Se agregó el idioma {txtDescripcionIdioma.Text}", Session["username"].ToString());
+                GestorBitacora gestorBitacora = new GestorBitacora();
+                gestorBitacora.GuardarLogBitacora($"Se agregó el idioma {txtDescripcionIdioma.Text}", Session["username"].ToString());
 
-            txtDescripcionIdioma.Text = "";
-            hfIdIdioma.Value = "";
+                txtDescripcionIdioma.Text = "";
+                hfIdIdioma.Value = "";
+            }            
         }
     }
 
@@ -107,14 +107,18 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page
         if (!string.IsNullOrEmpty(txtDescripcionIdioma.Text) && int.TryParse(hfIdIdioma.Value, out int idIdioma))
         {
             GestorCurriculum gestorCurriculums = new GestorCurriculum();
-            gestorCurriculums.ModificarIdioma(int.Parse(hfIdIdioma.Value), txtDescripcionIdioma.Text);
-            CargarIdiomas();
+            Dictionary<int, string> idiomas = gestorCurriculums.ObtenerIdiomas();
+            if (!idiomas.ContainsValue(txtDescripcionIdioma.Text))
+            {
+                gestorCurriculums.ModificarIdioma(int.Parse(hfIdIdioma.Value), txtDescripcionIdioma.Text);
+                CargarIdiomas();
 
-            GestorBitacora gestorBitacora = new GestorBitacora();
-            gestorBitacora.GuardarLogBitacora($"Se modificó el idioma {hfIdIdioma.Value}, ahora es {txtDescripcionIdioma.Text}", Session["username"].ToString());
+                GestorBitacora gestorBitacora = new GestorBitacora();
+                gestorBitacora.GuardarLogBitacora($"Se modificó el idioma {hfIdIdioma.Value}, ahora es {txtDescripcionIdioma.Text}", Session["username"].ToString());
 
-            txtDescripcionIdioma.Text = "";
-            hfIdIdioma.Value = "";
+                txtDescripcionIdioma.Text = "";
+                hfIdIdioma.Value = "";
+            }            
         }
     }
 
@@ -134,22 +138,24 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page
         }
     }
 
-
     protected void btnAgregarRubro_Click(object sender, EventArgs e)
     {
         if (!string.IsNullOrEmpty(txtDescripcionRubro.Text))
         {
             GestorCurriculum gestorCurriculums = new GestorCurriculum();
-            gestorCurriculums.AltaRubro(txtDescripcionRubro.Text);
-            CargarRubros();
+            Dictionary<int, string> rubros = gestorCurriculums.ObtenerRubros();
+            if(!rubros.ContainsValue(txtDescripcionRubro.Text))
+            {
+                gestorCurriculums.AltaRubro(txtDescripcionRubro.Text);
+                CargarRubros();
 
-            GestorBitacora gestorBitacora = new GestorBitacora();
-            gestorBitacora.GuardarLogBitacora($"Se agregó el rubro {txtDescripcionRubro.Text}", Session["username"].ToString());
+                GestorBitacora gestorBitacora = new GestorBitacora();
+                gestorBitacora.GuardarLogBitacora($"Se agregó el rubro {txtDescripcionRubro.Text}", Session["username"].ToString());
 
-            txtDescripcionRubro.Text = "";
-            hfIdRubro.Value = "";
+                txtDescripcionRubro.Text = "";
+                hfIdRubro.Value = "";
+            }
         }
-
     }
 
     protected void btnModificarRubro_Click(object sender, EventArgs e)
@@ -157,14 +163,18 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page
         if (!string.IsNullOrEmpty(txtDescripcionRubro.Text) && int.TryParse(hfIdRubro.Value, out int idRubro))
         {
             GestorCurriculum gestorCurriculums = new GestorCurriculum();
-            gestorCurriculums.ModificarRubro(int.Parse(hfIdRubro.Value), txtDescripcionRubro.Text);
-            CargarRubros();
+            Dictionary<int, string> rubros = gestorCurriculums.ObtenerRubros();
+            if (!rubros.ContainsValue(txtDescripcionRubro.Text))
+            {
+                gestorCurriculums.ModificarRubro(int.Parse(hfIdRubro.Value), txtDescripcionRubro.Text);
+                CargarRubros();
 
-            GestorBitacora gestorBitacora = new GestorBitacora();
-            gestorBitacora.GuardarLogBitacora($"Se modificó el rubro {hfIdRubro.Value}, ahora es {txtDescripcionRubro.Text}", Session["username"].ToString());
+                GestorBitacora gestorBitacora = new GestorBitacora();
+                gestorBitacora.GuardarLogBitacora($"Se modificó el rubro {hfIdRubro.Value}, ahora es {txtDescripcionRubro.Text}", Session["username"].ToString());
 
-            txtDescripcionRubro.Text = "";
-            hfIdRubro.Value = "";
+                txtDescripcionRubro.Text = "";
+                hfIdRubro.Value = "";
+            }                
         }
     }
 

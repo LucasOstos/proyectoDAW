@@ -10,6 +10,31 @@ namespace DAL
 {
     public class UsuarioDAL
     {
+        public bool UsuarioYaRegistrado(int pDNI, string username)
+        {
+            string query = $"SELECT COUNT(*) FROM {TablasBD.Usuario} WHERE DNI = @DNI OR username = @username";
+            using(SqlCommand CM = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
+            {
+                CM.Parameters.AddWithValue("@DNI", pDNI);
+                CM.Parameters.AddWithValue("@username", username);
+                Conexion.Instancia.AbrirConexion();
+                int cantidad = (int)CM.ExecuteScalar();
+                Conexion.Instancia.CerrarConexion();
+                return cantidad > 0;
+            }
+        }
+        public bool UsernameRepetido(string username)
+        {
+            string query = $"SELECT COUNT(*) FROM {TablasBD.Usuario} WHERE username = @username";
+            using (SqlCommand CM = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
+            {
+                CM.Parameters.AddWithValue("@username", username);
+                Conexion.Instancia.AbrirConexion();
+                int cantidad = (int)CM.ExecuteScalar();
+                Conexion.Instancia.CerrarConexion();
+                return cantidad > 0;
+            }
+        }
         public bool ValidarUsuario(string pUsuario, string Contra)
         {
             bool x = false;
@@ -134,7 +159,7 @@ namespace DAL
             }
             Conexion.Instancia.CerrarConexion();
         }
-        public void EliminarUsuario(string dni)
+        public void EliminarUsuario(int dni)
         {
             string query = $"DELETE FROM {TablasBD.Usuario} WHERE DNI = @DNI";
 

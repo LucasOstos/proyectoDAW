@@ -290,6 +290,7 @@ h2, h3 {
                             <asp:Button ID="btnAgregar" runat="server" Text="Agregar" CssClass="boton boton-verde" OnClick="btnAgregar_Click" />
                             <asp:Button ID="btnModificar" runat="server" Text="Modificar" CssClass="boton boton-azul" OnClick="btnModificar_Click" />
                             <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="boton boton-rojo" OnClick="btnEliminar_Click" />
+                            <asp:Button ID="btnCancelarEleccion" runat="server" Text="Cancelar" CssClass="boton boton-gris" OnClick="btnCancelarEleccion_Click" />
                         </div>
                     </div>
 
@@ -364,12 +365,15 @@ h2, h3 {
 
                     fila.classList.add('fila-seleccionada');
 
-                    document.getElementById('txtDni').value = decodeHTMLEntidades(celdas[1].innerHTML.trim());
+                    const txtDni = document.getElementById('txtDni');
+                    txtDni.value = decodeHTMLEntidades(celdas[1].innerHTML.trim());
+                    document.getElementById('txtDni').readOnly = true;
                     document.getElementById('txtNombre').value = decodeHTMLEntidades(celdas[2].innerHTML.trim());
                     document.getElementById('txtApellido').value = decodeHTMLEntidades(celdas[3].innerHTML.trim());
                     document.getElementById('txtUsername').value = decodeHTMLEntidades(celdas[4].innerHTML.trim());
                     document.getElementById('txtEmail').value = decodeHTMLEntidades(celdas[5].innerHTML.trim());
                     document.getElementById('ddlRol').value = decodeHTMLEntidades(celdas[6].innerHTML.trim());
+                    btnAgregar.disabled = true;
                 });
             });
 

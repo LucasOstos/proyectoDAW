@@ -75,25 +75,28 @@ public partial class MenuAdmin_Usuarios : Page
     protected void btnAgregar_Click(object sender, EventArgs e)
     {
         Encriptador encriptador = new Encriptador();
+        GestorUsuario gestorUsuarios = new GestorUsuario();
         if (int.TryParse(txtDni.Text, out int x) && !string.IsNullOrEmpty(txtNombre.Text) && !string.IsNullOrEmpty(txtApellido.Text) && !string.IsNullOrEmpty(txtUsername.Text) && !string.IsNullOrEmpty(txtEmail.Text) && !string.IsNullOrEmpty(ddlRol.SelectedValue))
         {
-            Usuario usuario = new Usuario
-            (
-                int.Parse(txtDni.Text),
-                txtNombre.Text,
-                txtApellido.Text,
-                txtUsername.Text,
-                encriptador.EncriptarIrreversible(txtDni.Text),
-                txtEmail.Text,
-                ddlRol.SelectedValue
-            );
+            if(!gestorUsuarios.UsuarioExistente(int.Parse(txtDni.Text), txtUsername.Text))            
+            {
+                Usuario usuario = new Usuario
+                    (
+                    int.Parse(txtDni.Text),
+                    txtNombre.Text,
+                    txtApellido.Text,
+                    txtUsername.Text,
+                    encriptador.EncriptarIrreversible(txtDni.Text),
+                    txtEmail.Text,
+                    ddlRol.SelectedValue
+                    );
 
-            GestorUsuario gestorUsuarios = new GestorUsuario();
-            gestorUsuarios.InsertarUsuario(usuario);
-            GestorBitacora gestorBitacora = new GestorBitacora();
-            gestorBitacora.GuardarLogBitacora($"Se agregó el usuario {usuario.DNI}", Session["username"].ToString());
-            CargarUsuarios();
-            LimpiarTxt();
+                gestorUsuarios.InsertarUsuario(usuario);
+                GestorBitacora gestorBitacora = new GestorBitacora();
+                gestorBitacora.GuardarLogBitacora($"Se agregó el usuario {usuario.DNI}", Session["username"].ToString());
+                CargarUsuarios();
+                LimpiarTxt();
+            }            
         }
     }
 
@@ -107,9 +110,12 @@ public partial class MenuAdmin_Usuarios : Page
     protected void btnModificar_Click(object sender, EventArgs e)
     {
         Encriptador encriptador = new Encriptador();
+        GestorUsuario gestorUsuario = new GestorUsuario();
         if (int.TryParse(txtDni.Text, out int x) && !string.IsNullOrEmpty(txtNombre.Text) && !string.IsNullOrEmpty(txtApellido.Text) && !string.IsNullOrEmpty(txtUsername.Text) && !string.IsNullOrEmpty(txtEmail.Text) && !string.IsNullOrEmpty(ddlRol.SelectedValue))
         {
-            Usuario usuario = new Usuario
+            if(!gestorUsuario.UsernameRepetido(txtUsername.Text))
+            {
+                Usuario usuario = new Usuario
             (
                 int.Parse(txtDni.Text),
                 txtNombre.Text,
@@ -120,12 +126,13 @@ public partial class MenuAdmin_Usuarios : Page
                 ddlRol.SelectedValue
             );
 
-            GestorUsuario gestorUsuario = new GestorUsuario();
-            gestorUsuario.ModificarUsuario(usuario);
-            GestorBitacora gestorBitacora = new GestorBitacora();
-            gestorBitacora.GuardarLogBitacora($"Se modificó el usuario {usuario.DNI}", Session["username"].ToString());
-            CargarUsuarios();
-            LimpiarTxt();
+
+                gestorUsuario.ModificarUsuario(usuario);
+                GestorBitacora gestorBitacora = new GestorBitacora();
+                gestorBitacora.GuardarLogBitacora($"Se modificó el usuario {usuario.DNI}", Session["username"].ToString());
+                CargarUsuarios();
+                LimpiarTxt();
+            }            
         }
     }
 
@@ -135,7 +142,7 @@ public partial class MenuAdmin_Usuarios : Page
         if(txtDni.Text != "")
         {
             GestorUsuario gestorUsuario = new GestorUsuario();
-            gestorUsuario.EliminarUsuario(txtDni.Text.ToString());
+            gestorUsuario.EliminarUsuario(int.Parse(txtDni.Text));
             GestorBitacora gestorBitacora = new GestorBitacora();
             gestorBitacora.GuardarLogBitacora($"Se eliminó el usuario {txtDni.Text}", Session["username"].ToString());
             CargarUsuarios();
@@ -144,6 +151,16 @@ public partial class MenuAdmin_Usuarios : Page
     }
     public void LimpiarTxt()
     {
+        txtApellido.Text = "";
+        txtDni.Text = "";
+        txtEmail.Text = "";
+        txtNombre.Text = "";
+        txtUsername.Text = "";
+        ddlRol.SelectedValue = "";
+    }
+    public void CancelarModificacion()
+    {
+        btnAgregar.Enabled = true;
         txtApellido.Text = "";
         txtDni.Text = "";
         txtEmail.Text = "";
@@ -170,7 +187,7 @@ public partial class MenuAdmin_Usuarios : Page
         List<ListItem> roles = new List<ListItem>
     {
         new ListItem("Selecciona un rol", ""),
-        new ListItem("Administrador", "Admin"),
+        new ListItem("Administrador", "Administrador"),
         new ListItem("Webmaster", "Webmaster"),
         new ListItem("Usuario", "Usuario")
     };
@@ -199,5 +216,10 @@ public partial class MenuAdmin_Usuarios : Page
     protected void btnRubrosIdiomas_Click(object sender, EventArgs e)
     {
         Response.Redirect("MenuAdmin_RubrosIdiomas.aspx");
+    }
+
+    protected void btnCancelarEleccion_Click(object sender, EventArgs e)
+    {
+        CancelarModificacion();
     }
 }
