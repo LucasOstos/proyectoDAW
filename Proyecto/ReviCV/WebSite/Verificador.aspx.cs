@@ -12,11 +12,14 @@ public partial class Verificador : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         lblMensaje.Visible = false;
-        if (Application["ErroresBD"].ToString() != "")
+        if (Application["ErroresBD"] != null)
         {
-            lblMensaje.ForeColor = System.Drawing.Color.Red;
-            lblMensaje.Text = Application["ErroresBD"].ToString().Replace("\n", "<br />");
-            lblMensaje.Visible = true;
+            if (Application["ErroresBD"].ToString() != "")
+            {
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                lblMensaje.Text = Application["ErroresBD"].ToString().Replace("\n", "<br />");
+                lblMensaje.Visible = true;
+            }
         }
     }
 
@@ -25,7 +28,7 @@ public partial class Verificador : System.Web.UI.Page
         GestorIntegridad gestorIntegridad = new GestorIntegridad();
         gestorIntegridad.RecalcularTodasLasTablas();
 
-        Application["ErroresBD"] = ""; // Limpiar errores anteriores
+        Application["ErroresBD"] = ""; 
 
         lblMensaje.ForeColor = System.Drawing.Color.Green;
         lblMensaje.Text = "Integridad de las tablas recalculada correctamente.";
