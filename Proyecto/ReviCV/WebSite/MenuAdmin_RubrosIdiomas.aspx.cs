@@ -127,14 +127,17 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page
         if (!string.IsNullOrEmpty(txtDescripcionIdioma.Text) && int.TryParse(hfIdIdioma.Value, out int idIdioma))
         {
             GestorCurriculum gestorCurriculums = new GestorCurriculum();
-            gestorCurriculums.BajaIdioma(int.Parse(hfIdIdioma.Value));
-            CargarIdiomas();
+            if(gestorCurriculums.IdiomaEnUso(int.Parse(hfIdIdioma.Value)))
+            {
+                gestorCurriculums.BajaIdioma(int.Parse(hfIdIdioma.Value));
+                CargarIdiomas();
 
-            GestorBitacora gestorBitacora = new GestorBitacora();
-            gestorBitacora.GuardarLogBitacora($"Se eliminó el idioma {txtDescripcionIdioma.Text}", Session["username"].ToString());
+                GestorBitacora gestorBitacora = new GestorBitacora();
+                gestorBitacora.GuardarLogBitacora($"Se eliminó el idioma {txtDescripcionIdioma.Text}", Session["username"].ToString());
 
-            txtDescripcionIdioma.Text = "";
-            hfIdIdioma.Value = "";
+                txtDescripcionIdioma.Text = "";
+                hfIdIdioma.Value = "";
+            }
         }
     }
 
@@ -183,14 +186,17 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page
         if (!string.IsNullOrEmpty(txtDescripcionRubro.Text) && int.TryParse(hfIdRubro.Value, out int idRubro))
         {
             GestorCurriculum gestorCurriculums = new GestorCurriculum();
-            gestorCurriculums.BajaRubro(int.Parse(hfIdRubro.Value));
-            CargarRubros();
+            if(gestorCurriculums.RubroEnUso(int.Parse(hfIdRubro.Value)))
+            {
+                gestorCurriculums.BajaRubro(int.Parse(hfIdRubro.Value));
+                CargarRubros();
 
-            GestorBitacora gestorBitacora = new GestorBitacora();
-            gestorBitacora.GuardarLogBitacora($"Se eliminó el rubro {txtDescripcionRubro.Text}", Session["username"].ToString());
+                GestorBitacora gestorBitacora = new GestorBitacora();
+                gestorBitacora.GuardarLogBitacora($"Se eliminó el rubro {txtDescripcionRubro.Text}", Session["username"].ToString());
 
-            txtDescripcionRubro.Text = "";
-            hfIdRubro.Value = "";
+                txtDescripcionRubro.Text = "";
+                hfIdRubro.Value = "";
+            }
         }
     }
 }

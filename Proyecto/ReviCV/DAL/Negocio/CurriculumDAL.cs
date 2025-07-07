@@ -64,6 +64,20 @@ namespace DAL
                 Conexion.Instancia.CerrarConexion();
             }
         }
+        public bool RubroEnUso(int idRubro)
+        {
+            string query = "SELECT COUNT(*) FROM Curriculum WHERE Rubro = @Rubro";
+
+            using (SqlCommand cmd = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
+            {
+                cmd.Parameters.AddWithValue("@Rubro", idRubro);
+                Conexion.Instancia.AbrirConexion();
+                int cantidad = (int)cmd.ExecuteScalar();
+                Conexion.Instancia.CerrarConexion();
+
+                return cantidad == 0;
+            }
+        }
         public void ModificarRubro(int ID, string nNombreRubro)
         {
             string query = $"UPDATE {TablasBD.Rubro} SET Rubro = @Rubro WHERE ID_Rubro = @Id";
@@ -111,6 +125,20 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@Id", ID);
                 cmd.ExecuteNonQuery();
                 Conexion.Instancia.CerrarConexion();
+            }
+        }
+        public bool IdiomaEnUso(int idIdioma)
+        {
+            string query = "SELECT COUNT(*) FROM Curriculum WHERE Idioma = @Idioma";
+
+            using (SqlCommand cmd = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
+            {
+                cmd.Parameters.AddWithValue("@Idioma", idIdioma);
+                Conexion.Instancia.AbrirConexion();
+                int cantidad = (int)cmd.ExecuteScalar();
+                Conexion.Instancia.CerrarConexion();
+
+                return cantidad == 0;
             }
         }
         public void ModificarIdioma(int ID, string nNombreIdioma)

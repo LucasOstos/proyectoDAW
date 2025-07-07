@@ -56,6 +56,11 @@ namespace BLL
             GestorIntegridad gestorIntegridad = new GestorIntegridad();
             gestorIntegridad.GuardarIntegridadTabla(TablasBD.Idioma);
         }
+        public bool IdiomaEnUso(int id)
+        {
+            CurriculumDAL curriculumDAL = new CurriculumDAL();
+            return curriculumDAL.IdiomaEnUso(id);
+        }
         public void ModificarIdioma(int id, string idioma)
         {
             CurriculumDAL curriculumDAL = new CurriculumDAL();
@@ -87,6 +92,11 @@ namespace BLL
 
             GestorIntegridad gestorIntegridad = new GestorIntegridad();
             gestorIntegridad.GuardarIntegridadTabla(TablasBD.Rubro);
+        }
+        public bool RubroEnUso(int id)
+        {
+            CurriculumDAL curriculumDAL = new CurriculumDAL();
+            return curriculumDAL.RubroEnUso(id);
         }
         public void ModificarRubro(int id, string rubro)
         {
