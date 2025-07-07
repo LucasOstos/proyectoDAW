@@ -18,4 +18,25 @@ public partial class PanelUsuario : System.Web.UI.Page
         Session.Clear();
         Response.Redirect("LandingPage.aspx");
     }
+
+    protected void btnGuardar_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void btnCancelar_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void btnCambiarPass_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void btnCerrarSesion_Click(object sender, EventArgs e)
+    {
+        Session.Clear();
+        Response.Redirect("LandingPage.aspx");
+    }
 }

@@ -1,8 +1,10 @@
-﻿<!DOCTYPE html>
-<html lang="es">
-<head>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="PanelUsuario.aspx.cs" Inherits="PanelUsuario" %>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
     <meta charset="utf-8" />
-    <title>Perfil de Usuario</title>
+    <title>Panel Usuario</title>
     <style>
         * {
             box-sizing: border-box;
@@ -129,10 +131,20 @@
         .scrollbar-hidden::-webkit-scrollbar {
             display: none;
         }
+        .profile-btn {
+    min-width: 120px;
+    padding: 10px 20px;
+    background-color: #a3ffff;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 5px;
+}
     </style>
 </head>
 <body>
-    <form id="form1">
+    <form id="form1" runat="server">
         <div class="container">
             <!-- Lista de currículums -->
             <div class="curriculums scrollbar-hidden">
@@ -214,10 +226,13 @@
                 </div>
 
                 <div class="profile-buttons">
-                    <button type="button">Guardar Cambios</button>
-                    <button type="button">Cancelar</button>
-                    <button type="button">Cambiar Contraseña</button>
-                </div>
+    <asp:Button ID="btnGuardar" runat="server" Text="Guardar Cambios" CssClass="profile-btn" OnClick="btnGuardar_Click" />
+    <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="profile-btn" OnClick="btnCancelar_Click" />
+    <asp:Button ID="btnCambiarPass" runat="server" Text="Cambiar Contraseña" CssClass="profile-btn" OnClick="btnCambiarPass_Click" />
+</div>
+                <div style="text-align: center; margin-top: auto;">
+    <asp:Button ID="btnCerrarSesion" runat="server" Text="Cerrar Sesión" CssClass="profile-btn" OnClick="btnCerrarSesion_Click" />
+</div>
             </div>
         </div>
     </form>
