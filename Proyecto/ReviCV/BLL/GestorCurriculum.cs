@@ -116,10 +116,10 @@ namespace BLL
         public void EliminarCurriculum(int idCV)
         {
             CurriculumDAL curriculumDAL = new CurriculumDAL();
-             curriculumDAL.EliminarCurriculum(idCV);
+            curriculumDAL.EliminarCurriculum(idCV);
 
             GestorIntegridad gestorIntegridad = new GestorIntegridad();
-            gestorIntegridad.ActualizarDVHRegistro(TablasBD.Curriculum, idCV);
+            gestorIntegridad.GuardarIntegridadTabla(TablasBD.Curriculum);
         }
     }
 }

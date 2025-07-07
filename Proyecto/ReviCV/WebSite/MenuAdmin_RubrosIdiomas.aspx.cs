@@ -97,7 +97,39 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page
 
                 txtDescripcionIdioma.Text = "";
                 hfIdIdioma.Value = "";
-            }            
+            }
+            else
+            {
+                string script = @"
+            document.addEventListener('DOMContentLoaded', function() {
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    title: 'Oops...',
+                    text: 'El idioma ingresado ya existe.',
+                    icon: 'error',
+                    confirmButtonText: 'Ok',
+                    backdrop: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    customClass: {
+                        container: 'swal-container-fix'
+                    }
+                }).then(() => {
+                    window.location.href = 'MenuAdmin_RubrosIdiomas.aspx';
+                });
+            } else {
+                window.location.href = 'MenuAdmin_RubrosIdiomas.aspx';
+            }
+        });";
+
+                ScriptManager.RegisterStartupScript(
+                this,
+                this.GetType(),
+                "SwalSuccess",
+                script,
+                true
+            );
+            }
         }
     }
 
@@ -118,7 +150,39 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page
 
                 txtDescripcionIdioma.Text = "";
                 hfIdIdioma.Value = "";
-            }            
+            }
+            else
+            {
+                string script = @"
+            document.addEventListener('DOMContentLoaded', function() {
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    title: 'Oops...',
+                    text: 'El idioma ingresado ya existe.',
+                    icon: 'error',
+                    confirmButtonText: 'Ok',
+                    backdrop: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    customClass: {
+                        container: 'swal-container-fix'
+                    }
+                }).then(() => {
+                    window.location.href = 'MenuAdmin_RubrosIdiomas.aspx';
+                });
+            } else {
+                window.location.href = 'MenuAdmin_RubrosIdiomas.aspx';
+            }
+        });";
+
+                ScriptManager.RegisterStartupScript(
+                this,
+                this.GetType(),
+                "SwalSuccess",
+                script,
+                true
+            );
+            }
         }
     }
 
@@ -127,7 +191,7 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page
         if (!string.IsNullOrEmpty(txtDescripcionIdioma.Text) && int.TryParse(hfIdIdioma.Value, out int idIdioma))
         {
             GestorCurriculum gestorCurriculums = new GestorCurriculum();
-            if(gestorCurriculums.IdiomaEnUso(int.Parse(hfIdIdioma.Value)))
+            if (gestorCurriculums.IdiomaEnUso(int.Parse(hfIdIdioma.Value)))
             {
                 gestorCurriculums.BajaIdioma(int.Parse(hfIdIdioma.Value));
                 CargarIdiomas();
@@ -138,6 +202,38 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page
                 txtDescripcionIdioma.Text = "";
                 hfIdIdioma.Value = "";
             }
+            else
+            {
+                string script = @"
+            document.addEventListener('DOMContentLoaded', function() {
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    title: 'Oops...',
+                    text: 'El idioma a eliminar esta siendo usado.',
+                    icon: 'error',
+                    confirmButtonText: 'Ok',
+                    backdrop: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    customClass: {
+                        container: 'swal-container-fix'
+                    }
+                }).then(() => {
+                    window.location.href = 'MenuAdmin_RubrosIdiomas.aspx';
+                });
+            } else {
+                window.location.href = 'MenuAdmin_RubrosIdiomas.aspx';
+            }
+        });";
+
+                ScriptManager.RegisterStartupScript(
+                this,
+                this.GetType(),
+                "SwalSuccess",
+                script,
+                true
+            );
+            }
         }
     }
 
@@ -147,7 +243,7 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page
         {
             GestorCurriculum gestorCurriculums = new GestorCurriculum();
             Dictionary<int, string> rubros = gestorCurriculums.ObtenerRubros();
-            if(!rubros.ContainsValue(txtDescripcionRubro.Text))
+            if (!rubros.ContainsValue(txtDescripcionRubro.Text))
             {
                 gestorCurriculums.AltaRubro(txtDescripcionRubro.Text);
                 CargarRubros();
@@ -157,6 +253,38 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page
 
                 txtDescripcionRubro.Text = "";
                 hfIdRubro.Value = "";
+            }
+            else
+            {
+                string script = @"
+            document.addEventListener('DOMContentLoaded', function() {
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    title: 'Oops...',
+                    text: 'El rubro ingresado ya existe.',
+                    icon: 'error',
+                    confirmButtonText: 'Ok',
+                    backdrop: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    customClass: {
+                        container: 'swal-container-fix'
+                    }
+                }).then(() => {
+                    window.location.href = 'MenuAdmin_RubrosIdiomas.aspx';
+                });
+            } else {
+                window.location.href = 'MenuAdmin_RubrosIdiomas.aspx';
+            }
+        });";
+
+                ScriptManager.RegisterStartupScript(
+                this,
+                this.GetType(),
+                "SwalSuccess",
+                script,
+                true
+            );
             }
         }
     }
@@ -177,7 +305,39 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page
 
                 txtDescripcionRubro.Text = "";
                 hfIdRubro.Value = "";
-            }                
+            }
+            else
+            {
+                string script = @"
+            document.addEventListener('DOMContentLoaded', function() {
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    title: 'Oops...',
+                    text: 'El rubro ingresado ya existe.',
+                    icon: 'error',
+                    confirmButtonText: 'Ok',
+                    backdrop: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    customClass: {
+                        container: 'swal-container-fix'
+                    }
+                }).then(() => {
+                    window.location.href = 'MenuAdmin_RubrosIdiomas.aspx';
+                });
+            } else {
+                window.location.href = 'MenuAdmin_RubrosIdiomas.aspx';
+            }
+        });";
+
+                ScriptManager.RegisterStartupScript(
+                this,
+                this.GetType(),
+                "SwalSuccess",
+                script,
+                true
+            );
+            }
         }
     }
 
@@ -186,7 +346,7 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page
         if (!string.IsNullOrEmpty(txtDescripcionRubro.Text) && int.TryParse(hfIdRubro.Value, out int idRubro))
         {
             GestorCurriculum gestorCurriculums = new GestorCurriculum();
-            if(gestorCurriculums.RubroEnUso(int.Parse(hfIdRubro.Value)))
+            if (gestorCurriculums.RubroEnUso(int.Parse(hfIdRubro.Value)))
             {
                 gestorCurriculums.BajaRubro(int.Parse(hfIdRubro.Value));
                 CargarRubros();
@@ -196,6 +356,38 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page
 
                 txtDescripcionRubro.Text = "";
                 hfIdRubro.Value = "";
+            }
+            else
+            {
+                string script = @"
+            document.addEventListener('DOMContentLoaded', function() {
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    title: 'Oops...',
+                    text: 'El rubro a eliminar esta siendo usado.',
+                    icon: 'error',
+                    confirmButtonText: 'Ok',
+                    backdrop: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    customClass: {
+                        container: 'swal-container-fix'
+                    }
+                }).then(() => {
+                    window.location.href = 'MenuAdmin_RubrosIdiomas.aspx';
+                });
+            } else {
+                window.location.href = 'MenuAdmin_RubrosIdiomas.aspx';
+            }
+        });";
+
+                ScriptManager.RegisterStartupScript(
+                this,
+                this.GetType(),
+                "SwalSuccess",
+                script,
+                true
+            );
             }
         }
     }
