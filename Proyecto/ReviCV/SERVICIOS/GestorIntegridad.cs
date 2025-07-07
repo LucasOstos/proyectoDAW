@@ -113,7 +113,7 @@ namespace SERVICIOS
             foreach (var datos in datosTabla)
             {
                 string dvhCalculado = CalcularDigitoVerificador(datos.datos);
-                DVHs.Add(dvhCalculado);
+                DVHs.Add(datos.dvh);
 
                 if (dvhCalculado != datos.dvh)
                 {
@@ -124,10 +124,10 @@ namespace SERVICIOS
             string DVVCalculado = CalcularDigitoVerificador(DVHs.ToArray());
 
             if (DVVCalculado != datosLeidos.Value.DVV)
-                mensajeDVV = $" La tabla \"{tabla}\" posee datos corruptos.";
+                mensajeDVV = $" La tabla \"{tabla}\" posee datos corruptos.\n";
 
             if (mensajeDVV != null)
-                mensajesDeError.Insert(0, mensajeDVV + Environment.NewLine);
+                mensajesDeError.Insert(0, mensajeDVV);
 
             return mensajesDeError.ToString();
         }

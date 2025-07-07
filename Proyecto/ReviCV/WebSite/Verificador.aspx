@@ -71,17 +71,17 @@
         }
 
         .contenedor {
-           position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 700px;
-    background: #fff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
-    text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 700px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+            text-align: center;
         }
 
         h2 {
@@ -99,9 +99,9 @@
             cursor: pointer;
         }
 
-        .boton-verificar:hover {
-            background-color: #0056b3;
-        }
+            .boton-verificar:hover {
+                background-color: #0056b3;
+            }
 
         .resultado {
             margin-top: 25px;
@@ -120,7 +120,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        
+
         <!-- Menú de navegación -->
         <div class="nav">
             <div class="container">
@@ -142,27 +142,33 @@
                         <rect class="rect" x="0" y="0" width="100" height="40" />
                     </svg>
                 </div>
-                                 <div class="btn-container">
-     <asp:Button ID="Button1" CssClass="btn" runat="server" Text="Bitacora" OnClick="Button1_Click" />
-     <svg viewBox="0 0 100 40" preserveAspectRatio="none">
-         <rect class="rect" x="0" y="0" width="100" height="40" />
-     </svg>
- </div>
-     <div class="btn-container">
-    <asp:Button ID="Button2" CssClass="btn" runat="server" Text="Cerrar Sesion" OnClick="Button2_Click" />
-    <svg viewBox="0 0 100 40" preserveAspectRatio="none">
-        <rect class="rect" x="0" y="0" width="100" height="40" />
-    </svg>
-</div>
+                <div class="btn-container">
+                    <asp:Button ID="Button1" CssClass="btn" runat="server" Text="Bitacora" OnClick="Button1_Click" />
+                    <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+                        <rect class="rect" x="0" y="0" width="100" height="40" />
+                    </svg>
+                </div>
+                <div class="btn-container">
+                    <asp:Button ID="Button2" CssClass="btn" runat="server" Text="Cerrar Sesion" OnClick="Button2_Click" />
+                    <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+                        <rect class="rect" x="0" y="0" width="100" height="40" />
+                    </svg>
+                </div>
             </div>
         </div>
 
         <!-- Contenido principal -->
         <div class="contenedor">
-            <h2>Recalcular Dígitos Verificadores</h2>
-            <asp:Button ID="btnRecalcular" runat="server" Text="Verificar dígitos" CssClass="boton-verificar" OnClick="btnRecalcular_Click" />
-            <asp:Label ID="Label1" runat="server"></asp:Label>
+            <h2>Acciones de integridad de tablas</h2>
+
+            <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 20px;">
+                <asp:Button ID="btnVerificar" runat="server" Text="Verificar dígitos" CssClass="boton-verificar" OnClick="btnVerificar_Click" />
+                <asp:Button ID="btnRecalcular" runat="server" Text="Recalcular dígitos" CssClass="boton-verificar" OnClick="btnRecalcular_Click" />
+            </div>
+
+            <asp:Label ID="lblMensaje" runat="server" CssClass="mensaje-error" Visible="false"></asp:Label>
         </div>
+
 
     </form>
 </body>

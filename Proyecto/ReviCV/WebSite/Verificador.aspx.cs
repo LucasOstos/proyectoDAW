@@ -11,32 +11,31 @@ public partial class Verificador : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+<<<<<<< HEAD
+        if (Session["Rol"].ToString() != "Webmaster") Response.Redirect("LandingPage.aspx");
+=======
+        lblMensaje.Visible = false;
+        if (Application["ErroresBD"].ToString() != "")
+        {
+            lblMensaje.ForeColor = System.Drawing.Color.Red;
+            lblMensaje.Text = Application["ErroresBD"].ToString().Replace("\n", "<br />");
+            lblMensaje.Visible = true;
+        }
+>>>>>>> 0dd126a69cd7e77f8a877f35842501fa0665b77c
     }
 
     protected void btnRecalcular_Click(object sender, EventArgs e)
     {
-    //    GestorIntegridad gestorIntegridad = new GestorIntegridad();
-    //    //var resultados = gestorIntegridad.VerificarIntegridadTodasLasTablas();
+        GestorIntegridad gestorIntegridad = new GestorIntegridad();
+        gestorIntegridad.RecalcularTodasLasTablas();
 
-    //    var mensaje = "";
+        Application["ErroresBD"] = ""; // Limpiar errores anteriores
 
-    //    foreach (var resultado in resultados)
-    //    {
-    //        if (!resultado.Value) // si la verificación falló
-    //        {
-    //            mensaje += $"La tabla {resultado.Key} tiene errores de integridad.<br/>";
-    //        }
-    //    }
-    //    Label1.ForeColor = System.Drawing.Color.Red;
-
-    //    if (string.IsNullOrEmpty(mensaje))
-    //    {
-    //        mensaje = "Todas las tablas están correctas.";
-    //        Label1.ForeColor = System.Drawing.Color.Green;
-    //    }
-    //    Label1.Text = mensaje;
+        lblMensaje.ForeColor = System.Drawing.Color.Green;
+        lblMensaje.Text = "Integridad de las tablas recalculada correctamente.";
+        lblMensaje.Visible = true;
     }
+
 
     protected void btnHome_Click(object sender, EventArgs e)
     {
@@ -68,4 +67,26 @@ public partial class Verificador : System.Web.UI.Page
         Session.Clear();
         Response.Redirect("LandingPage.aspx");
     }
+
+    protected void btnVerificar_Click(object sender, EventArgs e)
+    {
+        GestorIntegridad gestorIntegridad = new GestorIntegridad();
+        string resultados = gestorIntegridad.VerificarIntegridadTodasLasTablas();
+
+        if (!string.IsNullOrWhiteSpace(resultados))
+        {
+            Application["ErroresBD"] = resultados;
+            lblMensaje.ForeColor = System.Drawing.Color.Red;
+            lblMensaje.Text = resultados.Replace("\n", "<br />");
+            lblMensaje.Visible = true;
+        }
+        else
+        {
+            lblMensaje.ForeColor = System.Drawing.Color.Green;
+            lblMensaje.Text = "La base de datos no presenta problemas de integridad.";
+            lblMensaje.Visible = true;
+        }
+    }
+
+
 }
