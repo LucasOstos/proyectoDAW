@@ -36,7 +36,7 @@ namespace DAL.Tecnico
         public List<Bitacora> ObtenerLogs()
         {
             List<Bitacora> listaLogs = new List<Bitacora>();
-            string query = "SELECT * FROM Bitacora ORDER BY Fecha DESC";
+            string query = "SELECT * FROM Bitacora ORDER BY ID DESC";
 
             using (SqlCommand CM = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
             {
@@ -71,7 +71,7 @@ namespace DAL.Tecnico
 
             if (!string.IsNullOrEmpty(operacion))
                 query += " AND Operacion LIKE @Operacion";
-
+            query += " ORDER BY ID DESC";
             using (SqlCommand cmd = new SqlCommand(query, Conexion.Instancia.ReturnConexion()))
             {
                 if (desde.HasValue)
