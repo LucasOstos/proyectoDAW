@@ -30,6 +30,9 @@ public partial class BitacoraPage : System.Web.UI.Page
     }
     private void CargarUsuarios()
     {
+        ddlUsuario.Items.Insert(0, new ListItem("Seleccione un usuario", ""));
+        ddlUsuario.Items[0].Attributes.Add("disabled", "true");
+        ddlUsuario.Items[0].Selected = true;
         GestorUsuario gestor = new GestorUsuario();
         foreach(string nombreUsuario in gestor.ObtenerTodosNombresUsuarios())
         {
@@ -82,8 +85,9 @@ public partial class BitacoraPage : System.Web.UI.Page
     {
         txtFechaDesde.Text = "";
         txtFechaHasta.Text = "";
-        ddlUsuario.SelectedValue = null;
+        ddlUsuario.SelectedValue = ddlUsuario.Items[0].Value;
         txtOperacion.Text = "";
+        CargarBitacora();
     }
     
     protected void btnPerfil_Click(object sender, EventArgs e)

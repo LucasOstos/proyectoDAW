@@ -73,11 +73,10 @@
                 <asp:TextBox ID="txtOperacion" runat="server" CssClass="input-filtro" />
             </div>
             <div class="filtro">
-
-                <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" OnClick="btnFiltrar_Click" CssClass="boton-filtrar"/>
-                <asp:Button ID="btnLimpiarFiltros" runat="server" Text="Limpiar Filtros" CssClass="boton-filtrar" OnClick="btnLimpiarFiltros_Click"/>
-
-
+                <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" OnClick="btnFiltrar_Click" CssClass="boton-filtrar" />
+            </div>
+            <div class="filtro">
+                <asp:Button ID="btnLimpiarFiltros" runat="server" Text="Limpiar Filtros" CssClass="boton-filtrar" OnClick="btnLimpiarFiltros_Click" />
             </div>
         </div>
         <div>
