@@ -84,7 +84,7 @@
             </div>
 
             <div class="form-group">
-                <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Registrarse" />
+                <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Confirmar" />
             </div>
 
 <div class="form-group">

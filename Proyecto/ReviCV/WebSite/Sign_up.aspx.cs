@@ -74,10 +74,8 @@ public partial class Sign_up : System.Web.UI.Page
                         break;
                 }
             }
-
             return; 
         }
-
         Encriptador encriptador = new Encriptador();
 
         Usuario usuario = new Usuario(
