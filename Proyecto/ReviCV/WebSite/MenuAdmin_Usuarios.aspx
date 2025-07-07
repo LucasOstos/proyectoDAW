@@ -367,7 +367,7 @@ h2, h3 {
 
                     const txtDni = document.getElementById('txtDni');
                     txtDni.value = decodeHTMLEntidades(celdas[1].innerHTML.trim());
-                    document.getElementById('txtDni').readOnly = true;
+                    txtDni.readOnly = true;
                     document.getElementById('txtNombre').value = decodeHTMLEntidades(celdas[2].innerHTML.trim());
                     document.getElementById('txtApellido').value = decodeHTMLEntidades(celdas[3].innerHTML.trim());
                     document.getElementById('txtUsername').value = decodeHTMLEntidades(celdas[4].innerHTML.trim());
