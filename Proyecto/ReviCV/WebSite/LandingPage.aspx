@@ -227,7 +227,7 @@
 
             <div class="selector">
                 <div class="button-row">
-                    <asp:Button ID="EvaluarCVBoton" type="button" runat="server" CssClass="glass-button" Text="¡Evalúa un nuevo talento!" OnClick="EvaluarCVBoton_Click" />
+                    <asp:Button ID="EvaluarCVBoton" type="button" runat="server" CssClass="glass-button" Text="¡Evalúa un nuevo talento!" OnClick="EvaluarCVBoton_Click" data-key="btnEvaluar"/>
                     <button type="button" class="burger-button" id="burgerBtn" aria-label="Menú burger">
                         <span></span>
                         <span></span>
@@ -236,12 +236,12 @@
                 </div>
 
                 <div class="textbox-container" id="textboxContainer">
-                    <asp:DropDownList ID="ddlRubro" runat="server" CssClass="textbox-input" AppendDataBoundItems="true">
-                        <asp:ListItem Text="¿Qué rubro queres analizar?" Value="" Enabled="false" Selected="True" />
+                    <asp:DropDownList ID="ddlRubro" runat="server" CssClass="textbox-input" AppendDataBoundItems="true" data-key="listRubros">
+                        <asp:ListItem Text="¿Qué rubro queres analizar?" Value="" Enabled="false" Selected="True" runat="server" />
                     </asp:DropDownList>
 
-                    <asp:DropDownList ID="ddlIdioma" runat="server" CssClass="textbox-input" AppendDataBoundItems="true">
-                        <asp:ListItem Text="¿En qué idioma?" Value="" Enabled="false" Selected="True" />
+                    <asp:DropDownList ID="ddlIdioma" runat="server" CssClass="textbox-input" AppendDataBoundItems="true" data-key="listIdiomas">
+                        <asp:ListItem Text="¿En qué idioma?" Value="" Enabled="false" Selected="True" runat="server" />
                     </asp:DropDownList>
                 </div>
             </div>

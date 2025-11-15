@@ -4,12 +4,14 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using BLL;
 using ENTIDADES;
 using SERVICIOS;
-using BLL;
+using SERVICIOS.Traducciones;
 
-public partial class BitacoraPage : System.Web.UI.Page
+public partial class BitacoraPage : System.Web.UI.Page, IObserver
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -20,8 +22,57 @@ public partial class BitacoraPage : System.Web.UI.Page
             CargarBitacora();
             CargarUsuarios();
         }
+        TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD(Session["Idioma"].ToString());
+        Actualizar();
     }
+    public void Actualizar()
+    {
+        RecorrerControles(this);
+    }
+    void RecorrerControles(Control controlPadre)
+    {
+        foreach (Control c in controlPadre.Controls)
+        {
+            if (c is Label lbl && lbl.Attributes["data-key"] != null)
+            {
+                string clave = lbl.Attributes["data-key"];
+                lbl.Text = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
+            else if (c is Button btn && btn.Attributes["data-key"] != null)
+            {
+                string clave = btn.Attributes["data-key"];
+                btn.Text = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
+            else if (c is HtmlGenericControl html && html.Attributes["data-key"] != null)
+            {
+                string clave = html.Attributes["data-key"];
 
+                string htmlAnterior = html.InnerHtml;
+
+                string icono = "";
+                if (htmlAnterior.Contains("</i>"))
+                {
+                    int finIcono = htmlAnterior.IndexOf("</i>") + 4;
+                    icono = htmlAnterior.Substring(0, finIcono);
+                }
+                string traduccion = TraductorDAL.TranslatorInstance.Traducir(clave);
+                html.InnerHtml = icono + traduccion;
+            }
+            else if (c is DataControlFieldCell cell)
+            {
+                foreach (Control h in cell.Controls)
+                {
+                    if (h is HtmlGenericControl span && span.Attributes["data-key"] != null)
+                    {
+                        string clave = span.Attributes["data-key"];
+                        span.InnerHtml = TraductorDAL.TranslatorInstance.Traducir(clave);
+                    }
+                }
+            }
+            if (c.HasControls())
+                RecorrerControles(c);
+        }
+    }
     private void CargarBitacora()
     {
         GestorBitacora gestorBitacora = new GestorBitacora();
