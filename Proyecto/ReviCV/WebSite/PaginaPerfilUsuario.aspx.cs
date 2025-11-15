@@ -10,7 +10,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
-public partial class PaginaPerfilUsuario : System.Web.UI.Page
+public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -24,6 +24,8 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page
             CargarIdiomas2();
             string idiomaUsuario = Session["Idioma"].ToString();
             ddlIdioma.SelectedValue = idiomaUsuario;
+            TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD(Session["Idioma"].ToString());
+            Actualizar();
         }
     }
 
@@ -71,7 +73,64 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page
             }
         }
     }
+    public void Actualizar()
+    {
+        RecorrerControles(this);
+    }
+    void RecorrerControles(Control controlPadre)
+    {
+        foreach (Control c in controlPadre.Controls)
+        {
+            if (c is LinkButton lbl && lbl.Attributes["data-key"] != null)
+            {
+                string clave = lbl.Attributes["data-key"];
+                lbl.Text = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
+            else if (c is Button btn && btn.Attributes["data-key"] != null)
+            {
+                string clave = btn.Attributes["data-key"];
+                btn.Text = TraductorDAL.TranslatorInstance.Traducir(clave);
 
+            }
+            else if (c is TextBox tb && tb.Attributes["data-key"] != null)
+            {
+                string clave = tb.Attributes["data-key"];
+                tb.Attributes["placeholder"] = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
+            else if (c is DropDownList ddl && ddl.Attributes["data-key"] != null)
+            {
+                string clave = ddl.Attributes["data-key"];
+                ddl.Attributes["placeholder"] = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
+            else if (c is HtmlGenericControl html)
+            {
+                if (html.Attributes["data-key"] != null)
+                {
+                    string clave = html.Attributes["data-key"];
+                    html.InnerText = TraductorDAL.TranslatorInstance.Traducir(clave);
+                }
+                else if (html.TagName.Equals("p", StringComparison.OrdinalIgnoreCase))
+                {
+                    string clave = html.Attributes["data-key"];
+                    html.InnerText = TraductorDAL.TranslatorInstance.Traducir(clave);
+                }
+                else if (html.TagName.Equals("h1", StringComparison.OrdinalIgnoreCase))
+                {
+                    string clave = html.Attributes["data-key"];
+                    html.InnerText = TraductorDAL.TranslatorInstance.Traducir(clave);
+                }
+                else if (html.TagName.Equals("h2", StringComparison.OrdinalIgnoreCase))
+                {
+                    string clave = html.Attributes["data-key"];
+                    html.InnerText = TraductorDAL.TranslatorInstance.Traducir(clave);
+                }
+            }
+            if (c.HasControls())
+            {
+                RecorrerControles(c);
+            }
+        }
+    }
     protected void btnGuardar_Click(object sender, EventArgs e)
     {
         if (username.Text == "" || firstName.Text == "" || lastName.Text == "" || email.Text == "")

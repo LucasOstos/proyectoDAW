@@ -248,18 +248,19 @@
     </style>
 </head>
 <body>
+    
     <form id="form1" runat="server">
         <div class="contenedor">
             <div class="curriculums scrollbar-hidden">
                 <div style="margin-bottom: 10px;">
-                    <asp:DropDownList ID="ddlIdiomas" runat="server" Width="160px" Height="45px" CssClass="form-input" />
-                    <asp:DropDownList ID="ddlRubros" runat="server" Width="160px" Height="45px" CssClass="form-input" />
+                    <asp:DropDownList ID="ddlIdiomas" runat="server" Width="160px" Height="45px" CssClass="form-input" data-key="Idiomas" />
+                    <asp:DropDownList ID="ddlRubros" runat="server" Width="160px" Height="45px" CssClass="form-input" data-key="Rubros" />
                 </div>
 
-                <asp:FileUpload ID="fileUpload" runat="server" Style="display: none;" />
+                <asp:FileUpload ID="fileUpload" runat="server" Style="display: none;" data-key="fileUpload" />
                 <asp:HiddenField ID="hfNombreArchivo" runat="server" />
-                <asp:Button ID="btnSubirArchivo" runat="server" OnClick="btnSubirArchivo_Click" Style="display: none;" />
-                <asp:LinkButton ID="btnAbrirCarga" runat="server" OnClientClick="abrirDialogoArchivo(); return false;" CssClass="agregar-curriculum">+</asp:LinkButton>
+                <asp:Button ID="btnSubirArchivo" runat="server" OnClick="btnSubirArchivo_Click" Style="display: none;" data-key="SubirArchivo" />
+                <asp:LinkButton ID="btnAbrirCarga" runat="server" OnClientClick="abrirDialogoArchivo(); return false;" CssClass="agregar-curriculum" data-key="AbrirCarga">+</asp:LinkButton>
 
                 <asp:PlaceHolder ID="phCurriculums" runat="server" />
             </div>
@@ -267,8 +268,8 @@
             <div class="contenedor-perfil">
                 <div class="tarjeta-perfil">
                     <div class="encabezado-perfil">
-                        <asp:Label ID="lblNombrePerfil" runat="server" CssClass="nombre-perfil" Text="Juan Gomez" />
-                        <asp:Label ID="lblUsuarioPerfil" runat="server" CssClass="usuario-perfil" Text="@UsuarioPrueba123" />
+                        <asp:Label ID="lblNombrePerfil" runat="server" CssClass="nombre-perfil" Text="Juan Gomez" data-key="NombrePerfil" />
+                        <asp:Label ID="lblUsuarioPerfil" runat="server" CssClass="usuario-perfil" Text="@UsuarioPrueba123" data-key="UsuarioPerfil" />
                     </div>
 
 
@@ -280,40 +281,40 @@
                         </div>
 
 
-                        <div id="profile-tab" class="contenido-tab active">
-                            <asp:Panel ID="profilePanel" runat="server">
+                        <div id="profile-tab" class="contenido-tab active" data-key="profile-tab">
+                            <asp:Panel ID="profilePanel" runat="server" data-key="profilePanel">
                                 <div class="grupo-input">
                                     <label class="form-label">Nombre de usuario</label>
                                     <div class="txt-input">
-                                        <asp:TextBox ID="username" CssClass="form-input" runat="server" Text="UsuarioPrueba123" />
+                                        <asp:TextBox ID="username" CssClass="form-input" runat="server" Text="UsuarioPrueba123" data-key="username" />
                                     </div>
                                 </div>
 
                                 <div class="grupo-input">
                                     <label class="form-label">Nombre</label>
                                     <div class="txt-input">
-                                        <asp:TextBox ID="firstName" CssClass="form-input" runat="server" Text="Juan" />
+                                        <asp:TextBox ID="firstName" CssClass="form-input" runat="server" Text="Juan" data-key="firstName" />
                                     </div>
                                 </div>
 
                                 <div class="grupo-input">
                                     <label class="form-label">Apellido</label>
                                     <div class="txt-input">
-                                        <asp:TextBox ID="lastName" CssClass="form-input" runat="server" Text="Gomez" />
+                                        <asp:TextBox ID="lastName" CssClass="form-input" runat="server" Text="Gomez" data-key="lastName" />
                                     </div>
                                 </div>
 
                                 <div class="grupo-input">
                                     <label class="form-label">Email</label>
                                     <div class="txt-input">
-                                        <asp:TextBox ID="email" CssClass="form-input" runat="server" Text="prueba@gmail.com" TextMode="Email" />
+                                        <asp:TextBox ID="email" CssClass="form-input" runat="server" Text="prueba@gmail.com" TextMode="Email" data-key="email" />
                                     </div>
                                 </div>
 
                                 <div class="grupo-input">
                                  <label class="form-label">Idioma</label>
                                    <div class="txt-input">
-                                   <asp:DropDownList ID="ddlIdioma" runat="server" CssClass="form-input">
+                                   <asp:DropDownList ID="ddlIdioma" runat="server" CssClass="form-input" data-key="Idioma">
                                    <asp:ListItem Text="Español" Value="Español" />
                                      <asp:ListItem Text="Inglés" Value="Ingles" />
                                      <asp:ListItem Text="Portugués" Value="Portugues" />
@@ -322,27 +323,27 @@
                                          </div>
 
                                 <div class="botones-accion">
-                                    <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-guardar" Text="💾 Guardar Cambios" OnClick="btnGuardar_Click" />
-                                    <asp:Button ID="btnCancelar" runat="server" CssClass="btn btn-cancelar" Text="✖️ Cancelar" OnClick="btnCancelar_Click" CausesValidation="False" UseSubmitBehavior="false" />
+                                    <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-guardar" Text="💾 Guardar Cambios" OnClick="btnGuardar_Click" data-key="Guardar" />
+                                    <asp:Button ID="btnCancelar" runat="server" CssClass="btn btn-cancelar" Text="✖️ Cancelar" OnClick="btnCancelar_Click" CausesValidation="False" UseSubmitBehavior="false" data-key="Cancelar" />
                                 </div>
                             </asp:Panel>
                         </div>
 
 
-                        <div id="security-tab" class="contenido-tab">
-                            <asp:Panel ID="securityPanel" runat="server">
+                        <div id="security-tab" class="contenido-tab" data-key="security-tab">
+                            <asp:Panel ID="securityPanel" runat="server" data-key="securityPanel">
                                 <div class="grupo-input">
                                     <label class="form-label">Nueva contraseña</label>
-                                    <asp:TextBox ID="newPassword" CssClass="form-input" runat="server" TextMode="Password" Placeholder="Ingresa tu nueva contraseña" />
+                                    <asp:TextBox ID="newPassword" CssClass="form-input" runat="server" TextMode="Password" Placeholder="Ingresa tu nueva contraseña" data-key="newPassword" />
                                 </div>
 
                                 <div class="grupo-input">
                                     <label class="form-label">Confirmar nueva contraseña</label>
-                                    <asp:TextBox ID="confirmPassword" CssClass="form-input" runat="server" TextMode="Password" Placeholder="Confirma tu nueva contraseña" />
+                                    <asp:TextBox ID="confirmPassword" CssClass="form-input" runat="server" TextMode="Password" Placeholder="Confirma tu nueva contraseña" data-key="confirmPassword" />
                                 </div>
 
                                 <div class="botones-accion">
-                                    <asp:Button ID="btnCambiarPassword" runat="server" CssClass="btn btn-rojo" Text="🔑 Cambiar Contraseña" OnClick="btnCambiarPassword_Click" />
+                                    <asp:Button ID="btnCambiarPassword" runat="server" CssClass="btn btn-rojo" Text="🔑 Cambiar Contraseña" OnClick="btnCambiarPassword_Click" data-key="CambiarPassword" />
                                 </div>
                             </asp:Panel>
                         </div>
@@ -351,8 +352,8 @@
                 </div>
 
                 <div class="botones-inferiores">
-                    <asp:Button ID="btnVolverPrincipal" class="btn btn-guardar" runat="server" Text="Volver a la pagina principal" OnClick="btnVolverPrincipal_Click" />
-                    <asp:Button ID="btnCerrarSesion" class="btn btn-guardar" runat="server" Text="Cerrar sesión" OnClick="btnCerrarSesion_Click" />
+                    <asp:Button ID="btnVolverPrincipal" class="btn btn-guardar" runat="server" Text="Volver a la pagina principal" OnClick="btnVolverPrincipal_Click" data-key="VolverPrincipal" />
+                    <asp:Button ID="btnCerrarSesion" class="btn btn-guardar" runat="server" Text="Cerrar sesión" OnClick="btnCerrarSesion_Click" data-key="CerrarSesion" />
                 </div>
             </div>
         </div>
@@ -366,6 +367,8 @@
         <asp:HiddenField ID="hfOriginalRol" runat="server" />
 
     </form>
+</body>
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -416,5 +419,4 @@
 
 
     </script>
-</body>
 </html>

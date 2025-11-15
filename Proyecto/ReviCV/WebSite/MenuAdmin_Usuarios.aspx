@@ -227,87 +227,128 @@ h2, h3 {
 <body>
     <form runat="server">
         <div class="contenedor">
-            <div class="navbar">
-    <div class="logo">
-        <i class="fa-solid fa-cogs"></i>
-        Panel de administración
+                    <div class="navbar">
+                      <div class="logo">
+    <i class="fa-solid fa-cogs"></i>
+    <span runat="server" data-key="PanelDeAdministracion">Panel de administración</span>
+</div>
+            <div class="menu">
+                <asp:LinkButton ID="btnInicio" runat="server" OnClick="btnInicio_Click" CssClass="menu-button" data-key="Inicio">
+                    <i class="fa fa-home"></i> Inicio
+                </asp:LinkButton>
+                <asp:LinkButton ID="btnUsuarios" runat="server" OnClick="btnUsuarios_Click" CssClass="menu-button" data-key="Usuarios">
+                    <i class="fa fa-users"></i> Usuarios
+                </asp:LinkButton>
+                <asp:LinkButton ID="btnRubrosIdiomas" runat="server" OnClick="btnRubrosIdiomas_Click" CssClass="menu-button" data-key="RubrosIdiomas">
+                    <i class="fa fa-language"></i> Rubros e Idiomas
+                </asp:LinkButton>
+                <asp:LinkButton ID="btnVolverALanding" runat="server" OnClick="btnVolverALanding_Click" CssClass="menu-button" data-key="Volver">
+                    <i class="fa fa-arrow-left"></i> Volver
+                </asp:LinkButton>
+                <asp:LinkButton ID="btnVerPerfilUsuario" runat="server" OnClick="btnVerPerfilUsuario_Click" CssClass="menu-button" data-key="VerPerfilUsuario">
+    <i class="fa fa-user"></i> Ver perfil de usuario
+</asp:LinkButton>
+                <asp:LinkButton ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" CssClass="menu-button" data-key="CerrarSesion">
+                    <i class="fa fa-sign-out-alt"></i> Cerrar Sesión
+                </asp:LinkButton>
+            </div>
+        </div>
+
+            <div class="contenido-principal">
+    <h2 data-key="ListadoDeUsuarios" runat="server">Listado de Usuarios</h2>
+
+    <div class="seccion-tabla">
+        <asp:GridView ID="gvUsuarios" runat="server" AutoGenerateColumns="False"
+            CssClass="estilo-tabla" Width="100%">
+            <RowStyle CssClass="fila-normal" />
+            <SelectedRowStyle CssClass="fila-seleccionada" />
+            <Columns>
+                <asp:TemplateField>
+                    <ItemTemplate>
+                        <button type="button" class="boton-icono select-user-btn" data-key="Seleccionar" runat="server">
+                            <i class="fa fa-arrow-right"></i>
+                        </button>
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+                <asp:BoundField DataField="DNI" HeaderText="DNI" />
+                <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+                <asp:BoundField DataField="Apellido" HeaderText="Apellido" />
+                <asp:BoundField DataField="NombreUsuario" HeaderText="Usuario" />
+                <asp:BoundField DataField="Email" HeaderText="Email" />
+                <asp:BoundField DataField="Rol" HeaderText="Rol" />
+            </Columns>
+        </asp:GridView>
     </div>
-    <div class="menu">
-        <asp:LinkButton ID="btnInicio" runat="server" OnClick="btnInicio_Click" CssClass="menu-button">
-            <i class="fa fa-home"></i> Inicio
-        </asp:LinkButton>
-        <asp:LinkButton ID="btnUsuarios" runat="server" OnClick="btnUsuarios_Click" CssClass="menu-button">
-            <i class="fa fa-users"></i> Usuarios
-        </asp:LinkButton>
-        <asp:LinkButton ID="btnRubrosIdiomas" runat="server" OnClick="btnRubrosIdiomas_Click" CssClass="menu-button">
-            <i class="fa fa-language"></i> Rubros e Idiomas
-        </asp:LinkButton>
-        <asp:LinkButton ID="btnVolverALanding" runat="server" OnClick="btnVolverALanding_Click" CssClass="menu-button">
-            <i class="fa fa-arrow-left"></i> Volver
-        </asp:LinkButton>
-        <asp:LinkButton ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" CssClass="menu-button">
-            <i class="fa fa-sign-out-alt"></i> Cerrar Sesión
-        </asp:LinkButton>
+
+    <div class="seccion-inferior">
+        <div class="seccion-abm">
+            <h3 data-key="CreacionDeUsuarios" runat="server">Creación de usuarios</h3>
+
+            <asp:TextBox ID="txtDni" runat="server" CssClass="campo-formulario" ClientIDMode="Static"
+                placeholder="DNI" data-key="DNI" />
+
+            <asp:TextBox ID="txtNombre" runat="server" CssClass="campo-formulario" ClientIDMode="Static"
+                placeholder="Nombre" data-key="Nombre" />
+
+            <asp:TextBox ID="txtApellido" runat="server" CssClass="campo-formulario" ClientIDMode="Static"
+                placeholder="Apellido" data-key="Apellido" />
+
+            <asp:TextBox ID="txtUsername" runat="server" CssClass="campo-formulario" ClientIDMode="Static"
+                placeholder="Nombre de Usuario" data-key="Usuario" />
+
+            <asp:TextBox ID="txtEmail" runat="server" CssClass="campo-formulario" ClientIDMode="Static"
+                placeholder="Email" data-key="Email" />
+
+            <asp:DropDownList ID="ddlRol" runat="server" CssClass="campo-formulario" ClientIDMode="Static"
+                placeholder="Rol" data-key="Rol" OnSelectedIndexChanged="ddlRol_SelectedIndexChanged"></asp:DropDownList>
+            <div>
+                <asp:Button ID="btnAgregar" runat="server" Text="Agregar" CssClass="boton boton-verde"
+                    data-key="Agregar" OnClick="btnAgregar_Click" />
+
+                <asp:Button ID="btnModificar" runat="server" Text="Modificar" CssClass="boton boton-azul"
+                    data-key="Modificar" OnClick="btnModificar_Click" />
+
+                <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="boton boton-rojo"
+                    data-key="Eliminar" OnClick="btnEliminar_Click" />
+
+                <asp:Button ID="btnCancelarEleccion" runat="server" Text="Cancelar" CssClass="boton boton-gris"
+                    data-key="Cancelar" OnClick="btnCancelarEleccion_Click" />
+            </div>
+        </div>
+
+        <div class="seccion-filtro">
+            <h3 data-key="FiltrarUsuarios" runat="server">Filtrar Usuarios</h3>
+
+            <asp:TextBox ID="txtFiltroDni" runat="server" CssClass="campo-formulario"
+                placeholder="DNI" data-key="DNI" />
+
+            <asp:TextBox ID="txtFiltroUsername" runat="server" CssClass="campo-formulario"
+                placeholder="Usuario" data-key="Usuario" />
+
+            <asp:TextBox ID="txtFiltroEmail" runat="server" CssClass="campo-formulario"
+                placeholder="Email" data-key="Email" />
+
+            <asp:DropDownList ID="ddlFiltroRol" runat="server" CssClass="campo-formulario"
+                data-key="Rol"></asp:DropDownList>
+
+            <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" CssClass="boton boton-gris"
+                data-key="Filtrar" OnClick="btnFiltrar_Click" />
+
+            <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" CssClass="boton boton-gris"
+                data-key="Limpiar" OnClick="btnLimpiar_Click" />
+
+            <asp:Button ID="btnSerializar" runat="server" Text="Serializar" CssClass="boton boton-gris"
+                data-key="Serializar" OnClick="btnSerializar_Click" OnClientClick="return validarSeleccion();" />
+
+            <asp:Button ID="btnDeserializar" runat="server" Text="Deserializar" CssClass="boton boton-gris"
+                data-key="Deserializar" OnClick="btnDeserializar_Click" />
+
+            <asp:FileUpload ID="fuArchivo" runat="server" data-key="Archivo" />
+        </div>
     </div>
 </div>
 
-            <div class="contenido-principal">
-                <h2>Listado de Usuarios</h2>
-                <div class="seccion-tabla">
-                    <asp:GridView ID="gvUsuarios" runat="server" AutoGenerateColumns="False"
-                        CssClass="estilo-tabla" Width="100%">
-                        <RowStyle CssClass="fila-normal" />
-                        <SelectedRowStyle CssClass="fila-seleccionada" />
-                        <Columns>
-                            <asp:TemplateField>
-                                <ItemTemplate>
-                                    <button type="button" class="boton-icono select-user-btn">
-                                        <i class="fa fa-arrow-right"></i>
-                                    </button>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-
-                            <asp:BoundField DataField="DNI" HeaderText="DNI" />
-                            <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
-                            <asp:BoundField DataField="Apellido" HeaderText="Apellido" />
-                            <asp:BoundField DataField="NombreUsuario" HeaderText="Usuario" />
-                            <asp:BoundField DataField="Email" HeaderText="Email" />
-                            <asp:BoundField DataField="Rol" HeaderText="Rol" />
-                        </Columns>
-                    </asp:GridView>
-                </div>
-
-                <div class="seccion-inferior">
-                    <div class="seccion-abm">
-                        <h3>Creación de usuarios</h3>
-                        <asp:TextBox ID="txtDni" runat="server" CssClass="campo-formulario" ClientIDMode="Static" placeholder="DNI" />
-                        <asp:TextBox ID="txtNombre" runat="server" CssClass="campo-formulario" ClientIDMode="Static" placeholder="Nombre" />
-                        <asp:TextBox ID="txtApellido" runat="server" CssClass="campo-formulario" ClientIDMode="Static" placeholder="Apellido" />
-                        <asp:TextBox ID="txtUsername" runat="server" CssClass="campo-formulario" ClientIDMode="Static" placeholder="Nombre de Usuario" />
-                        <asp:TextBox ID="txtEmail" runat="server" CssClass="campo-formulario" ClientIDMode="Static" placeholder="Email" />
-                        <asp:DropDownList ID="ddlRol" runat="server" CssClass="campo-formulario" ClientIDMode="Static" placeholder="Rol" />
-                        <div>
-                            <asp:Button ID="btnAgregar" runat="server" Text="Agregar" CssClass="boton boton-verde" OnClick="btnAgregar_Click" />
-                            <asp:Button ID="btnModificar" runat="server" Text="Modificar" CssClass="boton boton-azul" OnClick="btnModificar_Click" />
-                            <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="boton boton-rojo" OnClick="btnEliminar_Click" />
-                            <asp:Button ID="btnCancelarEleccion" runat="server" Text="Cancelar" CssClass="boton boton-gris" OnClick="btnCancelarEleccion_Click" />
-                        </div>
-                    </div>
-
-                    <div class="seccion-filtro">
-                        <h3>Filtrar Usuarios</h3>
-                        <asp:TextBox ID="txtFiltroDni" runat="server" CssClass="campo-formulario" placeholder="DNI" />
-                        <asp:TextBox ID="txtFiltroUsername" runat="server" CssClass="campo-formulario" placeholder="Usuario" />
-                        <asp:TextBox ID="txtFiltroEmail" runat="server" CssClass="campo-formulario" placeholder="Email" />
-                        <asp:DropDownList ID="ddlFiltroRol" runat="server" CssClass="campo-formulario" />
-                        <asp:Button ID="btnFiltrar" runat="server" Text="Filtrar" CssClass="boton boton-gris" OnClick="btnFiltrar_Click" />
-                        <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" CssClass="boton boton-gris" OnClick="btnLimpiar_Click" />
-                        <asp:Button ID="btnSerializar" runat="server" Text="Serializar" CssClass="boton boton-gris" OnClick="btnSerializar_Click" OnClientClick="return validarSeleccion();"/>
-                        <asp:Button ID="btnDeserializar" runat="server" Text="Deserializar" CssClass="boton boton-gris" OnClick="btnDeserializar_Click" />
-                        <asp:FileUpload ID="fuArchivo" runat="server" />
-                    </div>
-                </div>
-            </div>
         </div>
     </form>
 

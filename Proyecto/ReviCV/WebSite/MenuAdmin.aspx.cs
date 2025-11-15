@@ -10,7 +10,6 @@ public partial class MenuAdmin : Page, IObserver
     protected void btnInicio_Click(object sender, EventArgs e)
     {
         Response.Redirect("MenuAdmin.aspx");
-        string probando;
     }
 
     protected void btnUsuarios_Click(object sender, EventArgs e)
