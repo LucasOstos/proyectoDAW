@@ -1,4 +1,5 @@
 ﻿using BLL;
+using ENTIDADES;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,6 +10,7 @@ using System.Web.UI.WebControls;
 
 public partial class VerResenias : System.Web.UI.Page
 {
+    int idCVActual;
     Curriculum cvMostrar;
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -17,7 +19,7 @@ public partial class VerResenias : System.Web.UI.Page
         if (!IsPostBack)
         {
             CargarCV();
-            CargarOpiniones();
+            CargarOpiniones(idCVActual);
         }
     }
 
@@ -25,9 +27,9 @@ public partial class VerResenias : System.Web.UI.Page
     {
         if (Request.QueryString["id"] != null)
         {
-            int idCV = int.Parse(Request.QueryString["id"]);
+            idCVActual = int.Parse(Request.QueryString["id"]);
             GestorCurriculum gCurriculums = new GestorCurriculum();
-            cvMostrar = gCurriculums.ObtenerCurriculumPorID(idCV);
+            cvMostrar = gCurriculums.ObtenerCurriculumPorID(idCVActual);
             Session["CurriculumLeido"] = cvMostrar;
             if (cvMostrar == null || cvMostrar.ArchivoCV == null)
             {
@@ -61,14 +63,29 @@ public partial class VerResenias : System.Web.UI.Page
         }
     }
 
-    private void CargarOpiniones()
+    private void CargarOpiniones(int idCV)
     {
-        // Crear datos de ejemplo hardcodeados
-        DataTable dtOpiniones = CrearOpinionesEjemplo();
+        GestorResena gestorResena = new GestorResena();
+        List<Resena> lista = gestorResena.ObtenerReseniasDeCVPorIDdeCV(idCV);
 
-        if (dtOpiniones.Rows.Count > 0)
+        if (lista != null && lista.Count > 0)
         {
-            rptOpiniones.DataSource = dtOpiniones;
+            Random rnd = new Random();
+
+            // Convertir Resena → ResenaVM
+            var listaVM = lista.Select(r => new ResenaVM
+            {
+                IdOpinion = r.ID_Resena,
+                NombreUsuario = r.UsuarioReseñador,
+                Contenido = r.Contenido,
+                Diseno = r.Diseno,
+                Claridad = r.Claridad,
+                Relevancia = r.Relevancia,
+                Comentario = r.Comentarios,
+                FotoUsuario = GenerarFotoRandom(rnd)
+            }).ToList();
+
+            rptOpiniones.DataSource = listaVM;
             rptOpiniones.DataBind();
             pnlSinOpiniones.Visible = false;
         }
@@ -78,47 +95,17 @@ public partial class VerResenias : System.Web.UI.Page
         }
     }
 
-    private DataTable CrearOpinionesEjemplo()
+    private string GenerarFotoRandom(Random rnd)
     {
-        DataTable dt = new DataTable();
+        int num = rnd.Next(1, 100);
+        bool mujer = rnd.Next(0, 2) == 0;
 
-        // Definir las columnas
-        dt.Columns.Add("IdOpinion", typeof(int));
-        dt.Columns.Add("NombreUsuario", typeof(string));
-        dt.Columns.Add("FotoUsuario", typeof(string));
-        dt.Columns.Add("Contenido", typeof(int));
-        dt.Columns.Add("Diseno", typeof(int));
-        dt.Columns.Add("Claridad", typeof(int));
-        dt.Columns.Add("Relevancia", typeof(int));
-        dt.Columns.Add("Comentario", typeof(string));
-
-        // Agregar opiniones de ejemplo
-        dt.Rows.Add(1, "William Rogers", "https://randomuser.me/api/portraits/men/32.jpg",
-            5, 3, 5, 5,
-            "Buen enfoque en educación y trato infantil. Podrías reforzar logros concretos y usar un diseño más moderno para destacar.");
-
-        dt.Rows.Add(2, "Selena Watson", "https://randomuser.me/api/portraits/women/44.jpg",
-            3, 1, 5, 5,
-            "El CV muestra compromiso, pero falta claridad en logros y datos específicos. El diseño es funcional, aunque algo básico y saturado.");
-
-        dt.Rows.Add(3, "Hayao Miyagi", "https://randomuser.me/api/portraits/men/85.jpg",
-            1, 1, 1, 1,
-            "¡Es el peor currículum que ví en mi vida!");
-
-        dt.Rows.Add(4, "Kevin Davis", "https://randomuser.me/api/portraits/men/67.jpg",
-            3, 2, 4, 4,
-            "El CV muestra compromiso, pero falta claridad en logros y datos específicos. El diseño es funcional, aunque algo básico y saturado.");
-
-        dt.Rows.Add(5, "María González", "https://randomuser.me/api/portraits/women/65.jpg",
-            4, 4, 3, 5,
-            "Muy buena estructura y organización. Me gusta cómo destacas tu experiencia docente. Quizás podrías agregar más detalles cuantitativos sobre tus logros.");
-
-        dt.Rows.Add(6, "Carlos Mendoza", "https://randomuser.me/api/portraits/men/22.jpg",
-            5, 5, 5, 4,
-            "Excelente CV, muy profesional. La sección de habilidades está muy bien detallada y el diseño es limpio y moderno. ¡Felicitaciones!");
-
-        return dt;
+        return mujer
+            ? $"https://randomuser.me/api/portraits/women/{num}.jpg"
+            : $"https://randomuser.me/api/portraits/men/{num}.jpg";
     }
+
+
 
     protected string GenerarEstrellas(int calificacion)
     {
@@ -139,35 +126,9 @@ public partial class VerResenias : System.Web.UI.Page
         return html;
     }
 
-    protected void btnLike_Click(object sender, EventArgs e)
+   
+    protected void imgUserIcon_Click(object sender, EventArgs e)
     {
-        Button btn = (Button)sender;
-        string idOpinion = btn.CommandArgument;
-
-        // Mostrar mensaje de confirmación
-        ScriptManager.RegisterStartupScript(this, GetType(), "like" + idOpinion,
-            "Swal.fire({icon: 'success', title: '¡Me gusta registrado!', showConfirmButton: false, timer: 1500});",
-            true);
-
-        // Aquí en el futuro agregarías la lógica para guardar en BD
-    }
-
-    protected void btnDislike_Click(object sender, EventArgs e)
-    {
-        Button btn = (Button)sender;
-        string idOpinion = btn.CommandArgument;
-
-        // Mostrar mensaje de confirmación
-        ScriptManager.RegisterStartupScript(this, GetType(), "dislike" + idOpinion,
-            "Swal.fire({icon: 'info', title: 'No me gusta registrado', showConfirmButton: false, timer: 1500});",
-            true);
-
-        // Aquí en el futuro agregarías la lógica para guardar en BD
-    }
-
-    protected void imgUserIcon_Click(object sender, ImageClickEventArgs e)
-    {
-        // Redirigir al perfil de usuario
-        Response.Redirect("PerfilUsuario.aspx");
+        Response.Redirect("PaginaPerfilUsuario.aspx");
     }
 }

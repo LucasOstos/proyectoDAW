@@ -19,5 +19,11 @@ namespace BLL
             GestorIntegridad gestorIntegridad = new GestorIntegridad();
             gestorIntegridad.ActualizarDVHRegistro(TablasBD.Resena, id);
         }
+
+        public List<Resena> ObtenerReseniasDeCVPorIDdeCV(int idCV)
+        {
+            ResenaDAL resenaDAL = new ResenaDAL();
+            return resenaDAL.LeerResenasDeCV(idCV);
+        }
     }
 }

@@ -6,7 +6,7 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Opiniones del CV</title>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <style>
         * {
             margin: 0;
@@ -36,11 +36,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 85vh;
+            height: 75vh;
+            margin-left: 65px;
         }
 
         .imagen-cv {
-            height: 900px; /* altura fija para todos los CVs */
+            height: 800px; /* altura fija para todos los CVs */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -57,8 +58,6 @@
                 object-fit: contain; /* mantiene proporción */
             }
 
-
-
             .imagen-cv embed,
             .imagen-cv object {
                 width: 100%;
@@ -72,6 +71,7 @@
             display: flex;
             flex-direction: column;
             height: 85vh;
+            margin-right: 85px;
         }
 
         /* Contenedor scrolleable de opiniones (naranja) */
@@ -105,7 +105,6 @@
                     background: rgba(94, 184, 229, 1);
                 }
 
-        /* Para Firefox */
         .columna-opiniones {
             scrollbar-width: auto;
             scrollbar-color: rgba(94, 184, 229, 0.8) rgba(255, 255, 255, 0.5);
@@ -131,6 +130,8 @@
 
         .contenido-opinion {
             flex: 1;
+            margin-left: 10px;
+            margin-top: 5px;
         }
 
         .header-opinion {
@@ -149,7 +150,7 @@
         }
 
         .nombre-usuario {
-            font-size: 18px;
+            font-size: 32px;
             font-weight: 600;
             color: #333;
         }
@@ -164,7 +165,7 @@
         .categoria-label {
             color: #5eb8e5;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 29px;
         }
 
         .estrellas-display {
@@ -174,7 +175,7 @@
 
         .estrella {
             color: #ffa723;
-            font-size: 16px;
+            font-size: 29px;
         }
 
             .estrella.vacia {
@@ -184,9 +185,8 @@
         .comentario-texto {
             color: #666;
             line-height: 1.5;
-            font-size: 14px;
+            font-size: 18px;
             margin-top: 8px;
-            padding: 10px;
             background-color: #f8f9fa;
             border-radius: 8px;
         }
@@ -250,7 +250,13 @@
             box-shadow: 0 0 14px rgba(0, 0, 0, 0.2);
             transition: transform 0.2s ease;
             background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px; /* tamaño del ícono */
+            color: #333; /* color del ícono */
         }
+
 
             .user-icon-img:hover {
                 transform: scale(1.1);
@@ -265,6 +271,23 @@
             border-radius: 16px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
+
+        .btn-like.selected,
+        .btn-dislike.selected {
+            color: white !important;
+            transform: scale(1.1);
+        }
+
+
+        .btn-like.selected {
+            background-color: #4caf50 !important;
+        }
+
+        .btn-dislike.selected {
+            background-color: #f44336 !important;
+        }
+
+
 
         @media (max-width: 1200px) {
             .contenedor-principal {
@@ -283,6 +306,7 @@
 
             .columna-opiniones-wrapper {
                 height: 40vh;
+                margin-right: 0;
             }
 
             .botones-reaccion {
@@ -292,6 +316,17 @@
                 justify-content: center;
                 margin-top: 16px;
             }
+
+
+            .comentario-texto {
+                color: #666;
+                line-height: 1.5;
+                font-size: 16px;
+                margin-top: 8px;
+                padding: 10px;
+                background-color: #f8f9fa;
+                border-radius: 8px;
+            }
         }
     </style>
 </head>
@@ -300,9 +335,11 @@
         <asp:ScriptManager ID="ScriptManager1" runat="server" />
 
         <div class="user-icon">
-            <asp:ImageButton ID="imgUserIcon" runat="server" ImageUrl="Imagenes/userIcon.png"
-                OnClick="imgUserIcon_Click" CssClass="user-icon-img" />
+            <asp:LinkButton ID="btnVolver" runat="server" OnClick="imgUserIcon_Click" CssClass="user-icon-img">
+        <i class="fa-solid fa-arrow-left"></i>
+    </asp:LinkButton>
         </div>
+
 
         <div class="contenedor-principal">
             <!-- CURRICULUM - Columna izquierda -->
@@ -353,18 +390,16 @@
                                 </div>
 
                                 <div class="botones-reaccion">
-                                    <asp:Button ID="btnLike" runat="server"
-                                        Text="👍"
-                                        CssClass="btn-reaccion btn-like"
-                                        CommandArgument='<%# Eval("IdOpinion") %>'
-                                        OnClick="btnLike_Click"
-                                        UseSubmitBehavior="false" />
-                                    <asp:Button ID="btnDislike" runat="server"
-                                        Text="👎"
-                                        CssClass="btn-reaccion btn-dislike"
-                                        CommandArgument='<%# Eval("IdOpinion") %>'
-                                        OnClick="btnDislike_Click"
-                                        UseSubmitBehavior="false" />
+                                    <button type="button"
+                                        class="btn-reaccion btn-like"
+                                        data-id="<%# Eval("IdOpinion") %>">
+                                        👍</button>
+
+                                    <button type="button"
+                                        class="btn-reaccion btn-dislike"
+                                        data-id="<%# Eval("IdOpinion") %>">
+                                        👎</button>
+
                                 </div>
                             </div>
                         </ItemTemplate>
@@ -372,7 +407,7 @@
 
                     <asp:Panel ID="pnlSinOpiniones" runat="server" CssClass="sin-opiniones" Visible="false">
                         <h3>Aún no hay opiniones para este CV</h3>
-                        <p>Sé el primero en dejar tu opinión.</p>
+                        <p>¡Espera a que otros usuarios te encuentren y te califiquen!</p>
                     </asp:Panel>
                 </div>
             </div>
@@ -380,5 +415,33 @@
     </form>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".tarjeta-opinion").forEach(card => {
+
+                const btnLike = card.querySelector(".btn-like");
+                const btnDislike = card.querySelector(".btn-dislike");
+
+                // Like
+                btnLike.addEventListener("click", function (e) {
+                    e.preventDefault(); // evita el postback visual
+                    btnLike.classList.toggle("selected");
+                    if (btnLike.classList.contains("selected")) {
+                        btnDislike.classList.remove("selected");
+                    }
+                });
+
+                // Dislike
+                btnDislike.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    btnDislike.classList.toggle("selected");
+                    if (btnDislike.classList.contains("selected")) {
+                        btnLike.classList.remove("selected");
+                    }
+                });
+
+            });
+        });
+</script>
 </body>
 </html>
