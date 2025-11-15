@@ -204,24 +204,27 @@
 <form runat="server">
     <div class="contenedor">
         <div class="navbar">
-            <div class="logo">
-                <i class="fa-solid fa-cogs"></i>
-                Panel de Administracion
-            </div>
+                      <div class="logo">
+    <i class="fa-solid fa-cogs"></i>
+    <span runat="server" data-key="PanelDeAdministracion">Panel de administración</span>
+</div>
             <div class="menu">
-                <asp:LinkButton ID="btnInicio" runat="server" OnClick="btnInicio_Click" CssClass="menu-button">
+                <asp:LinkButton ID="btnInicio" runat="server" OnClick="btnInicio_Click" CssClass="menu-button" data-key="Inicio">
                     <i class="fa fa-home"></i> Inicio
                 </asp:LinkButton>
-                <asp:LinkButton ID="btnUsuarios" runat="server" OnClick="btnUsuarios_Click" CssClass="menu-button">
+                <asp:LinkButton ID="btnUsuarios" runat="server" OnClick="btnUsuarios_Click" CssClass="menu-button" data-key="Usuarios">
                     <i class="fa fa-users"></i> Usuarios
                 </asp:LinkButton>
-                <asp:LinkButton ID="btnRubrosIdiomas" runat="server" OnClick="btnRubrosIdiomas_Click" CssClass="menu-button">
+                <asp:LinkButton ID="btnRubrosIdiomas" runat="server" OnClick="btnRubrosIdiomas_Click" CssClass="menu-button" data-key="RubrosIdiomas">
                     <i class="fa fa-language"></i> Rubros e Idiomas
                 </asp:LinkButton>
-                <asp:LinkButton ID="btnVolverALanding" runat="server" OnClick="btnVolverALanding_Click" CssClass="menu-button">
+                <asp:LinkButton ID="btnVolverALanding" runat="server" OnClick="btnVolverALanding_Click" CssClass="menu-button" data-key="Volver">
                     <i class="fa fa-arrow-left"></i> Volver
                 </asp:LinkButton>
-                <asp:LinkButton ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" CssClass="menu-button">
+                <asp:LinkButton ID="btnVerPerfilUsuario" runat="server" OnClick="btnVerPerfilUsuario_Click" CssClass="menu-button" data-key="VerPerfilUsuario">
+    <i class="fa fa-user"></i> Ver perfil de usuario
+</asp:LinkButton>
+                <asp:LinkButton ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" CssClass="menu-button" data-key="CerrarSesion">
                     <i class="fa fa-sign-out-alt"></i> Cerrar Sesión
                 </asp:LinkButton>
             </div>
@@ -229,7 +232,7 @@
 
         <div class="contenido-principal">
             <div class="seccion">
-                <h2>Gestión de Rubros</h2>
+                <h2 data-key="GestionDeRubros" runat="server">Gestión de Rubros</h2>
                 <div class="cuadro-grilla">
                     <asp:HiddenField ID="hfIdRubro" runat="server" />
                     <asp:GridView ID="gvRubros" runat="server" AutoGenerateColumns="False" CssClass="grilla-estilo" Width="100%">
@@ -238,7 +241,7 @@
                         <Columns>
                             <asp:TemplateField>
                                 <ItemTemplate>
-                                    <button type="button" class="boton-icono select-row" data-target="txtDescripcionRubro">
+                                    <button type="button" class="boton-icono select-row" data-target="txtDescripcionRubro" data-key="Seleccionar" runat="server">
                                         <i class="fa fa-arrow-right"></i>
                                     </button>
                                 </ItemTemplate>
@@ -249,17 +252,17 @@
                     </asp:GridView>
                 </div>
 
-                <h3>Alta / Modificación</h3>
-                <asp:TextBox ID="txtDescripcionRubro" runat="server" CssClass="textbox-contenido" placeholder="Rubro" />
+                <h3 data-key="AltaModificacion" runat="server">Alta / Modificación</h3>
+                <asp:TextBox ID="txtDescripcionRubro" runat="server" CssClass="textbox-contenido" placeholder="Rubro" data-key="Rubro" />
                 <div class="grupo-botones">
-                    <asp:Button ID="btnAgregarRubro" runat="server" Text="Agregar" CssClass="boton boton-bien" OnClick="btnAgregarRubro_Click" />
-                    <asp:Button ID="btnModificarRubro" runat="server" Text="Modificar" CssClass="boton boton-principal" OnClick="btnModificarRubro_Click" />
-                    <asp:Button ID="btnEliminarRubro" runat="server" Text="Eliminar" CssClass="boton boton-peligro" OnClick="btnEliminarRubro_Click" />
+                    <asp:Button ID="btnAgregarRubro" runat="server" Text="Agregar" CssClass="boton boton-bien" OnClick="btnAgregarRubro_Click" data-key="Agregar" />
+                    <asp:Button ID="btnModificarRubro" runat="server" Text="Modificar" CssClass="boton boton-principal" OnClick="btnModificarRubro_Click" data-key="Modificar" />
+                    <asp:Button ID="btnEliminarRubro" runat="server" Text="Eliminar" CssClass="boton boton-peligro" OnClick="btnEliminarRubro_Click" data-key="Eliminar" />
                 </div>
             </div>
 
             <div class="seccion">
-                <h2>Gestión de Idiomas</h2>
+                <h2 data-key="GestionDeIdiomas" runat="server">Gestión de Idiomas</h2>
                 <div class="cuadro-grilla">
                     <asp:HiddenField ID="hfIdIdioma" runat="server" />
                     <asp:GridView ID="gvIdiomas" runat="server" AutoGenerateColumns="False" CssClass="grilla-estilo" Width="100%">
@@ -268,7 +271,7 @@
                         <Columns>
                             <asp:TemplateField>
                                 <ItemTemplate>
-                                    <button type="button" class="boton-icono select-row" data-target="txtDescripcionIdioma">
+                                    <button type="button" class="boton-icono select-row" data-target="txtDescripcionIdioma" data-key="Seleccionar" runat="server">
                                         <i class="fa fa-arrow-right"></i>
                                     </button>
                                 </ItemTemplate>
@@ -279,17 +282,18 @@
                     </asp:GridView>
                 </div>
 
-                <h3>Alta / Modificación</h3>
-                <asp:TextBox ID="txtDescripcionIdioma" runat="server" CssClass="textbox-contenido" placeholder="Idioma" />
+                <h3 data-key="AltaModificacion" runat="server">Alta / Modificación</h3>
+                <asp:TextBox ID="txtDescripcionIdioma" runat="server" CssClass="textbox-contenido" placeholder="Idioma" data-key="Idioma" />
                 <div class="grupo-botones">
-                    <asp:Button ID="btnAgregarIdioma" runat="server" Text="Agregar" CssClass="boton boton-bien" OnClick="btnAgregarIdioma_Click" />
-                    <asp:Button ID="btnModificarIdioma" runat="server" Text="Modificar" CssClass="boton boton-principal" OnClick="btnModificarIdioma_Click" />
-                    <asp:Button ID="btnEliminarIdioma" runat="server" Text="Eliminar" CssClass="boton boton-peligro" OnClick="btnEliminarIdioma_Click" />
+                    <asp:Button ID="btnAgregarIdioma" runat="server" Text="Agregar" CssClass="boton boton-bien" OnClick="btnAgregarIdioma_Click" data-key="Agregar" />
+                    <asp:Button ID="btnModificarIdioma" runat="server" Text="Modificar" CssClass="boton boton-principal" OnClick="btnModificarIdioma_Click" data-key="Modificar" />
+                    <asp:Button ID="btnEliminarIdioma" runat="server" Text="Eliminar" CssClass="boton boton-peligro" OnClick="btnEliminarIdioma_Click" data-key="Eliminar" />
                 </div>
             </div>
         </div>
     </div>
 </form>
+
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
