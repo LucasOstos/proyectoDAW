@@ -18,14 +18,15 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
         if (Session["username"].ToString() == "") Response.Redirect("LandingPage.aspx");
         if (!IsPostBack)
         {
+            TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD(Session["Idioma"].ToString());
+            Actualizar();
             SettearHiddenFields();
             CargarIdiomas();
             CargarRubros();
             CargarIdiomas2();
             string idiomaUsuario = Session["Idioma"].ToString();
             ddlIdioma.SelectedValue = idiomaUsuario;
-            TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD(Session["Idioma"].ToString());
-            Actualizar();
+            CargarCurriculums();
         }
     }
 
@@ -40,7 +41,7 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
     //Esto se ejecuta antes que Page_Load y sirve para crear controles dinamicos como los de los cvs que tiene cada usuario - Matt
     protected void Page_Init(object sender, EventArgs e)
     {
-        CargarCurriculums();
+       
     }
 
 
@@ -60,14 +61,12 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
                 firstName.Text = usuario.Nombre;
                 lastName.Text = usuario.Apellido;
                 email.Text = usuario.Email;
-
                 hfOriginalUsername.Value = usuario.NombreUsuario;
                 hfOriginalFirstName.Value = usuario.Nombre;
                 hfOriginalLastName.Value = usuario.Apellido;
                 hfOriginalEmail.Value = usuario.Email;
                 hfOriginalDNI.Value = usuario.DNI.ToString();
                 hfOriginalRol.Value = usuario.Rol;
-
                 lblNombrePerfil.Text = usuario.Nombre + " " + usuario.Apellido;
                 lblUsuarioPerfil.Text = usuario.NombreUsuario;
             }
@@ -81,16 +80,71 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
     {
         foreach (Control c in controlPadre.Controls)
         {
+            // LINKBUTTON
             if (c is LinkButton lbl && lbl.Attributes["data-key"] != null)
             {
                 string clave = lbl.Attributes["data-key"];
                 lbl.Text = TraductorDAL.TranslatorInstance.Traducir(clave);
             }
+
+            // BUTTON ASP.NET
             else if (c is Button btn && btn.Attributes["data-key"] != null)
             {
                 string clave = btn.Attributes["data-key"];
                 btn.Text = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
 
+            // HTML BUTTON  ← ESTE DEBE IR ANTES DE HtmlGenericControl
+            else if (c is HtmlButton btn2 && btn2.Attributes["data-key"] != null)
+            {
+                string clave = btn2.Attributes["data-key"];
+                btn2.InnerText = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
+
+            // TEXTBOX
+            else if (c is TextBox tb && tb.Attributes["data-key"] != null)
+            {
+                string clave = tb.Attributes["data-key"];
+                tb.Attributes["placeholder"] = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
+
+            // DROPDOWNLIST
+            else if (c is DropDownList ddl && ddl.Attributes["data-key"] != null)
+            {
+                string clave = ddl.Attributes["data-key"];
+                ddl.Attributes["placeholder"] = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
+
+            // HTML GENERIC CONTROL
+            else if (c is HtmlGenericControl html && html.Attributes["data-key"] != null)
+            {
+                string clave = html.Attributes["data-key"];
+                html.InnerHtml = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
+
+            if (c.HasControls())
+                RecorrerControles(c);
+        }
+    }
+    void RecorrerControles2(Control controlPadre)
+    {
+        foreach (Control c in controlPadre.Controls)
+        {
+            if (c is LinkButton lbtn && lbtn.Attributes["data-key"] != null)
+            {
+                string clave = lbtn.Attributes["data-key"];
+                lbtn.Text = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
+            else if (c is Button btn && btn.Attributes["data-key"] != null)
+            {
+                string clave = btn.Attributes["data-key"];
+                btn.Text = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
+            else if (c is Label lbl && lbl.Attributes["data-key"] != null)
+            {
+                
+                string clave = lbl.Attributes["data-key"];
+                if(clave != "VerReseñas") lbl.Text = TraductorDAL.TranslatorInstance.Traducir(clave);
             }
             else if (c is TextBox tb && tb.Attributes["data-key"] != null)
             {
@@ -102,32 +156,16 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
                 string clave = ddl.Attributes["data-key"];
                 ddl.Attributes["placeholder"] = TraductorDAL.TranslatorInstance.Traducir(clave);
             }
-            else if (c is HtmlGenericControl html)
+            else if (c is HtmlGenericControl html && html.Attributes["data-key"] != null)
             {
-                if (html.Attributes["data-key"] != null)
-                {
-                    string clave = html.Attributes["data-key"];
-                    html.InnerText = TraductorDAL.TranslatorInstance.Traducir(clave);
-                }
-                else if (html.TagName.Equals("p", StringComparison.OrdinalIgnoreCase))
-                {
-                    string clave = html.Attributes["data-key"];
-                    html.InnerText = TraductorDAL.TranslatorInstance.Traducir(clave);
-                }
-                else if (html.TagName.Equals("h1", StringComparison.OrdinalIgnoreCase))
-                {
-                    string clave = html.Attributes["data-key"];
-                    html.InnerText = TraductorDAL.TranslatorInstance.Traducir(clave);
-                }
-                else if (html.TagName.Equals("h2", StringComparison.OrdinalIgnoreCase))
-                {
-                    string clave = html.Attributes["data-key"];
-                    html.InnerText = TraductorDAL.TranslatorInstance.Traducir(clave);
-                }
+                string clave = html.Attributes["data-key"];
+                html.InnerText = TraductorDAL.TranslatorInstance.Traducir(clave);
             }
+
+            // Llamada recursiva para procesar controles anidados (Esto estaba bien)
             if (c.HasControls())
             {
-                RecorrerControles(c);
+                RecorrerControles2(c);
             }
         }
     }
@@ -437,7 +475,7 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
         ddlIdiomas.DataValueField = "Key";
         ddlIdiomas.DataBind();
 
-        ddlIdiomas.Items.Insert(0, new ListItem("Idioma del CV", ""));
+        ddlIdiomas.Items.Insert(0, new ListItem(TraductorDAL.TranslatorInstance.Traducir("IdiomaDelCv"), ""));
         ddlIdiomas.Items[0].Attributes.Add("disabled", "true");
         ddlIdiomas.Items[0].Selected = true;
     }
@@ -452,7 +490,7 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
         ddlRubros.DataValueField = "Key";
         ddlRubros.DataBind();
 
-        ddlRubros.Items.Insert(0, new ListItem("Rubro del CV", ""));
+        ddlRubros.Items.Insert(0, new ListItem(TraductorDAL.TranslatorInstance.Traducir("RubroDelCv"), ""));
         ddlRubros.Items[0].Attributes.Add("disabled", "true");
         ddlRubros.Items[0].Selected = true;
     }
@@ -502,12 +540,12 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
             // Botón Ver Reseñas
             var btnVerResenias = new Button
             {
-                Text = "Ver reseñas",
+                Text = TraductorDAL.TranslatorInstance.Traducir("VerReseñas"),
                 CssClass = "btn btn-guardar",
                 PostBackUrl = $"VerResenias.aspx?id={cv.ID_CV}",
                 Style = { ["margin-left"] = "auto" },
                 Width = Unit.Pixel(130),
-                CommandArgument = cv.ID_CV.ToString()
+                CommandArgument = cv.ID_CV.ToString(), 
             };
             contenedor.Controls.Add(btnVerResenias);
 

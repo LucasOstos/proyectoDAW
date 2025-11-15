@@ -260,7 +260,7 @@
                 <asp:FileUpload ID="fileUpload" runat="server" Style="display: none;" data-key="fileUpload" />
                 <asp:HiddenField ID="hfNombreArchivo" runat="server" />
                 <asp:Button ID="btnSubirArchivo" runat="server" OnClick="btnSubirArchivo_Click" Style="display: none;" data-key="SubirArchivo" />
-                <asp:LinkButton ID="btnAbrirCarga" runat="server" OnClientClick="abrirDialogoArchivo(); return false;" CssClass="agregar-curriculum" data-key="AbrirCarga">+</asp:LinkButton>
+                <asp:LinkButton ID="btnAbrirCarga" runat="server" OnClientClick="abrirDialogoArchivo(); return false;" CssClass="agregar-curriculum">+</asp:LinkButton>
 
                 <asp:PlaceHolder ID="phCurriculums" runat="server" />
             </div>
@@ -268,51 +268,51 @@
             <div class="contenedor-perfil">
                 <div class="tarjeta-perfil">
                     <div class="encabezado-perfil">
-                        <asp:Label ID="lblNombrePerfil" runat="server" CssClass="nombre-perfil" Text="Juan Gomez" data-key="NombrePerfil" />
-                        <asp:Label ID="lblUsuarioPerfil" runat="server" CssClass="usuario-perfil" Text="@UsuarioPrueba123" data-key="UsuarioPerfil" />
+                        <asp:Label ID="lblNombrePerfil" runat="server" CssClass="nombre-perfil" Text="Juan Gomez" />
+                        <asp:Label ID="lblUsuarioPerfil" runat="server" CssClass="usuario-perfil" Text="@UsuarioPrueba123" />
                     </div>
 
 
                     <div class="contenido-perfil">
 
                         <div class="tabs-perfil">
-                            <button type="button" class="boton-tab active" onclick="switchTab('profile')">Perfil</button>
-                            <button type="button" class="boton-tab" onclick="switchTab('security')">Seguridad</button>
+                            <button type="button" class="boton-tab active" onclick="switchTab('profile')"  data-key="Perfil" runat="server">Perfil</button>
+                            <button type="button" class="boton-tab" onclick="switchTab('security')" data-key="Seguridad" runat="server">Seguridad</button>
                         </div>
 
 
                         <div id="profile-tab" class="contenido-tab active" data-key="profile-tab">
                             <asp:Panel ID="profilePanel" runat="server" data-key="profilePanel">
                                 <div class="grupo-input">
-                                    <label class="form-label">Nombre de usuario</label>
+                                    <label class="form-label" data-key="Usuario" runat="server">Nombre de usuario</label>
                                     <div class="txt-input">
                                         <asp:TextBox ID="username" CssClass="form-input" runat="server" Text="UsuarioPrueba123" data-key="username" />
                                     </div>
                                 </div>
 
                                 <div class="grupo-input">
-                                    <label class="form-label">Nombre</label>
+                                    <label class="form-label" data-key="Nombre" runat="server">Nombre</label>
                                     <div class="txt-input">
                                         <asp:TextBox ID="firstName" CssClass="form-input" runat="server" Text="Juan" data-key="firstName" />
                                     </div>
                                 </div>
 
                                 <div class="grupo-input">
-                                    <label class="form-label">Apellido</label>
+                                    <label class="form-label" data-key="Apellido" runat="server">Apellido</label>
                                     <div class="txt-input">
                                         <asp:TextBox ID="lastName" CssClass="form-input" runat="server" Text="Gomez" data-key="lastName" />
                                     </div>
                                 </div>
 
                                 <div class="grupo-input">
-                                    <label class="form-label">Email</label>
+                                    <label class="form-label" data-key="Email" runat="server">Email</label>
                                     <div class="txt-input">
                                         <asp:TextBox ID="email" CssClass="form-input" runat="server" Text="prueba@gmail.com" TextMode="Email" data-key="email" />
                                     </div>
                                 </div>
 
                                 <div class="grupo-input">
-                                 <label class="form-label">Idioma</label>
+                                 <label class="form-label" data-key="Idioma" runat="server">Idioma</label>
                                    <div class="txt-input">
                                    <asp:DropDownList ID="ddlIdioma" runat="server" CssClass="form-input" data-key="Idioma">
                                    <asp:ListItem Text="Español" Value="Español" />
@@ -323,7 +323,7 @@
                                          </div>
 
                                 <div class="botones-accion">
-                                    <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-guardar" Text="💾 Guardar Cambios" OnClick="btnGuardar_Click" data-key="Guardar" />
+                                    <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-guardar" Text="💾 Guardar Cambios" OnClick="btnGuardar_Click" data-key="GuardarCambios" />
                                     <asp:Button ID="btnCancelar" runat="server" CssClass="btn btn-cancelar" Text="✖️ Cancelar" OnClick="btnCancelar_Click" CausesValidation="False" UseSubmitBehavior="false" data-key="Cancelar" />
                                 </div>
                             </asp:Panel>
@@ -333,12 +333,12 @@
                         <div id="security-tab" class="contenido-tab" data-key="security-tab">
                             <asp:Panel ID="securityPanel" runat="server" data-key="securityPanel">
                                 <div class="grupo-input">
-                                    <label class="form-label">Nueva contraseña</label>
+                                    <label class="form-label" data-key ="NuevaContrasena" runat ="server">Nueva contraseña</label>
                                     <asp:TextBox ID="newPassword" CssClass="form-input" runat="server" TextMode="Password" Placeholder="Ingresa tu nueva contraseña" data-key="newPassword" />
                                 </div>
 
                                 <div class="grupo-input">
-                                    <label class="form-label">Confirmar nueva contraseña</label>
+                                    <label class="form-label" data-key ="ConfirmarNuevaContrasena" runat ="server">Confirmar nueva contraseña</label>
                                     <asp:TextBox ID="confirmPassword" CssClass="form-input" runat="server" TextMode="Password" Placeholder="Confirma tu nueva contraseña" data-key="confirmPassword" />
                                 </div>
 
