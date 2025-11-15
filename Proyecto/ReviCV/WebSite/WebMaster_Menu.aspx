@@ -103,38 +103,38 @@
         <div class="nav">
             <div class="container">
                 <div class="btn-container">
-                    <asp:Button ID="btnHome" CssClass="btn" runat="server" Text="Inicio" OnClick="btnHome_Click" />
+                    <asp:Button ID="btnHome" CssClass="btn" runat="server" Text="Inicio" OnClick="btnHome_Click" data-key="Inicio"/>
                     <svg viewBox="0 0 100 40" preserveAspectRatio="none">
                         <rect class="rect" x="0" y="0" width="100" height="40" />
                     </svg>
                 </div>
                 <div class="btn-container">
-                    <asp:Button ID="btnContact" CssClass="btn" runat="server" Text="Backup/Restore" OnClick="btnContact_Click" />
+                    <asp:Button ID="btnContact" CssClass="btn" runat="server" Text="Backup/Restore" OnClick="btnContact_Click" data-key="BackupRestore"/>
                     <svg viewBox="0 0 100 40" preserveAspectRatio="none">
                         <rect class="rect" x="0" y="0" width="100" height="40" />
                     </svg>
                 </div>
                 <div class="btn-container">
-                    <asp:Button ID="btnFAQ" CssClass="btn" runat="server" Text="Digitos Verificadores" OnClick="btnFAQ_Click" />
+                    <asp:Button ID="btnFAQ" CssClass="btn" runat="server" Text="Digitos Verificadores" OnClick="btnFAQ_Click" data-key="DigitosVerificadores"/>
                     <svg viewBox="0 0 100 40" preserveAspectRatio="none">
                         <rect class="rect" x="0" y="0" width="100" height="40" />
                     </svg>
                 </div>
 
                 <div class="btn-container">
-                    <asp:Button ID="btnVerPefil" CssClass="btn" runat="server" Text="Ver Perfil" OnClick="btnPerfil_Click" />
+                    <asp:Button ID="btnVerPefil" CssClass="btn" runat="server" Text="Ver Perfil" OnClick="btnPerfil_Click" data-key="VerPerfil"/>
                     <svg viewBox="0 0 100 40" preserveAspectRatio="none">
                         <rect class="rect" x="0" y="0" width="100" height="40" />
                     </svg>
                 </div>
                 <div class="btn-container">
-                    <asp:Button ID="Button1" CssClass="btn" runat="server" Text="Bitacora" OnClick="Button1_Click" />
+                    <asp:Button ID="Button1" CssClass="btn" runat="server" Text="Bitacora" OnClick="Button1_Click" data-key="Bitacora"/>
                     <svg viewBox="0 0 100 40" preserveAspectRatio="none">
                         <rect class="rect" x="0" y="0" width="100" height="40" />
                     </svg>
                 </div>
                 <div class="btn-container">
-                    <asp:Button ID="Button2" CssClass="btn" runat="server" Text="Cerrar Sesion" OnClick="Button2_Click" />
+                    <asp:Button ID="Button2" CssClass="btn" runat="server" Text="Cerrar Sesion" OnClick="Button2_Click" data-key="CerrarSesion"/>
                     <svg viewBox="0 0 100 40" preserveAspectRatio="none">
                         <rect class="rect" x="0" y="0" width="100" height="40" />
                     </svg>
@@ -143,8 +143,8 @@
         </div>
         <div class="contenido">
             <div class="centrado">
-                <h2>Bienvenido al panel de Web Master</h2>
-                <p>Seleccioná una opción del menú para comenzar</p>
+                <h2 data-key="BienvenidoPanelWB" runat="server">Bienvenido al panel de Web Master</h2>
+                <p data-key="SeleccionaUnaOpcDelMenuParaComenzar" runat="server">Seleccioná una opción del menú para comenzar</p>
             </div>
         </div>
     </form>

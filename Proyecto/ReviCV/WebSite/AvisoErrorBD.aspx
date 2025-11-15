@@ -102,9 +102,9 @@
 
 
         <div class="mensaje">
-            <h1>La página web no está disponible actualmente.<br />
+            <h1 runat="server" data-key="webNoDisponible">La página web no está disponible actualmente.<br />
                 Intente de nuevo más tarde.</h1>
-            <asp:Button ID="btnCerrarSesion" runat="server" CssClass="boton-cerrar-sesion" Text="Cerrar sesión" OnClick="btnCerrarSesion_Click" />
+            <asp:Button ID="btnCerrarSesion" runat="server" CssClass="boton-cerrar-sesion" Text="Cerrar sesión" OnClick="btnCerrarSesion_Click" data-key="CerrarSesion"/>
         </div>
     </form>
 </body>

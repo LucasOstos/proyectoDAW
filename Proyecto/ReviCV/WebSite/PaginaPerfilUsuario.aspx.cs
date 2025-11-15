@@ -41,11 +41,13 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
     //Esto se ejecuta antes que Page_Load y sirve para crear controles dinamicos como los de los cvs que tiene cada usuario - Matt
     protected void Page_Init(object sender, EventArgs e)
     {
-       
+        // Validación temprana
+        if (Session["Rol"] == null || string.IsNullOrEmpty(Session["username"]?.ToString()))
+            Response.Redirect("LandingPage.aspx");
+
+        CargarCurriculums();
     }
 
-
-   
     private void SettearHiddenFields()
     {
         string nombreUsuario = Session["username"] as string;
@@ -173,8 +175,6 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
     {
         if (username.Text == "" || firstName.Text == "" || lastName.Text == "" || email.Text == "")
         {
-            //
-
             string script = @"
             document.addEventListener('DOMContentLoaded', function() {
             if (typeof Swal !== 'undefined') {
@@ -205,12 +205,9 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
                 true
             );
 
-            //
         }
         else
         {
-
-
             GestorUsuario gestorUsuario = new GestorUsuario();
             Usuario usuario = new Usuario
             {
@@ -267,7 +264,6 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
         lastName.Text = hfOriginalLastName.Value;
         email.Text = hfOriginalEmail.Value;
     }
-
 
     protected void btnCambiarPassword_Click(object sender, EventArgs e)
     {
@@ -495,7 +491,6 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
         ddlRubros.Items[0].Selected = true;
     }
 
-
     private void CargarCurriculums()
     {
         string nombreUsuario = Session["username"]?.ToString();
@@ -532,25 +527,29 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
                         ["text-decoration"] = "none",
                         ["font-weight"] = "bold"
                     }
-                };
+            };
 
             btnEliminar.Click += btnEliminar_Click;
             contenedor.Controls.Add(btnEliminar);
 
             // Botón Ver Reseñas
-            var btnVerResenias = new Button
+            var btnVerResenias = new LinkButton
             {
                 Text = TraductorDAL.TranslatorInstance.Traducir("VerReseñas"),
                 CssClass = "btn btn-guardar",
-                PostBackUrl = $"VerResenias.aspx?id={cv.ID_CV}",
-                Style = { ["margin-left"] = "auto" },
-                Width = Unit.Pixel(130),
-                CommandArgument = cv.ID_CV.ToString(), 
+                CommandArgument = cv.ID_CV.ToString()
             };
+            btnVerResenias.Command += BtnVerResenias_Command;
+
             contenedor.Controls.Add(btnVerResenias);
 
             phCurriculums.Controls.Add(contenedor);
         }
+    }
+
+    protected void BtnVerResenias_Command(object sender, CommandEventArgs e)
+    {
+        Response.Redirect($"VerResenias.aspx?id={e.CommandArgument}");
     }
 
     protected void btnEliminar_Click(object sender, EventArgs e)
@@ -561,15 +560,11 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
         if (int.TryParse(btnEliminar.CommandArgument, out idCV))
         {
             GestorCurriculum gestor = new GestorCurriculum();
-            gestor.EliminarCurriculum(idCV); 
+            gestor.EliminarCurriculum(idCV);
 
             CargarCurriculums();
         }
     }
-
-
-
-
 
     protected void btnVolverPrincipal_Click(object sender, EventArgs e)
     {
