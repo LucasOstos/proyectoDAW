@@ -1,18 +1,77 @@
-﻿using System;
+﻿using BLL;
+using ENTIDADES;
+using SERVICIOS;
+using SERVICIOS.Traducciones;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.ServiceModel.Channels;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using BLL;
-using ENTIDADES;
-using SERVICIOS;
 
 
-public partial class MenuAdmin_Usuarios : Page
+public partial class MenuAdmin_Usuarios : Page, IObserver
 {
+    public void Actualizar()
+    {
+        RecorrerControles(this);
+    }
+    void RecorrerControles(Control controlPadre)
+    {
+        foreach (Control c in controlPadre.Controls)
+        {
+            if (c is LinkButton lbl && lbl.Attributes["data-key"] != null)
+            {
+                string clave = lbl.Attributes["data-key"];
+                lbl.Text = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
+            else if (c is Button btn && btn.Attributes["data-key"] != null)
+            {
+                string clave = btn.Attributes["data-key"];
+                btn.Text = TraductorDAL.TranslatorInstance.Traducir(clave);
 
+            }
+            else if (c is TextBox tb && tb.Attributes["data-key"] != null)
+            {
+                string clave = tb.Attributes["data-key"];
+                tb.Attributes["placeholder"] = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
+            else if (c is DropDownList ddl && ddl.Attributes["data-key"] != null)
+            {
+                string clave = ddl.Attributes["data-key"];
+                ddl.Attributes["placeholder"] = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
+            else if (c is HtmlGenericControl html)
+            {
+                if (html.Attributes["data-key"] != null)
+                {
+                    string clave = html.Attributes["data-key"];
+                    html.InnerText = TraductorDAL.TranslatorInstance.Traducir(clave);
+                }
+                else if (html.TagName.Equals("p", StringComparison.OrdinalIgnoreCase))
+                {
+                    string clave = html.Attributes["data-key"];
+                    html.InnerText = TraductorDAL.TranslatorInstance.Traducir(clave);
+                }
+                else if (html.TagName.Equals("h1", StringComparison.OrdinalIgnoreCase))
+                {
+                    string clave = html.Attributes["data-key"];
+                    html.InnerText = TraductorDAL.TranslatorInstance.Traducir(clave);
+                }
+                else if (html.TagName.Equals("h2", StringComparison.OrdinalIgnoreCase))
+                {
+                    string clave = html.Attributes["data-key"];
+                    html.InnerText = TraductorDAL.TranslatorInstance.Traducir(clave);
+                }
+            }
+            if (c.HasControls())
+            {
+                RecorrerControles(c);
+            }
+        }
+    }
 
     protected void btnInicio_Click(object sender, EventArgs e)
     {
@@ -71,6 +130,8 @@ public partial class MenuAdmin_Usuarios : Page
         {
             CargarUsuarios();
             CargarRoles();
+            TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD(Session["Idioma"].ToString());
+            Actualizar();
         }
     }
 
@@ -212,7 +273,6 @@ public partial class MenuAdmin_Usuarios : Page
     {
         List<ListItem> roles = new List<ListItem>
     {
-        new ListItem("Selecciona un rol", ""),
         new ListItem("Administrador", "Administrador"),
         new ListItem("Webmaster", "Webmaster"),
         new ListItem("Usuario", "Usuario")
@@ -251,4 +311,14 @@ public partial class MenuAdmin_Usuarios : Page
 
 
 
+
+    protected void btnVerPerfilUsuario_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("PaginaPerfilUsuario.aspx");
+    }
+
+    protected void ddlRol_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
 }
