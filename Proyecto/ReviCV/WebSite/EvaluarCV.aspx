@@ -219,11 +219,11 @@
             </div>
 
             <div class="seccion-resena">
-                <h2>¿Qué opinas de este CV?</h2>
+                <h2 runat="server" data-key="opinionCV">¿Qué opinas de este CV?</h2>
 
                 <div class="calificaciones">
                     <div class="categoria">
-                        <span>Contenido</span>
+                        <span runat="server" data-key="spContenido">Contenido</span>
                         <div class="calificacion">
                             <input value="5" name="contenido" id="contenido5" type="radio" />
                             <label for="contenido5"></label>
@@ -239,7 +239,7 @@
                     </div>
 
                     <div class="categoria">
-                        <span>Diseño</span>
+                        <span runat="server" data-key="spDisenio">Diseño</span>
                         <div class="calificacion">
                             <input value="5" name="diseno" id="diseno5" type="radio" />
                             <label for="diseno5"></label>
@@ -255,7 +255,7 @@
                     </div>
 
                     <div class="categoria">
-                        <span>Claridad</span>
+                        <span runat="server" data-key="spClaridad">Claridad</span>
                         <div class="calificacion">
                             <input value="5" name="claridad" id="claridad5" type="radio" />
                             <label for="claridad5"></label>
@@ -271,7 +271,7 @@
                     </div>
 
                     <div class="categoria">
-                        <span>Relevancia</span>
+                        <span runat="server" data-key="spRelevancia">Relevancia</span>
                         <div class="calificacion">
                             <input value="5" name="relevancia" id="relevancia5" type="radio" />
                             <label for="relevancia5"></label>
@@ -288,12 +288,12 @@
                 </div>
 
                 <div class="seccion-comentario">
-                    <p id="pComentario" runat="server"></p>
+                    <p id="pComentario" runat="server" data-key="pComentarioTxt"></p>
 
-                    <asp:TextBox ID="txtComentarios" runat="server" TextMode="MultiLine" CssClass="comentarios-textarea"/>
+                    <asp:TextBox ID="txtComentarios" runat="server" TextMode="MultiLine" CssClass="comentarios-textarea" data-key="txtComentarioPlaceholder"/>
 
                     <br />
-                    <asp:Button ID="enviar" class="boton-enviar" runat="server" Text="¡Enviá tu reseña!" OnClick="enviar_Click" />
+                    <asp:Button ID="enviar" class="boton-enviar" runat="server" Text="¡Enviá tu reseña!" OnClick="enviar_Click" data-key="btnEnviar"/>
                 </div>
             </div>
         </div>

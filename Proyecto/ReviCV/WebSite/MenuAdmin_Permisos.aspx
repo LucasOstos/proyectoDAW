@@ -287,42 +287,45 @@
             <div class="navbar">
                 <div class="logo">
                     <i class="fa-solid fa-cogs"></i>
-                    Panel de administración
+                    <span runat="server" data-key="PanelDeAdministracion">Panel de administración</span>
                 </div>
                 <div class="menu">
-                    <asp:LinkButton ID="btnInicio" runat="server" OnClick="btnInicio_Click" CssClass="menu-button">
-                        <i class="fa fa-home"></i> Inicio
-                    </asp:LinkButton>
-                    <asp:LinkButton ID="btnUsuarios" runat="server" OnClick="btnUsuarios_Click" CssClass="menu-button">
-                        <i class="fa fa-users"></i> Usuarios
-                    </asp:LinkButton>
-                    <asp:LinkButton ID="btnRubrosIdiomas" runat="server" OnClick="btnRubrosIdiomas_Click" CssClass="menu-button">
-                        <i class="fa fa-language"></i> Rubros e Idiomas
-                    </asp:LinkButton>
-                    <asp:LinkButton ID="btnVolverALanding" runat="server" OnClick="btnVolverALanding_Click" CssClass="menu-button">
-                        <i class="fa fa-arrow-left"></i> Volver
-                    </asp:LinkButton>
-                    <asp:LinkButton ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" CssClass="menu-button">
-                        <i class="fa fa-sign-out-alt"></i> Cerrar Sesión
-                    </asp:LinkButton>
-                </div>
+    <asp:LinkButton ID="btnInicio" runat="server" OnClick="btnInicio_Click" CssClass="menu-button" data-key="Inicio">
+        <i class="fa fa-home"></i> Inicio
+    </asp:LinkButton>
+    <asp:LinkButton ID="btnUsuarios" runat="server" OnClick="btnUsuarios_Click" CssClass="menu-button" data-key="Usuarios">
+        <i class="fa fa-users"></i> Usuarios
+    </asp:LinkButton>
+    <asp:LinkButton ID="btnRubrosIdiomas" runat="server" OnClick="btnRubrosIdiomas_Click" CssClass="menu-button" data-key="RubrosIdiomas">
+        <i class="fa fa-language"></i> Rubros e Idiomas
+    </asp:LinkButton>
+    <asp:LinkButton ID="btnVolverALanding" runat="server" OnClick="btnVolverALanding_Click" CssClass="menu-button" data-key="Volver">
+        <i class="fa fa-arrow-left"></i> Volver
+    </asp:LinkButton>
+    <asp:LinkButton ID="btnVerPerfilUsuario" runat="server" OnClick="btnVerPerfilUsuario_Click" CssClass="menu-button" data-key="VerPerfilUsuario">
+        <i class="fa fa-user"></i> Ver perfil de usuario
+    </asp:LinkButton>
+    <asp:LinkButton ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" CssClass="menu-button" data-key="CerrarSesion">
+        <i class="fa fa-sign-out-alt"></i> Cerrar Sesión
+    </asp:LinkButton>
+</div>
             </div>
 
             <div class="contenido-principal">
-                <h2>Gestión de Permisos</h2>
+                <h2 data-key ="GestionDePermisos" runat ="server">Gestión de Permisos</h2>
 
                 <div class="seccion-superior">
                     <div class="columna">
-                        <h3>Roles y Grupos</h3>
+                        <h3 data-key ="RolesYGrupos" runat ="server">Roles y Grupos</h3>
                         <asp:DropDownList ID="ddlRolesGrupos" runat="server" CssClass="campo-select" AutoPostBack="true" OnSelectedIndexChanged="ddlRolesGrupos_SelectedIndexChanged">
                         </asp:DropDownList>
-                        <asp:Button ID="btnEliminar" runat="server" Text="Eliminar seleccionado" CssClass="boton boton-rojo" Enabled="false" OnClick="btnEliminar_Click" />
-                        <asp:Button ID="btnModificarNombre" runat="server" Text="Modificar Nombre" CssClass="boton boton-azul" Enabled="false" OnClick="btnModificarNombre_Click" />
+                        <asp:Button ID="btnEliminar" runat="server" Text="Eliminar seleccionado" CssClass="boton boton-rojo" Enabled="false" OnClick="btnEliminar_Click" data-key ="EliminarSeleccionado" />
+                        <asp:Button ID="btnModificarNombre" runat="server" Text="Modificar Nombre" CssClass="boton boton-azul" Enabled="false" OnClick="btnModificarNombre_Click" data-key ="ModificarNombre"/>
                     </div>
 
                     <asp:UpdatePanel ID="upPermisosAsignados" runat="server" UpdateMode="Conditional" class="columna">
                         <ContentTemplate>
-                            <h3>Permisos Asignados</h3>
+                            <h3 data-key ="PermisosAsignados" runat ="server">Permisos Asignados</h3>
                             <div class="lista-permisos">
                                 <asp:CheckBoxList ID="chkListPermisos" runat="server"
                                     CssClass="lista-permisos-checkbox"
@@ -337,7 +340,7 @@
 
                     <asp:UpdatePanel ID="upVisualizacion" runat="server" UpdateMode="Conditional" class="columna">
                         <ContentTemplate>
-                            <h3>Visualización</h3>
+                            <h3 data-key ="Visualizacion" runat ="server">Visualización</h3>
                             <div class="arbol-permisos">
                                 <asp:TreeView ID="treeViewPermisos" runat="server" CssClass="arbol-permisos-tree">
                                 </asp:TreeView>
@@ -351,19 +354,19 @@
 
                 <div class="seccion-inferior">
                     <div class="seccion-botones">
-                        <h3>Nuevo rol o grupo de permisos</h3>
-                        <asp:TextBox ID="txtNuevoNombre" runat="server" CssClass="campo-texto" placeholder="Ingrese el nuevo nombre"></asp:TextBox>
-                        <asp:Button ID="btnCrearRol" runat="server" Text="Crear Rol" CssClass="boton boton-verde boton-grande" OnClick="btnCrearRol_Click" />
-                        <asp:Button ID="btnCrearGrupo" runat="server" Text="Crear Grupo de Permisos" CssClass="boton boton-verde boton-grande" OnClick="btnCrearGrupo_Click" />
+                        <h3 data-key ="Nuevorologrupodepermisos" runat ="server">Nuevo rol o grupo de permisos</h3>
+                        <asp:TextBox ID="txtNuevoNombre" runat="server" CssClass="campo-texto" placeholder="Ingrese el nuevo nombre" data-key ="IngreseElNuevoNombre"></asp:TextBox>
+                        <asp:Button ID="btnCrearRol" runat="server" Text="Crear Rol" CssClass="boton boton-verde boton-grande" OnClick="btnCrearRol_Click" data-key ="CrearRol"/>
+                        <asp:Button ID="btnCrearGrupo" runat="server" Text="Crear Grupo de Permisos" CssClass="boton boton-verde boton-grande" OnClick="btnCrearGrupo_Click" data-key ="CrearGrupodePermisos" />
                     </div>
 
                     <div class="seccion-botones">
-                        <h3>Acciones</h3>
-                        <asp:Button ID="btnGuardarCambios" runat="server" Text="Guardar Cambios" CssClass="boton boton-azul boton-grande" Enabled="true" OnClick="btnGuardarCambios_Click" />
+                        <h3 data-key ="Acciones" runat ="server">Acciones</h3>
+                        <asp:Button ID="btnGuardarCambios" runat="server" Text="Guardar Cambios" CssClass="boton boton-azul boton-grande" Enabled="true" OnClick="btnGuardarCambios_Click" data-key ="GuardarCambios"/>
                     </div>
                 </div>
             </div>
-            <asp:Button ID="btnConfirmarCambio" runat="server" OnClick="btnConfirmarCambio_Click" Style="display:none;" />
+            <asp:Button ID="btnConfirmarCambio" runat="server" OnClick="btnConfirmarCambio_Click" data-key ="ConfirmarCambio" Style="display:none;" />
             <asp:HiddenField ID="hfNuevoNombre" runat="server" />
             <asp:Button ID="btnEliminarConfirmar" runat="server" 
             OnClick="btnEliminarConfirmar_Click" 

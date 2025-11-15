@@ -10,7 +10,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
-public partial class PaginaPerfilUsuario : System.Web.UI.Page
+public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -18,12 +18,15 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page
         if (Session["username"].ToString() == "") Response.Redirect("LandingPage.aspx");
         if (!IsPostBack)
         {
+            TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD(Session["Idioma"].ToString());
+            Actualizar();
             SettearHiddenFields();
             CargarIdiomas();
             CargarRubros();
             CargarIdiomas2();
             string idiomaUsuario = Session["Idioma"].ToString();
             ddlIdioma.SelectedValue = idiomaUsuario;
+            CargarCurriculums();
         }
     }
 
@@ -60,20 +63,114 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page
                 firstName.Text = usuario.Nombre;
                 lastName.Text = usuario.Apellido;
                 email.Text = usuario.Email;
-
                 hfOriginalUsername.Value = usuario.NombreUsuario;
                 hfOriginalFirstName.Value = usuario.Nombre;
                 hfOriginalLastName.Value = usuario.Apellido;
                 hfOriginalEmail.Value = usuario.Email;
                 hfOriginalDNI.Value = usuario.DNI.ToString();
                 hfOriginalRol.Value = usuario.Rol;
-
                 lblNombrePerfil.Text = usuario.Nombre + " " + usuario.Apellido;
                 lblUsuarioPerfil.Text = usuario.NombreUsuario;
             }
         }
     }
+    public void Actualizar()
+    {
+        RecorrerControles(this);
+    }
+    void RecorrerControles(Control controlPadre)
+    {
+        foreach (Control c in controlPadre.Controls)
+        {
+            // LINKBUTTON
+            if (c is LinkButton lbl && lbl.Attributes["data-key"] != null)
+            {
+                string clave = lbl.Attributes["data-key"];
+                lbl.Text = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
 
+            // BUTTON ASP.NET
+            else if (c is Button btn && btn.Attributes["data-key"] != null)
+            {
+                string clave = btn.Attributes["data-key"];
+                btn.Text = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
+
+            // HTML BUTTON  ← ESTE DEBE IR ANTES DE HtmlGenericControl
+            else if (c is HtmlButton btn2 && btn2.Attributes["data-key"] != null)
+            {
+                string clave = btn2.Attributes["data-key"];
+                btn2.InnerText = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
+
+            // TEXTBOX
+            else if (c is TextBox tb && tb.Attributes["data-key"] != null)
+            {
+                string clave = tb.Attributes["data-key"];
+                tb.Attributes["placeholder"] = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
+
+            // DROPDOWNLIST
+            else if (c is DropDownList ddl && ddl.Attributes["data-key"] != null)
+            {
+                string clave = ddl.Attributes["data-key"];
+                ddl.Attributes["placeholder"] = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
+
+            // HTML GENERIC CONTROL
+            else if (c is HtmlGenericControl html && html.Attributes["data-key"] != null)
+            {
+                string clave = html.Attributes["data-key"];
+                html.InnerHtml = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
+
+            if (c.HasControls())
+                RecorrerControles(c);
+        }
+    }
+    void RecorrerControles2(Control controlPadre)
+    {
+        foreach (Control c in controlPadre.Controls)
+        {
+            if (c is LinkButton lbtn && lbtn.Attributes["data-key"] != null)
+            {
+                string clave = lbtn.Attributes["data-key"];
+                lbtn.Text = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
+            else if (c is Button btn && btn.Attributes["data-key"] != null)
+            {
+                string clave = btn.Attributes["data-key"];
+                btn.Text = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
+            else if (c is Label lbl && lbl.Attributes["data-key"] != null)
+            {
+                
+                string clave = lbl.Attributes["data-key"];
+                if(clave != "VerReseñas") lbl.Text = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
+            else if (c is TextBox tb && tb.Attributes["data-key"] != null)
+            {
+                string clave = tb.Attributes["data-key"];
+                tb.Attributes["placeholder"] = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
+            else if (c is DropDownList ddl && ddl.Attributes["data-key"] != null)
+            {
+                string clave = ddl.Attributes["data-key"];
+                ddl.Attributes["placeholder"] = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
+            else if (c is HtmlGenericControl html && html.Attributes["data-key"] != null)
+            {
+                string clave = html.Attributes["data-key"];
+                html.InnerText = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
+
+            // Llamada recursiva para procesar controles anidados (Esto estaba bien)
+            if (c.HasControls())
+            {
+                RecorrerControles2(c);
+            }
+        }
+    }
     protected void btnGuardar_Click(object sender, EventArgs e)
     {
         if (username.Text == "" || firstName.Text == "" || lastName.Text == "" || email.Text == "")
@@ -374,7 +471,7 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page
         ddlIdiomas.DataValueField = "Key";
         ddlIdiomas.DataBind();
 
-        ddlIdiomas.Items.Insert(0, new ListItem("Idioma del CV", ""));
+        ddlIdiomas.Items.Insert(0, new ListItem(TraductorDAL.TranslatorInstance.Traducir("IdiomaDelCv"), ""));
         ddlIdiomas.Items[0].Attributes.Add("disabled", "true");
         ddlIdiomas.Items[0].Selected = true;
     }
@@ -389,7 +486,7 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page
         ddlRubros.DataValueField = "Key";
         ddlRubros.DataBind();
 
-        ddlRubros.Items.Insert(0, new ListItem("Rubro del CV", ""));
+        ddlRubros.Items.Insert(0, new ListItem(TraductorDAL.TranslatorInstance.Traducir("RubroDelCv"), ""));
         ddlRubros.Items[0].Attributes.Add("disabled", "true");
         ddlRubros.Items[0].Selected = true;
     }
@@ -438,7 +535,7 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page
             // Botón Ver Reseñas
             var btnVerResenias = new LinkButton
             {
-                Text = "Ver reseñas",
+                Text = TraductorDAL.TranslatorInstance.Traducir("VerReseñas"),
                 CssClass = "btn btn-guardar",
                 CommandArgument = cv.ID_CV.ToString()
             };

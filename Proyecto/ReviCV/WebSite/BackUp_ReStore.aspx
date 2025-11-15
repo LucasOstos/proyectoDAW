@@ -185,7 +185,7 @@
         .rect {
             stroke: #fff;
             fill: transparent;
-            stroke-width: 2.5;
+            stroke-width: 2,5;
             stroke-dasharray: 200;
             stroke-dashoffset: 200;
             transition: stroke-dashoffset 0.4s ease;
@@ -201,37 +201,37 @@
         <div class="nav">
             <div class="container">
                 <div class="btn-container">
-                    <asp:Button ID="btnHome" CssClass="btn" runat="server" Text="Inicio" OnClick="btnHome_Click" />
+                    <asp:Button ID="btnHome" CssClass="btn" runat="server" Text="Inicio" OnClick="btnHome_Click" data-key="Inicio"/>
                     <svg viewBox="0 0 100 40" preserveAspectRatio="none">
                         <rect class="rect" x="0" y="0" width="100" height="40" />
                     </svg>
                 </div>
                 <div class="btn-container">
-                    <asp:Button ID="btnContact" CssClass="btn" runat="server" Text="Backup/Restore" OnClick="btnContact_Click" />
+                    <asp:Button ID="btnContact" CssClass="btn" runat="server" Text="Backup/Restore" OnClick="btnContact_Click" data-key="BackupRestore"/>
                     <svg viewBox="0 0 100 40" preserveAspectRatio="none">
                         <rect class="rect" x="0" y="0" width="100" height="40" />
                     </svg>
                 </div>
                 <div class="btn-container">
-                    <asp:Button ID="btnFAQ" CssClass="btn" runat="server" Text="Digitos Verificadores" OnClick="btnFAQ_Click" />
+                    <asp:Button ID="btnFAQ" CssClass="btn" runat="server" Text="Digitos Verificadores" OnClick="btnFAQ_Click" data-key="DigitosVerificadores"/>
                     <svg viewBox="0 0 100 40" preserveAspectRatio="none">
                         <rect class="rect" x="0" y="0" width="100" height="40" />
                     </svg>
                 </div>
                 <div class="btn-container">
-                    <asp:Button ID="btnVerPefil" CssClass="btn" runat="server" Text="Ver Perfil" OnClick="btnPerfil_Click" />
+                    <asp:Button ID="btnVerPefil" CssClass="btn" runat="server" Text="Ver Perfil" OnClick="btnPerfil_Click" data-key="VerPerfil"/>
                     <svg viewBox="0 0 100 40" preserveAspectRatio="none">
                         <rect class="rect" x="0" y="0" width="100" height="40" />
                     </svg>
                 </div>
                 <div class="btn-container">
-                    <asp:Button ID="Button3" CssClass="btn" runat="server" Text="Bitacora" OnClick="Button3_Click" />
+                    <asp:Button ID="Button3" CssClass="btn" runat="server" Text="Bitacora" OnClick="Button3_Click" data-key="Bitacora"/>
                     <svg viewBox="0 0 100 40" preserveAspectRatio="none">
                         <rect class="rect" x="0" y="0" width="100" height="40" />
                     </svg>
                 </div>
                 <div class="btn-container">
-                    <asp:Button ID="Button4" CssClass="btn" runat="server" Text="Cerrar Sesion" OnClick="Button4_Click" />
+                    <asp:Button ID="Button4" CssClass="btn" runat="server" Text="Cerrar Sesion" OnClick="Button4_Click" data-key="CerrarSesion"/>
                     <svg viewBox="0 0 100 40" preserveAspectRatio="none">
                         <rect class="rect" x="0" y="0" width="100" height="40" />
                     </svg>
@@ -239,26 +239,25 @@
             </div>
         </div>
         <div class="contenedor">
-            <h1><i class="fa-solid fa-shield-halved"></i>Gestión de BackUp y Restore</h1>
+            <h1 runat="server" data-key="GestionBackupRestore"><i class="fa-solid fa-shield-halved"></i>Gestión de BackUp y Restore</h1>
 
             <!-- Sección BackUp -->
             <div class="card">
-                <h2><i class="fa-solid fa-database"></i>Crear BackUp</h2>
-                <asp:Button ID="Button1" runat="server" Text="Realizar BackUp" CssClass="bttn primary" OnClick="Button1_Click" />
+                <h2 runat="server" data-key="CrearBak"><i class="fa-solid fa-database"></i>Crear BackUp</h2>
+                <asp:Button ID="Button1" runat="server" Text="Realizar BackUp" CssClass="bttn primary" OnClick="Button1_Click" data-key="RealizarBackUp"/>
                 <asp:Label ID="LblConfirmacionBackup" runat="server" Text="" ForeColor="Green" CssClass="confirm-label" />
             </div>
 
             <!-- Sección Restore -->
             <div class="card">
-                <h2><i class="fa-solid fa-upload"></i>Restaurar Backup</h2>
-                <asp:Label ID="Titulo0" runat="server" AssociatedControlID="TextBox2"
-                    Text="Archivo: "></asp:Label>
+                <h2 runat="server" data-key="RestaurarBak"><i class="fa-solid fa-upload"></i>Restaurar Backup</h2>
+                <asp:Label ID="Titulo0" runat="server" AssociatedControlID="TextBox2" Text="Archivo: " data-key="NombreArchivo"></asp:Label>
                 <div class="input-group">
                     <asp:TextBox ID="TextBox2" runat="server" placeholder=""></asp:TextBox>
                     <asp:Button ID="BtnBuscarRestore" runat="server" CssClass="icon-button" OnClick="BtnBuscarRestore_Click" ToolTip="Buscar archivo" Text="..." />
                     <input type="file" id="fileUpload2" name="fileUpload" style="display: none;" />
                 </div>
-                <asp:Button ID="Button2" runat="server" Text="Realizar Restore" CssClass="bttn primary" OnClick="Button2_Click" />
+                <asp:Button ID="Button2" runat="server" Text="Realizar Restore" CssClass="bttn primary" OnClick="Button2_Click" data-key="RealizarRestore"/>
                 <asp:Label ID="LblConfirmacionRestore" runat="server" Text="" ForeColor="Green" CssClass="confirm-label" />
             </div>
 
