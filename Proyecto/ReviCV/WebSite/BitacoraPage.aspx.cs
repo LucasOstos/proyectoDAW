@@ -130,10 +130,8 @@ public partial class BitacoraPage : System.Web.UI.Page, IObserver
 
     protected void Button2_Click(object sender, EventArgs e)
     {
-        GestorBitacora gestorBitacora = new GestorBitacora();
-        gestorBitacora.GuardarLogBitacora("Logout", (Session["Usuario"] as Usuario).NombreUsuario);
-        Session.Clear();
-        Response.Redirect("LandingPage.aspx");
+        var command = new LogoutCommand(Session["Usuario"] as Usuario);
+        ScriptManager.RegisterStartupScript(this, this.GetType(), "Logout", command.Ejecutar(), true);
     }
 
     protected void Button1_Click(object sender, EventArgs e)

@@ -57,7 +57,7 @@ public partial class AvisoErrorBD : System.Web.UI.Page, IObserver
     }
     protected void btnCerrarSesion_Click(object sender, EventArgs e)
     {
-        Session.Clear();
-        Response.Redirect("LandingPage.aspx");
+        var command = new LogoutCommand(Session["Usuario"] as Usuario);
+        ScriptManager.RegisterStartupScript(this, this.GetType(), "Logout", command.Ejecutar(), true);
     }
 }

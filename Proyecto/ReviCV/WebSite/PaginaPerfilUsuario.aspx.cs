@@ -35,7 +35,6 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
         }
     }
 
-
     private void CargarIdiomas2()
     {
         ddlIdioma.Items.Clear();
@@ -52,7 +51,6 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
 
         CargarCurriculums();
     }
-
     private void SettearHiddenFields()
     {
         string nombreUsuario = (Session["Usuario"] as Usuario).NombreUsuario as string;
@@ -133,6 +131,7 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
                 RecorrerControles(c);
         }
     }
+
     void RecorrerControles2(Control controlPadre)
     {
         foreach (Control c in controlPadre.Controls)
@@ -149,9 +148,9 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
             }
             else if (c is Label lbl && lbl.Attributes["data-key"] != null)
             {
-                
+
                 string clave = lbl.Attributes["data-key"];
-                if(clave != "VerReseñas") lbl.Text = TraductorDAL.TranslatorInstance.Traducir(clave);
+                if (clave != "VerReseñas") lbl.Text = TraductorDAL.TranslatorInstance.Traducir(clave);
             }
             else if (c is TextBox tb && tb.Attributes["data-key"] != null)
             {
@@ -176,94 +175,31 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
             }
         }
     }
+
     protected void btnGuardar_Click(object sender, EventArgs e)
     {
-        if (username.Text == "" || firstName.Text == "" || lastName.Text == "" || email.Text == "")
+        Usuario usuario = new Usuario
         {
-            string script = @"
-            document.addEventListener('DOMContentLoaded', function() {
-            if (typeof Swal !== 'undefined') {
-                Swal.fire({
-                    title: 'Oops...',
-                    text: 'Necesitas completar todos los campos.',
-                    icon: 'error',
-                    confirmButtonText: 'Ok',
-                    backdrop: true,
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                    customClass: {
-                        container: 'swal-container-fix'
-                    }
-                }).then(() => {
-                    window.location.href = 'PaginaPerfilUsuario.aspx';
-                });
-            } else {
-                window.location.href = 'PaginaPerfilUsuario.aspx';
-            }
-        });";
+            NombreUsuario = username.Text,
+            Nombre = firstName.Text,
+            Apellido = lastName.Text,
+            Email = email.Text,
+            Rol = hfOriginalRol.Value, 
+            DNI = int.Parse(hfOriginalDNI.Value),   
+            Idioma = ddlIdioma.Text
+        };
 
-            ScriptManager.RegisterStartupScript(
-                this,
-                this.GetType(),
-                "SwalSuccess",
-                script,
-                true
-            );
+        var command = new ActualizarDatosUsuarioCommand(usuario, "PaginaPerfilUsuario.aspx");
 
-        }
-        else
-        {
-            GestorUsuario gestorUsuario = new GestorUsuario();
-            Usuario usuario = new Usuario
-            {
-                NombreUsuario = username.Text,
-                Nombre = firstName.Text,
-                Password = "",
-                Apellido = lastName.Text,
-                Email = email.Text,
-                Rol = hfOriginalRol.Value,
-                DNI = int.Parse(hfOriginalDNI.Value),
-                Idioma = ddlIdioma.Text
-            };
-            gestorUsuario.ModificarUsuario(usuario);
-            (Session["Usuario"] as Usuario).NombreUsuario = username.Text;
-            (Session["Usuario"] as Usuario).Idioma = ddlIdioma.Text;
-            SettearHiddenFields();
+        string script = command.Ejecutar();
 
-            string titulo = TraductorDAL.TranslatorInstance.Traducir("ActualizasteDatos");
-            string texto = TraductorDAL.TranslatorInstance.Traducir("CambiosExito");
-
-            string script = $@"
-document.addEventListener('DOMContentLoaded', function() {{
-    if (typeof Swal !== 'undefined') {{
-        Swal.fire({{
-            title: '{titulo}',
-            text: '{texto}',
-            icon: 'success',
-            confirmButtonText: 'Ok',
-            backdrop: true,
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            customClass: {{
-                container: 'swal-container-fix'
-            }}
-        }}).then(() => {{
-            window.location.href = 'PaginaPerfilUsuario.aspx';
-        }});
-    }} else {{
-        window.location.href = 'PaginaPerfilUsuario.aspx';
-    }}
-}});
-";
-
-            ScriptManager.RegisterStartupScript(
-                this,
-                this.GetType(),
-                "SwalSuccess",
-                script,
-                true
-            );
-        }
+        ScriptManager.RegisterStartupScript(
+            this,
+            this.GetType(),
+            "SwalActualizarDatos",
+            script,
+            true
+        );
     }
 
     protected void btnCancelar_Click(object sender, EventArgs e)
@@ -276,229 +212,58 @@ document.addEventListener('DOMContentLoaded', function() {{
 
     protected void btnCambiarPassword_Click(object sender, EventArgs e)
     {
-        GestorUsuario gestorUsuario = new GestorUsuario();
-        if(gestorUsuario.ValidarContrasenia(newPassword.Text) == false)
-        {
-            string script = @"
-            document.addEventListener('DOMContentLoaded', function() {
-            if (typeof Swal !== 'undefined') {
-                Swal.fire({
-                    title: 'Oops...',
-                    text: 'El formato de la contraseña es incorrecto',
-                    icon: 'error',
-                    confirmButtonText: 'Ok',
-                    backdrop: true,
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                    customClass: {
-                        container: 'swal-container-fix'
-                    }
-                }).then(() => {
-                    window.location.href = 'PaginaPerfilUsuario.aspx';
-                });
-            } else {
-                window.location.href = 'PaginaPerfilUsuario.aspx';
-            }
-        });";
-            ScriptManager.RegisterStartupScript(
-                this,
-                this.GetType(),
-                "SwalSuccess",
-                script,
-                true
-            );
-        }
-        else if (newPassword.Text == confirmPassword.Text)
-        {
-            gestorUsuario.CambiarPassword(int.Parse(hfOriginalDNI.Value), newPassword.Text);
+        var command = new CambiarPasswordCommand(
+            int.Parse(hfOriginalDNI.Value),
+            newPassword.Text,
+            confirmPassword.Text
+        );
 
-            string script = @"
-            document.addEventListener('DOMContentLoaded', function() {
-            if (typeof Swal !== 'undefined') {
-                Swal.fire({
-                    title: '¡Actualizaste tus contraseña!',
-                    text: 'Contraseña cambiada con éxito.',
-                    icon: 'success',
-                    confirmButtonText: 'Ok',
-                    backdrop: true,
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                    customClass: {
-                        container: 'swal-container-fix'
-                    }
-                }).then(() => {
-                    window.location.href = 'PaginaPerfilUsuario.aspx';
-                });
-            } else {
-                window.location.href = 'PaginaPerfilUsuario.aspx';
-            }
-        });";
+        string script = command.Ejecutar();
 
-            ScriptManager.RegisterStartupScript(
-                this,
-                this.GetType(),
-                "SwalSuccess",
-                script,
-                true
-            );
-        }        
-        else
-        {
-            string script = @"
-            document.addEventListener('DOMContentLoaded', function() {
-            if (typeof Swal !== 'undefined') {
-                Swal.fire({
-                    title: 'Oops...',
-                    text: 'Las contraseñas no coinciden.',
-                    icon: 'error',
-                    confirmButtonText: 'Ok',
-                    backdrop: true,
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                    customClass: {
-                        container: 'swal-container-fix'
-                    }
-                }).then(() => {
-                    window.location.href = 'PaginaPerfilUsuario.aspx';
-                });
-            } else {
-                window.location.href = 'PaginaPerfilUsuario.aspx';
-            }
-        });";
-            ScriptManager.RegisterStartupScript(
-                this,
-                this.GetType(),
-                "SwalSuccess",
-                script,
-                true
-            );
-        }
-
+        ScriptManager.RegisterStartupScript(
+            this,
+            this.GetType(),
+            "SwalPassword",
+            script,
+            true
+        );
     }
 
     protected void btnSubirArchivo_Click(object sender, EventArgs e)
     {
         if (!fileUpload.HasFile)
-            return;
-
-        string extension = Path.GetExtension(fileUpload.FileName).ToLower();
-
-        if (extension != ".pdf" && extension != ".jpg" && extension != ".jpeg" && extension != ".png")
         {
             string script = @"
-            document.addEventListener('DOMContentLoaded', function() {
-            if (typeof Swal !== 'undefined') {
-                Swal.fire({
-                    title: 'Oops...',
-                    text: 'Tu CV debe ser un PDF o una imagen.',
-                    icon: 'error',
-                    confirmButtonText: 'Ok',
-                    backdrop: true,
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                    customClass: {
-                        container: 'swal-container-fix'
-                    }
-                }).then(() => {
-                    window.location.href = 'PaginaPerfilUsuario.aspx';
-                });
-            } else {
-                window.location.href = 'PaginaPerfilUsuario.aspx';
-            }
-        });";
-
-            ScriptManager.RegisterStartupScript(
-                this,
-                this.GetType(),
-                "SwalSuccess",
-                script,
-                true
-            );
-        }
-        else if (string.IsNullOrEmpty(ddlIdiomas.SelectedValue) || string.IsNullOrEmpty(ddlRubros.SelectedValue))
-        {
-            string script = @"
-        document.addEventListener('DOMContentLoaded', function() {
-        if (typeof Swal !== 'undefined') {
             Swal.fire({
                 title: 'Oops...',
-                text: 'Debes seleccionar un idioma y un rubro para tu CV.',
-                icon: 'warning',
-                confirmButtonText: 'Ok',
-                backdrop: true,
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                customClass: {
-                    container: 'swal-container-fix'
-                }
-            }).then(() => {
-                window.location.href = 'PaginaPerfilUsuario.aspx';
-            });
-        } else {
-            window.location.href = 'PaginaPerfilUsuario.aspx';
+                text: 'No se seleccionó ningún archivo.',
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            });";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "SwalCV", script, true);
+            return;
         }
-    });";
 
-            ScriptManager.RegisterStartupScript(
-                this,
-                this.GetType(),
-                "SwalError",
-                script,
-                true
-            );
-        }
-        else
+        byte[] archivoBytes;
+        using (var ms = new MemoryStream())
         {
-            string nombreUsuario = (Session["Usuario"] as Usuario).NombreUsuario.ToString();
-            GestorUsuario gUsuarios = new GestorUsuario();
-
-            Curriculum cv = new Curriculum();
-            cv.Usuario = nombreUsuario;
-
-            using (var ms = new MemoryStream())
-            {
-                fileUpload.PostedFile.InputStream.CopyTo(ms);
-                cv.ArchivoCV = ms.ToArray();
-            }
-
-            cv.Nombre = hfNombreArchivo.Value;
-            cv.Idioma = (int.Parse(ddlIdiomas.SelectedValue), ddlIdiomas.SelectedItem.Text);
-            cv.Rubro = (int.Parse(ddlRubros.SelectedValue), ddlRubros.SelectedItem.Text);
-
-            GestorCurriculum gestor = new GestorCurriculum();
-            gestor.GuardarCurriculum(cv);
-
-            string script = @"
-            document.addEventListener('DOMContentLoaded', function() {
-            if (typeof Swal !== 'undefined') {
-                Swal.fire({
-                    title: '¡CV Subido!',
-                    text: 'Tu curriculum se ha guardado.',
-                    icon: 'success',
-                    confirmButtonText: 'Ok',
-                    backdrop: true,
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                    customClass: {
-                        container: 'swal-container-fix'
-                    }
-                }).then(() => {
-                    window.location.href = 'PaginaPerfilUsuario.aspx';
-                });
-            } else {
-                window.location.href = 'PaginaPerfilUsuario.aspx';
-            }
-        });";
-
-            ScriptManager.RegisterStartupScript(
-                this,
-                this.GetType(),
-                "SwalSuccess",
-                script,
-                true
-            );
+            fileUpload.PostedFile.InputStream.CopyTo(ms);
+            archivoBytes = ms.ToArray();
         }
 
+        var idioma = (int.Parse(ddlIdiomas.SelectedValue), ddlIdiomas.SelectedItem.Text);
+        var rubro = (int.Parse(ddlRubros.SelectedValue), ddlRubros.SelectedItem.Text);
+
+        var command = new SubirCVCommand(
+            (Session["Usuario"] as Usuario).NombreUsuario,
+            archivoBytes,
+            hfNombreArchivo.Value,
+            idioma,
+            rubro
+        );
+
+        string scriptResultado = command.Ejecutar();
+        ScriptManager.RegisterStartupScript(this, this.GetType(), "SwalCV", scriptResultado, true);
     }
 
     private void CargarIdiomas()
@@ -533,7 +298,7 @@ document.addEventListener('DOMContentLoaded', function() {{
 
     private void CargarCurriculums()
     {
-        string nombreUsuario = (Session["Usuario"] as Usuario).NombreUsuario.ToString();
+        string nombreUsuario = (Session["Usuario"] as Usuario).NombreUsuario?.ToString();
         if (string.IsNullOrEmpty(nombreUsuario)) return;
 
         GestorCurriculum gestor = new GestorCurriculum();
@@ -541,50 +306,15 @@ document.addEventListener('DOMContentLoaded', function() {{
 
         phCurriculums.Controls.Clear();
 
+        var factory = new CurriculumBasicoFactory(btnEliminar_Click, BtnVerResenias_Command);
+
         foreach (var cv in cvs)
         {
-            var contenedor = new Panel { CssClass = "curriculum-item" };
-
-            var lbl = new Label
-            {
-                CssClass = "curriculum-titulo",
-                Text = $"{cv.Nombre} ({cv.Idioma.Item2} - {cv.Rubro.Item2})"
-            };
-            contenedor.Controls.Add(lbl);
-
-
-            var btnEliminar = new LinkButton
-            {
-                Text = "X",
-                CommandArgument = cv.ID_CV.ToString(),
-                OnClientClick = "return confirm('¿Eliminar este CV?');",
-                Style =
-                    {
-                        ["margin-right"] = "10px",
-                        ["font-size"] = "20px",
-                        ["color"] = "red",
-                        ["text-decoration"] = "none",
-                        ["font-weight"] = "bold"
-                    }
-            };
-
-            btnEliminar.Click += btnEliminar_Click;
-            contenedor.Controls.Add(btnEliminar);
-
-            // Botón Ver Reseñas
-            var btnVerResenias = new LinkButton
-            {
-                Text = TraductorDAL.TranslatorInstance.Traducir("VerReseñas"),
-                CssClass = "btn btn-guardar",
-                CommandArgument = cv.ID_CV.ToString()
-            };
-            btnVerResenias.Command += BtnVerResenias_Command;
-
-            contenedor.Controls.Add(btnVerResenias);
-
+            var contenedor = factory.CrearPanel(cv);
             phCurriculums.Controls.Add(contenedor);
         }
     }
+
 
     protected void BtnVerResenias_Command(object sender, CommandEventArgs e)
     {
@@ -593,17 +323,13 @@ document.addEventListener('DOMContentLoaded', function() {{
 
     protected void btnEliminar_Click(object sender, EventArgs e)
     {
-        var btnEliminar = (LinkButton)sender;
-        int idCV;
-
-        if (int.TryParse(btnEliminar.CommandArgument, out idCV))
-        {
-            GestorCurriculum gestor = new GestorCurriculum();
-            gestor.EliminarCurriculum(idCV);
-
-            CargarCurriculums();
-        }
+        int idCV = int.Parse(((LinkButton)sender).CommandArgument);
+        var command = new EliminarCVCommand(idCV);
+        string scriptResultado = command.Ejecutar();
+        ScriptManager.RegisterStartupScript(this, this.GetType(), "SwalEliminarCV", scriptResultado, true);
+        CargarCurriculums();
     }
+
 
     protected void btnVolverPrincipal_Click(object sender, EventArgs e)
     {
@@ -623,12 +349,7 @@ document.addEventListener('DOMContentLoaded', function() {{
 
     protected void btnCerrarSesion_Click(object sender, EventArgs e)
     {
-        if ((Session["Usuario"] as Usuario).Rol != PermisosStatic.pUsuario)
-        {
-            GestorBitacora gestorBitacora = new GestorBitacora();
-            gestorBitacora.GuardarLogBitacora("Logout", (Session["Usuario"] as Usuario).NombreUsuario);
-        }
-        Session.Clear();
-        Response.Redirect("LandingPage.aspx");
+        var command = new LogoutCommand(Session["Usuario"] as Usuario);
+        ScriptManager.RegisterStartupScript(this, this.GetType(), "Logout", command.Ejecutar(), true);
     }
 }

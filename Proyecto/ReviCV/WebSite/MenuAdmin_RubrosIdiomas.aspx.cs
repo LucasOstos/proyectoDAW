@@ -134,10 +134,8 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page, IObserver
 
     protected void btnCerrarSesion_Click(object sender, EventArgs e)
     {
-        GestorBitacora gestorBitacora = new GestorBitacora();
-        gestorBitacora.GuardarLogBitacora("Logout", (Session["Usuario"] as Usuario).NombreUsuario);
-        Session.Clear();
-        Response.Redirect("LandingPage.aspx");
+        var command = new LogoutCommand(Session["Usuario"] as Usuario);
+        ScriptManager.RegisterStartupScript(this, this.GetType(), "Logout", command.Ejecutar(), true);
     }
 
     protected void btnBitacora_Click(object sender, EventArgs e)

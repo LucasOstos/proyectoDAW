@@ -1,0 +1,60 @@
+﻿using BLL;
+using ENTIDADES;
+using System;
+using System.IO;
+
+public class SubirCVCommand : ICommand
+{
+    private readonly string nombreUsuario;
+    private readonly byte[] archivoCV;
+    private readonly string nombreArchivo;
+    private readonly (int, string) idioma;
+    private readonly (int, string) rubro;
+
+    public SubirCVCommand(string nombreUsuario, byte[] archivoCV, string nombreArchivo, (int, string) idioma, (int, string) rubro)
+    {
+        this.nombreUsuario = nombreUsuario;
+        this.archivoCV = archivoCV;
+        this.nombreArchivo = nombreArchivo;
+        this.idioma = idioma;
+        this.rubro = rubro;
+    }
+
+    public string Ejecutar()
+    {
+        if (archivoCV == null || archivoCV.Length == 0)
+            return GenerarScriptSweetAlert("Oops...", "No se seleccionó ningún archivo.", "error");
+
+        GestorCurriculum gestor = new GestorCurriculum();
+        Curriculum cv = new Curriculum
+        {
+            Usuario = nombreUsuario,
+            ArchivoCV = archivoCV,
+            Nombre = nombreArchivo,
+            Idioma = idioma,
+            Rubro = rubro
+        };
+        gestor.GuardarCurriculum(cv);
+
+        return GenerarScriptSweetAlert("¡CV Subido!", "Tu curriculum se ha guardado.", "success");
+    }
+
+    private string GenerarScriptSweetAlert(string titulo, string texto, string icono)
+    {
+        return $@"
+document.addEventListener('DOMContentLoaded', function() {{
+    if (typeof Swal !== 'undefined') {{
+        Swal.fire({{
+            title: '{titulo}',
+            text: '{texto}',
+            icon: '{icono}',
+            confirmButtonText: 'Ok',
+            backdrop: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            customClass: {{ container: 'swal-container-fix' }}
+        }});
+    }}
+}});";
+    }
+}
