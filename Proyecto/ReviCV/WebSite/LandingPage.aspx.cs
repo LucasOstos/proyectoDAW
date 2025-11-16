@@ -20,8 +20,8 @@ public partial class LandingPage : System.Web.UI.Page, IObserver
             CargarRubros();
             CargarIdiomas();            
         }
-        if(Session["Idioma"] == null) { TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD("Español"); }
-        else { TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD(Session["Idioma"].ToString()); }
+        if((Session["Usuario"] == null)) { TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD("Español"); }
+        else { TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD((Session["Usuario"] as Usuario).Idioma.ToString()); }
         Actualizar();
     }
     public void Actualizar()
@@ -128,15 +128,25 @@ public partial class LandingPage : System.Web.UI.Page, IObserver
 
     protected void imgUserIcon_Click(object sender, ImageClickEventArgs e)
     {
-        if (Session["Usuario"] == null)
+        var rol = Session["Rol"] as PermisoCompuesto;
+        if (rol == null)
         {
             Response.Redirect("Login.aspx");
+            return;
         }
-        else
+
+        if (AccesoHelper.ValidarAcceso(rol, PermisosStatic.pAccesoMenuAdmin, PermisosStatic.pAccesoMenuAdmin))
         {
-            if ((Session["Usuario"] as Usuario).Rol.ToString() == PermisosStatic.pAccesoMenuAdmin) Response.Redirect("MenuAdmin.aspx");
-            if ((Session["Usuario"] as Usuario).Rol.ToString() == PermisosStatic.pAccesoMenuWB) Response.Redirect("WebMaster_Menu.aspx");
-            Response.Redirect("PaginaPerfilUsuario.aspx");
+            Response.Redirect("MenuAdmin.aspx", true);
+            return;
         }
+
+        if (AccesoHelper.ValidarAcceso(rol, PermisosStatic.pAccesoMenuWB, PermisosStatic.pAccesoMenuWB))
+        {
+            Response.Redirect("WebMaster_Menu.aspx");
+            return;
+        }
+        Response.Redirect("PaginaPerfilUsuario.aspx");
     }
+
 }

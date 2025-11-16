@@ -1,5 +1,6 @@
 ﻿using BLL;
 using ENTIDADES;
+using SERVICIOS.Permisos;
 using SERVICIOS.Traducciones;
 using System;
 using System.Collections.Generic;
@@ -14,20 +15,25 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["Rol"] == null) Response.Redirect("LandingPage.aspx");
-        if (Session["username"].ToString() == "") Response.Redirect("LandingPage.aspx");
+        if (!AccesoHelper.ValidarAcceso(Session["Rol"] as PermisoCompuesto))
+        {
+            Response.Redirect("LandingPage.aspx");
+            return;
+        }
+
         if (!IsPostBack)
         {
-            TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD(Session["Idioma"].ToString());
+            TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD((Session["Usuario"] as Usuario).Idioma.ToString());
             Actualizar();
             SettearHiddenFields();
             CargarIdiomas();
             CargarRubros();
             CargarIdiomas2();
-            string idiomaUsuario = Session["Idioma"].ToString();
-            ddlIdioma.SelectedValue = idiomaUsuario;
+
+            ddlIdioma.SelectedValue = (Session["Usuario"] as Usuario).Idioma.ToString();
         }
     }
+
 
     private void CargarIdiomas2()
     {
@@ -41,15 +47,14 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
     protected void Page_Init(object sender, EventArgs e)
     {
         // Validación temprana
-        if (Session["Rol"] == null || string.IsNullOrEmpty(Session["username"]?.ToString()))
-            Response.Redirect("LandingPage.aspx");
+        if (Session["Rol"] == null || string.IsNullOrEmpty(Session["Usuario"]?.ToString())) Response.Redirect("LandingPage.aspx");
 
         CargarCurriculums();
     }
 
     private void SettearHiddenFields()
     {
-        string nombreUsuario = Session["username"] as string;
+        string nombreUsuario = (Session["Usuario"] as Usuario).NombreUsuario as string;
 
         if (!string.IsNullOrEmpty(nombreUsuario))
         {
@@ -221,7 +226,7 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
             };
             gestorUsuario.ModificarUsuario(usuario);
             Session["username"] = username.Text;
-            Session["Idioma"] = ddlIdioma.Text;
+            (Session["Usuario"] as Usuario).Idioma = ddlIdioma.Text;
             SettearHiddenFields();
 
             string script = @"
@@ -492,9 +497,8 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
 
     private void CargarCurriculums()
     {
-        string nombreUsuario = Session["username"]?.ToString();
-        if (string.IsNullOrEmpty(nombreUsuario))
-            return;
+        string nombreUsuario = (Session["Usuario"] as Usuario).NombreUsuario.ToString();
+        if (string.IsNullOrEmpty(nombreUsuario)) return;
 
         GestorCurriculum gestor = new GestorCurriculum();
         var cvs = gestor.ObtenerCurriculumsPorUsuario(nombreUsuario);

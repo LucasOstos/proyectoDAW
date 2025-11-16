@@ -1,4 +1,8 @@
-﻿using System;
+﻿using SERVICIOS;
+using SERVICIOS.Permisos;
+using SERVICIOS.Traducciones;
+using ENTIDADES;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
@@ -6,28 +10,32 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using SERVICIOS;
-using SERVICIOS.Traducciones;
 
 public partial class Verificador : System.Web.UI.Page, IObserver
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["Rol"] == null) Response.Redirect("LandingPage.aspx");
-        if (Session["Rol"].ToString() != "Webmaster") Response.Redirect("LandingPage.aspx");
-        lblMensaje.Visible = false;
-        if (Application["ErroresBD"] != null)
+        var rol = Session["Rol"] as PermisoCompuesto;
+
+        if (!AccesoHelper.ValidarAcceso(rol, PermisosStatic.pAccesoIntegridad, "Webmaster"))
         {
-            if (Application["ErroresBD"].ToString() != "")
-            {
-                lblMensaje.ForeColor = System.Drawing.Color.Red;
-                lblMensaje.Text = Application["ErroresBD"].ToString().Replace("\n", "<br />");
-                lblMensaje.Visible = true;
-            }
+            Response.Redirect("LandingPage.aspx");
+            return;
         }
-        TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD(Session["Idioma"].ToString());
+
+        lblMensaje.Visible = false;
+
+        if (Application["ErroresBD"] is string errores && !string.IsNullOrEmpty(errores))
+        {
+            lblMensaje.ForeColor = System.Drawing.Color.Red;
+            lblMensaje.Text = errores.Replace("\n", "<br />");
+            lblMensaje.Visible = true;
+        }
+
+        TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD((Session["Usuario"] as Usuario).Idioma.ToString());
         Actualizar();
     }
+
     public void Actualizar()
     {
         RecorrerControles(this);

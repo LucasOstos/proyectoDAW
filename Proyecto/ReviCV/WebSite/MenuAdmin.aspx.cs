@@ -1,4 +1,6 @@
-﻿using SERVICIOS;
+﻿using ENTIDADES;
+using SERVICIOS;
+using SERVICIOS.Permisos;
 using SERVICIOS.Traducciones;
 using System;
 using System.Web.UI;
@@ -42,23 +44,22 @@ public partial class MenuAdmin : Page, IObserver
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["Rol"] == null) Response.Redirect("LandingPage.aspx");
-
-        var estadoBD = Application["EstadoBD"];
-        var rol = Session["Rol"]?.ToString();
-
-        if (estadoBD is bool bdOk && !bdOk)
-        {
-            Response.Redirect("AvisoErrorBD.aspx");
-        }
-
-        if (rol != "Administrador")
+        if (!AccesoHelper.ValidarAcceso((Session["Rol"] as PermisoCompuesto), null, PermisosStatic.pAdmin))
         {
             Response.Redirect("LandingPage.aspx");
+            return;
         }
-        TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD(Session["Idioma"].ToString());
+
+        if (Application["EstadoBD"] is bool bdOk && !bdOk)
+        {
+            Response.Redirect("AvisoErrorBD.aspx", true);
+            return;
+        }
+
+        TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD((Session["Usuario"] as Usuario).Idioma.ToString());
         Actualizar();
     }
+
 
     protected void btnVerPerfilUsuario_Click(object sender, EventArgs e)
     {

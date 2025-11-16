@@ -1,5 +1,7 @@
 ﻿using BLL;
+using ENTIDADES;
 using SERVICIOS;
+using SERVICIOS.Permisos;
 using SERVICIOS.Traducciones;
 using System;
 using System.Collections.Generic;
@@ -13,29 +15,27 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page, IObserver
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["Rol"] == null) Response.Redirect("LandingPage.aspx");
-
-        var estadoBD = Application["EstadoBD"];
-        var rol = Session["Rol"]?.ToString();
-
-        if (estadoBD is bool bdOk && !bdOk)
+        if (!AccesoHelper.ValidarAcceso((Session["Rol"] as PermisoCompuesto), null, PermisosStatic.pAdmin))
         {
-            Response.Redirect("AvisoErrorBD.aspx");
+            Response.Redirect("LandingPage.aspx", true);
+            return;
         }
 
-        if (rol != "Administrador")
+        if (Application["EstadoBD"] is bool bdOk && !bdOk)
         {
-            Response.Redirect("LandingPage.aspx");
+            Response.Redirect("AvisoErrorBD.aspx", true);
+            return;
         }
 
         if (!IsPostBack)
         {
             CargarRubros();
             CargarIdiomas();
-            TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD(Session["Idioma"].ToString());
+            TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD((Session["Usuario"] as Usuario).Idioma.ToString());
             Actualizar();
         }
     }
+
     public void Actualizar()
     {
         RecorrerControles(this);

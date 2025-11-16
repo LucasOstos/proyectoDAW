@@ -117,7 +117,7 @@ public partial class Login : System.Web.UI.Page, IObserver
             {
                 Application["ErroresBD"] = bdErrores;
 
-                if (GestorPermisos.TienePermiso(Session["Rol"] as PermisoCompuesto, PermisosStatic.pIntegridadTablas))
+                if (GestorPermisos.TienePermiso(Session["Rol"] as PermisoCompuesto, PermisosStatic.pAccesoIntegridad))
                 {
                     Response.Redirect("Verificador.aspx");
                 }

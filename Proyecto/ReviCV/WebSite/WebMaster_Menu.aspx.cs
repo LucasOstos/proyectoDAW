@@ -1,21 +1,31 @@
-﻿using System;
+﻿using SERVICIOS;
+using SERVICIOS.Permisos;
+using SERVICIOS.Traducciones;
+using ENTIDADES;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using SERVICIOS.Traducciones;
 
 public partial class WebMaster_Menu : System.Web.UI.Page, IObserver
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["Rol"] == null) Response.Redirect("LandingPage.aspx");
-        if (Session["Rol"].ToString() != "Webmaster") Response.Redirect("LandingPage.aspx");
-        TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD(Session["Idioma"].ToString());
+        var rol = Session["Rol"] as PermisoCompuesto;
+
+        if (!AccesoHelper.ValidarAcceso(Session["Rol"] as PermisoCompuesto, PermisosStatic.pAccesoMenuWB, "Webmaster"))
+        {
+            Response.Redirect("LandingPage.aspx");
+            return;
+        }
+
+        TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD((Session["Usuario"] as Usuario).Idioma.ToString());
         Actualizar();
     }
+
     public void Actualizar()
     {
         RecorrerControles(this);
