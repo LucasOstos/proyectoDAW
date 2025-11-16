@@ -35,8 +35,8 @@ public partial class MenuAdmin_Permisos : System.Web.UI.Page, IObserver
             CargarRolesYGrupos();
             CargarArbolPermisos();
             CargarPermisosAsignados();
-            TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD("Ingles");
-            //TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD((Session["Usuario"] as Usuario).Idioma);
+            //TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD("Ingles");
+            TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD((Session["Usuario"] as Usuario).Idioma);
             Actualizar();
         }
     }

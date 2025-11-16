@@ -10,7 +10,7 @@
             margin: 0;
             padding: 0;
             height: 100vh;
-            font-family: sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow-x: hidden;
         }
 
@@ -24,31 +24,29 @@
             flex-direction: column;
         }
 
-        .navbar {
-            background-color: #2c3e50;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-            height: 60px;
-            color: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            width: 100%;
-            box-sizing: border-box;
-        }
+.navbar {
+    background-color: #2c3e50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    height: 60px;
+    color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
 
-        .navbar .logo {
-            font-size: 20px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+    .navbar .logo {
+        font-size: 20px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
 
-        .navbar .menu {
-            display: flex;
-            gap: 20px;
-        }
+    .navbar .menu {
+        display: flex;
+        gap: 20px;
+    }
 
         .menu-button {
             background: none;
