@@ -91,13 +91,39 @@ public partial class Verificador : System.Web.UI.Page, IObserver
         Application["ErroresBD"] = ""; 
 
         lblMensaje.ForeColor = System.Drawing.Color.Green;
-        lblMensaje.Text = "Integridad de las tablas recalculada correctamente.";
+        string fraseComentario = TraductorDAL.TranslatorInstance.Traducir("integridadRecalculada");
+        lblMensaje.Text = fraseComentario;
         lblMensaje.Visible = true;
 
         GestorBitacora gestorBitacora = new GestorBitacora();
         gestorBitacora.GuardarLogBitacora($"Se recalcularon los digitos de la base de datos", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
     }
+    protected void btnVerificar_Click(object sender, EventArgs e)
+    {
+        GestorIntegridad gestorIntegridad = new GestorIntegridad();
+        string resultados = gestorIntegridad.VerificarIntegridadTodasLasTablas();
+        string msj = "";
 
+        if (!string.IsNullOrWhiteSpace(resultados))
+        {
+            Application["ErroresBD"] = resultados;
+            lblMensaje.ForeColor = System.Drawing.Color.Red;
+            lblMensaje.Text = resultados.Replace("\n", "<br />");
+            lblMensaje.Visible = true;
+            msj = "incorrecto";
+        }
+        else
+        {
+            lblMensaje.ForeColor = System.Drawing.Color.Green;
+            string frasePlaceholder = TraductorDAL.TranslatorInstance.Traducir("integridadOK");
+            lblMensaje.Text = frasePlaceholder;
+            lblMensaje.Visible = true;
+            msj = "correcto";
+        }
+
+        GestorBitacora gestorBitacora = new GestorBitacora();
+        gestorBitacora.GuardarLogBitacora($"Se verificaron los digitos de la base de datos. Su estado fue {msj}", Session["username"].ToString());
+    }
 
     protected void btnHome_Click(object sender, EventArgs e)
     {
@@ -157,8 +183,6 @@ public partial class Verificador : System.Web.UI.Page, IObserver
         GestorBitacora gestorBitacora = new GestorBitacora();
         gestorBitacora.GuardarLogBitacora($"Se verificaron los digitos de la base de datos. Su estado fue {msj}", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
     }
-
-
 
     protected void btnPerfil_Click(object sender, EventArgs e)
     {

@@ -153,27 +153,51 @@ public partial class EvaluarCV : System.Web.UI.Page, IObserver
 
         //Con SweetAlert https://sweetalert2.github.io/
 
-        string script = @"
-        document.addEventListener('DOMContentLoaded', function() {
-            if (typeof Swal !== 'undefined') {
-                Swal.fire({
-                    title: '¡Gracias!',
-                    text: 'Tu reseña fue enviada con éxito.',
+        string title =  TraductorDAL.TranslatorInstance.Traducir("alertGracias");
+        string text = TraductorDAL.TranslatorInstance.Traducir("alertResenaExitosa");
+        string confirmButtonText = TraductorDAL.TranslatorInstance.Traducir("alertIrInicio");
+        string script = $@"
+        document.addEventListener('DOMContentLoaded', function() {{
+                if (typeof Swal !== 'undefined') {{
+                    Swal.fire({{
+                    title: '{title}',
+                    text: '{text}',
                     icon: 'success',
-                    confirmButtonText: 'Ir al inicio',
+                    confirmButtonText: '{confirmButtonText}',
                     backdrop: true,
                     allowOutsideClick: false,
                     allowEscapeKey: false,
-                    customClass: {
+                    customClass: {{
                         container: 'swal-container-fix'
-                    }
-                }).then(() => {
-                    window.location.href = 'LandingPage.aspx';
-                });
-            } else {
-                window.location.href = 'LandingPage.aspx';
-            }
-        });";
+                        }}
+                    }}).then(() => {{
+                        window.location.href = 'LandingPage.aspx';
+                    }});
+                }} else {{
+                        window.location.href = 'LandingPage.aspx';
+                        }}
+                }});";
+        //string script = @"
+        //document.addEventListener('DOMContentLoaded', function() {
+        //    if (typeof Swal !== 'undefined') {
+        //        Swal.fire({
+        //            title: '¡Gracias!',
+        //            text: 'Tu reseña fue enviada con éxito.',
+        //            icon: 'success',
+        //            confirmButtonText: 'Ir al inicio',
+        //            backdrop: true,
+        //            allowOutsideClick: false,
+        //            allowEscapeKey: false,
+        //            customClass: {
+        //                container: 'swal-container-fix'
+        //            }
+        //        }).then(() => {
+        //            window.location.href = 'LandingPage.aspx';
+        //        });
+        //    } else {
+        //        window.location.href = 'LandingPage.aspx';
+        //    }
+        //});";
 
         ScriptManager.RegisterStartupScript(
             this,
