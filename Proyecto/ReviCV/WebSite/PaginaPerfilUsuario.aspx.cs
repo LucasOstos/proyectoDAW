@@ -1,5 +1,6 @@
 ﻿using BLL;
 using ENTIDADES;
+using SERVICIOS;
 using SERVICIOS.Permisos;
 using SERVICIOS.Traducciones;
 using System;
@@ -576,6 +577,11 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
 
     protected void btnCerrarSesion_Click(object sender, EventArgs e)
     {
+        if ((Session["Usuaio"] as Usuario).Rol != PermisosStatic.pUsuario)
+        {
+            GestorBitacora gestorBitacora = new GestorBitacora();
+            gestorBitacora.GuardarLogBitacora("Logout", (Session["Usuario"] as Usuario).NombreUsuario);
+        }
         Session.Clear();
         Response.Redirect("LandingPage.aspx");
     }

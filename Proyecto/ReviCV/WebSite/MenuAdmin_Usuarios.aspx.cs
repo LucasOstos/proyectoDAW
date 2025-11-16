@@ -86,6 +86,8 @@ public partial class MenuAdmin_Usuarios : Page, IObserver
 
     protected void btnCerrarSesion_Click(object sender, EventArgs e)
     {
+        GestorBitacora gestorBitacora = new GestorBitacora();
+        gestorBitacora.GuardarLogBitacora("Logout", (Session["Usuario"] as Usuario).NombreUsuario);
         Session.Clear();
         Response.Redirect("LandingPage.aspx");
     }

@@ -96,6 +96,8 @@ public partial class WebMaster_Menu : System.Web.UI.Page, IObserver
 
     protected void Button2_Click(object sender, EventArgs e)
     {
+        GestorBitacora gestorBitacora = new GestorBitacora();
+        gestorBitacora.GuardarLogBitacora("Logout", (Session["Usuario"] as Usuario).NombreUsuario);
         Session.Clear();
         Response.Redirect("LandingPage.aspx");
     }

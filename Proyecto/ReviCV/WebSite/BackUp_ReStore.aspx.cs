@@ -138,6 +138,8 @@ public partial class BackUp_ReStore : System.Web.UI.Page, IObserver
 
     protected void Button4_Click(object sender, EventArgs e)
     {
+        GestorBitacora gestorBitacora = new GestorBitacora();
+        gestorBitacora.GuardarLogBitacora("Logout", (Session["Usuario"] as Usuario).NombreUsuario);
         Session.Clear();
         Response.Redirect("LandingPage.aspx");
     }
