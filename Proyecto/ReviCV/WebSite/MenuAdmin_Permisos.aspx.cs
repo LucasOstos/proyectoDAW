@@ -48,49 +48,56 @@ public partial class MenuAdmin_Permisos : System.Web.UI.Page, IObserver
     {
         foreach (Control c in controlPadre.Controls)
         {
-            if (c is LinkButton lbl && lbl.Attributes["data-key"] != null)
+            // LINKBUTTON con ícono FA
+            if (c is LinkButton link && link.Attributes["data-key"] != null)
             {
-                string clave = lbl.Attributes["data-key"];
-                lbl.Text = TraductorDAL.TranslatorInstance.Traducir(clave);
+                string clave = link.Attributes["data-key"];
+                string textoTraducido = TraductorDAL.TranslatorInstance.Traducir(clave);
+
+                string htmlActual = link.Text;
+
+                string icono = "";
+                if (htmlActual.Contains("</i>"))
+                {
+                    int finIcono = htmlActual.IndexOf("</i>") + 4;
+                    icono = htmlActual.Substring(0, finIcono);
+                }
+
+                link.Text = $"{icono} {textoTraducido}";
             }
+
+            // BUTTON estándar ASP
             else if (c is Button btn && btn.Attributes["data-key"] != null)
             {
                 string clave = btn.Attributes["data-key"];
                 btn.Text = TraductorDAL.TranslatorInstance.Traducir(clave);
             }
+
+            // TEXTBOX placeholder
             else if (c is TextBox tb && tb.Attributes["data-key"] != null)
             {
                 string clave = tb.Attributes["data-key"];
                 tb.Attributes["placeholder"] = TraductorDAL.TranslatorInstance.Traducir(clave);
             }
-            else if (c is HtmlGenericControl html)
+
+            // HTML genérico
+            else if (c is HtmlGenericControl html && html.Attributes["data-key"] != null)
             {
-                if (html.Attributes["data-key"] != null)
+                string clave = html.Attributes["data-key"];
+                string htmlAnterior = html.InnerHtml;
+
+                string icono = "";
+                if (htmlAnterior.Contains("</i>"))
                 {
-                    string clave = html.Attributes["data-key"];
-                    html.InnerText = TraductorDAL.TranslatorInstance.Traducir(clave);
+                    int finIcono = htmlAnterior.IndexOf("</i>") + 4;
+                    icono = htmlAnterior.Substring(0, finIcono);
                 }
-                else if (html.TagName.Equals("p", StringComparison.OrdinalIgnoreCase))
-                {
-                    string clave = html.Attributes["data-key"];
-                    html.InnerText = TraductorDAL.TranslatorInstance.Traducir(clave);
-                }
-                else if (html.TagName.Equals("h1", StringComparison.OrdinalIgnoreCase))
-                {
-                    string clave = html.Attributes["data-key"];
-                    html.InnerText = TraductorDAL.TranslatorInstance.Traducir(clave);
-                }
-                else if (html.TagName.Equals("h2", StringComparison.OrdinalIgnoreCase))
-                {
-                    string clave = html.Attributes["data-key"];
-                    html.InnerText = TraductorDAL.TranslatorInstance.Traducir(clave);
-                }
-                else if (html.TagName.Equals("h3", StringComparison.OrdinalIgnoreCase))
-                {
-                    string clave = html.Attributes["data-key"];
-                    html.InnerText = TraductorDAL.TranslatorInstance.Traducir(clave);
-                }
+
+                string traduccion = TraductorDAL.TranslatorInstance.Traducir(clave);
+                html.InnerHtml = $"{icono} {traduccion}";
             }
+
+            // Recursividad
             if (c.HasControls())
             {
                 RecorrerControles(c);
@@ -419,7 +426,7 @@ Swal.fire({
 
     protected void btnVerPerfilUsuario_Click(object sender, EventArgs e)
     {
-
+        Response.Redirect("PaginaPerfilUsuario.aspx");
     }
 
     protected void btnPermisos_Click(object sender, EventArgs e)
