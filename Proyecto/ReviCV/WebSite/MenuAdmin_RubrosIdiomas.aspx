@@ -24,29 +24,29 @@
             flex-direction: column;
         }
 
-.navbar {
-    background-color: #2c3e50;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 30px;
-    height: 60px;
-    color: white;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
+        .navbar {
+            background-color: #2c3e50;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            height: 60px;
+            color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
 
-    .navbar .logo {
-        font-size: 20px;
-        font-weight: bold;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
+            .navbar .logo {
+                font-size: 20px;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
 
-    .navbar .menu {
-        display: flex;
-        gap: 20px;
-    }
+            .navbar .menu {
+                display: flex;
+                gap: 20px;
+            }
 
         .menu-button {
             background: none;
@@ -62,10 +62,10 @@
             text-decoration: none;
         }
 
-        .menu-button:hover {
-            background-color: #34495e;
-            border-radius: 4px;
-        }
+            .menu-button:hover {
+                background-color: #34495e;
+                border-radius: 4px;
+            }
 
         .contenido-principal {
             flex: 1;
@@ -103,16 +103,16 @@
             border-collapse: collapse;
         }
 
-        .grilla-estilo th {
-            background-color: #2c3e50;
-            color: white;
-            padding: 10px;
-        }
+            .grilla-estilo th {
+                background-color: #2c3e50;
+                color: white;
+                padding: 10px;
+            }
 
-        .grilla-estilo td {
-            padding: 8px;
-            border-bottom: 1px solid #ddd;
-        }
+            .grilla-estilo td {
+                padding: 8px;
+                border-bottom: 1px solid #ddd;
+            }
 
         .fila-normal {
             background-color: white;
@@ -142,10 +142,21 @@
             margin-right: 10px;
         }
 
-        .boton-bien { background-color: #27ae60; }
-        .boton-principal { background-color: #2980b9; }
-        .boton-peligro { background-color: #c0392b; }
-        .boton-secundario { background-color: #7f8c8d; }
+        .boton-bien {
+            background-color: #27ae60;
+        }
+
+        .boton-principal {
+            background-color: #2980b9;
+        }
+
+        .boton-peligro {
+            background-color: #c0392b;
+        }
+
+        .boton-secundario {
+            background-color: #7f8c8d;
+        }
 
         .grupo-botones {
             display: flex;
@@ -161,9 +172,9 @@
             font-size: 16px;
         }
 
-        .boton-icono:hover {
-            color: #1c598a;
-        }
+            .boton-icono:hover {
+                color: #1c598a;
+            }
 
         h2, h3 {
             margin-top: 0;
@@ -177,10 +188,10 @@
                 padding: 10px 20px;
             }
 
-            .navbar .menu {
-                flex-direction: column;
-                width: 100%;
-            }
+                .navbar .menu {
+                    flex-direction: column;
+                    width: 100%;
+                }
 
             .menu-button {
                 width: 100%;
@@ -199,132 +210,132 @@
     </style>
 </head>
 <body>
-<form runat="server">
-    <div class="contenedor">
-        <div class="navbar">
-                      <div class="logo">
-    <i class="fa-solid fa-cogs"></i>
-    <span runat="server" data-key="PanelDeAdministracion">Panel de administración</span>
-</div>
-                   <div class="menu">
-           <asp:LinkButton ID="btnInicio" runat="server" OnClick="btnInicio_Click" CssClass="menu-button" data-key="Inicio">
+    <form runat="server">
+        <div class="contenedor">
+            <div class="navbar">
+                <div class="logo">
+                    <i class="fa-solid fa-cogs"></i>
+                    <span runat="server" data-key="PanelDeAdministracion">Panel de administración</span>
+                </div>
+                <div class="menu">
+                    <asp:LinkButton ID="btnInicio" runat="server" OnClick="btnInicio_Click" CssClass="menu-button" data-key="Inicio">
                <i class="fa fa-home"></i> Inicio
-           </asp:LinkButton>
-           <asp:LinkButton ID="btnUsuarios" runat="server" OnClick="btnUsuarios_Click" CssClass="menu-button" data-key="Usuarios">
+                    </asp:LinkButton>
+                    <asp:LinkButton ID="btnUsuarios" runat="server" OnClick="btnUsuarios_Click" CssClass="menu-button" data-key="Usuarios">
                <i class="fa fa-users"></i> Usuarios
-           </asp:LinkButton>
-           <asp:LinkButton ID="btnRubrosIdiomas" runat="server" OnClick="btnRubrosIdiomas_Click" CssClass="menu-button" data-key="RubrosIdiomas">
+                    </asp:LinkButton>
+                    <asp:LinkButton ID="btnRubrosIdiomas" runat="server" OnClick="btnRubrosIdiomas_Click" CssClass="menu-button" data-key="RubrosIdiomas">
                <i class="fa fa-language"></i> Rubros e Idiomas
-           </asp:LinkButton>
-       
-           <asp:LinkButton ID="btnVerPerfilUsuario" runat="server" OnClick="btnVerPerfilUsuario_Click" CssClass="menu-button" data-key="VerPerfilUsuario">
+                    </asp:LinkButton>
+
+                    <asp:LinkButton ID="btnVerPerfilUsuario" runat="server" OnClick="btnVerPerfilUsuario_Click" CssClass="menu-button" data-key="VerPerfilUsuario">
                <i class="fa fa-user"></i> Ver perfil de usuario
-           </asp:LinkButton>
-            <asp:LinkButton ID="btnPermisos" runat="server" CssClass="menu-button" data-key="Permisos" OnClick="btnPermisos_Click">
+                    </asp:LinkButton>
+                    <asp:LinkButton ID="btnPermisos" runat="server" CssClass="menu-button" data-key="Permisos" OnClick="btnPermisos_Click">
 <i class="fa fa-user-shield"></i> Roles y Permisos
-            </asp:LinkButton>
-                           <asp:LinkButton ID="btnVolverALanding" runat="server" OnClick="btnVolverALanding_Click" CssClass="menu-button" data-key="Volver">
+                    </asp:LinkButton>
+                    <asp:LinkButton ID="btnVolverALanding" runat="server" OnClick="btnVolverALanding_Click" CssClass="menu-button" data-key="Volver">
         <i class="fa fa-arrow-left"></i> Volver
-    </asp:LinkButton>
-           <asp:LinkButton ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" CssClass="menu-button" data-key="CerrarSesion">
+                    </asp:LinkButton>
+                    <asp:LinkButton ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" CssClass="menu-button" data-key="CerrarSesion">
                <i class="fa fa-sign-out-alt"></i> Cerrar Sesión
-           </asp:LinkButton>
-       </div>
-        </div>
-
-        <div class="contenido-principal">
-            <div class="seccion">
-                <h2 data-key="GestionDeRubros" runat="server">Gestión de Rubros</h2>
-                <div class="cuadro-grilla">
-                    <asp:HiddenField ID="hfIdRubro" runat="server" />
-                    <asp:GridView ID="gvRubros" runat="server" AutoGenerateColumns="False" CssClass="grilla-estilo" Width="100%">
-                        <RowStyle CssClass="fila-normal" />
-                        <SelectedRowStyle CssClass="fila-seleccionada" />
-                        <Columns>
-                            <asp:TemplateField>
-                                <ItemTemplate>
-                                    <button type="button" class="boton-icono select-row" data-target="txtDescripcionRubro" data-key="Seleccionar" runat="server">
-                                        <i class="fa fa-arrow-right"></i>
-                                    </button>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:BoundField DataField="Id_Rubro" HeaderText="ID" />
-                            <asp:BoundField DataField="Rubro" HeaderText="Descripción" />
-                        </Columns>
-                    </asp:GridView>
-                </div>
-
-                <h3 data-key="AltaModificacion" runat="server">Alta / Modificación</h3>
-                <asp:TextBox ID="txtDescripcionRubro" runat="server" CssClass="textbox-contenido" placeholder="Rubro" data-key="Rubro" />
-                <div class="grupo-botones">
-                    <asp:Button ID="btnAgregarRubro" runat="server" Text="Agregar" CssClass="boton boton-bien" OnClick="btnAgregarRubro_Click" data-key="Agregar" />
-                    <asp:Button ID="btnModificarRubro" runat="server" Text="Modificar" CssClass="boton boton-principal" OnClick="btnModificarRubro_Click" data-key="Modificar" />
-                    <asp:Button ID="btnEliminarRubro" runat="server" Text="Eliminar" CssClass="boton boton-peligro" OnClick="btnEliminarRubro_Click" data-key="Eliminar" />
+                    </asp:LinkButton>
                 </div>
             </div>
 
-            <div class="seccion">
-                <h2 data-key="GestionDeIdiomas" runat="server">Gestión de Idiomas</h2>
-                <div class="cuadro-grilla">
-                    <asp:HiddenField ID="hfIdIdioma" runat="server" />
-                    <asp:GridView ID="gvIdiomas" runat="server" AutoGenerateColumns="False" CssClass="grilla-estilo" Width="100%">
-                        <RowStyle CssClass="fila-normal" />
-                        <SelectedRowStyle CssClass="fila-seleccionada" />
-                        <Columns>
-                            <asp:TemplateField>
-                                <ItemTemplate>
-                                    <button type="button" class="boton-icono select-row" data-target="txtDescripcionIdioma" data-key="Seleccionar" runat="server">
-                                        <i class="fa fa-arrow-right"></i>
-                                    </button>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:BoundField DataField="Id_Idioma" HeaderText="ID" />
-                            <asp:BoundField DataField="Idioma" HeaderText="Descripción" />
-                        </Columns>
-                    </asp:GridView>
+            <div class="contenido-principal">
+                <div class="seccion">
+                    <h2 data-key="GestionDeRubros" runat="server">Gestión de Rubros</h2>
+                    <div class="cuadro-grilla">
+                        <asp:HiddenField ID="hfIdRubro" runat="server" />
+                        <asp:GridView ID="gvRubros" runat="server" AutoGenerateColumns="False" CssClass="grilla-estilo" Width="100%">
+                            <RowStyle CssClass="fila-normal" />
+                            <SelectedRowStyle CssClass="fila-seleccionada" />
+                            <Columns>
+                                <asp:TemplateField>
+                                    <ItemTemplate>
+                                        <button type="button" class="boton-icono select-row" data-target="txtDescripcionRubro" data-key="Seleccionar" runat="server">
+                                            <i class="fa fa-arrow-right"></i>
+                                        </button>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:BoundField DataField="Id_Rubro" HeaderText="ID" />
+                                <asp:BoundField DataField="Rubro" HeaderText="Descripción" />
+                            </Columns>
+                        </asp:GridView>
+                    </div>
+
+                    <h3 data-key="AltaModificacion" runat="server">Alta / Modificación</h3>
+                    <asp:TextBox ID="txtDescripcionRubro" runat="server" CssClass="textbox-contenido" placeholder="Rubro" data-key="Rubro" />
+                    <div class="grupo-botones">
+                        <asp:Button ID="btnAgregarRubro" runat="server" Text="Agregar" CssClass="boton boton-bien" OnClick="btnAgregarRubro_Click" data-key="Agregar" />
+                        <asp:Button ID="btnModificarRubro" runat="server" Text="Modificar" CssClass="boton boton-principal" OnClick="btnModificarRubro_Click" data-key="Modificar" />
+                        <asp:Button ID="btnEliminarRubro" runat="server" Text="Eliminar" CssClass="boton boton-peligro" OnClick="btnEliminarRubro_Click" data-key="Eliminar" />
+                    </div>
                 </div>
 
-                <h3 data-key="AltaModificacion" runat="server">Alta / Modificación</h3>
-                <asp:TextBox ID="txtDescripcionIdioma" runat="server" CssClass="textbox-contenido" placeholder="Idioma" data-key="Idioma" />
-                <div class="grupo-botones">
-                    <asp:Button ID="btnAgregarIdioma" runat="server" Text="Agregar" CssClass="boton boton-bien" OnClick="btnAgregarIdioma_Click" data-key="Agregar" />
-                    <asp:Button ID="btnModificarIdioma" runat="server" Text="Modificar" CssClass="boton boton-principal" OnClick="btnModificarIdioma_Click" data-key="Modificar" />
-                    <asp:Button ID="btnEliminarIdioma" runat="server" Text="Eliminar" CssClass="boton boton-peligro" OnClick="btnEliminarIdioma_Click" data-key="Eliminar" />
+                <div class="seccion">
+                    <h2 data-key="GestionDeIdiomas" runat="server">Gestión de Idiomas</h2>
+                    <div class="cuadro-grilla">
+                        <asp:HiddenField ID="hfIdIdioma" runat="server" />
+                        <asp:GridView ID="gvIdiomas" runat="server" AutoGenerateColumns="False" CssClass="grilla-estilo" Width="100%">
+                            <RowStyle CssClass="fila-normal" />
+                            <SelectedRowStyle CssClass="fila-seleccionada" />
+                            <Columns>
+                                <asp:TemplateField>
+                                    <ItemTemplate>
+                                        <button type="button" class="boton-icono select-row" data-target="txtDescripcionIdioma" data-key="Seleccionar" runat="server">
+                                            <i class="fa fa-arrow-right"></i>
+                                        </button>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:BoundField DataField="Id_Idioma" HeaderText="ID" />
+                                <asp:BoundField DataField="Idioma" HeaderText="Descripción" />
+                            </Columns>
+                        </asp:GridView>
+                    </div>
+
+                    <h3 data-key="AltaModificacion" runat="server">Alta / Modificación</h3>
+                    <asp:TextBox ID="txtDescripcionIdioma" runat="server" CssClass="textbox-contenido" placeholder="Idioma" data-key="Idioma" />
+                    <div class="grupo-botones">
+                        <asp:Button ID="btnAgregarIdioma" runat="server" Text="Agregar" CssClass="boton boton-bien" OnClick="btnAgregarIdioma_Click" data-key="Agregar" />
+                        <asp:Button ID="btnModificarIdioma" runat="server" Text="Modificar" CssClass="boton boton-principal" OnClick="btnModificarIdioma_Click" data-key="Modificar" />
+                        <asp:Button ID="btnEliminarIdioma" runat="server" Text="Eliminar" CssClass="boton boton-peligro" OnClick="btnEliminarIdioma_Click" data-key="Eliminar" />
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
 
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const botones = document.querySelectorAll('.select-row');
-        botones.forEach(btn => {
-            btn.addEventListener('click', function () {
-                const fila = btn.closest('tr');
-                const celdas = fila.querySelectorAll('td');
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const botones = document.querySelectorAll('.select-row');
+            botones.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const fila = btn.closest('tr');
+                    const celdas = fila.querySelectorAll('td');
 
-                document.querySelectorAll('.grilla-estilo tr').forEach(f => f.classList.remove('fila-seleccionada'));
-                fila.classList.add('fila-seleccionada');
+                    document.querySelectorAll('.grilla-estilo tr').forEach(f => f.classList.remove('fila-seleccionada'));
+                    fila.classList.add('fila-seleccionada');
 
-                const targetInputId = btn.getAttribute('data-target');
-                const texto = celdas[2]?.innerText?.trim() || '';
-                const id = celdas[1]?.innerText?.trim() || '';
+                    const targetInputId = btn.getAttribute('data-target');
+                    const texto = celdas[2]?.innerText?.trim() || '';
+                    const id = celdas[1]?.innerText?.trim() || '';
 
-                if (targetInputId === 'txtDescripcionRubro') {
-                    document.getElementById('<%= txtDescripcionRubro.ClientID %>').value = texto;
-                document.getElementById('<%= hfIdRubro.ClientID %>').value = id;
-            } else if (targetInputId === 'txtDescripcionIdioma') {
-                document.getElementById('<%= txtDescripcionIdioma.ClientID %>').value = texto;
-                document.getElementById('<%= hfIdIdioma.ClientID %>').value = id;
-            }
+                    if (targetInputId === 'txtDescripcionRubro') {
+                        document.getElementById('<%= txtDescripcionRubro.ClientID %>').value = texto;
+                    document.getElementById('<%= hfIdRubro.ClientID %>').value = id;
+                } else if (targetInputId === 'txtDescripcionIdioma') {
+                    document.getElementById('<%= txtDescripcionIdioma.ClientID %>').value = texto;
+                    document.getElementById('<%= hfIdIdioma.ClientID %>').value = id;
+                }
+            });
         });
     });
-    });
 
-</script>
+    </script>
 </body>
 </html>
