@@ -576,6 +576,17 @@ document.addEventListener('DOMContentLoaded', function() {{
 
     protected void btnVolverPrincipal_Click(object sender, EventArgs e)
     {
+        var rol = Session["Rol"] as PermisoCompuesto;
+        if (AccesoHelper.ValidarAcceso(rol, PermisosStatic.pAccesoMenuAdmin))
+        {
+            Response.Redirect("MenuAdmin.aspx", true);
+            return;
+        }
+        if (AccesoHelper.ValidarAcceso(rol, PermisosStatic.pAccesoMenuWebmaster))
+        {
+            Response.Redirect("WebMaster_Menu.aspx");
+            return;
+        }
         Response.Redirect("LandingPage.aspx");
     }
 
