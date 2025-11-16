@@ -60,8 +60,9 @@
           <div class="form-group">
    <label for="ddlIdioma">Idioma</label>
 <asp:DropDownList ID="DropDownList1" runat="server" CssClass="dropdown-input">
-        <asp:ListItem Text="Español" Value="es" />
-        <asp:ListItem Text="Inglés" Value="en" />
+        <asp:ListItem Text="Español" Value="Español" />
+        <asp:ListItem Text="Inglés" Value="Ingles" />
+        <asp:ListItem Text="Portugués" Value="Portugues" />
     </asp:DropDownList>
     <asp:RequiredFieldValidator ID="rfvIdioma" runat="server"
         ControlToValidate="DropDownList1"
