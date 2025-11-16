@@ -10,7 +10,7 @@ namespace SERVICIOS.Permisos
     {
         private readonly List<Permiso> permisos = new List<Permiso>();
 
-        public PermisoCompuesto(string nombre, bool esRol) : base(nombre) 
+        public PermisoCompuesto(string nombre, bool esRol) : base(nombre)
         {
             EsRol = esRol;
         }
@@ -40,15 +40,16 @@ namespace SERVICIOS.Permisos
             return null;
         }
 
-        public bool ContienePermiso(string nombrePermiso)
+        public override bool ContienePermiso(string permiso)
         {
-            if (getNombre() == nombrePermiso)
-                return true;
+            if (getNombre().Equals(permiso, StringComparison.OrdinalIgnoreCase)) return true;
 
-            return permisos
-                .Where(p => p.EsCompuesto())
-                .Cast<PermisoCompuesto>()
-                .Any(permiso => permiso.ContienePermiso(nombrePermiso));
+            foreach (var p in permisos)
+            {
+                if (p.ContienePermiso(permiso)) return true;
+            }
+
+            return false;
         }
     }
 }

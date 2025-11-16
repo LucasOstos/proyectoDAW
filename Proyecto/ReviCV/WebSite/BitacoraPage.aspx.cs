@@ -1,4 +1,9 @@
-﻿using System;
+﻿using BLL;
+using ENTIDADES;
+using SERVICIOS;
+using SERVICIOS.Permisos;
+using SERVICIOS.Traducciones;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -6,25 +11,27 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using BLL;
-using ENTIDADES;
-using SERVICIOS;
-using SERVICIOS.Traducciones;
 
 public partial class BitacoraPage : System.Web.UI.Page, IObserver
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["Rol"] == null) Response.Redirect("LandingPage.aspx");
-        if (Session["Rol"].ToString() != "Webmaster") Response.Redirect("LandingPage.aspx");
+        if (!AccesoHelper.ValidarAcceso(Session["Rol"] as PermisoCompuesto, PermisosStatic.pAccesoBitacora))
+        {
+            Response.Redirect("LandingPage.aspx");
+            return;
+        }
+
         if (!IsPostBack)
         {
-            CargarBitacora();
             CargarUsuarios();
+            TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD((Session["Usuario"] as Usuario).Idioma.ToString());
         }
-        TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD(Session["Idioma"].ToString());
+
+        CargarBitacora();
         Actualizar();
     }
+
     public void Actualizar()
     {
         RecorrerControles(this);
@@ -123,6 +130,8 @@ public partial class BitacoraPage : System.Web.UI.Page, IObserver
 
     protected void Button2_Click(object sender, EventArgs e)
     {
+        GestorBitacora gestorBitacora = new GestorBitacora();
+        gestorBitacora.GuardarLogBitacora("Logout", (Session["Usuario"] as Usuario).NombreUsuario);
         Session.Clear();
         Response.Redirect("LandingPage.aspx");
     }
@@ -145,6 +154,5 @@ public partial class BitacoraPage : System.Web.UI.Page, IObserver
     protected void btnPerfil_Click(object sender, EventArgs e)
     {
         Response.Redirect("PaginaPerfilUsuario.aspx");
-
     }
 }

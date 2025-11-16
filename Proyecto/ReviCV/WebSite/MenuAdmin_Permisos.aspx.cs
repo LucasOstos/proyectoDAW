@@ -1,6 +1,7 @@
 ﻿using SERVICIOS;
 using SERVICIOS.Permisos;
 using SERVICIOS.Traducciones;
+using ENTIDADES;
 using System;
 using System.Activities.Statements;
 using System.Collections.Generic;
@@ -17,12 +18,25 @@ public partial class MenuAdmin_Permisos : System.Web.UI.Page, IObserver
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!AccesoHelper.ValidarAcceso((Session["Rol"] as PermisoCompuesto), PermisosStatic.pGestionPermisos))
+        {
+            Response.Redirect("LandingPage.aspx");
+            return;
+        }
+
+        if (Application["EstadoBD"] is bool bdOk && !bdOk)
+        {
+            Response.Redirect("AvisoErrorBD.aspx", true);
+            return;
+        }
+
         if (!IsPostBack)
         {
             CargarRolesYGrupos();
             CargarArbolPermisos();
             CargarPermisosAsignados();
             TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD("Ingles");
+            //TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD((Session["Usuario"] as Usuario).Idioma);
             Actualizar();
         }
     }
@@ -82,7 +96,7 @@ public partial class MenuAdmin_Permisos : System.Web.UI.Page, IObserver
     private void CargarRolesYGrupos()
     {
         List<Permiso> permisos = GP.ObtenerPermisos("Compuesto");
-        permisos.RemoveAll(x => x.nombre == "Administrador");
+        permisos.RemoveAll(x => x.nombre == "SysAdmin");
 
         ddlRolesGrupos.DataSource = permisos.Select(p =>
             new
@@ -195,6 +209,19 @@ Swal.fire({{
 
     protected void btnEliminarConfirmar_Click(object sender, EventArgs e)
     {
+        if (ddlRolesGrupos.Text == "Webmaster" || ddlRolesGrupos.Text == "Usuario")
+        {
+            string script = @"
+Swal.fire({
+    title: 'Error',
+    text: 'No puede eliminar ese rol.',
+    icon: 'error',
+    confirmButtonText: 'Aceptar'
+});";
+
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "SwalError", script, true);
+            return;
+        }
         GP.QuitarPermiso(ddlRolesGrupos.Text);
 
         CargarRolesYGrupos();
@@ -230,6 +257,9 @@ Swal.fire({
         if (string.IsNullOrWhiteSpace(nuevoNombre)) return;
 
         GP.ModificarNombrePermiso(ddlRolesGrupos.SelectedValue, nuevoNombre);
+
+        GestorBitacora gestorBitacora = new GestorBitacora();
+        gestorBitacora.GuardarLogBitacora($"Se cambió el nombre de {ddlRolesGrupos.SelectedValue} a {hfNuevoNombre}", (Session["Usuario"] as Usuario).NombreUsuario);
 
         CargarRolesYGrupos();
         CargarArbolPermisos();
@@ -276,7 +306,8 @@ Swal.fire({
             return;
         }
 
-        if (!GP.AgregarPermisoCompuesto(txtNuevoNombre.Text, AgregarPermisosCheckeadosAPermisoSeleccionado(txtNuevoNombre.Text), esRol))
+        string listaPermisosAgregados = "";
+        if (!GP.AgregarPermisoCompuesto(txtNuevoNombre.Text, AgregarPermisosCheckeadosAPermisoSeleccionado(txtNuevoNombre.Text, out listaPermisosAgregados), esRol))
         {
             string script = @"
 Swal.fire({
@@ -290,26 +321,32 @@ Swal.fire({
             return;
         }
 
+        GestorBitacora gestorBitacora = new GestorBitacora();
+        gestorBitacora.GuardarLogBitacora($"Se creó el nuevo {(esRol ? "Rol" : "Grupo de permisos")} \"{txtNuevoNombre}\"", (Session["Usuario"] as Usuario).NombreUsuario);
+        gestorBitacora.GuardarLogBitacora($"Se agregaron los siguientes permisos a \"{txtNuevoNombre}\": {listaPermisosAgregados}", (Session["Usuario"] as Usuario).NombreUsuario);
+
         txtNuevoNombre.Text = "";
         CargarRolesYGrupos();
         CargarArbolPermisos();
         CargarPermisosAsignados();
     }
 
-    public List<string> AgregarPermisosCheckeadosAPermisoSeleccionado(string nombrePermiso)
+    public List<string> AgregarPermisosCheckeadosAPermisoSeleccionado(string nombrePermiso, out string listaPermisos)
     {
         List<string> items = new List<string>();
         foreach (ListItem item in chkListPermisos.Items)
             if (item.Selected) items.Add(item.Text);
 
+        listaPermisos = string.Join(", ", items);
         return items;
     }
 
-    protected void btnGuardarCambios_Click(object sender,
- EventArgs e)
+
+    protected void btnGuardarCambios_Click(object sender, EventArgs e)
     {
+        string listaPermisosAgregados = "";
         GestorPermisos gestorPermisos = new GestorPermisos();
-        if (!gestorPermisos.ModificarPermisoCompuesto(ddlRolesGrupos.Text, AgregarPermisosCheckeadosAPermisoSeleccionado(txtNuevoNombre.Text)))
+        if (!gestorPermisos.ModificarPermisoCompuesto(ddlRolesGrupos.Text, AgregarPermisosCheckeadosAPermisoSeleccionado(txtNuevoNombre.Text, out _)))
         {
             string script = @"
 Swal.fire({
@@ -329,6 +366,10 @@ Swal.fire({
             );
             return;
         }
+
+        GestorBitacora gestorBitacora = new GestorBitacora();
+        gestorBitacora.GuardarLogBitacora($"Se modificó \"{ddlRolesGrupos.Text}\" y se agregaron los siguientes permisos: {listaPermisosAgregados}", (Session["Usuario"] as Usuario).NombreUsuario);
+
         CargarRolesYGrupos();
         CargarArbolPermisos();
         CargarPermisosAsignados();
@@ -349,7 +390,7 @@ Swal.fire({
     protected void btnCerrarSesion_Click(object sender, EventArgs e)
     {
         GestorBitacora gestorBitacora = new GestorBitacora();
-        gestorBitacora.GuardarLogBitacora("Logout", Session["username"].ToString());
+        gestorBitacora.GuardarLogBitacora("Logout", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
         Session.Clear();
         Response.Redirect("LandingPage.aspx");
     }

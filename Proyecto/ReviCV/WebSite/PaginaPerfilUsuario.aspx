@@ -174,45 +174,45 @@
             position: relative;
         }
 
-       .botones-accion {
-    display: flex;
-    justify-content: center;   /* centra los botones horizontalmente */
-    gap: 12px;                 /* espacio entre botones */
-    margin-top: 20px;          /* espacio superior razonable */
-    flex-wrap: wrap;           /* si hay poco espacio, se acomodan en varias filas */
-}
+        .botones-accion {
+            display: flex;
+            justify-content: center; /* centra los botones horizontalmente */
+            gap: 12px; /* espacio entre botones */
+            margin-top: 20px; /* espacio superior razonable */
+            flex-wrap: wrap; /* si hay poco espacio, se acomodan en varias filas */
+        }
 
-.btn {
-    padding: 10px 16px;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-}
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
 
-.btn:hover {
-    transform: scale(1.03);
-}
+            .btn:hover {
+                transform: scale(1.03);
+            }
 
-/* Específicos */
-.btn-guardar {
-    background-color: #007bff;
-    color: white;
-}
+        /* Específicos */
+        .btn-guardar {
+            background-color: #007bff;
+            color: white;
+        }
 
-.btn-guardar:hover {
-    background-color: #0056b3;
-}
+            .btn-guardar:hover {
+                background-color: #0056b3;
+            }
 
-.btn-cancelar {
-    background-color: #dc3545;
-    color: white;
-}
+        .btn-cancelar {
+            background-color: #dc3545;
+            color: white;
+        }
 
-.btn-cancelar:hover {
-    background-color: #b02a37;
-}
+            .btn-cancelar:hover {
+                background-color: #b02a37;
+            }
 
 
         .btn-rojo {
@@ -225,13 +225,13 @@
                 box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
             }
 
-      .botones-accion {
-    display: flex;
-    justify-content: center;   /* centra los botones horizontalmente */
-    gap: 12px;                 /* espacio entre botones */
-    margin-top: 20px;          /* espacio superior razonable */
-    flex-wrap: wrap;           /* si hay poco espacio, se acomodan en varias filas */
-}
+        .botones-accion {
+            display: flex;
+            justify-content: center; /* centra los botones horizontalmente */
+            gap: 12px; /* espacio entre botones */
+            margin-top: 20px; /* espacio superior razonable */
+            flex-wrap: wrap; /* si hay poco espacio, se acomodan en varias filas */
+        }
 
         .botones-inferiores {
             padding: 20px;
@@ -248,7 +248,7 @@
     </style>
 </head>
 <body>
-    
+
     <form id="form1" runat="server">
         <div class="contenedor">
             <div class="curriculums scrollbar-hidden">
@@ -276,7 +276,7 @@
                     <div class="contenido-perfil">
 
                         <div class="tabs-perfil">
-                            <button type="button" class="boton-tab active" onclick="switchTab('profile')"  data-key="Perfil" runat="server">Perfil</button>
+                            <button type="button" class="boton-tab active" onclick="switchTab('profile')" data-key="Perfil" runat="server">Perfil</button>
                             <button type="button" class="boton-tab" onclick="switchTab('security')" data-key="Seguridad" runat="server">Seguridad</button>
                         </div>
 
@@ -312,15 +312,15 @@
                                 </div>
 
                                 <div class="grupo-input">
-                                 <label class="form-label" data-key="Idioma" runat="server">Idioma</label>
-                                   <div class="txt-input">
-                                   <asp:DropDownList ID="ddlIdioma" runat="server" CssClass="form-input" data-key="Idioma">
-                                   <asp:ListItem Text="Español" Value="Español" />
-                                     <asp:ListItem Text="Inglés" Value="Ingles" />
-                                     <asp:ListItem Text="Portugués" Value="Portugues" />
-                                      </asp:DropDownList>
-                                       </div>
-                                         </div>
+                                    <label class="form-label" data-key="Idioma" runat="server">Idioma</label>
+                                    <div class="txt-input">
+                                        <asp:DropDownList ID="ddlIdioma" runat="server" CssClass="form-input" data-key="Idioma">
+                                            <asp:ListItem Text="Español" Value="Español" />
+                                            <asp:ListItem Text="Inglés" Value="Ingles" />
+                                            <asp:ListItem Text="Portugués" Value="Portugues" />
+                                        </asp:DropDownList>
+                                    </div>
+                                </div>
 
                                 <div class="botones-accion">
                                     <asp:Button ID="btnGuardar" runat="server" CssClass="btn btn-guardar" Text="💾 Guardar Cambios" OnClick="btnGuardar_Click" data-key="GuardarCambios" />
@@ -333,12 +333,12 @@
                         <div id="security-tab" class="contenido-tab" data-key="security-tab">
                             <asp:Panel ID="securityPanel" runat="server" data-key="securityPanel">
                                 <div class="grupo-input">
-                                    <label class="form-label" data-key ="NuevaContrasena" runat ="server">Nueva contraseña</label>
+                                    <label class="form-label" data-key="NuevaContrasena" runat="server">Nueva contraseña</label>
                                     <asp:TextBox ID="newPassword" CssClass="form-input" runat="server" TextMode="Password" Placeholder="Ingresa tu nueva contraseña" data-key="newPassword" />
                                 </div>
 
                                 <div class="grupo-input">
-                                    <label class="form-label" data-key ="ConfirmarNuevaContrasena" runat ="server">Confirmar nueva contraseña</label>
+                                    <label class="form-label" data-key="ConfirmarNuevaContrasena" runat="server">Confirmar nueva contraseña</label>
                                     <asp:TextBox ID="confirmPassword" CssClass="form-input" runat="server" TextMode="Password" Placeholder="Confirma tu nueva contraseña" data-key="confirmPassword" />
                                 </div>
 
@@ -357,7 +357,7 @@
                 </div>
             </div>
         </div>
-        
+
 
         <asp:HiddenField ID="hfOriginalUsername" runat="server" />
         <asp:HiddenField ID="hfOriginalFirstName" runat="server" />
@@ -371,21 +371,21 @@
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script>
+<script>
 
-        function switchTab(tabName) {
+    function switchTab(tabName) {
 
-            document.querySelectorAll('.boton-tab').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.contenido-tab').forEach(content => content.classList.remove('active'));
+        document.querySelectorAll('.boton-tab').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.contenido-tab').forEach(content => content.classList.remove('active'));
 
-            event.target.classList.add('active');
-            document.getElementById(tabName + '-tab').classList.add('active');
-        }
+        event.target.classList.add('active');
+        document.getElementById(tabName + '-tab').classList.add('active');
+    }
 
-        function abrirDialogoArchivo() {
-            const input = document.getElementById("<%= fileUpload.ClientID %>");
+    function abrirDialogoArchivo() {
+        const input = document.getElementById("<%= fileUpload.ClientID %>");
             input.click();
 
             input.onchange = function () {
@@ -409,14 +409,14 @@
                 }).then(result => {
                     if (result.isConfirmed && result.value.trim() !== "") {
                         document.getElementById("<%= hfNombreArchivo.ClientID %>").value = result.value.trim();
-                            document.getElementById("<%= btnSubirArchivo.ClientID %>").click();
-                        } else {
-                            input.value = "";
-                        }
-                    });
-            };
-        }
+                        document.getElementById("<%= btnSubirArchivo.ClientID %>").click();
+                    } else {
+                        input.value = "";
+                    }
+                });
+        };
+    }
 
 
-    </script>
+</script>
 </html>
