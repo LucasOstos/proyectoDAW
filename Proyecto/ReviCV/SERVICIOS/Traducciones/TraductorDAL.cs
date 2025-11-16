@@ -39,8 +39,7 @@ namespace SERVICIOS.Traducciones
             catch (Exception ex) { return toTranslate; }
         }
         public void CargarTraduccionesDesdeBD(string idioma)
-        {
-           
+        {           
             LenguajeActual = idioma;
             traducciones.Clear();
             var lista = ObtenerTraduccionesPorIdioma(idioma);
