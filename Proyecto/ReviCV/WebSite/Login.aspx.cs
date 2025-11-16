@@ -102,20 +102,19 @@ public partial class Login : System.Web.UI.Page, IObserver
             Session["Usuario"] = u;
             Session["Rol"] = permisoRol;
 
-            if (!Application["EstadoBD"].Equals(false))
+            if (Application["EstadoBD"].Equals(true))
             {
                 GestorBitacora gestorBitacora = new GestorBitacora();
                 gestorBitacora.GuardarLogBitacora("Login", u.NombreUsuario);
-            }
-
-            if (Application["EstadoBD"].Equals(true))
-            {
                 Response.Redirect("LandingPage.aspx");
                 Context.ApplicationInstance.CompleteRequest();
             }
             else
             {
                 Application["ErroresBD"] = bdErrores;
+
+                GestorBitacora gestorBitacora = new GestorBitacora();
+                gestorBitacora.GuardarLogBitacora("Error en Base de Datos: " + bdErrores, u.NombreUsuario);
 
                 if (GestorPermisos.TienePermiso(Session["Rol"] as PermisoCompuesto, PermisosStatic.pAccesoIntegridad))
                 {
