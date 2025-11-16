@@ -122,7 +122,7 @@ public partial class Verificador : System.Web.UI.Page, IObserver
         }
 
         GestorBitacora gestorBitacora = new GestorBitacora();
-        gestorBitacora.GuardarLogBitacora($"Se verificaron los digitos de la base de datos. Su estado fue {msj}", Session["username"].ToString());
+        gestorBitacora.GuardarLogBitacora($"Se verificaron los digitos de la base de datos. Su estado fue {msj}", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
     }
 
     protected void btnHome_Click(object sender, EventArgs e)
@@ -156,32 +156,6 @@ public partial class Verificador : System.Web.UI.Page, IObserver
         gestorBitacora.GuardarLogBitacora("Logout", (Session["Usuario"] as Usuario).NombreUsuario);
         Session.Clear();
         Response.Redirect("LandingPage.aspx");
-    }
-
-    protected void btnVerificar_Click(object sender, EventArgs e)
-    {
-        GestorIntegridad gestorIntegridad = new GestorIntegridad();
-        string resultados = gestorIntegridad.VerificarIntegridadTodasLasTablas();
-        string msj = "";
-
-        if (!string.IsNullOrWhiteSpace(resultados))
-        {
-            Application["ErroresBD"] = resultados;
-            lblMensaje.ForeColor = System.Drawing.Color.Red;
-            lblMensaje.Text = resultados.Replace("\n", "<br />");
-            lblMensaje.Visible = true;
-            msj = "incorrecto";
-        }
-        else
-        {
-            lblMensaje.ForeColor = System.Drawing.Color.Green;
-            lblMensaje.Text = "La base de datos no presenta problemas de integridad.";
-            lblMensaje.Visible = true;
-            msj = "correcto";
-        }
-
-        GestorBitacora gestorBitacora = new GestorBitacora();
-        gestorBitacora.GuardarLogBitacora($"Se verificaron los digitos de la base de datos. Su estado fue {msj}", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
     }
 
     protected void btnPerfil_Click(object sender, EventArgs e)

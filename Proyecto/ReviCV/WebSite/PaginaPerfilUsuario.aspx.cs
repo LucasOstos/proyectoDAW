@@ -577,7 +577,7 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
 
     protected void btnCerrarSesion_Click(object sender, EventArgs e)
     {
-        if ((Session["Usuaio"] as Usuario).Rol != PermisosStatic.pUsuario)
+        if ((Session["Usuario"] as Usuario).Rol != PermisosStatic.pUsuario)
         {
             GestorBitacora gestorBitacora = new GestorBitacora();
             gestorBitacora.GuardarLogBitacora("Logout", (Session["Usuario"] as Usuario).NombreUsuario);
