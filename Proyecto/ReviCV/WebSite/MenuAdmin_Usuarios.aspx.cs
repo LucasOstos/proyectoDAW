@@ -284,12 +284,6 @@ public partial class MenuAdmin_Usuarios : Page, IObserver
         roles.ForEach(r => ddlFiltroRol.Items.Add(new ListItem(r.Text, r.Value)));
     }
 
-
-    protected void btnBitacora_Click(object sender, EventArgs e)
-    {
-
-    }
-
     protected void btnRubrosIdiomas_Click(object sender, EventArgs e)
     {
         Response.Redirect("MenuAdmin_RubrosIdiomas.aspx");
@@ -299,9 +293,6 @@ public partial class MenuAdmin_Usuarios : Page, IObserver
     {
         CancelarModificacion();
     }
-
-
-
 
     protected void btnVerPerfilUsuario_Click(object sender, EventArgs e)
     {
