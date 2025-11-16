@@ -16,7 +16,7 @@ public partial class WebMaster_Menu : System.Web.UI.Page, IObserver
     {
         var rol = Session["Rol"] as PermisoCompuesto;
 
-        if (!AccesoHelper.ValidarAcceso(Session["Rol"] as PermisoCompuesto, PermisosStatic.pVerResenias))
+        if (!AccesoHelper.ValidarAcceso(Session["Rol"] as PermisoCompuesto, PermisosStatic.pAccesoMenuWebmaster))
         {
             Response.Redirect("LandingPage.aspx");
             return;

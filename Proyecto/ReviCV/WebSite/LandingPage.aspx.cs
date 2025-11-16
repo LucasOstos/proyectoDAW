@@ -20,7 +20,7 @@ public partial class LandingPage : System.Web.UI.Page, IObserver
             CargarRubros();
             CargarIdiomas();            
         }
-        if((Session["Usuario"] == null)) { TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD("Español"); }
+        if((Session["Usuario"] == null) || (String.IsNullOrEmpty((Session["Usuario"] as Usuario).Idioma))) { TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD("Español"); }
         else { TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD((Session["Usuario"] as Usuario).Idioma.ToString()); }
         Actualizar();
     }
