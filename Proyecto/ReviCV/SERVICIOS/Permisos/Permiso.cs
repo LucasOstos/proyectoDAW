@@ -17,6 +17,7 @@ namespace SERVICIOS.Permisos
         public virtual void RemoverPermiso(Permiso nPermiso) { }
 
         public virtual bool EsCompuesto() { return false; }
+        public abstract bool ContienePermiso(string pEnum);
 
         public string getNombre() {  return nombre; }
     }

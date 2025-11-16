@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using BLL;
 using ENTIDADES;
 using SERVICIOS;
+using SERVICIOS.Permisos;
 using SERVICIOS.Traducciones;
 
 public partial class LandingPage : System.Web.UI.Page, IObserver
@@ -19,8 +20,8 @@ public partial class LandingPage : System.Web.UI.Page, IObserver
             CargarRubros();
             CargarIdiomas();            
         }
-        if(Session["Idioma"] == null) { TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD("Español"); }
-        else { TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD(Session["Idioma"].ToString()); }
+        if((Session["Usuario"] == null) || (String.IsNullOrEmpty((Session["Usuario"] as Usuario).Idioma))) { TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD("Español"); }
+        else { TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD((Session["Usuario"] as Usuario).Idioma.ToString()); }
         Actualizar();
     }
     public void Actualizar()
@@ -103,7 +104,7 @@ public partial class LandingPage : System.Web.UI.Page, IObserver
 
     protected void EvaluarCVBoton_Click(object sender, EventArgs e)
     {
-        if (Session["username"] == null)
+        if (Session["Usuario"] == null)
         {
             Response.Redirect("Login.aspx");
         }
@@ -127,15 +128,25 @@ public partial class LandingPage : System.Web.UI.Page, IObserver
 
     protected void imgUserIcon_Click(object sender, ImageClickEventArgs e)
     {
-        if (Session["username"] == null)
+        var rol = Session["Rol"] as PermisoCompuesto;
+        if (rol == null)
         {
             Response.Redirect("Login.aspx");
+            return;
         }
-        else
+
+        if (AccesoHelper.ValidarAcceso(rol, PermisosStatic.pAccesoMenuAdmin))
         {
-            if (Session["Rol"].ToString() == "Usuario") Response.Redirect("PaginaPerfilUsuario.aspx");
-            if (Session["Rol"].ToString() == "Administrador") Response.Redirect("MenuAdmin.aspx");
-            if (Session["Rol"].ToString() == "Webmaster") Response.Redirect("WebMaster_Menu.aspx");
+            Response.Redirect("MenuAdmin.aspx", true);
+            return;
         }
+
+        if (AccesoHelper.ValidarAcceso(rol, PermisosStatic.pAccesoMenuWebmaster))
+        {
+            Response.Redirect("WebMaster_Menu.aspx");
+            return;
+        }
+        Response.Redirect("PaginaPerfilUsuario.aspx");
     }
+
 }

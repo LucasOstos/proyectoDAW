@@ -1,6 +1,7 @@
 ﻿using BLL;
 using ENTIDADES;
 using SERVICIOS;
+using SERVICIOS.Permisos;
 using SERVICIOS.Traducciones;
 using System;
 using System.Collections.Generic;
@@ -22,16 +23,26 @@ public partial class MenuAdmin_Usuarios : Page, IObserver
     {
         foreach (Control c in controlPadre.Controls)
         {
-            if (c is LinkButton lbl && lbl.Attributes["data-key"] != null)
+            if (c is LinkButton lbtn && lbtn.Attributes["data-key"] != null)
             {
-                string clave = lbl.Attributes["data-key"];
-                lbl.Text = TraductorDAL.TranslatorInstance.Traducir(clave);
+                string clave = lbtn.Attributes["data-key"];
+                string traduccion = TraductorDAL.TranslatorInstance.Traducir(clave);
+
+                string html = lbtn.Text;
+                string icono = "";
+
+                if (html.Contains("</i>"))
+                {
+                    int finIcono = html.IndexOf("</i>") + 4;
+                    icono = html.Substring(0, finIcono);
+                }
+
+                lbtn.Text = $"{icono} {traduccion}";
             }
             else if (c is Button btn && btn.Attributes["data-key"] != null)
             {
                 string clave = btn.Attributes["data-key"];
                 btn.Text = TraductorDAL.TranslatorInstance.Traducir(clave);
-
             }
             else if (c is TextBox tb && tb.Attributes["data-key"] != null)
             {
@@ -43,33 +54,23 @@ public partial class MenuAdmin_Usuarios : Page, IObserver
                 string clave = ddl.Attributes["data-key"];
                 ddl.Attributes["placeholder"] = TraductorDAL.TranslatorInstance.Traducir(clave);
             }
-            else if (c is HtmlGenericControl html)
+            else if (c is HtmlGenericControl html && html.Attributes["data-key"] != null)
             {
-                if (html.Attributes["data-key"] != null)
+                string clave = html.Attributes["data-key"];
+                string htmlAnterior = html.InnerHtml;
+
+                string icono = "";
+                if (htmlAnterior.Contains("</i>"))
                 {
-                    string clave = html.Attributes["data-key"];
-                    html.InnerText = TraductorDAL.TranslatorInstance.Traducir(clave);
+                    int finIcono = htmlAnterior.IndexOf("</i>") + 4;
+                    icono = htmlAnterior.Substring(0, finIcono);
                 }
-                else if (html.TagName.Equals("p", StringComparison.OrdinalIgnoreCase))
-                {
-                    string clave = html.Attributes["data-key"];
-                    html.InnerText = TraductorDAL.TranslatorInstance.Traducir(clave);
-                }
-                else if (html.TagName.Equals("h1", StringComparison.OrdinalIgnoreCase))
-                {
-                    string clave = html.Attributes["data-key"];
-                    html.InnerText = TraductorDAL.TranslatorInstance.Traducir(clave);
-                }
-                else if (html.TagName.Equals("h2", StringComparison.OrdinalIgnoreCase))
-                {
-                    string clave = html.Attributes["data-key"];
-                    html.InnerText = TraductorDAL.TranslatorInstance.Traducir(clave);
-                }
+
+                string traduccion = TraductorDAL.TranslatorInstance.Traducir(clave);
+                html.InnerHtml = $"{icono} {traduccion}";
             }
             if (c.HasControls())
-            {
                 RecorrerControles(c);
-            }
         }
     }
 
@@ -85,6 +86,8 @@ public partial class MenuAdmin_Usuarios : Page, IObserver
 
     protected void btnCerrarSesion_Click(object sender, EventArgs e)
     {
+        GestorBitacora gestorBitacora = new GestorBitacora();
+        gestorBitacora.GuardarLogBitacora("Logout", (Session["Usuario"] as Usuario).NombreUsuario);
         Session.Clear();
         Response.Redirect("LandingPage.aspx");
     }
@@ -111,31 +114,26 @@ public partial class MenuAdmin_Usuarios : Page, IObserver
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["Rol"] == null) Response.Redirect("LandingPage.aspx");
-
-        var estadoBD = Application["EstadoBD"];
-        var rol = Session["Rol"]?.ToString();
-
-        if (estadoBD is bool bdOk && !bdOk)
-        {
-            Response.Redirect("AvisoErrorBD.aspx");
-        }
-
-        if (rol != "Administrador")
+        if (!AccesoHelper.ValidarAcceso(Session["Rol"] as PermisoCompuesto, PermisosStatic.pGestionUsuarios))
         {
             Response.Redirect("LandingPage.aspx");
+            return;
+        }
+
+        if (Application["EstadoBD"] is bool bdOk && !bdOk)
+        {
+            Response.Redirect("AvisoErrorBD.aspx");
+            return;
         }
 
         if (!IsPostBack)
         {
             CargarUsuarios();
             CargarRoles();
-            TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD(Session["Idioma"].ToString());
+            TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD((Session["Usuario"] as Usuario).Idioma.ToString());
             Actualizar();
         }
     }
-
-
 
     protected void btnAgregar_Click(object sender, EventArgs e)
     {
@@ -158,7 +156,7 @@ public partial class MenuAdmin_Usuarios : Page, IObserver
 
                 gestorUsuarios.InsertarUsuario(usuario);
                 GestorBitacora gestorBitacora = new GestorBitacora();
-                gestorBitacora.GuardarLogBitacora($"Se agregó el usuario {usuario.DNI}", Session["username"].ToString());
+                gestorBitacora.GuardarLogBitacora($"Se agregó el usuario {usuario.DNI}", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
                 CargarUsuarios();
                 LimpiarTxt();
             }            
@@ -194,7 +192,7 @@ public partial class MenuAdmin_Usuarios : Page, IObserver
 
                 gestorUsuario.ModificarUsuario(usuario);
                 GestorBitacora gestorBitacora = new GestorBitacora();
-                gestorBitacora.GuardarLogBitacora($"Se modificó el usuario {usuario.DNI}", Session["username"].ToString());
+                gestorBitacora.GuardarLogBitacora($"Se modificó el usuario {usuario.DNI}", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
                 CargarUsuarios();
                 LimpiarTxt();
             }            
@@ -207,7 +205,7 @@ public partial class MenuAdmin_Usuarios : Page, IObserver
             GestorUsuario gestorUsuario = new GestorUsuario();
             gestorUsuario.EliminarUsuario(int.Parse(txtDni.Text));
             GestorBitacora gestorBitacora = new GestorBitacora();
-            gestorBitacora.GuardarLogBitacora($"Se eliminó el usuario {txtDni.Text}", Session["username"].ToString());
+            gestorBitacora.GuardarLogBitacora($"Se eliminó el usuario {txtDni.Text}", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
             CargarUsuarios();
             LimpiarTxt();
       
@@ -243,7 +241,7 @@ public partial class MenuAdmin_Usuarios : Page, IObserver
         txtEmail.Text = "";
         txtNombre.Text = "";
         txtUsername.Text = "";
-        ddlRol.SelectedValue = "";
+        ddlRol.SelectedValue = null;
     }
     public void CancelarModificacion()
     {
@@ -253,7 +251,7 @@ public partial class MenuAdmin_Usuarios : Page, IObserver
         txtEmail.Text = "";
         txtNombre.Text = "";
         txtUsername.Text = "";
-        ddlRol.SelectedValue = "";
+        ddlRol.SelectedValue = null;
     }
     public void LimpiarFiltros()
     {

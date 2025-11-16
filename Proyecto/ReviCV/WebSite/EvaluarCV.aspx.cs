@@ -1,4 +1,9 @@
-﻿using System;
+﻿using BLL;
+using ENTIDADES;
+using SERVICIOS;
+using SERVICIOS.Permisos;
+using SERVICIOS.Traducciones;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,59 +11,76 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
-using BLL;
-using ENTIDADES;
-using SERVICIOS.Traducciones;
 
 public partial class EvaluarCV : System.Web.UI.Page, IObserver
 {
     Curriculum cvMostrar;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["Rol"] == null) Response.Redirect("LandingPage.aspx");
-        if (Application["EstadoBD"].Equals(false)) Response.Redirect("AvisoErrorBD.aspx");
+        if (!AccesoHelper.ValidarAcceso(Session["Rol"] as PermisoCompuesto, PermisosStatic.pEvaluarCV))
+        {
+            Response.Redirect("LandingPage.aspx");
+            return;
+        }
+
+        if (Application["EstadoBD"].Equals(false))
+        {
+            Response.Redirect("AvisoErrorBD.aspx");
+            return;
+        }
+
         if (!IsPostBack)
         {
-            GestorCurriculum gCurriculums = new GestorCurriculum();
-            cvMostrar = gCurriculums.ObtenerCurriculumFiltrado(Session["RubroSeleccionado"].ToString(), Session["IdiomaSeleccionado"].ToString());
-            Session["CurriculumLeido"] = cvMostrar;
-            if (cvMostrar == null || cvMostrar.ArchivoCV == null)
-            {
-                Response.Redirect("LandingPage.aspx");
-            }
-
-            // Convertir archivo a base64
-            string base64String = Convert.ToBase64String(cvMostrar.ArchivoCV);
-
-            // Detectar si es imagen o PDF (por extensión o primer byte)
-            // Aquí simple: si empieza con %PDF -> PDF, si no -> imagen (puedes mejorar)
-            bool esPdf = false;
-            byte[] archivo = cvMostrar.ArchivoCV;
-            if (archivo.Length > 4 && archivo[0] == 0x25 && archivo[1] == 0x50) // %P de %PDF
-                esPdf = true;
-
-            if (esPdf)
-            {
-                // Usar embed en lugar de iframe para ocultar controles
-                VisorCV.Text = $"<embed src='data:application/pdf;base64,{base64String}#toolbar=0&navpanes=0&scrollbar=0' type='application/pdf' style='width:100%; height:100%; border: none;' />";
-            }
-            else
-            {
-                // Mostrar imagen (asumimos png/jpg)
-                VisorCV.Text = $"<img src='data:image;base64,{base64String}' style='max-width:100%; max-height:100%; object-fit: contain;' alt='CV imagen' />";
-            }
-            TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD(Session["Idioma"].ToString());
-            Actualizar();
-            string fraseComentario = TraductorDAL.TranslatorInstance.Traducir("pComentarioTxt");
-            string frasePlaceholder = TraductorDAL.TranslatorInstance.Traducir("txtComentarioPlaceholder");
-            pComentario.InnerHtml = $"{fraseComentario} <strong>{cvMostrar.Usuario.ToUpper()}</strong>!";
-            txtComentarios.Attributes["placeholder"] = $"{frasePlaceholder} {cvMostrar.Usuario.ToUpper()}?";
+            InicializarPagina();
         }
     }
+
+
+    private void InicializarPagina()
+    {
+        GestorCurriculum gCurriculums = new GestorCurriculum();
+        cvMostrar = gCurriculums.ObtenerCurriculumFiltrado(Session["RubroSeleccionado"].ToString(), Session["IdiomaSeleccionado"].ToString());
+
+        Session["CurriculumLeido"] = cvMostrar;
+
+        if (cvMostrar == null || cvMostrar.ArchivoCV == null)
+        {
+            Response.Redirect("LandingPage.aspx");
+            return;
+        }
+
+        RenderizarCV(cvMostrar.ArchivoCV);
+
+        TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD((Session["Usuario"] as Usuario).Idioma.ToString());
+        Actualizar();
+
+        string fraseComentario = TraductorDAL.TranslatorInstance.Traducir("pComentarioTxt");
+        string frasePlaceholder = TraductorDAL.TranslatorInstance.Traducir("txtComentarioPlaceholder");
+
+        pComentario.InnerHtml = $"{fraseComentario} <strong>{cvMostrar.Usuario.ToUpper()}</strong>!";
+        txtComentarios.Attributes["placeholder"] = $"{frasePlaceholder} {cvMostrar.Usuario.ToUpper()}?";
+    }
+
+    private void RenderizarCV(byte[] archivo)
+    {
+        string base64String = Convert.ToBase64String(archivo);
+        bool esPdf = archivo.Length > 4 && archivo[0] == 0x25 && archivo[1] == 0x50; // "%P"
+
+        if (esPdf)
+        {
+            VisorCV.Text = $"<embed src='data:application/pdf;base64,{base64String}#toolbar=0&navpanes=0&scrollbar=0' type='application/pdf' style='width:100%; height:100%; border:none;' />";
+        }
+        else
+        {
+            VisorCV.Text = $"<img src='data:image;base64,{base64String}' style='max-width:100%; max-height:100%; object-fit:contain;' alt='CV imagen' />";
+        }
+    }
+
     public void Actualizar()
     {
         RecorrerControles(this);
     }
+
     void RecorrerControles(Control controlPadre)
     {
         foreach (Control c in controlPadre.Controls)
@@ -95,7 +117,7 @@ public partial class EvaluarCV : System.Web.UI.Page, IObserver
 
     protected void imgUserIcon_Click(object sender, ImageClickEventArgs e)
     {
-        if (Session["username"] == null)
+        if (Session["Usuario"] == null)
         {
             Response.Redirect("Login.aspx");
         }
@@ -110,7 +132,7 @@ public partial class EvaluarCV : System.Web.UI.Page, IObserver
         Resena resena = new Resena();
         resena.Comentarios = txtComentarios.Text;
         resena.ID_CV = (Session["CurriculumLeido"] as Curriculum).ID_CV;
-        resena.UsuarioReseñador = Session["username"].ToString();
+        resena.UsuarioReseñador = (Session["Usuario"] as Usuario).NombreUsuario.ToString();
 
         // Leer las calificaciones desde el formulario
         resena.Contenido = LeerValorRadio("contenido");
@@ -131,27 +153,51 @@ public partial class EvaluarCV : System.Web.UI.Page, IObserver
 
         //Con SweetAlert https://sweetalert2.github.io/
 
-        string script = @"
-        document.addEventListener('DOMContentLoaded', function() {
-            if (typeof Swal !== 'undefined') {
-                Swal.fire({
-                    title: '¡Gracias!',
-                    text: 'Tu reseña fue enviada con éxito.',
+        string title =  TraductorDAL.TranslatorInstance.Traducir("alertGracias");
+        string text = TraductorDAL.TranslatorInstance.Traducir("alertResenaExitosa");
+        string confirmButtonText = TraductorDAL.TranslatorInstance.Traducir("alertIrInicio");
+        string script = $@"
+        document.addEventListener('DOMContentLoaded', function() {{
+                if (typeof Swal !== 'undefined') {{
+                    Swal.fire({{
+                    title: '{title}',
+                    text: '{text}',
                     icon: 'success',
-                    confirmButtonText: 'Ir al inicio',
+                    confirmButtonText: '{confirmButtonText}',
                     backdrop: true,
                     allowOutsideClick: false,
                     allowEscapeKey: false,
-                    customClass: {
+                    customClass: {{
                         container: 'swal-container-fix'
-                    }
-                }).then(() => {
-                    window.location.href = 'LandingPage.aspx';
-                });
-            } else {
-                window.location.href = 'LandingPage.aspx';
-            }
-        });";
+                        }}
+                    }}).then(() => {{
+                        window.location.href = 'LandingPage.aspx';
+                    }});
+                }} else {{
+                        window.location.href = 'LandingPage.aspx';
+                        }}
+                }});";
+        //string script = @"
+        //document.addEventListener('DOMContentLoaded', function() {
+        //    if (typeof Swal !== 'undefined') {
+        //        Swal.fire({
+        //            title: '¡Gracias!',
+        //            text: 'Tu reseña fue enviada con éxito.',
+        //            icon: 'success',
+        //            confirmButtonText: 'Ir al inicio',
+        //            backdrop: true,
+        //            allowOutsideClick: false,
+        //            allowEscapeKey: false,
+        //            customClass: {
+        //                container: 'swal-container-fix'
+        //            }
+        //        }).then(() => {
+        //            window.location.href = 'LandingPage.aspx';
+        //        });
+        //    } else {
+        //        window.location.href = 'LandingPage.aspx';
+        //    }
+        //});";
 
         ScriptManager.RegisterStartupScript(
             this,

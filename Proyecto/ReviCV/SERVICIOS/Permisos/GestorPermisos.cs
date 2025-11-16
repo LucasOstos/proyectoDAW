@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ENTIDADES;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -107,5 +108,10 @@ namespace SERVICIOS.Permisos
         public bool EsRol(string nombrePermiso) => dao.EsRol(nombrePermiso);
 
         public PermisoCompuesto ObtenerPermisoCompuesto(string nombre) => dao.LeerPermisoCompuesto(nombre);
+
+        public static bool TienePermiso(PermisoCompuesto rol, string permisoBuscado)
+        {
+            return rol.nombre == PermisosStatic.pSysAdmin || rol.ContienePermiso(permisoBuscado);
+        }
     }
 }
