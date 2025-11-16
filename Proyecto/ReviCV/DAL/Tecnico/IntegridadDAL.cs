@@ -102,8 +102,6 @@ namespace DAL
             return resultado;
         }
 
-
-
         public void GuardarRegistroIntegridad(TablasBD tabla, string DVV, int cantidadRegistros)
         {
             string query = $@"
@@ -174,7 +172,6 @@ namespace DAL
                 }
             }
         }
-
 
         private string ObtenerClavePrimariaDesdeBD(string nombreTabla)
         {

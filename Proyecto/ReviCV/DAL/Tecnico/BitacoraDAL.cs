@@ -32,7 +32,6 @@ namespace DAL.Tecnico
             }
         }
 
-
         public List<Bitacora> ObtenerLogs()
         {
             List<Bitacora> listaLogs = new List<Bitacora>();
@@ -52,7 +51,6 @@ namespace DAL.Tecnico
             }
             return listaLogs;
         }
-
 
         public List<Bitacora> FiltrosBitacora(DateTime? desde, DateTime? hasta, string usuario, string operacion)
         {
