@@ -14,7 +14,7 @@ public partial class BackUp_ReStore : System.Web.UI.Page, IObserver
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!AccesoHelper.ValidarAcceso(Session["Rol"] as PermisoCompuesto, PermisosStatic.pAccesoBackupRestore, "Webmaster"))
+        if (!AccesoHelper.ValidarAcceso(Session["Rol"] as PermisoCompuesto, PermisosStatic.pAccesoBackupRestore))
         {
             Response.Redirect("LandingPage.aspx");
             return;

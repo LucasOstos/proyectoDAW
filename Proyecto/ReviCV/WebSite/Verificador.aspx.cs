@@ -17,7 +17,7 @@ public partial class Verificador : System.Web.UI.Page, IObserver
     {
         var rol = Session["Rol"] as PermisoCompuesto;
 
-        if (!AccesoHelper.ValidarAcceso(rol, PermisosStatic.pAccesoIntegridad, "Webmaster"))
+        if (!AccesoHelper.ValidarAcceso(rol, PermisosStatic.pAccesoIntegridad))
         {
             Response.Redirect("LandingPage.aspx");
             return;

@@ -16,7 +16,7 @@ public partial class BitacoraPage : System.Web.UI.Page, IObserver
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!AccesoHelper.ValidarAcceso(Session["Rol"] as PermisoCompuesto, PermisosStatic.pAccesoBitacora, "Webmaster"))
+        if (!AccesoHelper.ValidarAcceso(Session["Rol"] as PermisoCompuesto, PermisosStatic.pAccesoBitacora))
         {
             Response.Redirect("LandingPage.aspx");
             return;

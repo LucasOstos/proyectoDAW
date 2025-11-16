@@ -17,7 +17,7 @@ public partial class EvaluarCV : System.Web.UI.Page, IObserver
     Curriculum cvMostrar;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!AccesoHelper.ValidarAcceso(Session["Rol"] as PermisoCompuesto))
+        if (!AccesoHelper.ValidarAcceso(Session["Rol"] as PermisoCompuesto, PermisosStatic.pEvaluarCV))
         {
             Response.Redirect("LandingPage.aspx");
             return;

@@ -1,6 +1,7 @@
 ﻿using BLL;
 using ENTIDADES;
 using SERVICIOS.Permisos;
+using SERVICIOS;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,7 +16,7 @@ public partial class VerResenias : System.Web.UI.Page
     Curriculum cvMostrar;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!AccesoHelper.ValidarAcceso(Session["Rol"] as PermisoCompuesto))
+        if (!AccesoHelper.ValidarAcceso(Session["Rol"] as PermisoCompuesto, PermisosStatic.pVerResenias))
         {
             Response.Redirect("LandingPage.aspx");
             return;

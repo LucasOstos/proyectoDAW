@@ -135,13 +135,13 @@ public partial class LandingPage : System.Web.UI.Page, IObserver
             return;
         }
 
-        if (AccesoHelper.ValidarAcceso(rol, PermisosStatic.pAccesoMenuAdmin, PermisosStatic.pAdmin))
+        if (AccesoHelper.ValidarAcceso(rol, PermisosStatic.pAccesoMenuAdmin))
         {
             Response.Redirect("MenuAdmin.aspx", true);
             return;
         }
 
-        if (AccesoHelper.ValidarAcceso(rol, null, PermisosStatic.pWeb))
+        if (AccesoHelper.ValidarAcceso(rol, PermisosStatic.pAccesoMenuWebmaster))
         {
             Response.Redirect("WebMaster_Menu.aspx");
             return;

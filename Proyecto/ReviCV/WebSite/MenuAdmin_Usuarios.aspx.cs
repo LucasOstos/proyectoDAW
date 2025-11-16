@@ -112,7 +112,7 @@ public partial class MenuAdmin_Usuarios : Page, IObserver
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!AccesoHelper.ValidarAcceso(Session["Rol"] as PermisoCompuesto, null, PermisosStatic.pAdmin))
+        if (!AccesoHelper.ValidarAcceso(Session["Rol"] as PermisoCompuesto, PermisosStatic.pGestionUsuarios))
         {
             Response.Redirect("LandingPage.aspx");
             return;

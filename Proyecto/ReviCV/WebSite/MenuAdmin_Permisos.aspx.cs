@@ -18,6 +18,18 @@ public partial class MenuAdmin_Permisos : System.Web.UI.Page, IObserver
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!AccesoHelper.ValidarAcceso((Session["Rol"] as PermisoCompuesto), PermisosStatic.pGestionPermisos))
+        {
+            Response.Redirect("LandingPage.aspx");
+            return;
+        }
+
+        if (Application["EstadoBD"] is bool bdOk && !bdOk)
+        {
+            Response.Redirect("AvisoErrorBD.aspx", true);
+            return;
+        }
+
         if (!IsPostBack)
         {
             CargarRolesYGrupos();

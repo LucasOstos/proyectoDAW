@@ -15,7 +15,7 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page, IObserver
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!AccesoHelper.ValidarAcceso((Session["Rol"] as PermisoCompuesto), null, PermisosStatic.pAdmin))
+        if (!AccesoHelper.ValidarAcceso((Session["Rol"] as PermisoCompuesto), PermisosStatic.pGestionRubrosIdiomas))
         {
             Response.Redirect("LandingPage.aspx", true);
             return;
