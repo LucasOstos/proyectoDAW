@@ -11,6 +11,9 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
+using PdfiumViewer;
+using System.Drawing.Imaging;
+using System.IO;
 
 public partial class EvaluarCV : System.Web.UI.Page, IObserver
 {
@@ -63,15 +66,25 @@ public partial class EvaluarCV : System.Web.UI.Page, IObserver
 
     private void RenderizarCV(byte[] archivo)
     {
-        string base64String = Convert.ToBase64String(archivo);
+        string base64String;
         bool esPdf = archivo.Length > 4 && archivo[0] == 0x25 && archivo[1] == 0x50; // "%P"
 
         if (esPdf)
         {
-            VisorCV.Text = $"<embed src='data:application/pdf;base64,{base64String}#toolbar=0&navpanes=0&scrollbar=0' type='application/pdf' style='width:100%; height:100%; border:none;' />";
+            using (var ms = new MemoryStream(archivo))
+            using (var pdfDoc = PdfDocument.Load(ms)) // Carga el PDF
+            using (var bitmap = pdfDoc.Render(0, 1200, 1200, true)) // Renderiza primera página
+            using (var imgStream = new MemoryStream())
+            {
+                bitmap.Save(imgStream, ImageFormat.Png); // Convierte a PNG
+                base64String = Convert.ToBase64String(imgStream.ToArray());
+            }
+
+            VisorCV.Text = $"<img src='data:image/png;base64,{base64String}' style='max-width:100%; max-height:100%; object-fit:contain;' alt='CV PDF' />";
         }
         else
         {
+            base64String = Convert.ToBase64String(archivo);
             VisorCV.Text = $"<img src='data:image;base64,{base64String}' style='max-width:100%; max-height:100%; object-fit:contain;' alt='CV imagen' />";
         }
     }
