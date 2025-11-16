@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
 
-public  class CurriculumBasicoFactory : CurriculumFactory
+public class CurriculumBasicoFactory : CurriculumFactory
 {
     private readonly EventHandler _onEliminar;
     private readonly CommandEventHandler _onVerResenas;
