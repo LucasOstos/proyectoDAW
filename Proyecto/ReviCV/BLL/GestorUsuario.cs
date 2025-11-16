@@ -120,8 +120,7 @@ namespace BLL
         {
             UsuarioDAL usuarioDAL = new UsuarioDAL();
             return usuarioDAL.ObtenerTodosNombresUsuarios();
-        }
-        
+        }        
         public List<Usuario> ObtenerTodosUsuarios()
         {
             UsuarioDAL usuarioDAL = new UsuarioDAL();
@@ -132,7 +131,6 @@ namespace BLL
             UsuarioDAL usuarioDAL = new UsuarioDAL();
             return usuarioDAL.FiltrarUsuarios(dni, username, email, rol);
         }
-
         public void CambiarPassword(int dni, string pPassword)
         {
             UsuarioDAL usuarioDAL = new UsuarioDAL();
