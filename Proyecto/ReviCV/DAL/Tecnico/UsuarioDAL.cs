@@ -87,8 +87,15 @@ namespace DAL
 
             if (!string.IsNullOrWhiteSpace(rol))
             {
-                condiciones.Add("Rol = @Rol");
-                cmd.Parameters.AddWithValue("@Rol", rol);
+                if (rol == "Roles privilegiados")
+                {
+                    condiciones.Add($"Rol = 'Administrador' OR Rol = 'Webmaster'");
+                }
+                else
+                {
+                    condiciones.Add("Rol = @Rol");
+                    cmd.Parameters.AddWithValue("@Rol", rol);
+                }
             }
 
             if (condiciones.Count > 0)

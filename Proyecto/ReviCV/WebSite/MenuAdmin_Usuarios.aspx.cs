@@ -269,9 +269,9 @@ public partial class MenuAdmin_Usuarios : Page, IObserver
     {
         var roles = new List<ListItem>
         {
-            new ListItem("Administrador", "Administrador"),
-            new ListItem("Webmaster", "Webmaster"),
-            new ListItem("Usuario", "Usuario")
+            new ListItem("Administrador", PermisosStatic.pAdmin),
+            new ListItem("Webmaster", PermisosStatic.pWeb),
+            new ListItem("Usuario", PermisosStatic.pUsuario)
         };
 
         ddlRol.Items.Clear();
@@ -280,6 +280,7 @@ public partial class MenuAdmin_Usuarios : Page, IObserver
         roles.ForEach(r => ddlRol.Items.Add(new ListItem(r.Text, r.Value)));
 
         ddlFiltroRol.Items.Add(new ListItem("Todos los roles", ""));
+        ddlFiltroRol.Items.Add(new ListItem("Roles privilegiados", "Roles privilegiados"));
         roles.ForEach(r => ddlFiltroRol.Items.Add(new ListItem(r.Text, r.Value)));
     }
 
