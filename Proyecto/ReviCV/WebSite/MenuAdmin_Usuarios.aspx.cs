@@ -1,6 +1,7 @@
 ﻿using BLL;
 using ENTIDADES;
 using SERVICIOS;
+using SERVICIOS.Permisos;
 using SERVICIOS.Traducciones;
 using System;
 using System.Collections.Generic;
@@ -85,6 +86,8 @@ public partial class MenuAdmin_Usuarios : Page, IObserver
 
     protected void btnCerrarSesion_Click(object sender, EventArgs e)
     {
+        GestorBitacora gestorBitacora = new GestorBitacora();
+        gestorBitacora.GuardarLogBitacora("Logout", (Session["Usuario"] as Usuario).NombreUsuario);
         Session.Clear();
         Response.Redirect("LandingPage.aspx");
     }
@@ -111,31 +114,26 @@ public partial class MenuAdmin_Usuarios : Page, IObserver
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["Rol"] == null) Response.Redirect("LandingPage.aspx");
-
-        var estadoBD = Application["EstadoBD"];
-        var rol = Session["Rol"]?.ToString();
-
-        if (estadoBD is bool bdOk && !bdOk)
-        {
-            Response.Redirect("AvisoErrorBD.aspx");
-        }
-
-        if (rol != "Administrador")
+        if (!AccesoHelper.ValidarAcceso(Session["Rol"] as PermisoCompuesto, PermisosStatic.pGestionUsuarios))
         {
             Response.Redirect("LandingPage.aspx");
+            return;
+        }
+
+        if (Application["EstadoBD"] is bool bdOk && !bdOk)
+        {
+            Response.Redirect("AvisoErrorBD.aspx");
+            return;
         }
 
         if (!IsPostBack)
         {
             CargarUsuarios();
             CargarRoles();
+            TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD((Session["Usuario"] as Usuario).Idioma.ToString());
+            Actualizar();
         }
-        TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD(Session["Idioma"].ToString());
-        Actualizar();
     }
-
-
 
     protected void btnAgregar_Click(object sender, EventArgs e)
     {
@@ -158,7 +156,7 @@ public partial class MenuAdmin_Usuarios : Page, IObserver
 
                 gestorUsuarios.InsertarUsuario(usuario);
                 GestorBitacora gestorBitacora = new GestorBitacora();
-                gestorBitacora.GuardarLogBitacora($"Se agregó el usuario {usuario.DNI}", Session["username"].ToString());
+                gestorBitacora.GuardarLogBitacora($"Se agregó el usuario {usuario.DNI}", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
                 CargarUsuarios();
                 LimpiarTxt();
             }            
@@ -194,7 +192,7 @@ public partial class MenuAdmin_Usuarios : Page, IObserver
 
                 gestorUsuario.ModificarUsuario(usuario);
                 GestorBitacora gestorBitacora = new GestorBitacora();
-                gestorBitacora.GuardarLogBitacora($"Se modificó el usuario {usuario.DNI}", Session["username"].ToString());
+                gestorBitacora.GuardarLogBitacora($"Se modificó el usuario {usuario.DNI}", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
                 CargarUsuarios();
                 LimpiarTxt();
             }            
@@ -207,7 +205,7 @@ public partial class MenuAdmin_Usuarios : Page, IObserver
             GestorUsuario gestorUsuario = new GestorUsuario();
             gestorUsuario.EliminarUsuario(int.Parse(txtDni.Text));
             GestorBitacora gestorBitacora = new GestorBitacora();
-            gestorBitacora.GuardarLogBitacora($"Se eliminó el usuario {txtDni.Text}", Session["username"].ToString());
+            gestorBitacora.GuardarLogBitacora($"Se eliminó el usuario {txtDni.Text}", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
             CargarUsuarios();
             LimpiarTxt();
       

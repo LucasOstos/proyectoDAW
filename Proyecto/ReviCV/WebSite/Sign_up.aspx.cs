@@ -18,10 +18,11 @@ public partial class Sign_up : System.Web.UI.Page
             string bdErrores = gestor.VerificarIntegridadTodasLasTablas();
             Application["EstadoBD"] = bdErrores == "" ? true : false;
         }
-       // if (Application["EstadoBD"].Equals(false)) Response.Redirect("AvisoErrorBD.aspx");
+        if (Application["EstadoBD"].Equals(false)) Response.Redirect("AvisoErrorBD.aspx");
         ErrorContraseñasLB.Visible = false;
         Page.UnobtrusiveValidationMode = System.Web.UI.UnobtrusiveValidationMode.None;
     }
+
     protected void Button1_Click(object sender, EventArgs e)
     {
         string dni = TbDNI.Text.Trim();

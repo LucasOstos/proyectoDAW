@@ -1,5 +1,7 @@
 ﻿using BLL;
 using ENTIDADES;
+using SERVICIOS.Permisos;
+using SERVICIOS;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,14 +16,25 @@ public partial class VerResenias : System.Web.UI.Page
     Curriculum cvMostrar;
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["Rol"] == null) Response.Redirect("LandingPage.aspx");
-        if (Application["EstadoBD"].Equals(false)) Response.Redirect("AvisoErrorBD.aspx");
+        if (!AccesoHelper.ValidarAcceso(Session["Rol"] as PermisoCompuesto, PermisosStatic.pVerResenias))
+        {
+            Response.Redirect("LandingPage.aspx");
+            return;
+        }
+
+        if (Application["EstadoBD"] is bool bdOk && !bdOk)
+        {
+            Response.Redirect("AvisoErrorBD.aspx");
+            return;
+        }
+
         if (!IsPostBack)
         {
             CargarCV();
             CargarOpiniones(idCVActual);
         }
     }
+
 
     private void CargarCV()
     {
@@ -67,12 +80,12 @@ public partial class VerResenias : System.Web.UI.Page
     {
         GestorResena gestorResena = new GestorResena();
         List<Resena> lista = gestorResena.ObtenerReseniasDeCVPorIDdeCV(idCV);
+        lista = lista.OrderByDescending(r => r.ID_Resena).ToList();
 
         if (lista != null && lista.Count > 0)
         {
             Random rnd = new Random();
 
-            // Convertir Resena → ResenaVM
             var listaVM = lista.Select(r => new ResenaVM
             {
                 IdOpinion = r.ID_Resena,
