@@ -267,26 +267,20 @@ public partial class MenuAdmin_Usuarios : Page, IObserver
 
     private void CargarRoles()
     {
-        List<ListItem> roles = new List<ListItem>
-    {
-        new ListItem("Administrador", "Administrador"),
-        new ListItem("Webmaster", "Webmaster"),
-        new ListItem("Usuario", "Usuario")
-    };
-
-        // Desactivar la opción por defecto
-        roles[0].Attributes.Add("disabled", "true");
-        roles[0].Selected = true;
+        var roles = new List<ListItem>
+        {
+            new ListItem("Administrador", "Administrador"),
+            new ListItem("Webmaster", "Webmaster"),
+            new ListItem("Usuario", "Usuario")
+        };
 
         ddlRol.Items.Clear();
         ddlFiltroRol.Items.Clear();
 
-        ddlRol.Items.AddRange(roles.ToArray());
+        roles.ForEach(r => ddlRol.Items.Add(new ListItem(r.Text, r.Value)));
+
         ddlFiltroRol.Items.Add(new ListItem("Todos los roles", ""));
-        for (int i = 1; i < roles.Count; i++)
-        {
-            ddlFiltroRol.Items.Add(roles[i]);
-        }
+        roles.ForEach(r => ddlFiltroRol.Items.Add(new ListItem(r.Text, r.Value)));
     }
 
 
