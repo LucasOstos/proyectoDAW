@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head runat="server">
-    <title>Panel de Administración</title>
+    <title>ReviCV - Panel de Administración</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
     <style>
         body {

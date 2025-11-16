@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Inicio de Sesión - ReviCV</title>
+    <title>ReviCV - Inicio de Sesión</title>
     <link href="Estilos_css\Login.css" rel="stylesheet" type="text/css" />
 </head>
 <body>

@@ -4,7 +4,7 @@
 <html lang="es">
 <head>
     <meta charset="utf-8" />
-    <title>Tu Perfil - ReviCV</title>
+    <title>ReviCV - ¡Tu perfil!</title>
     <style>
         * {
             box-sizing: border-box;

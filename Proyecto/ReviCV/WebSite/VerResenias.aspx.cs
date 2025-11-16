@@ -129,8 +129,6 @@ public partial class VerResenias : System.Web.UI.Page
             : $"https://randomuser.me/api/portraits/men/{num}.jpg";
     }
 
-
-
     protected string GenerarEstrellas(int calificacion)
     {
         string html = "";
@@ -150,7 +148,6 @@ public partial class VerResenias : System.Web.UI.Page
         return html;
     }
 
-   
     protected void imgUserIcon_Click(object sender, EventArgs e)
     {
         Response.Redirect("PaginaPerfilUsuario.aspx");

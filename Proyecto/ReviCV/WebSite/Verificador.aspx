@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Verificador de Base de Datos</title>
+    <title>ReviCV - Verificador de Base de Datos</title>
     <style>
         body, html {
             margin: 0;
