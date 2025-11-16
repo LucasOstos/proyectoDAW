@@ -230,27 +230,31 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
             (Session["Usuario"] as Usuario).Idioma = ddlIdioma.Text;
             SettearHiddenFields();
 
-            string script = @"
-        document.addEventListener('DOMContentLoaded', function() {
-            if (typeof Swal !== 'undefined') {
-                Swal.fire({
-                    title: '¡Actualizaste tus datos!',
-                    text: 'Cambios realizados con éxito.',
-                    icon: 'success',
-                    confirmButtonText: 'Ok',
-                    backdrop: true,
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                    customClass: {
-                        container: 'swal-container-fix'
-                    }
-                }).then(() => {
-                    window.location.href = 'PaginaPerfilUsuario.aspx';
-                });
-            } else {
-                window.location.href = 'PaginaPerfilUsuario.aspx';
-            }
-        });";
+            string titulo = TraductorDAL.TranslatorInstance.Traducir("ActualizasteDatos");
+            string texto = TraductorDAL.TranslatorInstance.Traducir("CambiosExito");
+
+            string script = $@"
+document.addEventListener('DOMContentLoaded', function() {{
+    if (typeof Swal !== 'undefined') {{
+        Swal.fire({{
+            title: '{titulo}',
+            text: '{texto}',
+            icon: 'success',
+            confirmButtonText: 'Ok',
+            backdrop: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            customClass: {{
+                container: 'swal-container-fix'
+            }}
+        }}).then(() => {{
+            window.location.href = 'PaginaPerfilUsuario.aspx';
+        }});
+    }} else {{
+        window.location.href = 'PaginaPerfilUsuario.aspx';
+    }}
+}});
+";
 
             ScriptManager.RegisterStartupScript(
                 this,
@@ -572,6 +576,17 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
 
     protected void btnVolverPrincipal_Click(object sender, EventArgs e)
     {
+        var rol = Session["Rol"] as PermisoCompuesto;
+        if (AccesoHelper.ValidarAcceso(rol, PermisosStatic.pAccesoMenuAdmin))
+        {
+            Response.Redirect("MenuAdmin.aspx", true);
+            return;
+        }
+        if (AccesoHelper.ValidarAcceso(rol, PermisosStatic.pAccesoMenuWebmaster))
+        {
+            Response.Redirect("WebMaster_Menu.aspx");
+            return;
+        }
         Response.Redirect("LandingPage.aspx");
     }
 

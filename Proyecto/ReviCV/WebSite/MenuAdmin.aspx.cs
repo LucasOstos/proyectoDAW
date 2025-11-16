@@ -124,4 +124,9 @@ public partial class MenuAdmin : Page, IObserver
         }
     }
 
+
+    protected void btnPermisos_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("MenuAdmin_Permisos.aspx");
+    }
 }
