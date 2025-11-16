@@ -9,5 +9,7 @@ namespace SERVICIOS.Permisos
     public class PermisoSimple : Permiso
     {
         public PermisoSimple(string nNombre) : base(nNombre) { }
+        public override bool ContienePermiso(string nombrePermiso)
+        => nombre == nombrePermiso;
     }
 }
