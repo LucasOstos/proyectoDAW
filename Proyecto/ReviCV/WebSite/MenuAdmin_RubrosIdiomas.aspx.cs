@@ -461,4 +461,9 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page, IObserver
     {
         Response.Redirect("PaginaPerfilUsuario.aspx");
     }
+
+    protected void btnPermisos_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("MenuAdmin_Permisos.aspx");
+    }
 }
