@@ -209,7 +209,7 @@ Swal.fire({{
 
     protected void btnEliminarConfirmar_Click(object sender, EventArgs e)
     {
-        if(ddlRolesGrupos.Text == "Webmaster" || ddlRolesGrupos.Text == "Usuario")
+        if (ddlRolesGrupos.Text == "Webmaster" || ddlRolesGrupos.Text == "Usuario")
         {
             string script = @"
 Swal.fire({
@@ -258,6 +258,9 @@ Swal.fire({
 
         GP.ModificarNombrePermiso(ddlRolesGrupos.SelectedValue, nuevoNombre);
 
+        GestorBitacora gestorBitacora = new GestorBitacora();
+        gestorBitacora.GuardarLogBitacora($"Se cambió el nombre de {ddlRolesGrupos.SelectedValue} a {hfNuevoNombre}", (Session["Usuario"] as Usuario).NombreUsuario);
+
         CargarRolesYGrupos();
         CargarArbolPermisos();
         CargarPermisosAsignados();
@@ -303,7 +306,8 @@ Swal.fire({
             return;
         }
 
-        if (!GP.AgregarPermisoCompuesto(txtNuevoNombre.Text, AgregarPermisosCheckeadosAPermisoSeleccionado(txtNuevoNombre.Text), esRol))
+        string listaPermisosAgregados = "";
+        if (!GP.AgregarPermisoCompuesto(txtNuevoNombre.Text, AgregarPermisosCheckeadosAPermisoSeleccionado(txtNuevoNombre.Text, out listaPermisosAgregados), esRol))
         {
             string script = @"
 Swal.fire({
@@ -317,26 +321,32 @@ Swal.fire({
             return;
         }
 
+        GestorBitacora gestorBitacora = new GestorBitacora();
+        gestorBitacora.GuardarLogBitacora($"Se creó el nuevo {(esRol ? "Rol" : "Grupo de permisos")} \"{txtNuevoNombre}\"", (Session["Usuario"] as Usuario).NombreUsuario);
+        gestorBitacora.GuardarLogBitacora($"Se agregaron los siguientes permisos a \"{txtNuevoNombre}\": {listaPermisosAgregados}", (Session["Usuario"] as Usuario).NombreUsuario);
+
         txtNuevoNombre.Text = "";
         CargarRolesYGrupos();
         CargarArbolPermisos();
         CargarPermisosAsignados();
     }
 
-    public List<string> AgregarPermisosCheckeadosAPermisoSeleccionado(string nombrePermiso)
+    public List<string> AgregarPermisosCheckeadosAPermisoSeleccionado(string nombrePermiso, out string listaPermisos)
     {
         List<string> items = new List<string>();
         foreach (ListItem item in chkListPermisos.Items)
             if (item.Selected) items.Add(item.Text);
 
+        listaPermisos = string.Join(", ", items);
         return items;
     }
 
-    protected void btnGuardarCambios_Click(object sender,
- EventArgs e)
+
+    protected void btnGuardarCambios_Click(object sender, EventArgs e)
     {
+        string listaPermisosAgregados = "";
         GestorPermisos gestorPermisos = new GestorPermisos();
-        if (!gestorPermisos.ModificarPermisoCompuesto(ddlRolesGrupos.Text, AgregarPermisosCheckeadosAPermisoSeleccionado(txtNuevoNombre.Text)))
+        if (!gestorPermisos.ModificarPermisoCompuesto(ddlRolesGrupos.Text, AgregarPermisosCheckeadosAPermisoSeleccionado(txtNuevoNombre.Text, out _)))
         {
             string script = @"
 Swal.fire({
@@ -356,6 +366,10 @@ Swal.fire({
             );
             return;
         }
+
+        GestorBitacora gestorBitacora = new GestorBitacora();
+        gestorBitacora.GuardarLogBitacora($"Se modificó \"{ddlRolesGrupos.Text}\" y se agregaron los siguientes permisos: {listaPermisosAgregados}", (Session["Usuario"] as Usuario).NombreUsuario);
+
         CargarRolesYGrupos();
         CargarArbolPermisos();
         CargarPermisosAsignados();

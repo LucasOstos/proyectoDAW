@@ -154,6 +154,5 @@ public partial class BitacoraPage : System.Web.UI.Page, IObserver
     protected void btnPerfil_Click(object sender, EventArgs e)
     {
         Response.Redirect("PaginaPerfilUsuario.aspx");
-
     }
 }
