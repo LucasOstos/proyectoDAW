@@ -111,7 +111,7 @@ namespace SERVICIOS.Permisos
 
         public static bool TienePermiso(PermisoCompuesto rol, string permisoBuscado)
         {
-            return rol.nombre == PermisosStatic.pAdmin || rol.ContienePermiso(permisoBuscado);
+            return rol.nombre == PermisosStatic.pSysAdmin || rol.ContienePermiso(permisoBuscado);
         }
     }
 }

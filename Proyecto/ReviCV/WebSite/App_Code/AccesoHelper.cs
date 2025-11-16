@@ -1,4 +1,5 @@
-﻿using SERVICIOS.Permisos;
+﻿using SERVICIOS;
+using SERVICIOS.Permisos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ public static class AccesoHelper
     {
         if (rolDeSession == null) return false; // sin rol → acceso denegado
 
-        if(rolDeSession.getNombre() == "Administrador") return true;
+        if(rolDeSession.getNombre() == PermisosStatic.pSysAdmin) return true;
 
         if (!string.IsNullOrEmpty(rolMinimo) && !rolDeSession.getNombre().Equals(rolMinimo, StringComparison.OrdinalIgnoreCase)) return false; // rol insuficiente
 

@@ -9,6 +9,9 @@ namespace SERVICIOS
     public static class PermisosStatic
     {
         /// <summary> Acceso irrestricto. Se saltea todas las validaciones. </summary>
+        public const string pSysAdmin = "SysAdmin";
+
+        /// <summary> Acceso irrestricto. Se saltea todas las validaciones. </summary>
         public const string pAdmin = "Administrador";
 
         /// <summary> Rol de Webmaster </summary>
@@ -21,7 +24,7 @@ namespace SERVICIOS
         public const string pGestionUsuarios = "GestionUsuarios";
 
         /// <summary> Permiso para acceder a la integridad de tablas. </summary>
-        public const string pAccesoIntegridad = "AccederIntegridad";
+        public const string pAccesoIntegridad = "AccesoIntegridad";
 
         /// <summary> Permiso para acceder al menú de administrador. </summary>
         public const string pAccesoMenuAdmin = "AccesoMenuAdmin";

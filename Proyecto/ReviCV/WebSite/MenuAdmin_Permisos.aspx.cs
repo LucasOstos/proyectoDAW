@@ -23,8 +23,8 @@ public partial class MenuAdmin_Permisos : System.Web.UI.Page, IObserver
             CargarRolesYGrupos();
             CargarArbolPermisos();
             CargarPermisosAsignados();
-            //TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD("Ingles");
-            TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD((Session["Usuario"] as Usuario).Idioma);
+            TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD("Ingles");
+            //TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD((Session["Usuario"] as Usuario).Idioma);
             Actualizar();
         }
     }
@@ -84,7 +84,7 @@ public partial class MenuAdmin_Permisos : System.Web.UI.Page, IObserver
     private void CargarRolesYGrupos()
     {
         List<Permiso> permisos = GP.ObtenerPermisos("Compuesto");
-        permisos.RemoveAll(x => x.nombre == "Administrador");
+        permisos.RemoveAll(x => x.nombre == "SysAdmin");
 
         ddlRolesGrupos.DataSource = permisos.Select(p =>
             new
