@@ -9,6 +9,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using PdfiumViewer;
+using System.Drawing.Imaging;
+using System.IO;
 
 public partial class VerResenias : System.Web.UI.Page
 {
@@ -44,30 +47,38 @@ public partial class VerResenias : System.Web.UI.Page
             GestorCurriculum gCurriculums = new GestorCurriculum();
             cvMostrar = gCurriculums.ObtenerCurriculumPorID(idCVActual);
             Session["CurriculumLeido"] = cvMostrar;
+
             if (cvMostrar == null || cvMostrar.ArchivoCV == null)
             {
                 Response.Redirect("LandingPage.aspx");
+                return;
             }
 
-            // Convertir archivo a base64
-            string base64String = Convert.ToBase64String(cvMostrar.ArchivoCV);
-
-            // Detectar si es imagen o PDF (por extensión o primer byte)
-            // Aquí simple: si empieza con %PDF -> PDF, si no -> imagen (puedes mejorar)
-            bool esPdf = false;
             byte[] archivo = cvMostrar.ArchivoCV;
-            if (archivo.Length > 4 && archivo[0] == 0x25 && archivo[1] == 0x50) // %P de %PDF
-                esPdf = true;
+            string base64String;
+
+            // Detectar si es PDF
+            bool esPdf = archivo.Length > 4 && archivo[0] == 0x25 && archivo[1] == 0x50; // "%P"
 
             if (esPdf)
             {
-                // Usar embed en lugar de iframe para ocultar controles
-                VisorCV.Text = $"<embed src='data:application/pdf;base64,{base64String}#toolbar=0&navpanes=0&scrollbar=0' type='application/pdf' style='width:100%; height:100%; border: none;' />";
+                // Renderizar primera página del PDF como imagen
+                using (var ms = new MemoryStream(archivo))
+                using (var pdfDoc = PdfDocument.Load(ms))
+                using (var bitmap = pdfDoc.Render(0, 1200, 1200, true))
+                using (var imgStream = new MemoryStream())
+                {
+                    bitmap.Save(imgStream, ImageFormat.Png);
+                    base64String = Convert.ToBase64String(imgStream.ToArray());
+                }
+
+                VisorCV.Text = $"<img src='data:image/png;base64,{base64String}' style='max-width:100%; max-height:100%; object-fit:contain;' alt='CV PDF' />";
             }
             else
             {
-                // Mostrar imagen (asumimos png/jpg)
-                VisorCV.Text = $"<img src='data:image;base64,{base64String}' style='max-width:100%; max-height:100%; object-fit: contain;' alt='CV imagen' />";
+                // Mostrar imagen
+                base64String = Convert.ToBase64String(archivo);
+                VisorCV.Text = $"<img src='data:image;base64,{base64String}' style='max-width:100%; max-height:100%; object-fit:contain;' alt='CV imagen' />";
             }
         }
         else
