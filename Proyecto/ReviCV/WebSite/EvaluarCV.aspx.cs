@@ -117,7 +117,7 @@ public partial class EvaluarCV : System.Web.UI.Page, IObserver
 
     protected void imgUserIcon_Click(object sender, ImageClickEventArgs e)
     {
-        if (Session["username"] == null)
+        if (Session["Usuario"] == null)
         {
             Response.Redirect("Login.aspx");
         }
@@ -132,7 +132,7 @@ public partial class EvaluarCV : System.Web.UI.Page, IObserver
         Resena resena = new Resena();
         resena.Comentarios = txtComentarios.Text;
         resena.ID_CV = (Session["CurriculumLeido"] as Curriculum).ID_CV;
-        resena.UsuarioReseñador = Session["username"].ToString();
+        resena.UsuarioReseñador = (Session["Usuario"] as Usuario).NombreUsuario.ToString();
 
         // Leer las calificaciones desde el formulario
         resena.Contenido = LeerValorRadio("contenido");

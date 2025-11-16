@@ -11,6 +11,9 @@ namespace SERVICIOS
         /// <summary> Acceso irrestricto. Se saltea todas las validaciones. </summary>
         public const string pAdmin = "Administrador";
 
+        /// <summary> Rol de Webmaster </summary>
+        public const string pWeb = "Webmaster";
+
         /// <summary> Permiso para acceder a la bitacora. </summary>
         public const string pAccesoBitacora = "AccesoBitacora";
 
@@ -24,7 +27,7 @@ namespace SERVICIOS
         public const string pAccesoMenuAdmin = "AccesoMenuAdmin";
 
         /// <summary> Permiso para acceder al menú de webmaster. </summary>
-        public const string pAccesoMenuWB = "AccesoMenuWB";
+        public const string pAccesoMenuWebmaster = "AccesoMenuWebmaster";
 
         /// <summary> Permiso para acceder a la sección de backup y restore. </summary>
         public const string pAccesoBackupRestore = "AccesoBackupRestore";

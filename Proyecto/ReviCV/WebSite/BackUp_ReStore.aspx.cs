@@ -70,7 +70,7 @@ public partial class BackUp_ReStore : System.Web.UI.Page, IObserver
 
         string rutaGenerada = BackupRestore.DalBURS.RealizarBackup(backupFolder);
         GestorBitacora gestorBitacora = new GestorBitacora();
-        gestorBitacora.GuardarLogBitacora("Backup de la base de datos creado", $"{Session["username"].ToString()}");
+        gestorBitacora.GuardarLogBitacora("Backup de la base de datos creado", $"{(Session["Usuario"] as Usuario).NombreUsuario.ToString()}");
         DescargarArchivo(rutaGenerada);
     }
     private void DescargarArchivo(string rutaCompleta)
@@ -101,7 +101,7 @@ public partial class BackUp_ReStore : System.Web.UI.Page, IObserver
             archivo_BackUp.SaveAs(rutaDestino);
             BackupRestore.DalBURS.RealizarRestore(rutaDestino);
             GestorBitacora gestorBitacora = new GestorBitacora();
-            gestorBitacora.GuardarLogBitacora("Restauración de la base de datos", $"{Session["username"].ToString()}");
+            gestorBitacora.GuardarLogBitacora("Restauración de la base de datos", $"{(Session["Usuario"] as Usuario).NombreUsuario.ToString()}");
             LblConfirmacionRestore.Text = "Restore Realizado con exito";
         }
     }

@@ -154,7 +154,7 @@ public partial class MenuAdmin_Usuarios : Page, IObserver
 
                 gestorUsuarios.InsertarUsuario(usuario);
                 GestorBitacora gestorBitacora = new GestorBitacora();
-                gestorBitacora.GuardarLogBitacora($"Se agregó el usuario {usuario.DNI}", Session["username"].ToString());
+                gestorBitacora.GuardarLogBitacora($"Se agregó el usuario {usuario.DNI}", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
                 CargarUsuarios();
                 LimpiarTxt();
             }            
@@ -190,7 +190,7 @@ public partial class MenuAdmin_Usuarios : Page, IObserver
 
                 gestorUsuario.ModificarUsuario(usuario);
                 GestorBitacora gestorBitacora = new GestorBitacora();
-                gestorBitacora.GuardarLogBitacora($"Se modificó el usuario {usuario.DNI}", Session["username"].ToString());
+                gestorBitacora.GuardarLogBitacora($"Se modificó el usuario {usuario.DNI}", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
                 CargarUsuarios();
                 LimpiarTxt();
             }            
@@ -203,7 +203,7 @@ public partial class MenuAdmin_Usuarios : Page, IObserver
             GestorUsuario gestorUsuario = new GestorUsuario();
             gestorUsuario.EliminarUsuario(int.Parse(txtDni.Text));
             GestorBitacora gestorBitacora = new GestorBitacora();
-            gestorBitacora.GuardarLogBitacora($"Se eliminó el usuario {txtDni.Text}", Session["username"].ToString());
+            gestorBitacora.GuardarLogBitacora($"Se eliminó el usuario {txtDni.Text}", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
             CargarUsuarios();
             LimpiarTxt();
       

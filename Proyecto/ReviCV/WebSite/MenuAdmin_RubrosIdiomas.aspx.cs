@@ -145,7 +145,7 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page, IObserver
                 CargarIdiomas();
 
                 GestorBitacora gestorBitacora = new GestorBitacora();
-                gestorBitacora.GuardarLogBitacora($"Se agregó el idioma {txtDescripcionIdioma.Text}", Session["username"].ToString());
+                gestorBitacora.GuardarLogBitacora($"Se agregó el idioma {txtDescripcionIdioma.Text}", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
 
                 txtDescripcionIdioma.Text = "";
                 hfIdIdioma.Value = "";
@@ -198,7 +198,7 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page, IObserver
                 CargarIdiomas();
 
                 GestorBitacora gestorBitacora = new GestorBitacora();
-                gestorBitacora.GuardarLogBitacora($"Se modificó el idioma {hfIdIdioma.Value}, ahora es {txtDescripcionIdioma.Text}", Session["username"].ToString());
+                gestorBitacora.GuardarLogBitacora($"Se modificó el idioma {hfIdIdioma.Value}, ahora es {txtDescripcionIdioma.Text}", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
 
                 txtDescripcionIdioma.Text = "";
                 hfIdIdioma.Value = "";
@@ -249,7 +249,7 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page, IObserver
                 CargarIdiomas();
 
                 GestorBitacora gestorBitacora = new GestorBitacora();
-                gestorBitacora.GuardarLogBitacora($"Se eliminó el idioma {txtDescripcionIdioma.Text}", Session["username"].ToString());
+                gestorBitacora.GuardarLogBitacora($"Se eliminó el idioma {txtDescripcionIdioma.Text}", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
 
                 txtDescripcionIdioma.Text = "";
                 hfIdIdioma.Value = "";
@@ -301,7 +301,7 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page, IObserver
                 CargarRubros();
 
                 GestorBitacora gestorBitacora = new GestorBitacora();
-                gestorBitacora.GuardarLogBitacora($"Se agregó el rubro {txtDescripcionRubro.Text}", Session["username"].ToString());
+                gestorBitacora.GuardarLogBitacora($"Se agregó el rubro {txtDescripcionRubro.Text}", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
 
                 txtDescripcionRubro.Text = "";
                 hfIdRubro.Value = "";
@@ -353,7 +353,7 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page, IObserver
                 CargarRubros();
 
                 GestorBitacora gestorBitacora = new GestorBitacora();
-                gestorBitacora.GuardarLogBitacora($"Se modificó el rubro {hfIdRubro.Value}, ahora es {txtDescripcionRubro.Text}", Session["username"].ToString());
+                gestorBitacora.GuardarLogBitacora($"Se modificó el rubro {hfIdRubro.Value}, ahora es {txtDescripcionRubro.Text}", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
 
                 txtDescripcionRubro.Text = "";
                 hfIdRubro.Value = "";
@@ -404,7 +404,7 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page, IObserver
                 CargarRubros();
 
                 GestorBitacora gestorBitacora = new GestorBitacora();
-                gestorBitacora.GuardarLogBitacora($"Se eliminó el rubro {txtDescripcionRubro.Text}", Session["username"].ToString());
+                gestorBitacora.GuardarLogBitacora($"Se eliminó el rubro {txtDescripcionRubro.Text}", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
 
                 txtDescripcionRubro.Text = "";
                 hfIdRubro.Value = "";

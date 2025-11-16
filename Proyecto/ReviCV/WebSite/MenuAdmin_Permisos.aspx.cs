@@ -1,6 +1,7 @@
 ﻿using SERVICIOS;
 using SERVICIOS.Permisos;
 using SERVICIOS.Traducciones;
+using ENTIDADES;
 using System;
 using System.Activities.Statements;
 using System.Collections.Generic;
@@ -22,7 +23,8 @@ public partial class MenuAdmin_Permisos : System.Web.UI.Page, IObserver
             CargarRolesYGrupos();
             CargarArbolPermisos();
             CargarPermisosAsignados();
-            TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD("Ingles");
+            //TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD("Ingles");
+            TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD((Session["Usuario"] as Usuario).Idioma);
             Actualizar();
         }
     }
@@ -195,6 +197,19 @@ Swal.fire({{
 
     protected void btnEliminarConfirmar_Click(object sender, EventArgs e)
     {
+        if(ddlRolesGrupos.Text == "Webmaster" || ddlRolesGrupos.Text == "Usuario")
+        {
+            string script = @"
+Swal.fire({
+    title: 'Error',
+    text: 'No puede eliminar ese rol.',
+    icon: 'error',
+    confirmButtonText: 'Aceptar'
+});";
+
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "SwalError", script, true);
+            return;
+        }
         GP.QuitarPermiso(ddlRolesGrupos.Text);
 
         CargarRolesYGrupos();
@@ -349,7 +364,7 @@ Swal.fire({
     protected void btnCerrarSesion_Click(object sender, EventArgs e)
     {
         GestorBitacora gestorBitacora = new GestorBitacora();
-        gestorBitacora.GuardarLogBitacora("Logout", Session["username"].ToString());
+        gestorBitacora.GuardarLogBitacora("Logout", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
         Session.Clear();
         Response.Redirect("LandingPage.aspx");
     }

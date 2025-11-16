@@ -95,7 +95,7 @@ public partial class Verificador : System.Web.UI.Page, IObserver
         lblMensaje.Visible = true;
 
         GestorBitacora gestorBitacora = new GestorBitacora();
-        gestorBitacora.GuardarLogBitacora($"Se recalcularon los digitos de la base de datos", Session["username"].ToString());
+        gestorBitacora.GuardarLogBitacora($"Se recalcularon los digitos de la base de datos", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
     }
 
 
@@ -153,7 +153,7 @@ public partial class Verificador : System.Web.UI.Page, IObserver
         }
 
         GestorBitacora gestorBitacora = new GestorBitacora();
-        gestorBitacora.GuardarLogBitacora($"Se verificaron los digitos de la base de datos. Su estado fue {msj}", Session["username"].ToString());
+        gestorBitacora.GuardarLogBitacora($"Se verificaron los digitos de la base de datos. Su estado fue {msj}", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
     }
 
 

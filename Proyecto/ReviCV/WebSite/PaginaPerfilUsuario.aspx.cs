@@ -225,7 +225,7 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
                 Idioma = ddlIdioma.Text
             };
             gestorUsuario.ModificarUsuario(usuario);
-            Session["username"] = username.Text;
+            (Session["Usuario"] as Usuario).NombreUsuario = username.Text;
             (Session["Usuario"] as Usuario).Idioma = ddlIdioma.Text;
             SettearHiddenFields();
 
@@ -413,7 +413,7 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
         }
         else
         {
-            string nombreUsuario = Session["username"].ToString();
+            string nombreUsuario = (Session["Usuario"] as Usuario).NombreUsuario.ToString();
             GestorUsuario gUsuarios = new GestorUsuario();
 
             Curriculum cv = new Curriculum();

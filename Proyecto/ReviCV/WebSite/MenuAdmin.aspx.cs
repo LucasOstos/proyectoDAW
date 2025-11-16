@@ -22,7 +22,7 @@ public partial class MenuAdmin : Page, IObserver
     protected void btnCerrarSesion_Click(object sender, EventArgs e)
     {
         GestorBitacora gestorBitacora = new GestorBitacora();
-        gestorBitacora.GuardarLogBitacora("Logout", Session["username"].ToString());
+        gestorBitacora.GuardarLogBitacora("Logout", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
         Session.Clear();
         Response.Redirect("LandingPage.aspx");
     }

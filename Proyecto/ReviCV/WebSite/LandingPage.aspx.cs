@@ -104,7 +104,7 @@ public partial class LandingPage : System.Web.UI.Page, IObserver
 
     protected void EvaluarCVBoton_Click(object sender, EventArgs e)
     {
-        if (Session["username"] == null)
+        if (Session["Usuario"] == null)
         {
             Response.Redirect("Login.aspx");
         }
@@ -135,13 +135,13 @@ public partial class LandingPage : System.Web.UI.Page, IObserver
             return;
         }
 
-        if (AccesoHelper.ValidarAcceso(rol, PermisosStatic.pAccesoMenuAdmin, PermisosStatic.pAccesoMenuAdmin))
+        if (AccesoHelper.ValidarAcceso(rol, PermisosStatic.pAccesoMenuAdmin, PermisosStatic.pAdmin))
         {
             Response.Redirect("MenuAdmin.aspx", true);
             return;
         }
 
-        if (AccesoHelper.ValidarAcceso(rol, PermisosStatic.pAccesoMenuWB, PermisosStatic.pAccesoMenuWB))
+        if (AccesoHelper.ValidarAcceso(rol, null, PermisosStatic.pWeb))
         {
             Response.Redirect("WebMaster_Menu.aspx");
             return;
