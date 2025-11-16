@@ -1,4 +1,7 @@
-﻿using System;
+﻿using SERVICIOS;
+using SERVICIOS.Permisos;
+using SERVICIOS.Traducciones;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,14 +9,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using SERVICIOS;
-using SERVICIOS.Traducciones;
 public partial class BackUp_ReStore : System.Web.UI.Page, IObserver
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["Rol"] == null) Response.Redirect("LandingPage.aspx");
         if (Session["Rol"].ToString() != "Webmaster") Response.Redirect("LandingPage.aspx");
+        if (!GestorPermisos.TienePermiso(Session["Rol"] as PermisoCompuesto, PermisosStatic.pAccesoBackupRestore)) 
         TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD(Session["Idioma"].ToString());
         Actualizar();
     }

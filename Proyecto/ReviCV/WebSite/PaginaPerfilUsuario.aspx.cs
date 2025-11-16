@@ -26,7 +26,6 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
             CargarIdiomas2();
             string idiomaUsuario = Session["Idioma"].ToString();
             ddlIdioma.SelectedValue = idiomaUsuario;
-            CargarCurriculums();
         }
     }
 

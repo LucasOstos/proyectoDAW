@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using BLL;
 using ENTIDADES;
 using SERVICIOS;
+using SERVICIOS.Permisos;
 using SERVICIOS.Traducciones;
 
 public partial class LandingPage : System.Web.UI.Page, IObserver
@@ -127,15 +128,15 @@ public partial class LandingPage : System.Web.UI.Page, IObserver
 
     protected void imgUserIcon_Click(object sender, ImageClickEventArgs e)
     {
-        if (Session["username"] == null)
+        if (Session["Usuario"] == null)
         {
             Response.Redirect("Login.aspx");
         }
         else
         {
-            if (Session["Rol"].ToString() == "Usuario") Response.Redirect("PaginaPerfilUsuario.aspx");
-            if (Session["Rol"].ToString() == "Administrador") Response.Redirect("MenuAdmin.aspx");
-            if (Session["Rol"].ToString() == "Webmaster") Response.Redirect("WebMaster_Menu.aspx");
+            if ((Session["Usuario"] as Usuario).Rol.ToString() == PermisosStatic.pAccesoMenuAdmin) Response.Redirect("MenuAdmin.aspx");
+            if ((Session["Usuario"] as Usuario).Rol.ToString() == PermisosStatic.pAccesoMenuWB) Response.Redirect("WebMaster_Menu.aspx");
+            Response.Redirect("PaginaPerfilUsuario.aspx");
         }
     }
 }
