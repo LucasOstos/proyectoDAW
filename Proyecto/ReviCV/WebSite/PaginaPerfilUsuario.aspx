@@ -352,7 +352,7 @@
                 </div>
 
                 <div class="botones-inferiores">
-                    <asp:Button ID="btnVolverPrincipal" class="btn btn-guardar" runat="server" Text="Volver a la pagina principal" OnClick="btnVolverPrincipal_Click" data-key="VolverPrincipal" />
+                    <asp:Button ID="btnVolverPrincipal" class="btn btn-guardar" runat="server" Text="Volver a la pagina principal" OnClick="btnVolverPrincipal_Click" data-key="Volver" />
                     <asp:Button ID="btnCerrarSesion" class="btn btn-guardar" runat="server" Text="Cerrar sesión" OnClick="btnCerrarSesion_Click" data-key="CerrarSesion" />
                 </div>
             </div>

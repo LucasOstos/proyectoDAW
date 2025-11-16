@@ -230,27 +230,31 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
             (Session["Usuario"] as Usuario).Idioma = ddlIdioma.Text;
             SettearHiddenFields();
 
-            string script = @"
-        document.addEventListener('DOMContentLoaded', function() {
-            if (typeof Swal !== 'undefined') {
-                Swal.fire({
-                    title: '¡Actualizaste tus datos!',
-                    text: 'Cambios realizados con éxito.',
-                    icon: 'success',
-                    confirmButtonText: 'Ok',
-                    backdrop: true,
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                    customClass: {
-                        container: 'swal-container-fix'
-                    }
-                }).then(() => {
-                    window.location.href = 'PaginaPerfilUsuario.aspx';
-                });
-            } else {
-                window.location.href = 'PaginaPerfilUsuario.aspx';
-            }
-        });";
+            string titulo = TraductorDAL.TranslatorInstance.Traducir("ActualizasteDatos");
+            string texto = TraductorDAL.TranslatorInstance.Traducir("CambiosExito");
+
+            string script = $@"
+document.addEventListener('DOMContentLoaded', function() {{
+    if (typeof Swal !== 'undefined') {{
+        Swal.fire({{
+            title: '{titulo}',
+            text: '{texto}',
+            icon: 'success',
+            confirmButtonText: 'Ok',
+            backdrop: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            customClass: {{
+                container: 'swal-container-fix'
+            }}
+        }}).then(() => {{
+            window.location.href = 'PaginaPerfilUsuario.aspx';
+        }});
+    }} else {{
+        window.location.href = 'PaginaPerfilUsuario.aspx';
+    }}
+}});
+";
 
             ScriptManager.RegisterStartupScript(
                 this,
@@ -272,9 +276,40 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
 
     protected void btnCambiarPassword_Click(object sender, EventArgs e)
     {
-        if (newPassword.Text == confirmPassword.Text)
+        GestorUsuario gestorUsuario = new GestorUsuario();
+        if(gestorUsuario.ValidarContrasenia(newPassword.Text) == false)
         {
-            GestorUsuario gestorUsuario = new GestorUsuario();
+            string script = @"
+            document.addEventListener('DOMContentLoaded', function() {
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    title: 'Oops...',
+                    text: 'El formato de la contraseña es incorrecto',
+                    icon: 'error',
+                    confirmButtonText: 'Ok',
+                    backdrop: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    customClass: {
+                        container: 'swal-container-fix'
+                    }
+                }).then(() => {
+                    window.location.href = 'PaginaPerfilUsuario.aspx';
+                });
+            } else {
+                window.location.href = 'PaginaPerfilUsuario.aspx';
+            }
+        });";
+            ScriptManager.RegisterStartupScript(
+                this,
+                this.GetType(),
+                "SwalSuccess",
+                script,
+                true
+            );
+        }
+        else if (newPassword.Text == confirmPassword.Text)
+        {
             gestorUsuario.CambiarPassword(int.Parse(hfOriginalDNI.Value), newPassword.Text);
 
             string script = @"
@@ -306,7 +341,7 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
                 script,
                 true
             );
-        }
+        }        
         else
         {
             string script = @"
@@ -330,7 +365,6 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
                 window.location.href = 'PaginaPerfilUsuario.aspx';
             }
         });";
-
             ScriptManager.RegisterStartupScript(
                 this,
                 this.GetType(),
@@ -339,6 +373,7 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
                 true
             );
         }
+
     }
 
     protected void btnSubirArchivo_Click(object sender, EventArgs e)
@@ -572,6 +607,17 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
 
     protected void btnVolverPrincipal_Click(object sender, EventArgs e)
     {
+        var rol = Session["Rol"] as PermisoCompuesto;
+        if (AccesoHelper.ValidarAcceso(rol, PermisosStatic.pAccesoMenuAdmin))
+        {
+            Response.Redirect("MenuAdmin.aspx", true);
+            return;
+        }
+        if (AccesoHelper.ValidarAcceso(rol, PermisosStatic.pAccesoMenuWebmaster))
+        {
+            Response.Redirect("WebMaster_Menu.aspx");
+            return;
+        }
         Response.Redirect("LandingPage.aspx");
     }
 
