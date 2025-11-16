@@ -208,26 +208,29 @@
     <i class="fa-solid fa-cogs"></i>
     <span runat="server" data-key="PanelDeAdministracion">Panel de administración</span>
 </div>
-            <div class="menu">
-                <asp:LinkButton ID="btnInicio" runat="server" OnClick="btnInicio_Click" CssClass="menu-button" data-key="Inicio">
-                    <i class="fa fa-home"></i> Inicio
-                </asp:LinkButton>
-                <asp:LinkButton ID="btnUsuarios" runat="server" OnClick="btnUsuarios_Click" CssClass="menu-button" data-key="Usuarios">
-                    <i class="fa fa-users"></i> Usuarios
-                </asp:LinkButton>
-                <asp:LinkButton ID="btnRubrosIdiomas" runat="server" OnClick="btnRubrosIdiomas_Click" CssClass="menu-button" data-key="RubrosIdiomas">
-                    <i class="fa fa-language"></i> Rubros e Idiomas
-                </asp:LinkButton>
-                <asp:LinkButton ID="btnVolverALanding" runat="server" OnClick="btnVolverALanding_Click" CssClass="menu-button" data-key="Volver">
-                    <i class="fa fa-arrow-left"></i> Volver
-                </asp:LinkButton>
-                <asp:LinkButton ID="btnVerPerfilUsuario" runat="server" OnClick="btnVerPerfilUsuario_Click" CssClass="menu-button" data-key="VerPerfilUsuario">
-    <i class="fa fa-user"></i> Ver perfil de usuario
-</asp:LinkButton>
-                <asp:LinkButton ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" CssClass="menu-button" data-key="CerrarSesion">
-                    <i class="fa fa-sign-out-alt"></i> Cerrar Sesión
-                </asp:LinkButton>
-            </div>
+                   <div class="menu">
+           <asp:LinkButton ID="btnInicio" runat="server" OnClick="btnInicio_Click" CssClass="menu-button" data-key="Inicio">
+               <i class="fa fa-home"></i> Inicio
+           </asp:LinkButton>
+           <asp:LinkButton ID="btnUsuarios" runat="server" OnClick="btnUsuarios_Click" CssClass="menu-button" data-key="Usuarios">
+               <i class="fa fa-users"></i> Usuarios
+           </asp:LinkButton>
+           <asp:LinkButton ID="btnRubrosIdiomas" runat="server" OnClick="btnRubrosIdiomas_Click" CssClass="menu-button" data-key="RubrosIdiomas">
+               <i class="fa fa-language"></i> Rubros e Idiomas
+           </asp:LinkButton>
+           <asp:LinkButton ID="btnVolverALanding" runat="server" OnClick="btnVolverALanding_Click" CssClass="menu-button" data-key="Volver">
+               <i class="fa fa-arrow-left"></i> Volver
+           </asp:LinkButton>
+           <asp:LinkButton ID="btnVerPerfilUsuario" runat="server" OnClick="btnVerPerfilUsuario_Click" CssClass="menu-button" data-key="VerPerfilUsuario">
+               <i class="fa fa-user"></i> Ver perfil de usuario
+           </asp:LinkButton>
+            <asp:LinkButton ID="btnPermisos" runat="server" CssClass="menu-button" data-key="Permisos" OnClick="btnPermisos_Click">
+<i class="fa fa-user-shield"></i> Roles y Permisos
+            </asp:LinkButton>
+           <asp:LinkButton ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" CssClass="menu-button" data-key="CerrarSesion">
+               <i class="fa fa-sign-out-alt"></i> Cerrar Sesión
+           </asp:LinkButton>
+       </div>
         </div>
 
         <div class="contenido-principal">

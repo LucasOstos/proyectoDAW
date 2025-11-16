@@ -58,6 +58,11 @@ public partial class MenuAdmin_Permisos : System.Web.UI.Page, IObserver
                 string clave = btn.Attributes["data-key"];
                 btn.Text = TraductorDAL.TranslatorInstance.Traducir(clave);
             }
+            else if (c is TextBox tb && tb.Attributes["data-key"] != null)
+            {
+                string clave = tb.Attributes["data-key"];
+                tb.Attributes["placeholder"] = TraductorDAL.TranslatorInstance.Traducir(clave);
+            }
             else if (c is HtmlGenericControl html)
             {
                 if (html.Attributes["data-key"] != null)
@@ -415,5 +420,10 @@ Swal.fire({
     protected void btnVerPerfilUsuario_Click(object sender, EventArgs e)
     {
 
+    }
+
+    protected void btnPermisos_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("MenuAdmin_Permisos.aspx");
     }
 }

@@ -137,6 +137,9 @@
                 <asp:LinkButton ID="btnVerPerfilUsuario" runat="server" OnClick="btnVerPerfilUsuario_Click" CssClass="menu-button" data-key="VerPerfilUsuario">
                     <i class="fa fa-user"></i> Ver perfil de usuario
                 </asp:LinkButton>
+                 <asp:LinkButton ID="btnPermisos" runat="server" CssClass="menu-button" data-key="Permisos" OnClick="btnPermisos_Click">
+     <i class="fa fa-user-shield"></i> Roles y Permisos
+                 </asp:LinkButton>
                 <asp:LinkButton ID="btnCerrarSesion" runat="server" OnClick="btnCerrarSesion_Click" CssClass="menu-button" data-key="CerrarSesion">
                     <i class="fa fa-sign-out-alt"></i> Cerrar Sesión
                 </asp:LinkButton>
