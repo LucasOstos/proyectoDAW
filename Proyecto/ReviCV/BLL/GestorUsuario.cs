@@ -1,11 +1,12 @@
-﻿using ENTIDADES;
-using DAL;
-using SERVICIOS;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using DAL;
+using ENTIDADES;
+using SERVICIOS;
 
 namespace BLL
 {
@@ -35,6 +36,10 @@ namespace BLL
             UsuarioDAL usuarioDAL = new UsuarioDAL();
             return usuarioDAL.UsernameRepetido(username);
         }
+        public bool ValidarContrasenia(string password)
+        {
+            return new Regex(@"^(?=.*[A-Z])(?=.*\d).{8,}$").IsMatch(password) ? true : false;
+        }
         public List<string> ValidarSignUp(string dni, string Nombre, string Apellido, string username,string idioma, string contraseña, string mail)
         {
             HashSet<string> errores = new HashSet<string>();
@@ -54,7 +59,7 @@ namespace BLL
             if (string.IsNullOrWhiteSpace(idioma))
                 errores.Add("idioma");
 
-            if (string.IsNullOrWhiteSpace(contraseña))
+            if (string.IsNullOrWhiteSpace(contraseña) || ValidarContrasenia(contraseña) == false)
                 errores.Add("contraseña");
 
             if (string.IsNullOrWhiteSpace(mail))
