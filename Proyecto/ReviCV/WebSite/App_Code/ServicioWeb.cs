@@ -41,6 +41,7 @@ public class ServicioWeb : System.Web.Services.WebService
             xml.Serialize(writer, pUsuario);
         }
     }
+
     [WebMethod]
     public Usuario DeserializarUsuario(string nombreArchivo)
     {

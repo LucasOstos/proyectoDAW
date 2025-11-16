@@ -276,9 +276,40 @@ document.addEventListener('DOMContentLoaded', function() {{
 
     protected void btnCambiarPassword_Click(object sender, EventArgs e)
     {
-        if (newPassword.Text == confirmPassword.Text)
+        GestorUsuario gestorUsuario = new GestorUsuario();
+        if(gestorUsuario.ValidarContrasenia(newPassword.Text) == false)
         {
-            GestorUsuario gestorUsuario = new GestorUsuario();
+            string script = @"
+            document.addEventListener('DOMContentLoaded', function() {
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    title: 'Oops...',
+                    text: 'El formato de la contraseña es incorrecto',
+                    icon: 'error',
+                    confirmButtonText: 'Ok',
+                    backdrop: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    customClass: {
+                        container: 'swal-container-fix'
+                    }
+                }).then(() => {
+                    window.location.href = 'PaginaPerfilUsuario.aspx';
+                });
+            } else {
+                window.location.href = 'PaginaPerfilUsuario.aspx';
+            }
+        });";
+            ScriptManager.RegisterStartupScript(
+                this,
+                this.GetType(),
+                "SwalSuccess",
+                script,
+                true
+            );
+        }
+        else if (newPassword.Text == confirmPassword.Text)
+        {
             gestorUsuario.CambiarPassword(int.Parse(hfOriginalDNI.Value), newPassword.Text);
 
             string script = @"
@@ -310,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function() {{
                 script,
                 true
             );
-        }
+        }        
         else
         {
             string script = @"
@@ -334,7 +365,6 @@ document.addEventListener('DOMContentLoaded', function() {{
                 window.location.href = 'PaginaPerfilUsuario.aspx';
             }
         });";
-
             ScriptManager.RegisterStartupScript(
                 this,
                 this.GetType(),
@@ -343,6 +373,7 @@ document.addEventListener('DOMContentLoaded', function() {{
                 true
             );
         }
+
     }
 
     protected void btnSubirArchivo_Click(object sender, EventArgs e)
