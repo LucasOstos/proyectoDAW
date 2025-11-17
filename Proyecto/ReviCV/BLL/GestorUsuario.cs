@@ -31,10 +31,14 @@ namespace BLL
             UsuarioDAL usuarioDAL = new UsuarioDAL();
             return usuarioDAL.UsuarioYaRegistrado(pDNI, username);
         }
-        public bool UsernameRepetido(string username)
+        //public bool UsernameRepetido(string username)
+        //{
+        //    UsuarioDAL usuarioDAL = new UsuarioDAL();
+        //    return usuarioDAL.UsernameRepetido(username);
+        //}
+        public bool UsernameRepetido(string pUsernameActual, string username)
         {
-            UsuarioDAL usuarioDAL = new UsuarioDAL();
-            return usuarioDAL.UsernameRepetido(username);
+            return pUsernameActual == username ? true : false;
         }
         public bool ValidarContrasenia(string password)
         {

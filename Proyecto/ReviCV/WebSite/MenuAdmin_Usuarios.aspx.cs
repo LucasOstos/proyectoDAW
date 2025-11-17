@@ -176,28 +176,34 @@ public partial class MenuAdmin_Usuarios : Page, IObserver
     {
         Encriptador encriptador = new Encriptador();
         GestorUsuario gestorUsuario = new GestorUsuario();
-        if (int.TryParse(txtDni.Text, out int x) && !string.IsNullOrEmpty(txtNombre.Text) && !string.IsNullOrEmpty(txtApellido.Text) && !string.IsNullOrEmpty(txtUsername.Text) && !string.IsNullOrEmpty(txtEmail.Text) && !string.IsNullOrEmpty(ddlRol.SelectedValue))
+        Usuario u = gestorUsuario.ObtenerUsuario(hfUsuarioSeleccionado.Value);
+        if (u != null && int.TryParse(txtDni.Text, out int x) && !string.IsNullOrEmpty(txtNombre.Text) && !string.IsNullOrEmpty(txtApellido.Text) && !string.IsNullOrEmpty(txtUsername.Text) && !string.IsNullOrEmpty(txtEmail.Text) && !string.IsNullOrEmpty(ddlRol.SelectedValue))
         {
-            if(!gestorUsuario.UsernameRepetido(txtUsername.Text))
+            if(gestorUsuario.UsernameRepetido(u.NombreUsuario, txtUsername.Text))
             {
-                Usuario usuario = new Usuario
-            (
-                int.Parse(txtDni.Text),
-                txtNombre.Text,
-                txtApellido.Text,
-                txtUsername.Text,
-                "",
-                txtEmail.Text,
-                ddlRol.SelectedValue
-            );
-
-
-                gestorUsuario.ModificarUsuario(usuario);
+                u.Nombre = txtNombre.Text;
+                u.Apellido = txtApellido.Text;
+                u.Email = txtEmail.Text;
+                u.Rol = ddlRol.SelectedValue;
+                gestorUsuario.ModificarUsuario(u);
                 GestorBitacora gestorBitacora = new GestorBitacora();
-                gestorBitacora.GuardarLogBitacora($"Se modificó el usuario {usuario.DNI}", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
+                gestorBitacora.GuardarLogBitacora($"Se modificó el usuario {u.DNI}", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
                 CargarUsuarios();
                 LimpiarTxt();
-            }            
+            }
+            else
+            {
+                u.Nombre = txtNombre.Text;
+                u.Apellido = txtApellido.Text;
+                u.NombreUsuario = txtUsername.Text;
+                u.Email = txtEmail.Text;
+                u.Rol = ddlRol.SelectedValue;
+                gestorUsuario.ModificarUsuario(u);
+                GestorBitacora gestorBitacora = new GestorBitacora();
+                gestorBitacora.GuardarLogBitacora($"Se modificó el usuario {u.DNI}", (Session["Usuario"] as Usuario).NombreUsuario.ToString());
+                CargarUsuarios();
+                LimpiarTxt();
+            }
         }
     }
     protected void btnEliminar_Click(object sender, EventArgs e)
