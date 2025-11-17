@@ -22,7 +22,7 @@ namespace SERVICIOS
                 acumulado = encriptador.EncriptarIrreversible(acumulado);
             }
 
-            if(acumulado == "") acumulado = "0";
+            if (acumulado == "") acumulado = "0";
 
             return acumulado;
         }
@@ -57,17 +57,20 @@ namespace SERVICIOS
                 if (Enum.TryParse<TablasBD>(tablaStr, out var tablaEnum))
                 {
                     var datosTabla = dal.ObtenerDatosTabla(tablaEnum);
-
-                    if (datosTabla != null && datosTabla.Count > 0)
+                    if (datosTabla == null)
+                    {
+                        dal.GuardarNuevoDVH(tablaEnum, "0", "0");
+                    }
+                    else
                     {
                         foreach (var datos in datosTabla)
                         {
                             string dvhCalculado = CalcularDigitoVerificador(datos.datos);
                             dal.GuardarNuevoDVH(tablaEnum, datos.datos[0], dvhCalculado);
                         }
-
-                        GuardarIntegridadTabla(tablaEnum);
                     }
+
+                    GuardarIntegridadTabla(tablaEnum);
                 }
             }
         }
