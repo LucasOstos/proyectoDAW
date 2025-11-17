@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackupRestore.cs" />
+    <Compile Include="EncriptadorAES256.cs" />
     <Compile Include="GestorBitacora.cs" />
     <Compile Include="Encriptador.cs" />
     <Compile Include="GestorIntegridad.cs" />

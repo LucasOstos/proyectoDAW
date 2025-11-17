@@ -361,4 +361,9 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
         var command = new LogoutCommand(Session["Usuario"] as Usuario);
         ScriptManager.RegisterStartupScript(this, this.GetType(), "Logout", command.Ejecutar(), true);
     }
+
+    protected void btnAbrirCarga_Click(object sender, EventArgs e)
+    {
+
+    }
 }

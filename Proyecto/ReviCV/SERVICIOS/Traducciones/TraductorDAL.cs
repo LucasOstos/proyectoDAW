@@ -75,22 +75,5 @@ namespace SERVICIOS.Traducciones
 
             return lista;
         }
-        public void Suscribe(IObserver nObserver)
-        {
-            ObserversList.Add(nObserver);
-        }
-
-        public void Unsuscribe(IObserver nObserver)
-        {
-            if (ObserversList.Contains(nObserver)) ObserversList.Remove(nObserver);
-        }
-
-        public void Notify()
-        {
-            foreach (IObserver obs in ObserversList)
-            {
-                obs.Actualizar();
-            }
-        }
     }
 }
