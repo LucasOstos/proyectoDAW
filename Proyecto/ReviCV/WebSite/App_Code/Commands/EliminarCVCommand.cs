@@ -18,10 +18,13 @@ public class EliminarCVCommand : ICommand
         gestor.EliminarCurriculum(idCV);
 
         return $@"
-Swal.fire({{title: {title},
-    text: {text},
-    icon: 'success',
-    confirmButtonText: 'Ok'
+document.addEventListener('DOMContentLoaded', function() {{
+    if (typeof Swal !== 'undefined') {{
+        Swal.fire({{
+            title: '{title}',
+            text: '{text}',
+            icon: 'success',
+            confirmButtonText: 'Ok'
         }}).then(() => {{
             window.location.href = 'PaginaPerfilUsuario.aspx';
         }});

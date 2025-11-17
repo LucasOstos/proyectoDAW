@@ -246,36 +246,58 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
         if (!fileUpload.HasFile)
         {
             string script = @"
-            Swal.fire({
-                title: 'Oops...',
-                text: 'No se seleccionó ningún archivo.',
-                icon: 'error',
-                confirmButtonText: 'Ok'
-            });";
+document.addEventListener('DOMContentLoaded', function() {
+    Swal.fire({
+        title: 'Oops...',
+        text: 'No se seleccionó ningún archivo.',
+        icon: 'error',
+        confirmButtonText: 'Ok'
+    });
+});";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "SwalCV", script, true);
             return;
+
         }
 
-        byte[] archivoBytes;
-        using (var ms = new MemoryStream())
+        if (!int.TryParse(ddlIdiomas.SelectedValue, out _) || !int.TryParse(ddlRubros.SelectedValue, out _))
         {
-            fileUpload.PostedFile.InputStream.CopyTo(ms);
-            archivoBytes = ms.ToArray();
+            string script = @"
+document.addEventListener('DOMContentLoaded', function() {
+    Swal.fire({
+        title: 'Oops...',
+        text: 'Debe seleccionar rubro e idioma.',
+        icon: 'error',
+        confirmButtonText: 'Ok'
+    });
+});";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "SwalCV", script, true);
+            return;
+
         }
+        else
+        {
 
-        var idioma = (int.Parse(ddlIdiomas.SelectedValue), ddlIdiomas.SelectedItem.Text);
-        var rubro = (int.Parse(ddlRubros.SelectedValue), ddlRubros.SelectedItem.Text);
+            byte[] archivoBytes;
+            using (var ms = new MemoryStream())
+            {
+                fileUpload.PostedFile.InputStream.CopyTo(ms);
+                archivoBytes = ms.ToArray();
+            }
 
-        var command = new SubirCVCommand(
-            (Session["Usuario"] as Usuario).NombreUsuario,
-            archivoBytes,
-            hfNombreArchivo.Value,
-            idioma,
-            rubro
-        );
+            var idioma = (int.Parse(ddlIdiomas.SelectedValue), ddlIdiomas.SelectedItem.Text);
+            var rubro = (int.Parse(ddlRubros.SelectedValue), ddlRubros.SelectedItem.Text);
 
-        string scriptResultado = command.Ejecutar();
-        ScriptManager.RegisterStartupScript(this, this.GetType(), "SwalCV", scriptResultado, true);
+            var command = new SubirCVCommand(
+                (Session["Usuario"] as Usuario).NombreUsuario,
+                archivoBytes,
+                hfNombreArchivo.Value,
+                idioma,
+                rubro
+            );
+
+            string scriptResultado = command.Ejecutar();
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "SwalCV", scriptResultado, true);
+        }
     }
 
     private void CargarIdiomas()
