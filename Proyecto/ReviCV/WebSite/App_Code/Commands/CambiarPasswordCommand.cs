@@ -1,4 +1,5 @@
 ﻿using BLL;
+using SERVICIOS.Traducciones;
 using System;
 
 /// <summary>
@@ -24,26 +25,29 @@ public class CambiarPasswordCommand : ICommand
     {
         if (!gestorUsuario.ValidarContrasenia(nuevaPassword))
         {
+            string text = TraductorDAL.TranslatorInstance.Traducir("formatoContraseniaIncorrecto");
             return GenerarScriptSweetAlert(
                 "Oops...",
-                "El formato de la contraseña es incorrecto",
+                text,
                 "error"
             );
         }
 
         if (nuevaPassword != confirmarPassword)
         {
+            string text2 = TraductorDAL.TranslatorInstance.Traducir("contraseniasNoCoinciden");
             return GenerarScriptSweetAlert(
                 "Oops...",
-                "Las contraseñas no coinciden.",
+                text2,
                 "error"
             );
         }
-
+        string titlel3 = TraductorDAL.TranslatorInstance.Traducir("contraseniaActualizada");
+        string text3 = TraductorDAL.TranslatorInstance.Traducir("contraseniaCambioExitoso");
         gestorUsuario.CambiarPassword(dni, nuevaPassword);
         return GenerarScriptSweetAlert(
-            "¡Actualizaste tu contraseña!",
-            "Contraseña cambiada con éxito.",
+            titlel3,
+            text3,
             "success"
         );
     }

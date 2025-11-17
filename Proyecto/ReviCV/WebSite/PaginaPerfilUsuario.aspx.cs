@@ -200,6 +200,9 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
 
         var command = new ActualizarDatosUsuarioCommand(usuario, "PaginaPerfilUsuario.aspx");
 
+        Session["Usuario"] = usuario;
+        TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD((Session["Usuario"] as Usuario).Idioma.ToString());
+        Actualizar();
         string script = command.Ejecutar();
 
         ScriptManager.RegisterStartupScript(
@@ -305,6 +308,7 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
         ddlRubros.Items[0].Selected = true;
     }
 
+
     private void CargarCurriculums()
     {
         string nombreUsuario = (Session["Usuario"] as Usuario).NombreUsuario?.ToString();
@@ -320,8 +324,14 @@ public partial class PaginaPerfilUsuario : System.Web.UI.Page, IObserver
         foreach (var cv in cvs)
         {
             var contenedor = factory.CrearPanel(cv);
+
+            var btn = contenedor.FindControl("btnEliminar_" + cv.ID_CV) as LinkButton;
+            if (btn != null)
+                ScriptManager.GetCurrent(Page).RegisterAsyncPostBackControl(btn);
+
             phCurriculums.Controls.Add(contenedor);
         }
+
     }
 
 

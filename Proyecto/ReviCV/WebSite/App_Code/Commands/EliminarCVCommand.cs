@@ -1,4 +1,5 @@
 ﻿using BLL;
+using SERVICIOS.Traducciones;
 
 public class EliminarCVCommand : ICommand
 {
@@ -11,17 +12,22 @@ public class EliminarCVCommand : ICommand
 
     public string Ejecutar()
     {
+        string title = TraductorDAL.TranslatorInstance.Traducir("cvEliminado");
+        string text = TraductorDAL.TranslatorInstance.Traducir("cvEliminadoCorrectamente");
         GestorCurriculum gestor = new GestorCurriculum();
         gestor.EliminarCurriculum(idCV);
 
-        return @"
-Swal.fire({
-    title: 'CV eliminado',
-    text: 'El CV se eliminó correctamente',
+        return $@"
+Swal.fire({{title: {title},
+    text: {text},
     icon: 'success',
     confirmButtonText: 'Ok'
-}).then(() => {
-    location.reload();
-});";
+        }}).then(() => {{
+            window.location.href = 'PaginaPerfilUsuario.aspx';
+        }});
+    }} else {{
+    }}
+}});
+";
     }
 }

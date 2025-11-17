@@ -1,5 +1,6 @@
 ﻿using BLL;
 using ENTIDADES;
+using SERVICIOS.Traducciones;
 using System;
 using System.IO;
 using System.Security.Policy;
@@ -24,7 +25,10 @@ public class SubirCVCommand : ICommand
     public string Ejecutar()
     {
         if (archivoCV == null || archivoCV.Length == 0)
-            return GenerarScriptSweetAlert("Oops...", "No se seleccionó ningún archivo.", "error");
+        {
+            string text = TraductorDAL.TranslatorInstance.Traducir("archivoNoSeleccionado");
+            return GenerarScriptSweetAlert("Oops...", text, "error");
+        }
 
         GestorCurriculum gestor = new GestorCurriculum();
         Curriculum cv = new Curriculum
@@ -37,7 +41,9 @@ public class SubirCVCommand : ICommand
         };
         gestor.GuardarCurriculum(cv);
 
-        return GenerarScriptSweetAlert("¡CV Subido!", "Tu curriculum se ha guardado.", "success");
+        string title2 = TraductorDAL.TranslatorInstance.Traducir("cvSubido");
+        string text2 = TraductorDAL.TranslatorInstance.Traducir("cvGuardado");
+        return GenerarScriptSweetAlert(title2, text2, "success");
     }
 
     private string GenerarScriptSweetAlert(string titulo, string texto, string icono)

@@ -26,26 +26,30 @@ public class CurriculumBasicoFactory : CurriculumFactory
             Text = $"{cv.Nombre} ({cv.Idioma.Item2} - {cv.Rubro.Item2})"
         };
         contenedor.Controls.Add(lbl);
+        string text = TraductorDAL.TranslatorInstance.Traducir("eliminarCV");
 
         var btnEliminar = new LinkButton
         {
+            ID = "btnEliminar_" + cv.ID_CV,
             Text = "X",
             CommandArgument = cv.ID_CV.ToString(),
-            OnClientClick = "return confirm('¿Eliminar este CV?');",
+            OnClientClick = $"return confirm('{text}');",
             Style =
-            {
-                ["margin-right"] = "10px",
-                ["font-size"] = "20px",
-                ["color"] = "red",
-                ["text-decoration"] = "none",
-                ["font-weight"] = "bold"
-            }
+        {
+            ["margin-right"] = "10px",
+            ["font-size"] = "20px",
+            ["color"] = "red",
+            ["text-decoration"] = "none",
+            ["font-weight"] = "bold"
+        }
         };
+
         if (_onEliminar != null) btnEliminar.Click += _onEliminar;
         contenedor.Controls.Add(btnEliminar);
 
         var btnVerResenias = new LinkButton
         {
+            ID = "btnVerResenias_" + cv.ID_CV,
             Text = TraductorDAL.TranslatorInstance.Traducir("VerReseñas"),
             CssClass = "btn btn-guardar",
             CommandArgument = cv.ID_CV.ToString()
@@ -55,4 +59,5 @@ public class CurriculumBasicoFactory : CurriculumFactory
 
         return contenedor;
     }
+
 }

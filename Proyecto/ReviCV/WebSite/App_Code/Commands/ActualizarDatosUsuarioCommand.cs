@@ -1,5 +1,6 @@
 ﻿using BLL;
 using ENTIDADES;
+using SERVICIOS.Traducciones;
 using System;
 
 public class ActualizarDatosUsuarioCommand : ICommand
@@ -19,13 +20,16 @@ public class ActualizarDatosUsuarioCommand : ICommand
             string.IsNullOrWhiteSpace(usuario.Apellido) ||
             string.IsNullOrWhiteSpace(usuario.Email))
         {
-            return GenerarScriptSweetAlert("Oops...", "Necesitas completar todos los campos.", "error");
+            string text = TraductorDAL.TranslatorInstance.Traducir("alertTodosCampos");
+            return GenerarScriptSweetAlert("Oops...", text, "error");
         }
 
         GestorUsuario gestor = new GestorUsuario();
         gestor.ModificarUsuario(usuario);
 
-        return GenerarScriptSweetAlert("¡Datos actualizados!", "Los cambios se guardaron con éxito.", "success");
+        string title2 = TraductorDAL.TranslatorInstance.Traducir("datosActualizados");
+        string text2 = TraductorDAL.TranslatorInstance.Traducir("CambiosExito");
+        return GenerarScriptSweetAlert(title2, text2, "success");
     }
 
     private string GenerarScriptSweetAlert(string titulo, string texto, string icono)
