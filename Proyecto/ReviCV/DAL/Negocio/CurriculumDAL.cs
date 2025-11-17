@@ -350,7 +350,6 @@ namespace DAL
                             archivoBytes = new byte[length];
                             dr.GetBytes(dr.GetOrdinal("Curriculum"), 0, archivoBytes, 0, (int)length);
                         }
-
                         // Agregar a la lista
                         Curriculum cv = new Curriculum
                         {
