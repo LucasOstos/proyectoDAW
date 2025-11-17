@@ -262,18 +262,21 @@ h2, h3 {
     <h2 data-key="ListadoDeUsuarios" runat="server">Listado de Usuarios</h2>
 
     <div class="seccion-tabla">
+        <asp:HiddenField ID="hfUsuarioSeleccionado" runat="server" />
         <asp:GridView ID="gvUsuarios" runat="server" AutoGenerateColumns="False"
             CssClass="estilo-tabla" Width="100%">
             <RowStyle CssClass="fila-normal" />
             <SelectedRowStyle CssClass="fila-seleccionada" />
             <Columns>
                 <asp:TemplateField>
-                    <ItemTemplate>
-                        <button type="button" class="boton-icono select-user-btn" data-key="Seleccionar" runat="server">
-                            <i class="fa fa-arrow-right"></i>
-                        </button>
-                    </ItemTemplate>
-                </asp:TemplateField>
+    <ItemTemplate>
+        <button type="button"
+                class="boton-icono select-user-btn"
+                data-user='<%# Eval("NombreUsuario") %>'>
+            <i class="fa fa-arrow-right"></i>
+        </button>
+    </ItemTemplate>
+</asp:TemplateField>
 
                 <asp:BoundField DataField="DNI" HeaderText="DNI" />
                 <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
@@ -421,6 +424,8 @@ h2, h3 {
                     document.getElementById('txtUsername').value = decodeHTMLEntidades(celdas[4].innerHTML.trim());
                     document.getElementById('txtEmail').value = decodeHTMLEntidades(celdas[5].innerHTML.trim());
                     document.getElementById('ddlRol').value = decodeHTMLEntidades(celdas[6].innerHTML.trim());
+
+                    document.getElementById('<%= hfUsuarioSeleccionado.ClientID %>').value = decodeHTMLEntidades(celdas[4].innerHTML.trim());
                     btnAgregar.disabled = true;
                 });
             });

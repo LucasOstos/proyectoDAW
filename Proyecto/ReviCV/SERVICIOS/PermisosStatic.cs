@@ -18,7 +18,7 @@ namespace SERVICIOS
         public const string pWeb = "Webmaster";
 
         /// <summary> Rol de Usuario </summary>
-        public const string pUsuario = "Webmaster";
+        public const string pUsuario = "Usuario";
 
         /// <summary> Permiso para acceder a la bitacora. </summary>
         public const string pAccesoBitacora = "Acceso Bitácora";
