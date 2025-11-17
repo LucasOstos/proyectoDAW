@@ -88,7 +88,7 @@ public partial class Verificador : System.Web.UI.Page, IObserver
         GestorIntegridad gestorIntegridad = new GestorIntegridad();
         gestorIntegridad.RecalcularTodasLasTablas();
 
-        Application["ErroresBD"] = ""; 
+        SingletonIntegridad.Instancia.ActualizarEstado(true, "");
 
         lblMensaje.ForeColor = System.Drawing.Color.Green;
         string fraseComentario = TraductorDAL.TranslatorInstance.Traducir("integridadRecalculada");
