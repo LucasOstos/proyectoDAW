@@ -37,8 +37,6 @@ public partial class VerResenias : System.Web.UI.Page
             CargarOpiniones(idCVActual);
         }
     }
-
-
     private void CargarCV()
     {
         if (Request.QueryString["id"] != null)
