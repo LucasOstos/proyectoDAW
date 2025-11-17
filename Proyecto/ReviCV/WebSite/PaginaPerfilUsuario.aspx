@@ -260,7 +260,7 @@
                 <asp:FileUpload ID="fileUpload" runat="server" Style="display: none;" data-key="fileUpload" />
                 <asp:HiddenField ID="hfNombreArchivo" runat="server" />
                 <asp:Button ID="btnSubirArchivo" runat="server" OnClick="btnSubirArchivo_Click" Style="display: none;" data-key="SubirArchivo" />
-                <asp:LinkButton ID="btnAbrirCarga" runat="server" OnClientClick="abrirDialogoArchivo(); return false;" CssClass="agregar-curriculum">+</asp:LinkButton>
+                <asp:LinkButton ID="btnAbrirCarga" runat="server" OnClientClick="abrirDialogoArchivo(); return false;" CssClass="agregar-curriculum" OnClick="btnAbrirCarga_Click">+</asp:LinkButton>
 
                 <asp:PlaceHolder ID="phCurriculums" runat="server" />
             </div>

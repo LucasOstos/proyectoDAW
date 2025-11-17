@@ -631,4 +631,9 @@ document.addEventListener('DOMContentLoaded', function() {{
         Session.Clear();
         Response.Redirect("LandingPage.aspx");
     }
+
+    protected void btnAbrirCarga_Click(object sender, EventArgs e)
+    {
+
+    }
 }
