@@ -15,15 +15,18 @@ public partial class MenuAdmin_RubrosIdiomas : System.Web.UI.Page, IObserver
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!SingletonIntegridad.Instancia.BaseIntegra)
+        {
+            string destino = GestorPermisos.TienePermiso(Session["Rol"] as PermisoCompuesto, PermisosStatic.pAccesoIntegridad)
+                ? "Verificador.aspx"
+                : "AvisoErrorBD.aspx";
+
+            Response.Redirect(destino);
+        }
+
         if (!AccesoHelper.ValidarAcceso((Session["Rol"] as PermisoCompuesto), PermisosStatic.pGestionRubrosIdiomas))
         {
             Response.Redirect("LandingPage.aspx", true);
-            return;
-        }
-
-        if (Application["EstadoBD"] is bool bdOk && !bdOk)
-        {
-            Response.Redirect("AvisoErrorBD.aspx", true);
             return;
         }
 

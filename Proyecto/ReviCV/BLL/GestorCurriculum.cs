@@ -1,11 +1,13 @@
-﻿using System;
+﻿using DAL;
+using ENTIDADES;
+using ENTIDADES.Tecnico;
+using SERVICIOS;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using ENTIDADES;
-using DAL;
-using SERVICIOS;
 
 namespace BLL
 {
@@ -14,8 +16,8 @@ namespace BLL
         public void GuardarCurriculum(Curriculum pCurriculum)
         {
             CurriculumDAL curriculumDAL = new CurriculumDAL();
+            pCurriculum.ArchivoCV = EncriptadorAES256.Encrypt(pCurriculum.ArchivoCV);
             int id = curriculumDAL.GuardarCurriculum(pCurriculum);
-
             GestorIntegridad gestorIntegridad = new GestorIntegridad();
             gestorIntegridad.ActualizarDVHRegistro(TablasBD.Curriculum, id);
         }
@@ -23,16 +25,18 @@ namespace BLL
         public Curriculum ObtenerCurriculumPorID(int id)
         {
             CurriculumDAL curriculumDAL = new CurriculumDAL();
-            return curriculumDAL.ObtenerCurriculumPorID(id);
+             Curriculum cv = curriculumDAL.ObtenerCurriculumPorID(id);
+            cv.ArchivoCV = EncriptadorAES256.Decrypt(cv.ArchivoCV);
+            return cv;
         }
 
         public Curriculum ObtenerCurriculumFiltrado(string rubro, string idioma)
         {
             CurriculumDAL curriculumDAL = new CurriculumDAL();
-            return curriculumDAL.ObtenerCurriculumFiltrado(rubro, idioma);
+            Curriculum cv = curriculumDAL.ObtenerCurriculumFiltrado(rubro, idioma);
+            cv.ArchivoCV = EncriptadorAES256.Decrypt(cv.ArchivoCV);
+            return cv;
         }
-
-
 
         //Se obtienen los idiomas y rubros desde el gestor de Curriculums ya que solo son tablas que afectan a los mismos
         public Dictionary<int, string> ObtenerIdiomas()
@@ -110,7 +114,12 @@ namespace BLL
         public List<Curriculum> ObtenerCurriculumsPorUsuario(string nombreUsuario)
         {
             CurriculumDAL curriculumDAL = new CurriculumDAL();
-            return curriculumDAL.ObtenerCurriculumsPorUsuario(nombreUsuario);
+            List<Curriculum> cvs = curriculumDAL.ObtenerCurriculumsPorUsuario(nombreUsuario);
+            foreach(Curriculum cv in cvs)
+            {                
+                cv.ArchivoCV = EncriptadorAES256.Decrypt(cv.ArchivoCV);
+            }
+            return cvs;
         }
 
         public void EliminarCurriculum(int idCV)

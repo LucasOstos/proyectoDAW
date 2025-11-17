@@ -1,20 +1,23 @@
-﻿using System;
+﻿using ENTIDADES;
+using SERVICIOS;
+using SERVICIOS.Permisos;
+using SERVICIOS.Traducciones;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using ENTIDADES;
-using SERVICIOS;
-using SERVICIOS.Traducciones;
 
 public partial class AvisoErrorBD : System.Web.UI.Page, IObserver
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["Rol"] == null) Response.Redirect("LandingPage.aspx");
-        if (Application["EstadoBD"].Equals(true)) Response.Redirect("LandingPage.aspx");
+        if (SingletonIntegridad.Instancia.BaseIntegra || Session["Rol"] == null)
+        {
+            Response.Redirect("LandingPage.aspx");
+        }
         TraductorDAL.TranslatorInstance.CargarTraduccionesDesdeBD((Session["Usuario"] as Usuario).Idioma.ToString());
         Actualizar();
     }

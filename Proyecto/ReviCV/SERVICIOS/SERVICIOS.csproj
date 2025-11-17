@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackupRestore.cs" />
+    <Compile Include="EncriptadorAES256.cs" />
     <Compile Include="GestorBitacora.cs" />
     <Compile Include="Encriptador.cs" />
     <Compile Include="GestorIntegridad.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Permisos\PermisoSimple.cs" />
     <Compile Include="Permisos\TipoPermiso.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SingletonIntegridad.cs" />
     <Compile Include="Traducciones\IObserver.cs" />
     <Compile Include="Traducciones\TraductorDAL.cs" />
     <Compile Include="Validador.cs" />

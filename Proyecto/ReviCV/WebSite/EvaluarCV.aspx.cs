@@ -20,15 +20,18 @@ public partial class EvaluarCV : System.Web.UI.Page, IObserver
     Curriculum cvMostrar;
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!SingletonIntegridad.Instancia.BaseIntegra)
+        {
+            string destino = GestorPermisos.TienePermiso(Session["Rol"] as PermisoCompuesto, PermisosStatic.pAccesoIntegridad)
+                ? "Verificador.aspx"
+                : "AvisoErrorBD.aspx";
+
+            Response.Redirect(destino);
+        }
+
         if (!AccesoHelper.ValidarAcceso(Session["Rol"] as PermisoCompuesto, PermisosStatic.pEvaluarCV))
         {
             Response.Redirect("LandingPage.aspx");
-            return;
-        }
-
-        if (Application["EstadoBD"].Equals(false))
-        {
-            Response.Redirect("AvisoErrorBD.aspx");
             return;
         }
 

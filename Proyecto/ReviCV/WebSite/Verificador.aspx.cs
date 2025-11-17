@@ -25,7 +25,7 @@ public partial class Verificador : System.Web.UI.Page, IObserver
 
         lblMensaje.Visible = false;
 
-        if (Application["ErroresBD"] is string errores && !string.IsNullOrEmpty(errores))
+        if (SingletonIntegridad.Instancia.Detalles is string errores && !string.IsNullOrEmpty(errores))
         {
             lblMensaje.ForeColor = System.Drawing.Color.Red;
             lblMensaje.Text = errores.Replace("\n", "<br />");

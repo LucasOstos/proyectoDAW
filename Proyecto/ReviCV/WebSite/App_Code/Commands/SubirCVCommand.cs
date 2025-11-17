@@ -2,6 +2,7 @@
 using ENTIDADES;
 using System;
 using System.IO;
+using System.Security.Policy;
 
 public class SubirCVCommand : ICommand
 {
@@ -53,8 +54,13 @@ document.addEventListener('DOMContentLoaded', function() {{
             allowOutsideClick: false,
             allowEscapeKey: false,
             customClass: {{ container: 'swal-container-fix' }}
+        }}).then(() => {{
+            window.location.href = 'PaginaPerfilUsuario.aspx';
         }});
+    }} else {{
     }}
-}});";
+}});
+";
     }
+
 }
