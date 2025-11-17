@@ -21,6 +21,9 @@ namespace SERVICIOS
                 acumulado += item;
                 acumulado = encriptador.EncriptarIrreversible(acumulado);
             }
+
+            if(acumulado == "") acumulado = "0";
+
             return acumulado;
         }
 
