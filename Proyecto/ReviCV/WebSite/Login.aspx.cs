@@ -83,11 +83,13 @@ public partial class Login : System.Web.UI.Page, IObserver
                 return;
             }
 
-            GestorIntegridad gestorIntegridad = new GestorIntegridad();
-            string bdErrores = gestorIntegridad.VerificarIntegridadTodasLasTablas();
+            var gestorIntegridad = new GestorIntegridad();
+            string errores = gestorIntegridad.VerificarIntegridadTodasLasTablas();
 
-            Application["EstadoBD"] = string.IsNullOrEmpty(bdErrores);
-            Application["ErroresBD"] = "";
+            SingletonIntegridad.Instancia.ActualizarEstado(
+                string.IsNullOrEmpty(errores),
+                errores
+            );
 
             GestorPermisos gestorPermisos = new GestorPermisos();
             var permisoRol = gestorPermisos.ObtenerPermisoCompuesto(u.Rol);
@@ -102,30 +104,25 @@ public partial class Login : System.Web.UI.Page, IObserver
             Session["Usuario"] = u;
             Session["Rol"] = permisoRol;
 
-            if (Application["EstadoBD"].Equals(true))
+            if (SingletonIntegridad.Instancia.BaseIntegra)
             {
-                GestorBitacora gestorBitacora = new GestorBitacora();
-                gestorBitacora.GuardarLogBitacora("Login", u.NombreUsuario);
+                new GestorBitacora().GuardarLogBitacora("Login", u.NombreUsuario);
                 Response.Redirect("LandingPage.aspx");
-                Context.ApplicationInstance.CompleteRequest();
+                return;
             }
             else
             {
-                Application["ErroresBD"] = bdErrores;
+                new GestorBitacora().GuardarLogBitacora(
+                    "Error en Base de Datos: " + SingletonIntegridad.Instancia.Detalles,
+                    u.NombreUsuario
+                );
 
-                GestorBitacora gestorBitacora = new GestorBitacora();
-                gestorBitacora.GuardarLogBitacora("Error en Base de Datos: " + bdErrores, u.NombreUsuario);
-
-                if (GestorPermisos.TienePermiso(Session["Rol"] as PermisoCompuesto, PermisosStatic.pAccesoIntegridad))
-                {
+                if (GestorPermisos.TienePermiso(permisoRol, PermisosStatic.pAccesoIntegridad))
                     Response.Redirect("Verificador.aspx");
-                }
                 else
-                {
                     Response.Redirect("AvisoErrorBD.aspx");
-                }
 
-                Context.ApplicationInstance.CompleteRequest();
+                return;
             }
         }
         catch

@@ -1,6 +1,7 @@
 ﻿using ENTIDADES;
 using BLL;
 using SERVICIOS;
+using SERVICIOS.Permisos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +13,14 @@ public partial class Sign_up : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Application["EstadoBD"] == null)
+        if (!SingletonIntegridad.Instancia.BaseIntegra)
         {
-            GestorIntegridad gestor = new GestorIntegridad();
-            string bdErrores = gestor.VerificarIntegridadTodasLasTablas();
-            Application["EstadoBD"] = bdErrores == "" ? true : false;
+            string destino = GestorPermisos.TienePermiso(Session["Rol"] as PermisoCompuesto, PermisosStatic.pAccesoIntegridad)
+                ? "Verificador.aspx"
+                : "AvisoErrorBD.aspx";
+
+            Response.Redirect(destino);
         }
-        if (Application["EstadoBD"].Equals(false)) Response.Redirect("AvisoErrorBD.aspx");
         ErrorContraseñasLB.Visible = false;
         Page.UnobtrusiveValidationMode = System.Web.UI.UnobtrusiveValidationMode.None;
     }

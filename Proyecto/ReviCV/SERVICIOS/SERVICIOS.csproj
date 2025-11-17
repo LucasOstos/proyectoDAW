@@ -58,6 +58,7 @@
     <Compile Include="Permisos\PermisoSimple.cs" />
     <Compile Include="Permisos\TipoPermiso.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SingletonIntegridad.cs" />
     <Compile Include="Traducciones\IObserver.cs" />
     <Compile Include="Traducciones\TraductorDAL.cs" />
     <Compile Include="Validador.cs" />

@@ -112,17 +112,21 @@ public partial class MenuAdmin_Usuarios : Page, IObserver
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!SingletonIntegridad.Instancia.BaseIntegra)
+        {
+            string destino = GestorPermisos.TienePermiso(Session["Rol"] as PermisoCompuesto, PermisosStatic.pAccesoIntegridad)
+                ? "Verificador.aspx"
+                : "AvisoErrorBD.aspx";
+
+            Response.Redirect(destino);
+        }
+
         if (!AccesoHelper.ValidarAcceso(Session["Rol"] as PermisoCompuesto, PermisosStatic.pGestionUsuarios))
         {
             Response.Redirect("LandingPage.aspx");
             return;
         }
 
-        if (Application["EstadoBD"] is bool bdOk && !bdOk)
-        {
-            Response.Redirect("AvisoErrorBD.aspx");
-            return;
-        }
 
         if (!IsPostBack)
         {
